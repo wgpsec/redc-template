@@ -18,6 +18,8 @@ launch_template {
     }
 ```
 
+tmux 中可看安装进度
+
 若启动场景报错，可能原因
 1. 未替换 main.tf 中的 launch_template id 值
 2. 与 aws api 网络连接超时
