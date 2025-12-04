@@ -54,3 +54,28 @@ sudo wget -O interactsh-server_1.2.4_linux_arm64.zip 'https://这里替换成你
 4. 启动模板中的安全组未开放公网访问
 5. cf 的 dns 配置不对
 6. cf 的 key 权限不够
+
+# 场景使用
+
+1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)
+2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下
+3. 使用时命令如下
+
+开启
+```
+./redc -start interactsh -domain dnslog.com
+
+# domain 是你的 dnslog 域名
+```
+
+查询
+```
+./redc -status [uuid]
+```
+
+关闭
+```
+./redc -stop [uuid]
+```
+
+4. 如果未配置 cf api 该场景创建完毕后需要手动修改 cname
