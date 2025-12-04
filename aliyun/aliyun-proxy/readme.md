@@ -42,3 +42,30 @@ spot_strategy              = "SpotWithPriceLimit"
 3. 阿里云该区域售罄或下架 instance_type 的配置机型
 4. rclone配置不正确
 5. r2 存储桶名称和配置不一致
+
+# 场景使用
+
+1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)
+2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下
+3. 使用时命令如下
+
+开启
+```
+# 默认 10 台
+./redc -start aliyun-proxy
+
+# 自定义节点数量,比如开 50 个节点
+./redc -start aliyun-proxy -node 50
+```
+
+查询
+```
+./redc -status [uuid]
+```
+
+关闭
+```
+./redc -stop [uuid]
+```
+
+4. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件
