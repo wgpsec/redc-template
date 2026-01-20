@@ -1,261 +1,502 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redc Template Store</title>
+    <title>Redc Template Registry</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-dark.min.css">
     
-    <style>
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        body { background-color: #0f172a; color: #e2e8f0; }
-        /* 自定义滚动条 */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
-        
-        /* Markdown 弹窗特定样式 */
-        .markdown-body {
-            background-color: transparent !important;
-            font-size: 14px;
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#0B0C15',
+                            card: '#151725',
+                            border: '#2A2D3D'
+                        },
+                        primary: {
+                            500: '#6366f1', // Indigo
+                            600: '#4f46e5'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'blob': 'blob 7s infinite'
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' }
+                        }
+                    }
+                }
+            }
         }
-        .markdown-body pre {
-            background-color: #1e293b !important;
-            border: 1px solid #334155;
+    </script>
+
+    <style>
+        /* 全局样式 */
+        body { background-color: #0B0C15; color: #e2e8f0; overflow-x: hidden; }
+        
+        /* 磨砂玻璃效果 */
+        .glass-panel {
+            background: rgba(21, 23, 37, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glass-card {
+            background: linear-gradient(145deg, rgba(30, 32, 45, 0.6) 0%, rgba(21, 23, 37, 0.4) 100%);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(99, 102, 241, 0.2);
+        }
+
+        /* 滚动条美化 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* 动态背景光晕 */
+        .blob-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.4;
+            border-radius: 50%;
+            animation: blob 10s infinite alternate;
         }
     </style>
 </head>
-<body class="min-h-screen p-6 font-sans">
-    <div class="max-w-7xl mx-auto">
-        <header class="mb-10 text-center pt-8">
-            <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 mb-6">
-                Redc Registry
-            </h1>
-            <p class="text-slate-400 text-lg mb-6">基于 Terraform 的红队基础设施模版仓库</p>
+<body class="min-h-screen font-sans selection:bg-primary-500 selection:text-white">
+
+    <div class="blob-bg">
+        <div class="blob bg-purple-900 w-96 h-96 top-0 -left-20"></div>
+        <div class="blob bg-blue-900 w-96 h-96 bottom-0 -right-20 animation-delay-2000"></div>
+        <div class="blob bg-indigo-900 w-80 h-80 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animation-delay-4000"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <header class="text-center mb-16 animate-slide-up">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-500 text-xs font-medium mb-6">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-500 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+                </span>
+                Redc Registry Live
+            </div>
             
-            <div class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900/50 rounded-full text-base font-mono text-cyan-400 border border-slate-700 shadow-lg">
-                <i data-lucide="terminal" class="w-5 h-5"></i>
-                <span>redc pull <span class="text-slate-500">&lt;provider&gt;/&lt;template&gt;</span></span>
+            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500">
+                    Redc
+                </span> Template Store
+            </h1>
+            
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                基于 Terraform 的红队基础设施即代码 (IaC) 仓库。
+                <br>一键拉取，快速构建攻防环境。
+            </p>
+
+            <div class="group relative inline-flex items-center gap-3 px-6 py-4 bg-[#0B0C15]/80 border border-slate-700 rounded-2xl shadow-2xl hover:border-primary-500/50 transition-colors cursor-pointer"
+                 onclick="copyCommand('redc pull <provider>/<template>')">
+                <div class="flex gap-1.5">
+                    <div class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
+                </div>
+                <div class="h-4 w-[1px] bg-slate-700 mx-2"></div>
+                <code class="font-mono text-sm text-slate-300">
+                    <span class="text-primary-500">redc</span> pull <span class="text-slate-500">&lt;provider&gt;/&lt;template&gt;</span>
+                </code>
+                <i data-lucide="copy" class="w-4 h-4 text-slate-500 group-hover:text-white transition ml-2"></i>
+                
+                <div class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary-600 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                    点击复制示例
+                </div>
             </div>
         </header>
 
-        <div class="mb-10 flex justify-center">
-            <div class="relative w-full max-w-xl group">
-                <i data-lucide="search" class="absolute left-4 top-3.5 text-slate-500 group-focus-within:text-cyan-400 transition"></i>
-                <input type="text" id="search" placeholder="搜索模版 (例如: aws, c2...)" 
-                    class="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition text-white placeholder-slate-500">
+        <div class="sticky top-6 z-30 mb-12 animate-slide-up" style="animation-delay: 0.1s;">
+            <div class="relative max-w-2xl mx-auto">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i data-lucide="search" class="h-5 w-5 text-slate-400"></i>
+                </div>
+                <input type="text" id="search-input" 
+                    class="block w-full pl-11 pr-4 py-4 bg-[#151725]/90 backdrop-blur-md border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all shadow-xl"
+                    placeholder="搜索模版、云厂商、作者 (例如: aws c2 r0fus0d)...">
+                <div class="absolute inset-y-0 right-0 pr-4 flex items-center">
+                    <span id="result-count" class="text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded-md hidden">0 items</span>
+                </div>
             </div>
         </div>
 
-        <div id="grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <div class="col-span-full flex flex-col items-center justify-center py-20 text-slate-500">
-                <i data-lucide="loader-2" class="w-8 h-8 animate-spin mb-4"></i>
-                <p>正在加载模版库数据...</p>
+        <div id="grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="col-span-full flex flex-col items-center justify-center py-24 text-slate-500">
+                <div class="relative">
+                    <div class="w-12 h-12 rounded-full border-4 border-slate-700 border-t-primary-500 animate-spin"></div>
+                </div>
+                <p class="mt-4 font-medium animate-pulse">正在加载武器库...</p>
             </div>
         </div>
 
-        <footer class="mt-20 border-t border-slate-800 pt-8 text-center text-slate-600 text-sm">
-            <p id="build-info">Waiting for data...</p>
+        <div id="empty-state" class="hidden text-center py-20 animate-fade-in">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-800/50 mb-6">
+                <i data-lucide="package-search" class="w-10 h-10 text-slate-500"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">未找到相关模版</h3>
+            <p class="text-slate-400">尝试更换关键词，或者查看全部列表。</p>
+            <button onclick="clearSearch()" class="mt-6 px-6 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition border border-slate-700">
+                清除搜索
+            </button>
+        </div>
+
+        <footer class="mt-20 pt-8 border-t border-slate-800/50 text-center">
+            <p class="text-slate-500 text-sm mb-2" id="build-info">Loading metadata...</p>
+            <div class="flex justify-center gap-4 text-slate-600">
+                <a href="#" class="hover:text-primary-500 transition"><i data-lucide="github" class="w-5 h-5"></i></a>
+            </div>
         </footer>
     </div>
 
     <div id="modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"></div>
 
         <div class="fixed inset-0 z-10 overflow-y-auto">
             <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
-                <div class="relative transform overflow-hidden rounded-2xl bg-[#0d1117] border border-slate-700 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl">
+                <div class="relative transform overflow-hidden rounded-2xl bg-[#0B0C15] border border-slate-700 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl opacity-0 scale-95" id="modal-panel">
                     
-                    <div class="bg-slate-800/50 px-6 py-4 border-b border-slate-700 flex justify-between items-center">
+                    <div class="bg-[#151725] px-6 py-4 border-b border-slate-800 flex justify-between items-center sticky top-0 z-20">
                         <div>
-                            <h3 class="text-xl font-semibold leading-6 text-white" id="modal-title">Template Details</h3>
-                            <p class="text-sm text-slate-400 mt-1" id="modal-subtitle">Provider / Name</p>
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2" id="modal-title">
+                                </h3>
+                            <div class="flex gap-2 mt-1.5" id="modal-tags">
+                                </div>
                         </div>
-                        <button type="button" class="text-slate-400 hover:text-white transition" onclick="closeModal()">
-                            <i data-lucide="x" class="w-6 h-6"></i>
+                        <button type="button" class="p-2 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition" onclick="closeModal()">
+                            <i data-lucide="x" class="w-5 h-5"></i>
                         </button>
                     </div>
 
-                    <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
-                        <div id="markdown-content" class="markdown-body">
+                    <div class="px-8 py-8 bg-[#0B0C15] min-h-[300px] max-h-[70vh] overflow-y-auto custom-scrollbar">
+                        <div id="markdown-content" class="markdown-body" style="background: transparent;">
                             </div>
                     </div>
 
-                    <div class="bg-slate-800/50 px-6 py-4 border-t border-slate-700 flex justify-end gap-3">
-                        <button type="button" class="inline-flex justify-center rounded-lg bg-slate-700 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-600 ring-1 ring-inset ring-slate-600" onclick="closeModal()">
-                            关闭
-                        </button>
-                        <button type="button" id="modal-copy-btn" class="inline-flex items-center gap-2 justify-center rounded-lg bg-cyan-600 px-4 py-2 text-sm font-semibold text-white hover:bg-cyan-500 shadow-lg shadow-cyan-500/20">
-                            <i data-lucide="copy" class="w-4 h-4"></i>
-                            复制命令
-                        </button>
+                    <div class="bg-[#151725] px-6 py-4 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div class="text-xs text-slate-500 font-mono" id="modal-footer-info">
+                            </div>
+                        <div class="flex gap-3 w-full sm:w-auto">
+                            <button onclick="closeModal()" class="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition">
+                                关闭
+                            </button>
+                            <button id="modal-copy-btn" class="flex-1 sm:flex-none inline-flex justify-center items-center gap-2 px-5 py-2 text-sm font-semibold text-white bg-primary-600 hover:bg-primary-500 rounded-lg shadow-lg shadow-primary-500/20 transition">
+                                <i data-lucide="terminal" class="w-4 h-4"></i>
+                                复制命令
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="fixed bottom-8 right-8 bg-cyan-600 text-white px-6 py-3 rounded-lg shadow-xl transform translate-y-32 transition-transform duration-300 flex items-center gap-2 z-50">
-        <i data-lucide="check-circle" class="w-5 h-5"></i>
-        <span>命令已复制!</span>
+    <div id="toast" class="fixed bottom-8 right-1/2 translate-x-1/2 sm:right-8 sm:translate-x-0 z-50 pointer-events-none">
+        <div class="bg-emerald-500/10 backdrop-blur-md border border-emerald-500/20 text-emerald-400 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-20 transition-all duration-300 opacity-0" id="toast-body">
+            <div class="bg-emerald-500/20 p-1 rounded-full">
+                <i data-lucide="check" class="w-4 h-4"></i>
+            </div>
+            <span class="font-medium text-sm">命令已复制到剪贴板</span>
+        </div>
     </div>
 
     <script>
+        // --- 核心逻辑 ---
         let allTemplates = [];
+        let filteredTemplates = [];
 
+        // 1. 初始化
         document.addEventListener('DOMContentLoaded', () => {
             fetchData();
+            setupSearch();
+            lucide.createIcons();
         });
 
+        // 2. 数据获取 (带缓存清理)
         async function fetchData() {
             try {
-                const response = await fetch('./index.json');
-                if (!response.ok) throw new Error('Failed to load index.json');
+                // 加时间戳防止缓存
+                const response = await fetch(`./index.json?t=${new Date().getTime()}`);
+                if (!response.ok) throw new Error('Failed to load data');
                 const data = await response.json();
                 
-                // 处理 dict 结构转 array，方便前端渲染
-                // 假设 index.json 结构是 { templates: { "id": { ... } } }
-                if (!Array.isArray(data.templates)) {
+                // 数据归一化处理
+                if (Array.isArray(data.templates)) {
+                    allTemplates = data.templates;
+                } else if (typeof data.templates === 'object') {
+                    // 处理 dict 格式: { "id": { data } }
                     allTemplates = Object.values(data.templates);
                 } else {
-                    allTemplates = data.templates;
+                    allTemplates = [];
                 }
 
-                // 排序：最新的排前面
-                allTemplates.sort((a, b) => new Date(b.versions?.[a.latest]?.updated_at || 0) - new Date(a.versions?.[b.latest]?.updated_at || 0));
+                // 排序：按更新时间倒序
+                allTemplates.sort((a, b) => {
+                    const dateA = new Date(a.versions?.[a.latest]?.updated_at || a.updated_at || 0);
+                    const dateB = new Date(b.versions?.[b.latest]?.updated_at || b.updated_at || 0);
+                    return dateB - dateA;
+                });
 
-                const date = new Date(data.updated_at);
-                document.getElementById('build-info').innerHTML = `Last Updated: ${date.toLocaleString()} • Repo: ${data.repo_name}`;
+                // 更新页脚
+                const buildDate = new Date(data.updated_at);
+                document.getElementById('build-info').innerHTML = 
+                    `Last Updated: <span class="text-slate-400">${buildDate.toLocaleString()}</span> • Repo: <span class="text-slate-400">${data.repo_name || 'Redc'}</span> • Total: <span class="text-slate-400">${allTemplates.length}</span>`;
 
-                renderTemplates(allTemplates);
+                // 初始渲染
+                filteredTemplates = allTemplates;
+                renderGrid(allTemplates);
+
             } catch (error) {
                 console.error(error);
-                document.getElementById('grid').innerHTML = `<div class="col-span-full text-center text-red-400">Error: ${error.message}</div>`;
+                document.getElementById('grid-container').innerHTML = `
+                    <div class="col-span-full text-center py-20 bg-red-500/10 border border-red-500/20 rounded-2xl">
+                        <i data-lucide="alert-triangle" class="w-10 h-10 text-red-500 mx-auto mb-4"></i>
+                        <h3 class="text-lg font-bold text-red-400">加载失败</h3>
+                        <p class="text-red-400/60 text-sm mt-2">${error.message}</p>
+                    </div>`;
+                lucide.createIcons();
             }
         }
 
-        function renderTemplates(templates) {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = '';
+        // 3. 搜索功能 (核心优化：防抖 + DOM diff)
+        function setupSearch() {
+            const input = document.getElementById('search-input');
+            
+            // 防抖函数：防止每输入一个字就渲染一次
+            const debounce = (fn, delay) => {
+                let timer;
+                return (...args) => {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => fn(...args), delay);
+                }
+            };
 
-            templates.forEach(t => {
-                const card = document.createElement('div');
-                card.className = 'glass rounded-xl p-5 hover:border-cyan-500/50 hover:bg-slate-800/30 transition duration-300 group flex flex-col h-full relative';
+            const handleSearch = debounce((e) => {
+                const term = e.target.value.toLowerCase().trim();
                 
+                if (!term) {
+                    filteredTemplates = allTemplates;
+                } else {
+                    filteredTemplates = allTemplates.filter(t => {
+                        const meta = t.metadata || {};
+                        return (t.id || '').toLowerCase().includes(term) ||
+                               (meta.name || '').toLowerCase().includes(term) ||
+                               (meta.description || '').toLowerCase().includes(term) ||
+                               (meta.author || '').toLowerCase().includes(term) ||
+                               (t.provider || '').toLowerCase().includes(term);
+                    });
+                }
+                renderGrid(filteredTemplates);
+            }, 300); // 300ms 延迟
+
+            input.addEventListener('input', handleSearch);
+        }
+
+        function clearSearch() {
+            const input = document.getElementById('search-input');
+            input.value = '';
+            input.dispatchEvent(new Event('input'));
+        }
+
+        // 4. 渲染逻辑 (美化版)
+        function renderGrid(templates) {
+            const container = document.getElementById('grid-container');
+            const emptyState = document.getElementById('empty-state');
+            const resultCount = document.getElementById('result-count');
+            
+            // 更新计数
+            resultCount.textContent = `${templates.length} items`;
+            resultCount.classList.remove('hidden');
+
+            if (templates.length === 0) {
+                container.innerHTML = '';
+                container.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            container.classList.remove('hidden');
+
+            // 构造 HTML 字符串 (比 createElement 性能更好)
+            const html = templates.map(t => {
                 const meta = t.metadata || {};
+                const name = meta.name || t.slug;
                 const desc = meta.description || '暂无描述';
                 const author = meta.author || 'Unknown';
-                const version = t.latest || '0.0.1';
-                // 获取 README 内容 (可能为空)
-                const readme = meta.readme || ''; 
+                const version = t.latest || t.version || '0.0.1';
+                const provider = t.provider || t.id.split('/')[0];
+                
+                // 根据 Provider 生成不同颜色的标签 (简单哈希)
+                const colors = ['text-blue-400 border-blue-400/20 bg-blue-400/10', 'text-purple-400 border-purple-400/20 bg-purple-400/10', 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10', 'text-orange-400 border-orange-400/20 bg-orange-400/10'];
+                const colorClass = colors[name.length % colors.length];
 
-                card.innerHTML = `
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="px-2 py-1 text-[10px] font-bold bg-cyan-950 text-cyan-400 rounded border border-cyan-900/50 uppercase">
-                            ${t.provider || t.id.split('/')[0]}
-                        </span>
-                        <span class="text-[10px] text-slate-500 font-mono bg-slate-900 px-1.5 py-0.5 rounded">v${version}</span>
+                return `
+                <div class="glass-card rounded-xl p-5 flex flex-col h-full group relative overflow-hidden animate-fade-in">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex gap-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded border ${colorClass}">
+                                ${provider}
+                            </span>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-500 bg-slate-800/50 px-1.5 py-0.5 rounded border border-slate-700/50">v${version}</span>
                     </div>
 
-                    <h3 class="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition mb-2 truncate cursor-pointer" 
-                        onclick="openModal('${t.id}')">
-                        ${meta.name || t.slug}
+                    <h3 class="text-lg font-bold text-slate-200 group-hover:text-primary-400 transition cursor-pointer mb-2 line-clamp-1"
+                        onclick="openModal('${t.id}')" title="${name}">
+                        ${name}
                     </h3>
                     
-                    <p class="text-slate-400 text-sm mb-4 line-clamp-2 h-10 leading-relaxed">
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2 h-10">
                         ${desc}
                     </p>
 
                     <div class="mt-auto pt-4 border-t border-slate-700/50 flex flex-col gap-3">
-                        <div class="flex items-center justify-between text-xs text-slate-500">
-                             <div class="flex items-center gap-1.5">
+                        <div class="flex justify-between items-center text-xs text-slate-500">
+                             <div class="flex items-center gap-1.5" title="Author">
                                 <i data-lucide="user" class="w-3 h-3"></i>
-                                <span class="truncate max-w-[80px]">${author}</span>
+                                <span class="truncate max-w-[100px]">${author}</span>
                             </div>
-                            <button onclick="openModal('${t.id}')" class="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 transition hover:underline">
+                            <button onclick="openModal('${t.id}')" class="flex items-center gap-1 text-slate-400 hover:text-white transition group/btn">
                                 <i data-lucide="book-open" class="w-3 h-3"></i>
-                                文档
+                                <span class="group-hover/btn:underline">文档</span>
                             </button>
                         </div>
                         
-                        <div class="flex gap-2">
+                        <div class="grid grid-cols-4 gap-2">
                              <button onclick="copyCommand('redc pull ${t.id}')" 
-                                class="flex-1 flex items-center justify-center gap-2 py-2 bg-slate-800 hover:bg-cyan-900/30 text-slate-300 hover:text-cyan-400 text-xs font-mono rounded border border-slate-700 transition active:scale-95">
+                                class="col-span-3 flex items-center justify-center gap-2 py-2 bg-slate-800 hover:bg-primary-600 hover:text-white text-slate-300 text-xs font-medium rounded-lg border border-slate-700 hover:border-primary-500 transition-all active:scale-95">
                                 <i data-lucide="terminal" class="w-3 h-3"></i>
                                 Pull
                             </button>
-                             <a href="${t.versions?.[version]?.url || '#'}" class="px-3 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded border border-slate-700 transition" title="下载 ZIP">
+                            <a href="${t.versions?.[version]?.url || '#'}" class="col-span-1 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-lg border border-slate-700 transition" title="下载 ZIP">
                                 <i data-lucide="download" class="w-4 h-4"></i>
                             </a>
                         </div>
                     </div>
+                </div>
                 `;
-                grid.appendChild(card);
-            });
-            
+            }).join('');
+
+            container.innerHTML = html;
             lucide.createIcons();
-            setupSearch(templates);
         }
 
-        // --- Modal Logic ---
+        // 5. 弹窗逻辑 (美化版)
         function openModal(templateId) {
             const t = allTemplates.find(item => item.id === templateId);
             if (!t) return;
 
-            document.getElementById('modal-title').innerText = t.metadata.name || t.slug;
-            document.getElementById('modal-subtitle').innerText = `${t.provider} / v${t.latest}`;
+            const meta = t.metadata || {};
+            const version = t.latest || t.version;
+
+            // 填充内容
+            document.getElementById('modal-title').innerHTML = `
+                <span class="text-primary-400">${t.provider}</span> / ${meta.name || t.slug}
+            `;
+            document.getElementById('modal-tags').innerHTML = `
+                 <span class="px-2 py-0.5 bg-slate-800 text-slate-400 text-xs rounded border border-slate-700">v${version}</span>
+                 <span class="px-2 py-0.5 bg-slate-800 text-slate-400 text-xs rounded border border-slate-700">Author: ${meta.author}</span>
+            `;
             
-            // 渲染 README
-            const readmeRaw = t.metadata.readme || '> *暂无 README 文档*';
-            // 使用 marked 解析
-            document.getElementById('markdown-content').innerHTML = marked.parse(readmeRaw);
+            // 解析 Markdown (使用 DOMPurify 防止 XSS)
+            const readmeRaw = meta.readme || '> *该模版暂无详细文档 (README.md)*';
+            const htmlContent = DOMPurify.sanitize(marked.parse(readmeRaw));
+            document.getElementById('markdown-content').innerHTML = htmlContent;
+            
+            document.getElementById('modal-footer-info').textContent = `ID: ${t.id} • SHA: ${t.versions?.[version]?.sha256?.substring(0,8) || 'N/A'}`;
 
-            // 绑定复制按钮
-            const copyBtn = document.getElementById('modal-copy-btn');
-            copyBtn.onclick = () => copyCommand(`redc pull ${t.id}`);
+            // 绑定事件
+            document.getElementById('modal-copy-btn').onclick = () => copyCommand(`redc pull ${t.id}`);
 
-            // 显示弹窗
-            document.getElementById('modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // 禁止背景滚动
+            // 动画显示
+            const backdrop = document.getElementById('modal-backdrop');
+            const panel = document.getElementById('modal-panel');
+            const modal = document.getElementById('modal');
+            
+            modal.classList.remove('hidden');
+            // 强制重绘以触发 transition
+            requestAnimationFrame(() => {
+                backdrop.classList.remove('opacity-0');
+                panel.classList.remove('opacity-0', 'scale-95');
+                panel.classList.add('scale-100');
+            });
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
+            const backdrop = document.getElementById('modal-backdrop');
+            const panel = document.getElementById('modal-panel');
+            const modal = document.getElementById('modal');
+
+            backdrop.classList.add('opacity-0');
+            panel.classList.remove('scale-100');
+            panel.classList.add('opacity-0', 'scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300); // 匹配 CSS transition duration
         }
 
-        // ESC 关闭弹窗
+        // 6. 辅助功能
+        function copyCommand(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                const toastBody = document.getElementById('toast-body');
+                
+                toastBody.classList.remove('translate-y-20', 'opacity-0');
+                
+                setTimeout(() => {
+                    toastBody.classList.add('translate-y-20', 'opacity-0');
+                }, 2000);
+            });
+        }
+
+        // 点击背景关闭
+        document.getElementById('modal-backdrop').addEventListener('click', closeModal);
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
         });
 
-        // --- Search Logic ---
-        function setupSearch(templates) {
-            const searchInput = document.getElementById('search');
-            searchInput.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase();
-                const filtered = templates.filter(t => 
-                    (t.metadata.name || '').toLowerCase().includes(term) || 
-                    (t.metadata.description || '').toLowerCase().includes(term) ||
-                    t.id.toLowerCase().includes(term)
-                );
-                renderTemplates(filtered);
-            });
-        }
-
-        function copyCommand(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const toast = document.getElementById('toast');
-                toast.classList.remove('translate-y-32');
-                setTimeout(() => {
-                    toast.classList.add('translate-y-32');
-                }, 2000);
-            });
-        }
     </script>
 </body>
 </html>
