@@ -112,7 +112,7 @@ jobs:
                               meta_name = c.get('name', template)
                               meta_user = c.get('user', 'Unknown')
                               meta_desc = c.get('DESCRIPTION', 'No description.')
-                              meta_version = c.get('version', '0.0.1')
+                              meta_version = c.get('version', '0.0.0')
                   except: pass
 
                   # 读取 README
