@@ -103,7 +103,7 @@ jobs:
                   template_id = f'{provider}/{template}'
                   
                   # 1. 读取本地最新信息
-                  meta_name = template; meta_user = 'Unknown'; meta_desc = 'No description.'; meta_version = '0.0.1'
+                  meta_name = template; meta_user = 'Unknown'; meta_desc = 'No description.'; meta_version = '0.0.0'
                   case_path = os.path.join(template_path, 'case.json')
                   try:
                       if os.path.exists(case_path):
