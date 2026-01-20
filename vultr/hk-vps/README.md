@@ -20,4 +20,3 @@
 若启动场景报错，可能原因
 1. 与 vultr api 网络连接超时
 2. vultr 该区域售罄或下架 vultr_instance 的配置机型 (plan)
-

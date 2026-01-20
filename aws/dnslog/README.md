@@ -68,21 +68,26 @@ sudo wget -O bootstrap.min.css 'https://这里替换成你自己的静态下载�
 2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下
 3. 使用时命令如下
 
+拉取
+```
+redc pull aws/dnslog
+```
+
 开启
 ```
-./redc -start dnslog -domain dnslog.com
+redc run aws/dnslog -domain dnslog.com
 
 # domain 是你的 dnslog 域名
 ```
 
 查询
 ```
-./redc -status [uuid]
+redc status [uuid]
 ```
 
 关闭
 ```
-./redc -stop [uuid]
+redc stop [uuid]
 ```
 
 4. 如果未配置 cf api 该场景创建完毕后需要手动修改 cname

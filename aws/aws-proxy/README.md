@@ -71,23 +71,28 @@ launch_template {
 2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下
 3. 使用时命令如下
 
+拉取
+```
+redc pull aws/aws-proxy
+```
+
 开启
 ```
 # 默认 10 台
-./redc -start aws-proxy
+redc run aws/aws-proxy
 
 # 自定义节点数量,比如开 50 个节点
-./redc -start aws-proxy -node 50
+redc run aws/aws-proxy -node 50
 ```
 
 查询
 ```
-./redc -status [uuid]
+redc status [uuid]
 ```
 
 关闭
 ```
-./redc -stop [uuid]
+redc stop [uuid]
 ```
 
 4. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件

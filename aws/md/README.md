@@ -40,17 +40,22 @@ sudo wget -O /tmp/docker-compose.yml 'https://这里替换成你自己的静态�
 2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下
 3. 使用时命令如下
 
+拉取
+```
+redc pull aws/md
+```
+
 开启
 ```
-./redc -start md
+redc run aws/md
 ```
 
 查询
 ```
-./redc -status [uuid]
+redc status [uuid]
 ```
 
 关闭
 ```
-./redc -stop [uuid]
+redc stop [uuid]
 ```

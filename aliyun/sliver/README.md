@@ -38,9 +38,14 @@ sudo wget -O simplehttpserver_0.0.5_linux_amd64.tar.gz 'https://这里替换成�
 2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下
 3. 使用时命令如下
 
+拉取
+```
+redc pull aliyun/sliver
+```
+
 开启
 ```
-./redc -start sliver
+redc run aliyun/sliver
 ```
 
 登录后下载sliver.cfg,本地导入使用
@@ -53,10 +58,10 @@ sliver
 
 查询
 ```
-./redc -status [uuid]
+redc status [uuid]
 ```
 
 关闭
 ```
-./redc -stop [uuid]
+redc stop [uuid]
 ```

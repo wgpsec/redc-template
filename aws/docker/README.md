@@ -36,17 +36,22 @@ tmux 中可看安装进度
 2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下
 3. 使用时命令如下
 
+拉取
+```
+redc pull aws/docker
+```
+
 开启
 ```
-./redc -start docker
+redc run aws/docker
 ```
 
 查询
 ```
-./redc -status [uuid]
+redc status [uuid]
 ```
 
 关闭
 ```
-./redc -stop [uuid]
+redc stop [uuid]
 ```

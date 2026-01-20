@@ -1,0 +1,6 @@
+{
+    "name":"md",
+    "user":"r0fus0d",
+    "version": "0.0.1",
+    "description":"AWS HackMD/Docker 场景，ap-east-1 区域，t3.medium 实例，f8x 安装 Docker 并通过自定义 docker-compose.yml 启动"
+}
