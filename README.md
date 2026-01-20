@@ -1,6 +1,6 @@
 # redc-template
 
-https://github.com/wgpsec/redc 要用到的 tf 模板
+https://github.com/wgpsec/redc 要用到的 tf 模板 
 
 ## 分类解释
 
