@@ -1,47 +1,15 @@
-name: Build and Deploy (Bash)
-
-on:
-  push:
-    branches: [ "main" ]
-  workflow_dispatch:
-    inputs:
-      force_rebuild:
-        description: 'Force rebuild'
-        required: false
-        default: 'false'
-        type: boolean
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Source
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Checkout Previous Build
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: previous_build
-          fetch-depth: 1
-        continue-on-error: true
-
-      - name: Build with Bash & jq
+- name: Build with Bash & jq
         env:
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
           FORCE_REBUILD: ${{ inputs.force_rebuild }}
         run: |
+          # --- 0. 获取绝对路径 (关键修复) ---
+          # 记录当前仓库根目录的绝对路径
+          ROOT_DIR=$(pwd)
+
           # --- 1. 初始化变量与环境 ---
           mkdir -p public/templates
-          # 复制前端页面
           [ -f index.html ] && cp index.html public/index.html
 
           BASE_URL="https://${REPO_OWNER}.github.io/${REPO_NAME}"
@@ -49,16 +17,15 @@ jobs:
           PREV_JSON="previous_build/index.json"
           
           # 初始化新的 JSON 结构
-          # 使用 jq -n 创建一个空对象
           jq -n \
             --arg date "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
             --arg repo "$REPO_NAME" \
             '{updated_at: $date, repo_name: $repo, templates: []}' > "$OUTPUT_JSON"
 
           # --- 2. 遍历双层目录 ---
-          # 排除隐藏目录和 public
           for provider in */ ; do
-            provider=${provider%/} # 去掉末尾斜杠
+            provider=${provider%/}
+            # 排除非模版目录
             if [[ "$provider" == "public" || "$provider" == "previous_build" || "$provider" == .* ]]; then continue; fi
 
             for template in "$provider"/*/ ; do
@@ -67,32 +34,27 @@ jobs:
               
               if [[ ! -d "$template" ]]; then continue; fi
               
-              # 构造 ID 和 路径
               id="${provider}/${template_name}"
               zip_name="${provider}_${template_name}.zip"
+              
+              # 注意：这里的 zip_path 是相对于 ROOT_DIR 的
               zip_path="public/templates/$zip_name"
               prev_zip_path="previous_build/templates/$zip_name"
               
               echo "🔍 Checking: $id"
 
-              # --- 3. 计算源码目录指纹 (Source Hash) ---
-              # find: 列出所有文件 -> sha256sum: 计算每个文件hash -> sha256sum: 计算总hash
-              # 这种方式极快且稳定
+              # --- 3. 计算源码指纹 ---
               current_src_hash=$(find "$template" -type f -not -path '*/.*' -print0 | sort -z | xargs -0 sha256sum | sha256sum | awk '{print $1}')
 
               # --- 4. 增量判断逻辑 ---
               should_rebuild="true"
               old_entry="null"
               
-              # 尝试从旧 JSON 中读取该模版的信息
               if [[ -f "$PREV_JSON" ]]; then
                 old_entry=$(jq --arg id "$id" '.templates[] | select(.id == $id)' "$PREV_JSON")
               fi
-              
-              # 获取旧的 source_hash (如果存在)
               old_src_hash=$(echo "$old_entry" | jq -r '.source_hash // empty')
               
-              # 判断条件
               if [[ "$FORCE_REBUILD" != "true" && -n "$old_src_hash" && "$old_src_hash" == "$current_src_hash" && -f "$prev_zip_path" ]]; then
                 should_rebuild="false"
               fi
@@ -102,10 +64,9 @@ jobs:
               
               if [[ "$should_rebuild" == "true" ]]; then
                 echo "   🔨 Building..."
-                # 这里的 cd 是为了让 zip 内部结构更干净，不包含 provider/template 父目录
-                # 如果你想 zip 包含 provider/template 结构，可以直接 zip -r ...
-                # 这里我们只打包模版内容：
-                (cd "$template" && zip -r -q "../../../$zip_path" .)
+                # 修复点：使用 "$ROOT_DIR/$zip_path" 绝对路径
+                # 这样无论 cd 到哪里，都能准确找到 public/templates 目录
+                (cd "$template" && zip -r -q "$ROOT_DIR/$zip_path" .)
                 
                 final_zip_hash=$(sha256sum "$zip_path" | awk '{print $1}')
               else
@@ -114,15 +75,13 @@ jobs:
                 final_zip_hash=$(echo "$old_entry" | jq -r '.sha256')
               fi
 
-              # --- 6. 读取 Metadata (case.json) ---
-              # 默认值
+              # --- 6. 读取 Metadata ---
               meta_name="$template_name"
               meta_author="Unknown"
               meta_desc="No description provided."
               
               case_file="$template/case.json"
               if [[ -f "$case_file" ]]; then
-                # 验证 json 有效性，如果无效则回退默认
                 if jq -e . "$case_file" >/dev/null 2>&1; then
                   meta_name=$(jq -r '.name // "'"$template_name"'"' "$case_file")
                   meta_author=$(jq -r '.user // "Unknown"' "$case_file")
@@ -131,8 +90,6 @@ jobs:
               fi
 
               # --- 7. 更新 index.json ---
-              # 使用 jq 将新条目追加到 templates 数组中
-              # mktemp 用于创建临时文件，因为不能同时读写同一个文件
               tmp=$(mktemp)
               jq --arg id "$id" \
                  --arg provider "$provider" \
@@ -161,12 +118,3 @@ jobs:
           done
           
           echo "🎉 Build Complete. Index generated at $OUTPUT_JSON"
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'public'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
