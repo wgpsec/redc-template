@@ -1,0 +1,92 @@
+name: Publish TF Templates
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  package-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Package Templates and Generate Index
+        run: |
+          mkdir -p public/templates
+          
+          # 使用 Python 处理目录遍历、压缩和 JSON 生成
+          python3 -c "
+          import os
+          import json
+          import shutil
+          import hashlib
+          import datetime
+
+          base_url = 'https://redc.wgpsec.org/templates'
+          output_dir = 'public/templates'
+          repo_root = '.'
+          
+          manifest = {
+              'updated_at': datetime.datetime.utcnow().isoformat() + 'Z',
+              'commit': '${{ github.sha }}',
+              'templates': {}
+          }
+
+          # 排除的文件/文件夹
+          exclude = {'.git', '.github', 'public', 'README.md', '.gitignore'}
+
+          # 遍历第一层 (云厂商, e.g., aws, alicloud)
+          for provider in os.listdir(repo_root):
+              provider_path = os.path.join(repo_root, provider)
+              if not os.path.isdir(provider_path) or provider in exclude:
+                  continue
+
+              # 遍历第二层 (模版名, e.g., ec2-c2)
+              for template in os.listdir(provider_path):
+                  template_path = os.path.join(provider_path, template)
+                  if not os.path.isdir(template_path):
+                      continue
+
+                  # 唯一的模版 ID，例如: aws/ec2-c2
+                  template_id = f'{provider}/{template}'
+                  zip_name = f'{provider}_{template}.zip'
+                  zip_output_path = os.path.join(output_dir, zip_name)
+
+                  # 1. 打包该模版文件夹
+                  shutil.make_archive(zip_output_path.replace('.zip', ''), 'zip', template_path)
+                  
+                  # 2. 计算 SHA256
+                  sha256_hash = hashlib.sha256()
+                  with open(zip_output_path, 'rb') as f:
+                      for byte_block in iter(lambda: f.read(4096), b''):
+                          sha256_hash.update(byte_block)
+                  
+                  # 3. 添加到 Manifest
+                  manifest['templates'][template_id] = {
+                      'provider': provider,
+                      'name': template,
+                      'url': f'{base_url}/{zip_name}',
+                      'sha256': sha256_hash.hexdigest()
+                  }
+                  print(f'Packaged: {template_id}')
+
+          # 写入 index.json 到 public 根目录
+          with open('public/index.json', 'w') as f:
+              json.dump(manifest, f, indent=2)
+          "
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'public'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
