@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-20T12:11:31.330166Z",
+  "updated_at": "2026-01-20T12:14:00.154306Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/aliyun-proxy": {
@@ -9,8 +9,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aliyun_aliyun-proxy_v0.0.0.zip",
-          "sha256": "9e5b64da205bd21ca78416a704fb30310d5699f7e083daa87633231f1011b97e",
-          "updated_at": "2026-01-20T12:11:31.316967Z"
+          "sha256": "92ee28aed9f8a0efac95e148b22a26eee46b1b2c9dfb29741524019450d92211",
+          "updated_at": "2026-01-20T12:14:00.140682Z"
         }
       },
       "latest": "0.0.0",
@@ -26,17 +26,17 @@
       "provider": "aliyun",
       "slug": "ecs",
       "versions": {
-        "0.0.0": {
-          "url": "https://wgpsec.github.io/redc-template/templates/aliyun_ecs_v0.0.0.zip",
-          "sha256": "9d54b4a616b6ed09404ac97c91fd08869029fdb522e42f7c4c7d0b157f641a4b",
-          "updated_at": "2026-01-20T12:11:31.317937Z"
+        "0.0.1": {
+          "url": "https://wgpsec.github.io/redc-template/templates/aliyun_ecs_v0.0.1.zip",
+          "sha256": "d2d5bdbb898e8d4997efeb2c9881a80cb77ab231abf4c7735deddac05f9dc397",
+          "updated_at": "2026-01-20T12:14:00.141886Z"
         }
       },
-      "latest": "0.0.0",
+      "latest": "0.0.1",
       "metadata": {
         "name": "ecs",
-        "author": "Unknown",
-        "description": "No description.",
+        "author": "r0fus0d",
+        "description": "引擎内嵌的阿里云 ecs 场景，仅作参考模板使用",
         "readme": "# 注意事项\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n开启\n```\n./redc -start ecs\n```\n\n查询\n```\n./redc -status [uuid]\n```\n\n关闭\n```\n./redc -stop [uuid]\n```\n"
       }
     },
@@ -47,8 +47,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aliyun_ecs1c2g_v0.0.0.zip",
-          "sha256": "1898b5866e934edd63cccc7d88d71487d9b99c459298773aaca3e1d3227f8691",
-          "updated_at": "2026-01-20T12:11:31.318654Z"
+          "sha256": "5c1cb2d97cb8f6bf165efc46a7b8a23896b89ca2295b0208af5d1a89aebf07b6",
+          "updated_at": "2026-01-20T12:14:00.142653Z"
         }
       },
       "latest": "0.0.0",
@@ -66,8 +66,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aliyun_file_v0.0.0.zip",
-          "sha256": "4f2a4945bbb20b5299b3d84ad481695c38c71cb0e4b137fc8e8a27148e464c28",
-          "updated_at": "2026-01-20T12:11:31.319327Z"
+          "sha256": "0eae94245d4d8c765164ee50e4f2fdb14ba1bbec2978e0def6b8f54d174e597d",
+          "updated_at": "2026-01-20T12:14:00.143352Z"
         }
       },
       "latest": "0.0.0",
@@ -85,8 +85,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aliyun_jndi_v0.0.0.zip",
-          "sha256": "e74bdaa7736e78767f3112b1b93b0d8e06b98a205b71bea011ff3b4c6b6ed36b",
-          "updated_at": "2026-01-20T12:11:31.320111Z"
+          "sha256": "a7fe040a3fcf27e1afe018c9917d23145018eb604e2cbaf758612d8f5689ad2e",
+          "updated_at": "2026-01-20T12:14:00.144103Z"
         }
       },
       "latest": "0.0.0",
@@ -104,8 +104,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aliyun_sliver_v0.0.0.zip",
-          "sha256": "5090fe18990df2af09f7f50cc173b094b3884ca9a9db65a8b67922716e93acd8",
-          "updated_at": "2026-01-20T12:11:31.320847Z"
+          "sha256": "1e2d4d48149cfb1ead50142904edd1dbf0ebd255101ee814d9fdb74673773640",
+          "updated_at": "2026-01-20T12:14:00.144853Z"
         }
       },
       "latest": "0.0.0",
@@ -123,8 +123,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aws_aws-proxy_v0.0.0.zip",
-          "sha256": "fc74cfba4dadc9bfd246b2dab550932bdd440df34db2a0023a512fb95a6af534",
-          "updated_at": "2026-01-20T12:11:31.321723Z"
+          "sha256": "19a154e7230c1c137be73648b0133da4ac0c2c7401b7f70e3ff3636656afb0fc",
+          "updated_at": "2026-01-20T12:14:00.145729Z"
         }
       },
       "latest": "0.0.0",
@@ -142,8 +142,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aws_dnslog_v0.0.0.zip",
-          "sha256": "dbb6128fb3050f4ed8ac0d5f5ea126d4d3f7e0623fa983dcce9c169c98274446",
-          "updated_at": "2026-01-20T12:11:31.322536Z"
+          "sha256": "341af21978b9a42bf31cfe88c5d0c8aa5a9aa54988aba073e22516ff534c70e0",
+          "updated_at": "2026-01-20T12:14:00.146559Z"
         }
       },
       "latest": "0.0.0",
@@ -161,8 +161,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aws_docker_v0.0.0.zip",
-          "sha256": "ab24e7ccbc15ba31bae0ce895683e680054bece9f947a005472b8bac3e52701b",
-          "updated_at": "2026-01-20T12:11:31.323162Z"
+          "sha256": "1e207df061a4649a4be22e832c31ca5d17fbd0782a763c5c77f6763fb3fcbbcd",
+          "updated_at": "2026-01-20T12:14:00.147201Z"
         }
       },
       "latest": "0.0.0",
@@ -180,8 +180,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aws_ec2_v0.0.0.zip",
-          "sha256": "3e6e5bf8b4ec8bf5e84325e4f0f899f730aeef503d72700c50c9654e4b2b1870",
-          "updated_at": "2026-01-20T12:11:31.323792Z"
+          "sha256": "c131e17e5c5b11962588eaecd9092983dfaf086f4d301a9786fad46e3b14c400",
+          "updated_at": "2026-01-20T12:14:00.147855Z"
         }
       },
       "latest": "0.0.0",
@@ -199,8 +199,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aws_ec2-1G_v0.0.0.zip",
-          "sha256": "fa1f47290062dbd7f8f01e0f722aa20d6e2c981f338f30e9d032c900c3ef95bf",
-          "updated_at": "2026-01-20T12:11:31.324389Z"
+          "sha256": "7c9feb618e0e87ca775d5917773e03383844118a5468acbbb1688e07d1a92150",
+          "updated_at": "2026-01-20T12:14:00.148502Z"
         }
       },
       "latest": "0.0.0",
@@ -218,8 +218,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aws_ec2-4G_v0.0.0.zip",
-          "sha256": "a91acdf7d376e43fa162de739101715799a0f301e9b177c52adea75dfffb60ff",
-          "updated_at": "2026-01-20T12:11:31.325011Z"
+          "sha256": "49dcda7b8b60a353678afb42edd58e0c7e271d4a2cc3ae4ec98220b1fd3a369a",
+          "updated_at": "2026-01-20T12:14:00.149109Z"
         }
       },
       "latest": "0.0.0",
@@ -237,8 +237,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aws_interactsh_v0.0.0.zip",
-          "sha256": "923672f0f85ba44fd5c261b0b42bccd79d00b0d4e0250a576236473a206dbf01",
-          "updated_at": "2026-01-20T12:11:31.325791Z"
+          "sha256": "6bf983c3ef628a23fbf6926a697601bb3b09a669b3e4079a02e8e38396847f62",
+          "updated_at": "2026-01-20T12:14:00.149897Z"
         }
       },
       "latest": "0.0.0",
@@ -256,8 +256,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/aws_md_v0.0.0.zip",
-          "sha256": "14c185a21c8cb7c85b7312e08fca292359c36e5efaa52734eab8ab9242f327cd",
-          "updated_at": "2026-01-20T12:11:31.326607Z"
+          "sha256": "f58e0f80762f82e4e4104fa31dc9b65a290ce41873324bd0e925890e2c7ce469",
+          "updated_at": "2026-01-20T12:14:00.150709Z"
         }
       },
       "latest": "0.0.0",
@@ -275,8 +275,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/tencent_file_v0.0.0.zip",
-          "sha256": "01825a8639b06b04db80a50ecf60fce7080ee3ce6ac6361f755c5817c8459f17",
-          "updated_at": "2026-01-20T12:11:31.327460Z"
+          "sha256": "a6b2b3be710ffa6b41332e8fffa92de046159f217ade18611b45f34683aaa4e0",
+          "updated_at": "2026-01-20T12:14:00.151615Z"
         }
       },
       "latest": "0.0.0",
@@ -294,8 +294,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/tencent_jndi_v0.0.0.zip",
-          "sha256": "850fc837b40a1f009c2c0e6d699e8512a4b8b324acf3f1a7ecffdf03447471a7",
-          "updated_at": "2026-01-20T12:11:31.328342Z"
+          "sha256": "77ad8be6dea842dc7b820d4563063485783a007aef882ab7ca23fb90b1dd430f",
+          "updated_at": "2026-01-20T12:14:00.152495Z"
         }
       },
       "latest": "0.0.0",
@@ -313,8 +313,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/tencent_nps_v0.0.0.zip",
-          "sha256": "9f7c6362e142b74ffc29f996316a11e93a5137a82ebfd8295b814418f6779353",
-          "updated_at": "2026-01-20T12:11:31.329416Z"
+          "sha256": "970f8fd336fd420f1aeee9ea4f097d753932f6d7b890b9bd64b953e4cba1ba2b",
+          "updated_at": "2026-01-20T12:14:00.153585Z"
         }
       },
       "latest": "0.0.0",
@@ -332,8 +332,8 @@
       "versions": {
         "0.0.0": {
           "url": "https://wgpsec.github.io/redc-template/templates/vultr_hk-vps_v0.0.0.zip",
-          "sha256": "c008263fc69fb491b98f35b62c0bc87fad8fac8bd11e39b34e2215b9af56c9ba",
-          "updated_at": "2026-01-20T12:11:31.330137Z"
+          "sha256": "6179b82b6456c951bed710dd16aa5b369b146c9285aa3a2ae5140fe38885c8a1",
+          "updated_at": "2026-01-20T12:14:00.154276Z"
         }
       },
       "latest": "0.0.0",
