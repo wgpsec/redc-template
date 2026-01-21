@@ -27,9 +27,6 @@
                             600: '#4f46e5'
                         }
                     },
-                    maxWidth: {
-                        '8xl': '90rem'
-                    },
                     animation: {
                         'fade-in': 'fadeIn 0.5s ease-out',
                         'slide-up': 'slideUp 0.5s ease-out',
@@ -106,7 +103,7 @@
         <div class="blob bg-indigo-900 w-80 h-80 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animation-delay-4000"></div>
     </div>
 
-    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-10 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <header class="text-center mb-16 animate-slide-up">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-500 text-xs font-medium mb-6">
                 <span class="relative flex h-2 w-2">
@@ -160,7 +157,7 @@
             </div>
         </div>
 
-        <div id="grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-slide-up" style="animation-delay: 0.2s;">
+        <div id="grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-slide-up" style="animation-delay: 0.2s;">
             <div class="col-span-full flex flex-col items-center justify-center py-24 text-slate-500">
                 <div class="relative">
                     <div class="w-12 h-12 rounded-full border-4 border-slate-700 border-t-primary-500 animate-spin"></div>
@@ -366,37 +363,29 @@
                 const version = t.latest || t.version || '0.0.1';
                 const provider = t.provider || t.id.split('/')[0];
                 
-                // 根据 Provider 生成固定颜色
-                const providerKey = provider.toLowerCase();
-                const providerColorMap = {
-                    aliyun: '#ff6a00',
-                    alibaba: '#ff6a00',
-                    tencent: '#0052d9',
-                    aws: '#ff9900',
-                    vultr: '#007bfc'
-                };
-                const tagColor = providerColorMap[providerKey] || '#64748b';
-                const tagStyle = `color: ${tagColor}; border-color: ${tagColor}33; background-color: ${tagColor}1a;`;
+                // 根据 Provider 生成不同颜色的标签 (简单哈希)
+                const colors = ['text-blue-400 border-blue-400/20 bg-blue-400/10', 'text-purple-400 border-purple-400/20 bg-purple-400/10', 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10', 'text-orange-400 border-orange-400/20 bg-orange-400/10'];
+                const colorClass = colors[name.length % colors.length];
 
                 return `
-                <div class="glass-card rounded-xl p-6 flex flex-col h-full group relative overflow-hidden animate-fade-in min-h-[280px]">
+                <div class="glass-card rounded-xl p-5 flex flex-col h-full group relative overflow-hidden animate-fade-in">
                     <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     
-                    <div class="flex justify-between items-start mb-4">
+                    <div class="flex justify-between items-start mb-3">
                         <div class="flex gap-2">
-                            <span class="px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider rounded border" style="${tagStyle}">
+                            <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded border ${colorClass}">
                                 ${provider}
                             </span>
                         </div>
-                        <span class="text-[11px] font-mono text-slate-500 bg-slate-800/50 px-2 py-1 rounded border border-slate-700/50">v${version}</span>
+                        <span class="text-[10px] font-mono text-slate-500 bg-slate-800/50 px-1.5 py-0.5 rounded border border-slate-700/50">v${version}</span>
                     </div>
 
-                    <h3 class="text-xl font-bold text-slate-200 group-hover:text-primary-400 transition cursor-pointer mb-3 line-clamp-1"
+                    <h3 class="text-lg font-bold text-slate-200 group-hover:text-primary-400 transition cursor-pointer mb-2 line-clamp-1"
                         onclick="openModal('${t.id}')" title="${name}">
                         ${name}
                     </h3>
                     
-                    <p class="text-slate-400 text-sm leading-relaxed mb-5 line-clamp-3 min-h-[60px]">
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2 h-10">
                         ${desc}
                     </p>
 

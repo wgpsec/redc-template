@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-20T15:46:00.723286Z",
+  "updated_at": "2026-01-21T09:29:25.250556Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/aliyun-proxy": {
@@ -16,14 +16,19 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_aliyun-proxy_v0.0.1.zip",
           "sha256": "6b8c27bc1382c33041a18e3966f844dd1778f63980a7a3a1bc0bb839ca994ebe",
           "updated_at": "2026-01-20T15:28:34.138732Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_aliyun-proxy_v1.0.0.zip",
+          "sha256": "aa0e9745b9300414f0a7fd541fe0ad7d801f53ea6548104f2537067680743ce2",
+          "updated_at": "2026-01-21T09:29:25.244884Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "aliyun-proxy",
         "author": "r0fus0d",
         "description": "阿里云多节点代理场景，默认支持 10 台 spot ecs.n1.tiny 节点，shadowsocks-libev 搭建并可上传 clash 配置到 Cloudflare R2",
-        "readme": "# 注意事项\n\n**r2 配置**\n\ndeploy.sh 中的 upload_to_r2 函数负责将 clash 配置传至 r2\n\n请自行安装 rclone 并设置 rclone 与 r2 的配置\n- https://github.com/rclone/rclone/releases\n- https://dash.cloudflare.com/ 的 r2\n\n![](../../img/redc-1.png)\n\n```\nrclone config\ns3\nCloudflare R2 Storage\nxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nhttps://xxxxxxxxxxxxxxxxxx.r2.cloudflarestorage.com\nauto\n\nrclone lsf r2:test\n```\n\n**请自行替换 deploy.sh 中 upload_to_r2 函数的配置下载地址**\n\n对应\n```\necho \"url : https://这里改成你的 r2 地址/proxyfile/aliyun-config.yaml\"\n```\n\n**抢占式实例**\n\nmain.tf中已配置\n```\nspot_strategy              = \"SpotWithPriceLimit\"\n```\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n4. rclone配置不正确\n5. r2 存储桶名称和配置不一致\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/aliyun-proxy\n```\n\n开启\n```\n# 默认 10 台\nredc run aliyun/aliyun-proxy\n\n# 自定义节点数量,比如开 50 个节点\nredc run aliyun/aliyun-proxy -node 50\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n4. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/aliyun-proxy\n```\n\n开启\n```\n# 默认 10 台\nredc run aliyun/aliyun-proxy\n\n# 自定义节点数量,比如开 50 个节点\nredc run aliyun/aliyun-proxy -node 50\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n3. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件\n\n# 注意事项\n\n**r2 配置**\n\ndeploy.sh 中的 upload_to_r2 函数负责将 clash 配置传至 r2\n\n请自行安装 rclone 并设置 rclone 与 r2 的配置\n- https://github.com/rclone/rclone/releases\n- https://dash.cloudflare.com/ 的 r2\n\n![](../../img/redc-1.png)\n\n```\nrclone config\ns3\nCloudflare R2 Storage\nxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nhttps://xxxxxxxxxxxxxxxxxx.r2.cloudflarestorage.com\nauto\n\nrclone lsf r2:test\n```\n\n**请自行替换 deploy.sh 中 upload_to_r2 函数的配置下载地址**\n\n对应\n```\necho \"url : https://这里改成你的 r2 地址/proxyfile/aliyun-config.yaml\"\n```\n\n**抢占式实例**\n\nmain.tf中已配置\n```\nspot_strategy              = \"SpotWithPriceLimit\"\n```\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n4. rclone配置不正确\n5. r2 存储桶名称和配置不一致\n"
       }
     },
     "aliyun/ecs": {
@@ -35,14 +40,19 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_ecs_v0.0.1.zip",
           "sha256": "d2d5bdbb898e8d4997efeb2c9881a80cb77ab231abf4c7735deddac05f9dc397",
           "updated_at": "2026-01-20T12:14:00.141886Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_ecs_v1.0.0.zip",
+          "sha256": "68d3961dfc10b3f0643c20a502ccb766c77ffc3fcdff0a33a1e064104f223387",
+          "updated_at": "2026-01-21T09:29:25.245827Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "ecs",
         "author": "r0fus0d",
         "description": "引擎内嵌的阿里云 ecs 场景，仅作参考模板使用",
-        "readme": "# 注意事项\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/ecs\n```\n\n开启\n```\nredc run aliyun/ecs\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/ecs\n```\n\n开启\n```\nredc run aliyun/ecs\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n"
       }
     },
     "aliyun/ecs1c2g": {
@@ -59,14 +69,19 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_ecs1c2g_v0.0.1.zip",
           "sha256": "3b37eb4a016538608e321ec3ad1bba64aafc12ac2ed32281cb6aa5afaf2a7c19",
           "updated_at": "2026-01-20T15:28:34.140031Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_ecs1c2g_v1.0.0.zip",
+          "sha256": "fa24d75cdf66e716292f1af0e2d1da61a33162ed3b3411a19e6188358dc9420e",
+          "updated_at": "2026-01-21T09:29:25.246646Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "ecs1c2g",
         "author": "r0fus0d",
         "description": "阿里云 ecs 场景，采用 ecs.n1.small 规格, 1核 2G 20G存储",
-        "readme": "# 注意事项\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/ecs1c2g\n```\n\n开启\n```\nredc run aliyun/ecs1c2g\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/ecs1c2g\n```\n\n开启\n```\nredc run aliyun/ecs1c2g\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n"
       }
     },
     "aliyun/file": {
@@ -83,14 +98,19 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_file_v0.0.1.zip",
           "sha256": "2f0d61799a51c240b8c2b069ab113826e270a45564ac08a2020f335d3ac8cf1c",
           "updated_at": "2026-01-20T15:28:34.140894Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_file_v1.0.0.zip",
+          "sha256": "d2eb07eba9aa42314bce4a386b053024a9aef008f06946aa7a224b22cd144658",
+          "updated_at": "2026-01-21T09:29:25.247600Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "file",
         "author": "r0fus0d",
         "description": "阿里云文件服务场景，采用 ecs.n1.small 规格，1核 2G，30G 系统盘，预装 simplehttpserver 及常用运维工具",
-        "readme": "# 注意事项\n\n请自行替换模板中的静态资源下载链接\n\n**请自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n对应\n```\nsudo wget -O simplehttpserver_0.0.5_linux_amd64.tar.gz 'https://这里替换成你自己的静态下载地址'\n```\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/file\n```\n\n开启\n```\nredc run aliyun/file\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/file\n```\n\n开启\n```\nredc run aliyun/file\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**可自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n"
       }
     },
     "aliyun/jndi": {
@@ -107,14 +127,19 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_jndi_v0.0.1.zip",
           "sha256": "8482bc94a2188e103ea22a6a0059cbce972dd6251424bb0a02a3c7d2437eb19a",
           "updated_at": "2026-01-20T15:28:34.141777Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_jndi_v1.0.0.zip",
+          "sha256": "7305c477b36ea11a6cea62b394f869092067f741c2a7adb0710756015295258f",
+          "updated_at": "2026-01-21T09:29:25.248607Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "jndi",
         "author": "r0fus0d",
         "description": "阿里云 JNDI 演练场景，采用 ecs.n1.small 规格，1核 2G，20G 系统盘，预置 JDK8、JNDIExploit、java-chains、simplehttpserver 等组件",
-        "readme": "# 注意事项\n\n请自行替换模板中的静态资源下载链接\n\n**请自行替换 main.tf 中 jdk-8u321-linux-x64.tar.gz 的压缩包下载地址**\n- https://github.com/No-Github/Archive/releases/tag/1.0.5\n\n对应\n```\nsudo wget -O jdk-8u321-linux-x64.tar.gz 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 JNDIExploit_feihong.zip 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n对应\n```\nsudo wget -O JNDIExploit_feihong.zip 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 JNDIExploit_0x727.zip 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n对应\n```\nsudo wget -O JNDIExploit_0x727.zip 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 java-chains 的压缩包下载地址**\n- https://github.com/vulhub/java-chains/releases\n\n对应\n```\nsudo wget -O java-chains-1.4.1.7z.7z 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar 的压缩包下载地址**\n- https://github.com/welk1n/JNDI-Injection-Exploit/releases\n\n对应\n```\nsudo wget -O /root/JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 MemShellParty 的压缩包下载地址**\n- https://github.com/ReaJason/MemShellParty/releases\n\n对应\n```\nsudo wget -O /root/boot-2.1.0.jar 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n对应\n```\nsudo wget -O simplehttpserver_0.0.5_linux_amd64.tar.gz 'https://这里替换成你自己的静态下载地址'\n```\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n4. jdk未正常安装\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/jndi\n```\n\n开启\n```\nredc run aliyun/jndi\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/jndi\n```\n\n开启\n```\nredc run aliyun/jndi\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**可自行替换 main.tf 中 jdk-8u321-linux-x64 的压缩包下载地址**\n- https://github.com/No-Github/Archive/releases/tag/1.0.5\n\n**可自行替换 main.tf 中 JNDIExploit_feihong 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n**可自行替换 main.tf 中 JNDIExploit_0x727 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n**可自行替换 main.tf 中 java-chains 的压缩包下载地址**\n- https://github.com/vulhub/java-chains/releases\n\n**可自行替换 main.tf 中 JNDI-Injection-Exploit 的压缩包下载地址**\n- https://github.com/welk1n/JNDI-Injection-Exploit/releases\n\n**可自行替换 main.tf 中 MemShellParty 的压缩包下载地址**\n- https://github.com/ReaJason/MemShellParty/releases\n\n**可自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n4. jdk未正常安装\n"
       }
     },
     "aliyun/sliver": {
@@ -131,14 +156,19 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_sliver_v0.0.1.zip",
           "sha256": "c8732f5b6a2338b7f937aa0d22839257b70281a2da40e66caad568424c92ceea",
           "updated_at": "2026-01-20T15:28:34.142617Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_sliver_v1.0.0.zip",
+          "sha256": "c0d95fa6d9c887faa8208e75840a98e7aac3c9c878d2acc0e30ee0d6bb2d4159",
+          "updated_at": "2026-01-21T09:29:25.249594Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "sliver",
         "author": "r0fus0d",
         "description": "阿里云 Sliver C2 场景，采用 ecs.c7a.large 规格，2核 4G，20G ESSD 系统盘，预置 sliver server/client、mingw 交叉编译工具与 simplehttpserver",
-        "readme": "# 注意事项\n\n请自行替换模板中的静态资源下载链接\n\n**请自行替换 main.tf 中 sliver-server_linux 的压缩包下载地址**\n- https://github.com/BishopFox/sliver/releases\n\n对应\n```\nsudo wget -O sliver-server_linux 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 sliver-client_linux 的压缩包下载地址**\n- https://github.com/BishopFox/sliver/releases\n\n对应\n```\nsudo wget -O sliver-client_linux 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n对应\n```\nsudo wget -O simplehttpserver_0.0.5_linux_amd64.tar.gz 'https://这里替换成你自己的静态下载地址'\n```\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n4. sliver部署方式更新，导致user_data中的配置过时\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/sliver\n```\n\n开启\n```\nredc run aliyun/sliver\n```\n\n登录后下载sliver.cfg,本地导入使用\n```\nsliver import ./sliver.cfg\n# 运行\nsliver\n```\n\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/sliver\n```\n\n开启\n```\nredc run aliyun/sliver\n```\n\n登录后下载sliver.cfg,本地导入使用\n```\nsliver import ./sliver.cfg\n# 运行\nsliver\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**请自行替换 main.tf 中 sliver-server_linux 的压缩包下载地址**\n- https://github.com/BishopFox/sliver/releases\n\n**请自行替换 main.tf 中 sliver-client_linux 的压缩包下载地址**\n- https://github.com/BishopFox/sliver/releases\n\n**请自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n4. sliver部署方式更新，导致user_data中的配置过时\n"
       }
     },
     "aws/aws-proxy": {
