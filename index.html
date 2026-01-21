@@ -366,11 +366,17 @@
                 const version = t.latest || t.version || '0.0.1';
                 const provider = t.provider || t.id.split('/')[0];
                 
-                // 根据 Provider 生成一致的颜色 (基于 provider 名称的哈希)
-                const colors = ['text-blue-400 border-blue-400/20 bg-blue-400/10', 'text-purple-400 border-purple-400/20 bg-purple-400/10', 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10', 'text-orange-400 border-orange-400/20 bg-orange-400/10', 'text-cyan-400 border-cyan-400/20 bg-cyan-400/10', 'text-rose-400 border-rose-400/20 bg-rose-400/10'];
-                // 使用 provider 字符串的字符码之和作为哈希值，确保同一 provider 颜色一致
-                const providerHash = provider.toLowerCase().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-                const colorClass = colors[providerHash % colors.length];
+                // 根据 Provider 生成固定颜色
+                const providerKey = provider.toLowerCase();
+                const providerColorMap = {
+                    aliyun: '#ff6a00',
+                    alibaba: '#ff6a00',
+                    tencent: '#0052d9',
+                    aws: '#ff9900',
+                    vultr: '#007bfc'
+                };
+                const tagColor = providerColorMap[providerKey] || '#64748b';
+                const tagStyle = `color: ${tagColor}; border-color: ${tagColor}33; background-color: ${tagColor}1a;`;
 
                 return `
                 <div class="glass-card rounded-xl p-6 flex flex-col h-full group relative overflow-hidden animate-fade-in min-h-[280px]">
@@ -378,7 +384,7 @@
                     
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex gap-2">
-                            <span class="px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider rounded border ${colorClass}">
+                            <span class="px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider rounded border" style="${tagStyle}">
                                 ${provider}
                             </span>
                         </div>
