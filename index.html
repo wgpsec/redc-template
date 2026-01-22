@@ -100,11 +100,17 @@
 </head>
 <body class="min-h-screen font-sans selection:bg-primary-500 selection:text-white">
 
-    <div class="fixed top-6 right-6 z-40">
+    <div class="fixed top-6 right-6 z-40 flex gap-3">
+        <button id="lang-switcher" onclick="toggleLanguage()"
+           aria-label="Switch language"
+           class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#151725]/90 border border-slate-700 text-slate-200 hover:text-white hover:border-primary-500/60 hover:bg-slate-800/90 shadow-lg shadow-primary-500/10 transition">
+            <i data-lucide="languages" class="w-4 h-4"></i>
+            <span class="text-sm font-semibold" id="lang-text">EN</span>
+        </button>
         <a href="https://github.com/wgpsec/redc-template" target="_blank" rel="noopener noreferrer"
            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#151725]/90 border border-slate-700 text-slate-200 hover:text-white hover:border-primary-500/60 hover:bg-slate-800/90 shadow-lg shadow-primary-500/10 transition">
             <i data-lucide="github" class="w-4 h-4"></i>
-            <span class="text-sm font-semibold">GitHub 仓库</span>
+            <span class="text-sm font-semibold" data-i18n="github_repo">GitHub 仓库</span>
         </a>
     </div>
 
@@ -121,16 +127,16 @@
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-500 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
                 </span>
-                Redc Registry Live
+                <span data-i18n="live_badge">Redc Registry Live</span>
             </div>
             
             <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500">
                     Redc
-                </span> Template Store
+                </span> <span data-i18n="template_store">Template Store</span>
             </h1>
             
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed" data-i18n="hero_description">
                 基于 Terraform 的红队基础设施即代码 (IaC) 仓库。
                 <br>一键拉取，快速构建攻防环境。
             </p>
@@ -149,7 +155,7 @@
                 <i data-lucide="copy" class="w-4 h-4 text-slate-500 group-hover:text-white transition ml-2"></i>
                 
                 <div class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary-600 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                    点击复制示例
+                    <span data-i18n="click_to_copy">点击复制示例</span>
                 </div>
             </div>
         </header>
@@ -161,6 +167,7 @@
                 </div>
                 <input type="text" id="search-input" 
                     class="block w-full pl-11 pr-4 py-4 bg-[#151725]/90 backdrop-blur-md border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all shadow-xl"
+                    data-i18n-placeholder="search_placeholder"
                     placeholder="搜索模版、云厂商、作者 (例如: aws c2 r0fus0d)...">
                 <div class="absolute inset-y-0 right-0 pr-4 flex items-center">
                     <span id="result-count" class="text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded-md hidden">0 items</span>
@@ -173,7 +180,7 @@
                 <div class="relative">
                     <div class="w-12 h-12 rounded-full border-4 border-slate-700 border-t-primary-500 animate-spin"></div>
                 </div>
-                <p class="mt-4 font-medium animate-pulse">正在加载武器库...</p>
+                <p class="mt-4 font-medium animate-pulse" data-i18n="loading">正在加载武器库...</p>
             </div>
         </div>
 
@@ -181,10 +188,10 @@
             <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-800/50 mb-6">
                 <i data-lucide="package-search" class="w-10 h-10 text-slate-500"></i>
             </div>
-            <h3 class="text-xl font-bold text-white mb-2">未找到相关模版</h3>
-            <p class="text-slate-400">尝试更换关键词，或者查看全部列表。</p>
+            <h3 class="text-xl font-bold text-white mb-2" data-i18n="no_results">未找到相关模版</h3>
+            <p class="text-slate-400" data-i18n="no_results_hint">尝试更换关键词，或者查看全部列表。</p>
             <button onclick="clearSearch()" class="mt-6 px-6 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition border border-slate-700">
-                清除搜索
+                <span data-i18n="clear_search">清除搜索</span>
             </button>
         </div>
 
@@ -225,11 +232,11 @@
                             </div>
                         <div class="flex gap-3 w-full sm:w-auto">
                             <button onclick="closeModal()" class="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition">
-                                关闭
+                                <span data-i18n="close">关闭</span>
                             </button>
                             <button id="modal-copy-btn" class="flex-1 sm:flex-none inline-flex justify-center items-center gap-2 px-5 py-2 text-sm font-semibold text-white bg-primary-600 hover:bg-primary-500 rounded-lg shadow-lg shadow-primary-500/20 transition">
                                 <i data-lucide="terminal" class="w-4 h-4"></i>
-                                复制命令
+                                <span data-i18n="copy_command">复制命令</span>
                             </button>
                         </div>
                     </div>
@@ -243,17 +250,101 @@
             <div class="bg-emerald-500/20 p-1 rounded-full">
                 <i data-lucide="check" class="w-4 h-4"></i>
             </div>
-            <span class="font-medium text-sm">命令已复制到剪贴板</span>
+            <span class="font-medium text-sm" data-i18n="copied">命令已复制到剪贴板</span>
         </div>
     </div>
 
     <script>
+        // --- 国际化 (i18n) ---
+        const translations = {
+            'zh-CN': {
+                github_repo: 'GitHub 仓库',
+                live_badge: 'Redc Registry Live',
+                template_store: 'Template Store',
+                hero_description: '基于 Terraform 的红队基础设施即代码 (IaC) 仓库。<br>一键拉取，快速构建攻防环境。',
+                search_placeholder: '搜索模版、云厂商、作者 (例如: aws c2 r0fus0d)...',
+                loading: '正在加载武器库...',
+                no_results: '未找到相关模版',
+                no_results_hint: '尝试更换关键词，或者查看全部列表。',
+                clear_search: '清除搜索',
+                click_to_copy: '点击复制示例',
+                close: '关闭',
+                copy_command: '复制命令',
+                copied: '命令已复制到剪贴板',
+                docs: '文档',
+                download_zip: '下载 ZIP',
+                no_readme: '> *该模版暂无详细文档 (README.md)*'
+            },
+            'en': {
+                github_repo: 'GitHub Repo',
+                live_badge: 'Redc Registry Live',
+                template_store: 'Template Store',
+                hero_description: 'Red Team Infrastructure as Code (IaC) repository based on Terraform.<br>One-click pull to quickly build offensive and defensive environments.',
+                search_placeholder: 'Search templates, providers, authors (e.g., aws c2 r0fus0d)...',
+                loading: 'Loading arsenal...',
+                no_results: 'No templates found',
+                no_results_hint: 'Try different keywords or view the full list.',
+                clear_search: 'Clear Search',
+                click_to_copy: 'Click to copy example',
+                close: 'Close',
+                copy_command: 'Copy Command',
+                copied: 'Command copied to clipboard',
+                docs: 'Docs',
+                download_zip: 'Download ZIP',
+                no_readme: '> *This template has no detailed documentation (README.md)*'
+            }
+        };
+
+        let currentLang = localStorage.getItem('redc-lang') || 'zh-CN';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('redc-lang', lang);
+            
+            // Update all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    // Only hero_description contains safe HTML (<br>) that we control
+                    // The content comes from our own translations object, not user input
+                    if (key === 'hero_description') {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+
+            // Update language switcher button
+            document.getElementById('lang-text').textContent = lang === 'zh-CN' ? 'EN' : '中文';
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Re-render grid to update dynamic content (always call to update translations even if empty)
+            renderGrid(filteredTemplates);
+        }
+
+        function toggleLanguage() {
+            const newLang = currentLang === 'zh-CN' ? 'en' : 'zh-CN';
+            setLanguage(newLang);
+        }
+
         // --- 核心逻辑 ---
         let allTemplates = [];
         let filteredTemplates = [];
 
         // 1. 初始化
         document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLang); // Set initial language
             fetchData();
             setupSearch();
             lucide.createIcons();
@@ -351,6 +442,9 @@
             const emptyState = document.getElementById('empty-state');
             const resultCount = document.getElementById('result-count');
             
+            // Get current translations
+            const currentTranslations = translations[currentLang];
+            
             // 更新计数
             resultCount.textContent = `${templates.length} items`;
             resultCount.classList.remove('hidden');
@@ -416,7 +510,7 @@
                             </div>
                             <button onclick="openModal('${t.id}')" class="flex items-center gap-1 text-slate-400 hover:text-white transition group/btn">
                                 <i data-lucide="book-open" class="w-3 h-3"></i>
-                                <span class="group-hover/btn:underline">文档</span>
+                                <span class="group-hover/btn:underline">${currentTranslations.docs}</span>
                             </button>
                         </div>
                         
@@ -426,7 +520,7 @@
                                 <i data-lucide="terminal" class="w-3 h-3"></i>
                                 Pull
                             </button>
-                            <a href="${t.versions?.[version]?.url || '#'}" class="col-span-1 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-lg border border-slate-700 transition" title="下载 ZIP">
+                            <a href="${t.versions?.[version]?.url || '#'}" class="col-span-1 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-lg border border-slate-700 transition" title="${currentTranslations.download_zip}">
                                 <i data-lucide="download" class="w-4 h-4"></i>
                             </a>
                         </div>
@@ -457,7 +551,7 @@
             `;
             
             // 解析 Markdown (使用 DOMPurify 防止 XSS)
-            const readmeRaw = meta.readme || '> *该模版暂无详细文档 (README.md)*';
+            const readmeRaw = meta.readme || (translations[currentLang]?.no_readme || translations['zh-CN'].no_readme);
             const htmlContent = DOMPurify.sanitize(marked.parse(readmeRaw));
             document.getElementById('markdown-content').innerHTML = htmlContent;
             
