@@ -17,7 +17,19 @@ permissions:
   id-token: write
 
 jobs:
+  wait-for-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for validation to complete
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'Validate Standards'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+
   build-and-deploy:
+    needs: wait-for-validation
     runs-on: ubuntu-latest
     steps:
       # 1. 拉取源码 (最新版)
