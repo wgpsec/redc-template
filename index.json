@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-22T07:17:01.463164Z",
+  "updated_at": "2026-01-22T09:08:40.657423Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/aliyun-proxy": {
@@ -563,9 +563,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.0.3.zip",
           "sha256": "b65358277600cc5acfbc1b37e2a13ebeb752e148fb90ece55402465e4badee38",
           "updated_at": "2026-01-22T07:17:01.459181Z"
+        },
+        "1.0.4": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.0.4.zip",
+          "sha256": "010550474171ea6fcec5112ad3792377491fca142aa69549241c3e3d5fed365c",
+          "updated_at": "2026-01-22T09:08:40.654923Z"
         }
       },
-      "latest": "1.0.3",
+      "latest": "1.0.4",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
@@ -592,9 +597,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.0.2.zip",
           "sha256": "3b37e775a94e1273d0df2bfb300236a43d8be28cee0cdc2f2c63e0c00a39d555",
           "updated_at": "2026-01-22T07:17:01.462754Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.0.3.zip",
+          "sha256": "78dff0ac23d2bc548dc11d8dacf74713a6c7fec754b65176982af53c969caa00",
+          "updated_at": "2026-01-22T09:08:40.657002Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
