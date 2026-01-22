@@ -16,3 +16,8 @@ variable "base64_command" {
   type        = string
   description = "base64 command"
 }
+
+variable "github_proxy" {
+  type        = string
+  description = "GitHub Proxy"
+}

@@ -1,3 +1,34 @@
+# 场景使用
+
+1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)
+2. 使用时命令如下
+
+拉取
+```
+redc pull aws/aws-proxy
+```
+
+开启
+```
+# 默认 10 台
+redc run aws/aws-proxy
+
+# 自定义节点数量,比如开 50 个节点
+redc run aws/aws-proxy -node 50
+```
+
+查询
+```
+redc status [uuid]
+```
+
+关闭
+```
+redc stop [uuid]
+```
+
+3. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件
+
 # 注意事项
 
 **r2 配置**
@@ -53,7 +84,7 @@ launch_template {
 
 **spot实例**
 
-需要在launch_template时配置
+需要自行在创建 launch_template 时配置
 
 ![](../../img/redc-5.png)
 
@@ -64,35 +95,3 @@ launch_template {
 4. 启动模板中的安全组未开放公网访问
 5. rclone配置不正确
 6. r2 存储桶名称和配置不一致
-
-# 场景使用
-
-1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)
-2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下
-3. 使用时命令如下
-
-拉取
-```
-redc pull aws/aws-proxy
-```
-
-开启
-```
-# 默认 10 台
-redc run aws/aws-proxy
-
-# 自定义节点数量,比如开 50 个节点
-redc run aws/aws-proxy -node 50
-```
-
-查询
-```
-redc status [uuid]
-```
-
-关闭
-```
-redc stop [uuid]
-```
-
-4. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件

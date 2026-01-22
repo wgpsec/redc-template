@@ -1,6 +1,6 @@
 {
     "name":"aws-proxy",
     "user":"r0fus0d",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description":"AWS 多节点代理场景，ap-east-1 区域，默认 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash 配置，需自备 launch template"
 }

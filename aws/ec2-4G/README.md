@@ -1,3 +1,28 @@
+# 场景使用
+
+1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)
+2. 使用时命令如下
+
+拉取
+```
+redc pull aws/ec2-4G
+```
+
+开启
+```
+redc run aws/ec2-4G
+```
+
+查询
+```
+redc status [uuid]
+```
+
+关闭
+```
+redc stop [uuid]
+```
+
 # 注意事项
 
 **区域配置**
@@ -27,29 +52,3 @@ launch_template {
 2. 与 aws api 网络连接超时
 3. aws 该区域售罄或下架 instance_type 的配置机型
 4. 启动模板中的安全组未开放公网访问
-
-# 场景使用
-
-1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)
-2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下
-3. 使用时命令如下
-
-拉取
-```
-redc pull aws/ec2-4G
-```
-
-开启
-```
-redc run aws/ec2-4G
-```
-
-查询
-```
-redc status [uuid]
-```
-
-关闭
-```
-redc stop [uuid]
-```

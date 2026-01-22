@@ -105,27 +105,14 @@ case "$1" in
         # 关2次,防止问题
         stop_zone_ecs_ss_libev "$2"
         ;;
-    -change)
-        stop_zone_ecs_ss_libev "$2"
-        # 关2次,防止问题
-        stop_zone_ecs_ss_libev "$2"
-        start_zone_ecs_ss_libev "$2"
-        gen_zone_clash_config
-        status_zone_ecs_ss_libev
-        ;;
     -status)
         gen_zone_clash_config
         status_zone_ecs_ss_libev
-        ;;
-    -genyaml)
-        gen_zone_clash_config
-        upload_to_r2
         ;;
     -h)
         echo -e "\033[1;34m使用 -init 初始化\033[0m"
         echo -e "\033[1;34m使用 -start 启动\033[0m"
         echo -e "\033[1;34m使用 -stop 关闭\033[0m"
-        echo -e "\033[1;34m使用 -change 替换一批代理池\033[0m"
         echo -e "\033[1;34m使用 -status 查询状态\033[0m"
         exit 1
         ;;

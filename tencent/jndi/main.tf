@@ -37,7 +37,7 @@ sudo /usr/local/qcloud/stargate/admin/uninstall.sh
 sudo /usr/local/qcloud/YunJing/uninst.sh
 sudo /usr/local/qcloud/monitor/barad/admin/uninstall.sh
 
-sudo wget -O jdk-8u321-linux-x64.tar.gz 'https://这里替换成你自己的静态下载地址'
+sudo wget -O jdk-8u321-linux-x64.tar.gz '${var.github_proxy}/No-Github/Archive/releases/download/1.0.5/jdk-8u321-linux-x64.tar.gz'
 sudo tar -zxvf jdk-8u321-linux-x64.tar.gz
 sudo rm -rf jdk-8u321-linux-x64.tar.gz
 
@@ -55,26 +55,26 @@ sudo cat /usr/local/java/jdk1.8.0_321/jre/lib/security/java.security | sed 's/\j
 sudo mv /usr/local/java/jdk1.8.0_321/jre/lib/security/java.security /usr/local/java/jdk1.8.0_321/jre/lib/security/java.security.bak2
 sudo mv /usr/local/java/jdk1.8.0_321/jre/lib/security/java.security.bak /usr/local/java/jdk1.8.0_321/jre/lib/security/java.security
 
-sudo wget -O JNDIExploit_feihong.zip 'https://这里替换成你自己的静态下载地址'
+sudo wget -O JNDIExploit_feihong.zip '${var.github_proxy}/No-Github/Archive/blob/master/JNDI/JNDIExploit_feihong.zip'
 sudo mkdir -p /root/JNDIExploit_feihong
 sudo unzip JNDIExploit_feihong.zip -d /root/JNDIExploit_feihong
 sudo rm -f JNDIExploit_feihong.zip
 sudo mv /tmp/JNDIExploit_feihong .
 
-sudo wget -O JNDIExploit_0x727.zip 'https://这里替换成你自己的静态下载地址'
+sudo wget -O JNDIExploit_0x727.zip '${var.github_proxy}/No-Github/Archive/blob/master/JNDI/JNDIExploit_0x727.zip'
 sudo mkdir -p /root/JNDIExploit_0x727
 sudo unzip JNDIExploit_0x727.zip -d /root/JNDIExploit_0x727
 sudo rm -f JNDIExploit_0x727.zip
 sudo mv /tmp/JNDIExploit_0x727 .
 
-sudo wget -O java-chains-1.4.1.7z.7z 'https://这里替换成你自己的静态下载地址'
+sudo wget -O java-chains-1.4.4.tar.gz '${var.github_proxy}/vulhub/java-chains/releases/download/1.4.4/java-chains-1.4.4.tar.gz'
 sudo mkdir -p /root/java-chains
-sudo 7z x java-chains-1.4.1.7z.7z -o/root/java-chains
-sudo rm -f java-chains-1.4.1.7z
+sudo tar -zxvf java-chains-1.4.4.tar.gz -C /root/java-chains
+sudo rm -f java-chains-1.4.4.tar.gz
 
-sudo wget -O /root/JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar 'https://这里替换成你自己的静态下载地址'
+sudo wget -O /root/JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar '${var.github_proxy}/welk1n/JNDI-Injection-Exploit/releases/download/v1.0/JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar'
 
-sudo wget -O /root/boot-2.1.0.jar 'https://这里替换成你自己的静态下载地址'
+sudo wget -O /root/boot-2.5.0.jar '${var.github_proxy}/ReaJason/MemShellParty/releases/download/v2.5.0/boot-2.5.0.jar'
 
 sudo apt-get -y install lrzsz
 sudo sleep 1
@@ -82,8 +82,8 @@ sudo apt-get install -y tmux
 sudo apt-get -y install wget
 sudo apt-get -y install unzip
 sudo apt-get install -y screen
-sudo wget -O simplehttpserver_0.0.5_linux_amd64.tar.gz 'https://这里替换成你自己的静态下载地址'
-sudo tar -zxvf simplehttpserver_0.0.5_linux_amd64.tar.gz
+sudo wget -O simplehttpserver_0.0.6_linux_amd64.zip '${var.github_proxy}/projectdiscovery/simplehttpserver/releases/download/v0.0.6/simplehttpserver_0.0.6_linux_amd64.zip'
+sudo unzip simplehttpserver_0.0.6_linux_amd64.zip
 sudo mv --force simplehttpserver /usr/local/bin/simplehttpserver
 sudo chmod +x /usr/local/bin/simplehttpserver
 

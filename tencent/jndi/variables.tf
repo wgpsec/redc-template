@@ -11,3 +11,8 @@ variable "tencentcloud_secret_key" {
   sensitive   = true
   nullable    = false
 }
+
+variable "github_proxy" {
+  type        = string
+  description = "GitHub Proxy"
+}

@@ -1,32 +1,27 @@
-ss_port="60001"
-ss_pass="O9E3b1/OdxCrLkTmWyTL7w=="
+# Load ss_port/ss_pass from terraform.tfvars in the current directory
+load_tfvars(){
+    # shellcheck source=/dev/null
+    source "./terraform.tfvars"
+}
+
+load_tfvars
 
 init(){
 
-    cd node
     terraform init && echo "init success" || { echo "init retry"; terraform init || exit 1; }
-    cd ../
 
 }
 
 start_zone_ecs_ss_libev(){
 
-    cd node
-
-    terraform apply -lock=false -var="ss_port=$ss_port" -var="ss_pass=$ss_pass" -var="node_count=$1" -auto-approve
+    terraform apply -lock=false -var="node_count=$1" -auto-approve
     terraform output -json ecs_ip | jq '.[]' -r > temp_ip.txt
-
-    cd ../
 
 }
 
 stop_zone_ecs_ss_libev(){
 
-    cd node
-
-    terraform destroy -lock=false -var="ss_port=$ss_port" -var="ss_pass=$ss_pass" -var="node_count=$1" -auto-approve || { echo "destroy retry"; terraform init; terraform destroy -lock=false -var="ss_port=$ss_port" -var="ss_pass=$ss_pass" -var="node_count=$1" -auto-approve || exit 1; }
-
-    cd ../
+    terraform destroy -lock=false -var="node_count=$1" -auto-approve || { echo "destroy retry"; terraform init; terraform destroy -lock=false -var="node_count=$1" -auto-approve || exit 1; }
 
 }
 
@@ -35,7 +30,6 @@ gen_zone_clash_config(){
     # 允许 ipv6 代理,和 aliyun 代理池不同
     part1="bWl4ZWQtcG9ydDogNjQyNzcKYWxsb3ctbGFuOiB0cnVlCmJpbmQtYWRkcmVzczogJyonCm1vZGU6IHJ1bGUKbG9nLWxldmVsOiBpbmZvCmlwdjY6IHRydWUKZXh0ZXJuYWwtY29udHJvbGxlcjogMTI3LjAuMC4xOjkwOTAKc2VjcmV0OiB0eHR0eHR4dDJzeHR4dHh0ZGR4dHh0MTExMTExMQpyb3V0aW5nLW1hcms6IDY2NjYKaG9zdHM6Cgpwcm9maWxlOgogIHN0b3JlLXNlbGVjdGVkOiBmYWxzZQogIHN0b3JlLWZha2UtaXA6IHRydWUKCmRuczoKICBlbmFibGU6IGZhbHNlCiAgbGlzdGVuOiAwLjAuMC4wOjUzCiAgaXB2NjogdHJ1ZQogIGRlZmF1bHQtbmFtZXNlcnZlcjoKICAgIC0gMjIzLjUuNS41CiAgICAtIDExOS4yOS4yOS4yOQogIGVuaGFuY2VkLW1vZGU6IGZha2UtaXAgIyBvciByZWRpci1ob3N0IChub3QgcmVjb21tZW5kZWQpCiAgZmFrZS1pcC1yYW5nZTogMTk4LjE4LjAuMS8xNiAjIEZha2UgSVAgYWRkcmVzc2VzIHBvb2wgQ0lEUgogIG5hbWVzZXJ2ZXI6CiAgICAtIDIyMy41LjUuNSAjIGRlZmF1bHQgdmFsdWUKICAgIC0gMTE5LjI5LjI5LjI5ICMgZGVmYXVsdCB2YWx1ZQogICAgLSB0bHM6Ly9kbnMucnVieWZpc2guY246ODUzICMgRE5TIG92ZXIgVExTCiAgICAtIGh0dHBzOi8vMS4xLjEuMS9kbnMtcXVlcnkgIyBETlMgb3ZlciBIVFRQUwogICAgLSBkaGNwOi8vZW4wICMgZG5zIGZyb20gZGhjcAogICAgIyAtICc4LjguOC44I2VuMCcKCnByb3hpZXM6Cg=="
 
-    cd node
     rm -rf temp_part2.txt
     rm -rf temp_part4.txt
 
@@ -65,13 +59,12 @@ gen_zone_clash_config(){
 
     part5="ICAgIHVybDogJ2h0dHA6Ly93d3cuZ3N0YXRpYy5jb20vZ2VuZXJhdGVfMjA0JwogICAgaW50ZXJ2YWw6IDI0MDAKICAgIHN0cmF0ZWd5OiByb3VuZC1yb2JpbgoKcnVsZXM6CiAgLSBET01BSU4tU1VGRklYLGdvb2dsZS5jb20sdGVzdAogIC0gRE9NQUlOLUtFWVdPUkQsZ29vZ2xlLHRlc3QKICAtIERPTUFJTixnb29nbGUuY29tLHRlc3QKICAtIEdFT0lQLENOLHRlc3QKICAtIE1BVENILHRlc3QKICAtIFNSQy1JUC1DSURSLDE5Mi4xNjguMS4yMDEvMzIsRElSRUNUCiAgLSBJUC1DSURSLDEyNy4wLjAuMC84LERJUkVDVAogIC0gRE9NQUlOLVNVRkZJWCxhZC5jb20sUkVKRUNUCg=="
 
-    echo "$part1" | base64 -d > ../config.yaml
-    echo "$part2" | base64 -d >> ../config.yaml
-    echo "$part3" | base64 -d >> ../config.yaml
-    echo "$part4" | base64 -d >> ../config.yaml
-    echo "$part5" | base64 -d >> ../config.yaml
+    echo "$part1" | base64 -d > config.yaml
+    echo "$part2" | base64 -d >> config.yaml
+    echo "$part3" | base64 -d >> config.yaml
+    echo "$part4" | base64 -d >> config.yaml
+    echo "$part5" | base64 -d >> config.yaml
 
-    cd ../
 
 }
 
@@ -88,18 +81,15 @@ upload_to_r2(){
 
 status_zone_ecs_ss_libev(){
 
-    cd node
     while read -r line
     do
-        echo "O9E3b1/OdxCrLkTmWyTL7w==    $line    $ss_port"
+        echo "$ss_pass    $line    $ss_port"
     done < temp_ip.txt
-    cd ../
 
     echo -e "clash file: $(pwd)/config.yaml"
 
 }
 
-# bash deploy.sh -start 3
 case "$1" in
     -init)
         init

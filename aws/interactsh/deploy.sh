@@ -1,33 +1,25 @@
 init(){
 
-    cd interactsh
     terraform init
-    cd ../
 
 }
 
 start_ecs(){
 
-    cd interactsh
     terraform apply -var="domain=$1" -auto-approve
     ecs_ip=$(terraform output -json ecs_ip | jq '.' -r)
-    cd ../
 
 }
 
 stop_ecs(){
 
-    cd interactsh
     terraform destroy -var="domain=$1" -auto-approve
-    cd ../
 
 }
 
 status_ecs(){
 
-    cd interactsh
     terraform output
-    cd ../
 
     echo "repo_link = https://github.com/projectdiscovery/interactsh"
 

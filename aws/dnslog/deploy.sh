@@ -1,39 +1,36 @@
-http_user="red123"
-http_pass="r1e2d3o4n5e6123"
+# Load ss_port/ss_pass from terraform.tfvars in the current directory
+load_tfvars(){
+    # shellcheck source=/dev/null
+    source "./terraform.tfvars"
+}
+
+load_tfvars
 
 init(){
 
-    cd dig.pm
     terraform init
-    cd ../
 
 }
 
 start_ecs(){
 
-    cd dig.pm
-    terraform apply -var="user=$http_user" -var="pass=$http_pass" -var="domain=$1" -auto-approve
+    terraform apply -var="domain=$1" -auto-approve
     ecs_ip=$(terraform output -json ecs_ip | jq '.' -r)
-    cd ../
 
 }
 
 stop_ecs(){
 
-    cd dig.pm
-    terraform destroy -var="user=$http_user" -var="pass=$http_pass" -var="domain=$1" -auto-approve
-    cd ../
+    terraform destroy -var="domain=$1" -auto-approve
 
 }
 
 status_ecs(){
 
-    cd dig.pm
     terraform output
-    cd ../
 
-    echo "http_user = $http_user"
-    echo "http_pass = $http_pass"
+    echo "user = $user"
+    echo "pass = $pass"
     echo "repo_link = https://github.com/yumusb/DNSLog-Platform-Golang"
 
 }

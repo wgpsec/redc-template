@@ -38,7 +38,7 @@ sudo /usr/local/qcloud/stargate/admin/uninstall.sh
 sudo /usr/local/qcloud/YunJing/uninst.sh
 sudo /usr/local/qcloud/monitor/barad/admin/uninstall.sh
 
-sudo wget -O linux_amd64_server.tar.gz 'https://这里替换成你自己的静态下载地址'
+sudo wget -O linux_amd64_server.tar.gz '${var.github_proxy}/ehang-io/nps/releases/download/v0.26.10/linux_amd64_server.tar.gz'
 sudo tar -zxvf linux_amd64_server.tar.gz
 sudo chmod +x nps
 sudo ./nps install

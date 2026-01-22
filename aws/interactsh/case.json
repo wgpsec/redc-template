@@ -1,6 +1,6 @@
 {
     "name":"interactsh",
     "user":"r0fus0d",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description":"AWS Interactsh 场景，ap-east-1 区域，t4g.nano 实例，部署 interactsh-server，需提供域名并配置 Cloudflare/launch template"
 }

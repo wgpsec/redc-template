@@ -1,8 +1,3 @@
-variable "domain" {
-  type        = string
-  description = "domain"
-}
-
 provider "aws" {
   region = "ap-east-1"
 }
@@ -35,7 +30,7 @@ sudo echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 sudo echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 sudo sysctl -p
 
-sudo wget -O interactsh-server_1.2.4_linux_arm64.zip 'https://这里替换成你自己的静态下载地址'
+sudo wget -O interactsh-server_1.2.4_linux_arm64.zip 'https://github.com/projectdiscovery/interactsh/releases/download/v1.2.4/interactsh-server_1.2.4_linux_arm64.zip'
 sudo unzip interactsh-server_1.2.4_linux_arm64.zip
 sudo chmod +x interactsh-server
 

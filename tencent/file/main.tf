@@ -43,8 +43,8 @@ sudo apt-get install -y tmux
 sudo apt-get -y install wget
 sudo apt-get -y install unzip
 sudo apt-get install -y screen
-sudo wget -O simplehttpserver_0.0.5_linux_amd64.tar.gz 'https://这里替换成你自己的静态下载地址'
-sudo tar -zxvf simplehttpserver_0.0.5_linux_amd64.tar.gz
+sudo wget -O simplehttpserver_0.0.6_linux_amd64.zip '${var.github_proxy}/projectdiscovery/simplehttpserver/releases/download/v0.0.6/simplehttpserver_0.0.6_linux_amd64.zip'
+sudo unzip simplehttpserver_0.0.6_linux_amd64.zip
 sudo mv --force simplehttpserver /usr/local/bin/simplehttpserver
 sudo chmod +x /usr/local/bin/simplehttpserver
 

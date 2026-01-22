@@ -31,7 +31,7 @@ sudo curl -o f8x https://f8x.ffffffff0x.com/ && mv --force f8x /usr/local/bin/f8
 sudo apt-get install -y python3-pip
 sudo pip3 install trzsz --break-system-packages
 
-sudo wget -O /tmp/docker-compose.yml 'https://这里替换成你自己的静态下载地址'
+sudo wget -O /tmp/docker-compose.yml 'https://github.com/No-Github/Archive/releases/download/1.0.8/docker-compose.yml'
 
 sudo tmux new-session -s docker -d
 sudo tmux send-keys -t docker:0 'touch /tmp/IS_CI;ulimit -n 65535;ulimit -u 65535;f8x -docker;cd /tmp;docker compose up -d' Enter
