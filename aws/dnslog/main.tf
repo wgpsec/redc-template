@@ -36,7 +36,7 @@ sudo chmod +x pdnslog
 
 sudo wget -O index.html 'https://github.com/No-Github/pdnslog/releases/download/v1.0.0/index.html'
 sudo wget -O static.zip 'https://github.com/No-Github/pdnslog/releases/download/v1.0.0/static.zip'
-sudo unzip -o static.zip -d static
+sudo unzip static.zip
 
 sudo touch config.toml
 sudo echo '[front]' >> config.toml
