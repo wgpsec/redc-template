@@ -1,7 +1,7 @@
 {
     "name":"proxy",
     "user":"r0fus0d",
-    "version": "1.0.4",
+    "version": "1.0.6",
     "description":"阿里云多节点代理场景，默认支持 10 台 spot ecs.n1.tiny 节点，shadowsocks-libev 搭建并可上传 clash 配置到 Cloudflare R2",
-    "redc_module":"gen_clash_config"
+    "redc_module":"gen_clash_config,upload_r2"
 }

@@ -1,4 +1,4 @@
-# Load ss_port/ss_pass from terraform.tfvars in the current directory
+# Load port/password from terraform.tfvars in the current directory
 load_tfvars(){
     # shellcheck source=/dev/null
     source "./terraform.tfvars"
@@ -41,9 +41,9 @@ gen_zone_clash_config(){
         echo "  - name: \"$line\"" >> temp_part2.txt
         echo '    type: ss' >> temp_part2.txt
         echo "    server: $line" >> temp_part2.txt
-        echo "    port: $ss_port" >> temp_part2.txt
+        echo "    port: $port" >> temp_part2.txt
         echo '    cipher: chacha20-ietf-poly1305' >> temp_part2.txt
-        echo "    password: \"$ss_pass\"" >> temp_part2.txt
+        echo "    password: \"$password\"" >> temp_part2.txt
         echo "" >> temp_part2.txt
     done < temp_ip.txt
 
@@ -83,7 +83,7 @@ status_zone_ecs_ss_libev(){
 
     while read -r line
     do
-        echo "$ss_pass    $line    $ss_port"
+        echo "$password    $line    $port"
     done < temp_ip.txt
 
     echo -e "clash file: $(pwd)/config.yaml"

@@ -12,3 +12,8 @@ variable "password" {
   type        = string
   description = "ss server password"
 }
+
+variable "filename" {
+  type        = string
+  description = "clash file name"
+}
