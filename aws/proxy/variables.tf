@@ -1,14 +1,14 @@
-variable "node_count" {
+variable "node" {
   type        = number
   description = "node count"
 }
 
-variable "ss_port" {
+variable "port" {
   type        = string
   description = "ss server port"
 }
 
-variable "ss_pass" {
+variable "password" {
   type        = string
   description = "ss server password"
 }

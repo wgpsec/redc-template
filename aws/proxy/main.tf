@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "pte_node" {
-    count                      = "${var.node_count}"
+    count                      = "${var.node}"
     launch_template {
         id = "这个改成你的 launch_template id 值"
     }
@@ -37,9 +37,9 @@ sudo sleep 2
 sudo apt-get install -y shadowsocks-libev
 sudo echo '{' > /etc/shadowsocks-libev/config.json
 sudo echo '    "server":["0.0.0.0"],' >> /etc/shadowsocks-libev/config.json
-sudo echo "    \"server_port\":${var.ss_port}," >> /etc/shadowsocks-libev/config.json
+sudo echo "    \"server_port\":${var.port}," >> /etc/shadowsocks-libev/config.json
 sudo echo '    "method":"chacha20-ietf-poly1305",' >> /etc/shadowsocks-libev/config.json
-sudo echo "    \"password\":\"${var.ss_pass}\"," >> /etc/shadowsocks-libev/config.json
+sudo echo "    \"password\":\"${var.password}\"," >> /etc/shadowsocks-libev/config.json
 sudo echo '    "mode":"tcp_and_udp",' >> /etc/shadowsocks-libev/config.json
 sudo echo '    "fast_open":false' >> /etc/shadowsocks-libev/config.json
 sudo echo '}' >> /etc/shadowsocks-libev/config.json

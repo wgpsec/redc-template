@@ -14,14 +14,14 @@ init(){
 
 start_zone_ecs_ss_libev(){
 
-    terraform apply -lock=false -var="node_count=$1" -auto-approve
+    terraform apply -lock=false -var="node=$1" -auto-approve
     terraform output -json ecs_ip | jq '.[]' -r > temp_ip.txt
 
 }
 
 stop_zone_ecs_ss_libev(){
 
-    terraform destroy -lock=false -var="node_count=$1" -auto-approve || { echo "destroy retry"; terraform init; terraform destroy -lock=false -var="node_count=$1" -auto-approve || exit 1; }
+    terraform destroy -lock=false -var="node=$1" -auto-approve || { echo "destroy retry"; terraform init; terraform destroy -lock=false -var="node=$1" -auto-approve || exit 1; }
 
 }
 

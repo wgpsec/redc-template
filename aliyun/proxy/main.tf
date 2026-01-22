@@ -9,7 +9,7 @@ resource "random_password" "password" {
 }
 
 resource "alicloud_instance" "instance" {
-  count                      = "${var.node_count}"
+  count                      = "${var.node}"
   security_groups            = alicloud_security_group.group.*.id
   instance_type              = "ecs.n1.tiny"
   image_id                   = "debian_11_7_x64_20G_alibase_20230907.vhd"
@@ -42,9 +42,9 @@ sudo sleep 2
 sudo apt-get install -y shadowsocks-libev
 sudo echo '{' > /etc/shadowsocks-libev/config.json
 sudo echo '    "server":["0.0.0.0"],' >> /etc/shadowsocks-libev/config.json
-sudo echo "    \"server_port\":${var.ss_port}," >> /etc/shadowsocks-libev/config.json
+sudo echo "    \"server_port\":${var.port}," >> /etc/shadowsocks-libev/config.json
 sudo echo '    "method":"chacha20-ietf-poly1305",' >> /etc/shadowsocks-libev/config.json
-sudo echo "    \"password\":\"${var.ss_pass}\"," >> /etc/shadowsocks-libev/config.json
+sudo echo "    \"password\":\"${var.password}\"," >> /etc/shadowsocks-libev/config.json
 sudo echo '    "mode":"tcp_and_udp",' >> /etc/shadowsocks-libev/config.json
 sudo echo '    "fast_open":false' >> /etc/shadowsocks-libev/config.json
 sudo echo '}' >> /etc/shadowsocks-libev/config.json

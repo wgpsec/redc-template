@@ -48,8 +48,8 @@ sudo echo "domains = [ \"${var.domain}\"]" >> config.toml
 sudo echo 'cname = "www.baidu.com"' >> config.toml
 sudo echo '[basicauth]' >> config.toml
 sudo echo 'check = true' >> config.toml
-sudo echo "username = \"${var.user}\"" >> config.toml
-sudo echo "password = \"${var.pass}\"" >> config.toml
+sudo echo "username = \"${var.username}\"" >> config.toml
+sudo echo "password = \"${var.password}\"" >> config.toml
 
 sudo apt-get install -y python3-pip
 sudo pip3 install trzsz --break-system-packages

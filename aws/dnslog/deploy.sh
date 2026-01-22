@@ -29,8 +29,8 @@ status_ecs(){
 
     terraform output
 
-    echo "user = $user"
-    echo "pass = $pass"
+    echo "username = $username"
+    echo "password = $password"
     echo "repo_link = https://github.com/yumusb/DNSLog-Platform-Golang"
 
 }

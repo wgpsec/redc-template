@@ -1,9 +1,9 @@
-variable "user" {
+variable "username" {
   type        = string
   description = "username"
 }
 
-variable "pass" {
+variable "password" {
   type        = string
   description = "password"
 }
