@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-21T09:53:02.658684Z",
+  "updated_at": "2026-01-22T05:46:33.660696Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/aliyun-proxy": {
@@ -21,9 +21,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_aliyun-proxy_v1.0.0.zip",
           "sha256": "aa0e9745b9300414f0a7fd541fe0ad7d801f53ea6548104f2537067680743ce2",
           "updated_at": "2026-01-21T09:29:25.244884Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_aliyun-proxy_v1.0.1.zip",
+          "sha256": "36422871940d45abb6161cbf385cefe8f38c23d70830a415ffcaabff850a9e0b",
+          "updated_at": "2026-01-22T05:46:33.647442Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "aliyun-proxy",
         "author": "r0fus0d",
@@ -45,9 +50,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_ecs_v1.0.0.zip",
           "sha256": "68d3961dfc10b3f0643c20a502ccb766c77ffc3fcdff0a33a1e064104f223387",
           "updated_at": "2026-01-21T09:29:25.245827Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_ecs_v1.0.1.zip",
+          "sha256": "e19731d4413de356ae2d966f7b1d373100b52851e455f64b19c985510a429d26",
+          "updated_at": "2026-01-22T05:46:33.648588Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "ecs",
         "author": "r0fus0d",
@@ -74,9 +84,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_ecs1c2g_v1.0.0.zip",
           "sha256": "fa24d75cdf66e716292f1af0e2d1da61a33162ed3b3411a19e6188358dc9420e",
           "updated_at": "2026-01-21T09:29:25.246646Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_ecs1c2g_v1.0.1.zip",
+          "sha256": "b03f1e9e90eb2f59a14bf3a6d88c0ac80b4dce19e00bbef9c13c00a8dc991743",
+          "updated_at": "2026-01-22T05:46:33.649434Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "ecs1c2g",
         "author": "r0fus0d",
@@ -103,9 +118,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_file_v1.0.0.zip",
           "sha256": "d2eb07eba9aa42314bce4a386b053024a9aef008f06946aa7a224b22cd144658",
           "updated_at": "2026-01-21T09:29:25.247600Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_file_v1.0.1.zip",
+          "sha256": "927aec44d221ab49261ae431f1438854fbf71d66cb3e734d370655eb53afe3ec",
+          "updated_at": "2026-01-22T05:46:33.650355Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "file",
         "author": "r0fus0d",
@@ -132,9 +152,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_jndi_v1.0.0.zip",
           "sha256": "7305c477b36ea11a6cea62b394f869092067f741c2a7adb0710756015295258f",
           "updated_at": "2026-01-21T09:29:25.248607Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_jndi_v1.0.1.zip",
+          "sha256": "7624441a00fdd68c44af76ca41c709d399a8ca5c7c15d258630a66b045f3268a",
+          "updated_at": "2026-01-22T05:46:33.651329Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "jndi",
         "author": "r0fus0d",
@@ -185,14 +210,19 @@
           "url": "https://redc.wgpsec.org/templates/aws_aws-proxy_v0.0.1.zip",
           "sha256": "13e0efc1245e92715ffbccb36666fe5259233e1575cb60b50832cd188f4e2107",
           "updated_at": "2026-01-20T15:28:34.143609Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aws_aws-proxy_v1.0.0.zip",
+          "sha256": "5388fddec887949a80091df27ef833fbbbe65c1412c6f2b275a24d26f5ed73a1",
+          "updated_at": "2026-01-22T05:46:33.652450Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "aws-proxy",
         "author": "r0fus0d",
         "description": "AWS 多节点代理场景，ap-east-1 区域，默认 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash 配置，需自备 launch template",
-        "readme": "# 注意事项\n\n**r2 配置**\n\ndeploy.sh 中的 upload_to_r2 函数负责将 clash 配置传至 r2\n\n请自行安装 rclone 并设置 rclone 与 r2 的配置\n- https://github.com/rclone/rclone/releases\n- https://dash.cloudflare.com/ 的 r2\n\n![](../../img/redc-1.png)\n\n```\nrclone config\ns3\nCloudflare R2 Storage\nxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nhttps://xxxxxxxxxxxxxxxxxx.r2.cloudflarestorage.com\nauto\n\nrclone lsf r2:test\n```\n\n**请自行替换 deploy.sh 中 upload_to_r2 函数的配置下载地址**\n\n对应\n```\necho \"url : https://这里改成你的 r2 地址/proxyfile/aws-config.yaml\"\n```\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n**spot实例**\n\n需要在launch_template时配置\n\n![](../../img/redc-5.png)\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n5. rclone配置不正确\n6. r2 存储桶名称和配置不一致\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aws/aws-proxy\n```\n\n开启\n```\n# 默认 10 台\nredc run aws/aws-proxy\n\n# 自定义节点数量,比如开 50 个节点\nredc run aws/aws-proxy -node 50\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n4. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件\n"
+        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/aws-proxy\n```\n\n开启\n```\n# 默认 10 台\nredc run aws/aws-proxy\n\n# 自定义节点数量,比如开 50 个节点\nredc run aws/aws-proxy -node 50\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n3. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件\n\n# 注意事项\n\n**r2 配置**\n\ndeploy.sh 中的 upload_to_r2 函数负责将 clash 配置传至 r2\n\n请自行安装 rclone 并设置 rclone 与 r2 的配置\n- https://github.com/rclone/rclone/releases\n- https://dash.cloudflare.com/ 的 r2\n\n![](../../img/redc-1.png)\n\n```\nrclone config\ns3\nCloudflare R2 Storage\nxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nhttps://xxxxxxxxxxxxxxxxxx.r2.cloudflarestorage.com\nauto\n\nrclone lsf r2:test\n```\n\n**请自行替换 deploy.sh 中 upload_to_r2 函数的配置下载地址**\n\n对应\n```\necho \"url : https://这里改成你的 r2 地址/proxyfile/aws-config.yaml\"\n```\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n**spot实例**\n\n需要自行在创建 launch_template 时配置\n\n![](../../img/redc-5.png)\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n5. rclone配置不正确\n6. r2 存储桶名称和配置不一致\n"
       }
     },
     "aws/dnslog": {
@@ -209,14 +239,19 @@
           "url": "https://redc.wgpsec.org/templates/aws_dnslog_v0.0.1.zip",
           "sha256": "3208b8cebaa84e1112487f50080678630acebb72acbfe08415673ac02601728c",
           "updated_at": "2026-01-20T15:28:34.144567Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aws_dnslog_v1.0.0.zip",
+          "sha256": "e848f03656d9d6402e748e8226626b389e2726c604325c193dd627da0756eb35",
+          "updated_at": "2026-01-22T05:46:33.653457Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "dnslog",
         "author": "r0fus0d",
         "description": "AWS DNSLog 场景，ap-east-1 区域，t4g.nano 实例，内置 pdnslog 与前端静态资源，需配置 Cloudflare/launch template",
-        "readme": "# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n**cf 配置**\n\n申请 API 令牌\n\n配置类似如下 (ip 先随便填一个)(域名加个 ns1)\n```\n# A ns1 1.2.34\n# NS a ns1.dnslog.com\n```\n\n**deploy.sh 配置**\n\nCFAddRecords 传参中的 cf 的 邮箱 和 accesskey\n```\nCFAddRecords \"你的 cf 邮箱\" \"你的 cf accesskey\" $2 \"ns1.$2\" \"$ecs_ip\"\n```\n\n**dig.pm 配置**\n- https://github.com/yumusb/DNSLog-Platform-Golang\n\n可以用我编译好的版本 (没啥区别,也可以自己编译原版)\n- https://github.com/No-Github/pdnslog/releases/tag/v1.0.0\n\n自行替换 main.tf 中几处静态文件下载地址\n```\nsudo wget -O pdnslog 'https://这里替换成你自己的静态下载地址'\nsudo wget -O index.html 'https://这里替换成你自己的静态下载地址'\nsudo wget -O main.js 'https://这里替换成你自己的静态下载地址'\nsudo wget -O dashboard.css 'https://这里替换成你自己的静态下载地址'\nsudo wget -O bootstrap.min.css 'https://这里替换成你自己的静态下载地址'\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n5. cf 的 dns 配置不对\n6. cf 的 key 权限不够\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aws/dnslog\n```\n\n开启\n```\nredc run aws/dnslog -domain dnslog.com\n\n# domain 是你的 dnslog 域名\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n4. 如果未配置 cf api 该场景创建完毕后需要手动修改 cname\n"
+        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/dnslog\n```\n\n开启\n```\nredc run aws/dnslog -domain dnslog.com\n\n# domain 是你的 dnslog 域名\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n3. 如果未配置 cf api 该场景创建完毕后需要手动修改 cname\n\n# 静态资源\n\n可自行替换模板中的静态资源下载链接\n\n**dig.pm 配置**\n- https://github.com/yumusb/DNSLog-Platform-Golang\n\n可以用我编译好的版本 (没啥区别,也可以自己编译原版)\n- https://github.com/No-Github/pdnslog/releases/tag/v1.0.0\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n**cf 配置**\n\n申请 API 令牌\n\n配置类似如下 (ip 先随便填一个)(域名加个 ns1)\n```\n# A ns1 1.2.34\n# NS a ns1.dnslog.com\n```\n\n**deploy.sh 配置**\n\nCFAddRecords 传参中的 cf 的 邮箱 和 accesskey\n```\nCFAddRecords \"你的 cf 邮箱\" \"你的 cf accesskey\" $2 \"ns1.$2\" \"$ecs_ip\"\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n5. cf 的 dns 配置不对\n6. cf 的 key 权限不够\n"
       }
     },
     "aws/docker": {
@@ -233,14 +268,19 @@
           "url": "https://redc.wgpsec.org/templates/aws_docker_v0.0.1.zip",
           "sha256": "83087193d1ff4f3d7be49fee62df30ca090749c75781399934f5d1df455f397a",
           "updated_at": "2026-01-20T15:28:34.145319Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aws_docker_v1.0.0.zip",
+          "sha256": "f12eef3c1ed2eddebb43a356f8e54619263c3f1ef9ae534953d4a5982348d831",
+          "updated_at": "2026-01-22T05:46:33.654211Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "docker",
         "author": "r0fus0d",
         "description": "AWS Docker 基础场景，ap-east-1 区域，t3.medium 实例，预装 f8x 自动安装 Docker，tmux 后台拉起环境",
-        "readme": "# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\ntmux 中可看安装进度\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aws/docker\n```\n\n开启\n```\nredc run aws/docker\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/docker\n```\n\n开启\n```\nredc run aws/docker\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\ntmux 中可看安装进度\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n"
       }
     },
     "aws/ec2": {
@@ -264,7 +304,7 @@
         "name": "ec2",
         "author": "r0fus0d",
         "description": "AWS 通用 ECS 场景，ap-east-1 区域，t4g.small 实例，预装基础运维工具并屏蔽 169.254.169.254 元数据访问",
-        "readme": "# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aws/ec2\n```\n\n开启\n```\nredc run aws/ec2\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/ec2\n```\n\n开启\n```\nredc run aws/ec2\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n"
       }
     },
     "aws/ec2-1G": {
@@ -281,14 +321,19 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2-1G_v0.0.1.zip",
           "sha256": "66fba381d8fd0440c53f24ee0282d9b79a60ad86d9fabcd566f1ed0396a1154b",
           "updated_at": "2026-01-20T15:28:34.146793Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-1G_v1.0.0.zip",
+          "sha256": "c9adf469f8a6bd49752f5cdd1689b2d99b236dcd9dfcb21bfde4a26ec8db08ce",
+          "updated_at": "2026-01-22T05:46:33.655021Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "ec2-1G",
         "author": "r0fus0d",
         "description": "AWS 轻量 ECS 场景，ap-east-1 区域，t4g.micro 实例，预装基础运维工具并屏蔽元数据访问",
-        "readme": "# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aws/ec2-1G\n```\n\n开启\n```\nredc run aws/ec2-1G\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/ec2-1G\n```\n\n开启\n```\nredc run aws/ec2-1G\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n"
       }
     },
     "aws/ec2-4G": {
@@ -305,14 +350,19 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2-4G_v0.0.1.zip",
           "sha256": "4d9c3d9ed721c76fad43dc478efe0775f9329d775679f1d320207d414ba86924",
           "updated_at": "2026-01-20T15:28:34.147530Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-4G_v1.0.0.zip",
+          "sha256": "a4012a63ba3c099274742b36f275d722ee6b73e842268f44b834f418f4362e42",
+          "updated_at": "2026-01-22T05:46:33.655729Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "ec2-4G",
         "author": "r0fus0d",
         "description": "AWS 增强 ECS 场景，ap-east-1 区域，t3.medium 实例，预装基础运维工具并屏蔽元数据访问",
-        "readme": "# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aws/ec2-4G\n```\n\n开启\n```\nredc run aws/ec2-4G\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/ec2-4G\n```\n\n开启\n```\nredc run aws/ec2-4G\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n"
       }
     },
     "aws/interactsh": {
@@ -329,14 +379,19 @@
           "url": "https://redc.wgpsec.org/templates/aws_interactsh_v0.0.1.zip",
           "sha256": "d4e5551e40ac2aba7fe051039cba9f8ab723a0069b7fe9f3ef113b8fa3e6daf7",
           "updated_at": "2026-01-20T15:28:34.148464Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aws_interactsh_v1.0.0.zip",
+          "sha256": "ad7b31c215b11cbb27f357a02796b770fb6c4993a79be73edb47ebc86a1c516a",
+          "updated_at": "2026-01-22T05:46:33.656588Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "interactsh",
         "author": "r0fus0d",
         "description": "AWS Interactsh 场景，ap-east-1 区域，t4g.nano 实例，部署 interactsh-server，需提供域名并配置 Cloudflare/launch template",
-        "readme": "# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n**cf 配置**\n\n申请 API 令牌\n\n配置类似如下 (ip 先随便填一个)(域名加个 ns1)\n```\n# A ns1 1.2.34\n# NS a ns1.dnslog.com\n```\n\n**deploy.sh 配置**\n\nCFAddRecords 传参中的 cf 的 邮箱 和 accesskey\n```\nCFAddRecords \"你的 cf 邮箱\" \"你的 cf accesskey\" $2 \"ns1.$2\" \"$ecs_ip\"\n```\n\n**请自行替换 main.tf 中 interactsh-server_1.2.4_linux_arm64.zip 的压缩包下载地址**\n- https://github.com/projectdiscovery/interactsh/releases\n\n对应\n```\nsudo wget -O interactsh-server_1.2.4_linux_arm64.zip 'https://这里替换成你自己的静态下载地址'\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n5. cf 的 dns 配置不对\n6. cf 的 key 权限不够\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aws/interactsh\n```\n\n开启\n```\nredc run aws/interactsh -domain dnslog.com\n\n# domain 是你的 dnslog 域名\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n4. 如果未配置 cf api 该场景创建完毕后需要手动修改 cname\n"
+        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/interactsh\n```\n\n开启\n```\nredc run aws/interactsh -domain dnslog.com\n\n# domain 是你的 dnslog 域名\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n3. 如果未配置 cf api 该场景创建完毕后需要手动修改 cname\n\n# 静态资源\n\n可自行替换模板中的静态资源下载链接\n\n**请自行替换 main.tf 中 interactsh-server 的压缩包下载地址**\n- https://github.com/projectdiscovery/interactsh/releases\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n**cf 配置**\n\n申请 API 令牌\n\n配置类似如下 (ip 先随便填一个)(域名加个 ns1)\n```\n# A ns1 1.2.34\n# NS a ns1.dnslog.com\n```\n\n**deploy.sh 配置**\n\nCFAddRecords 传参中的 cf 的 邮箱 和 accesskey\n```\nCFAddRecords \"你的 cf 邮箱\" \"你的 cf accesskey\" $2 \"ns1.$2\" \"$ecs_ip\"\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n5. cf 的 dns 配置不对\n6. cf 的 key 权限不够\n"
       }
     },
     "aws/md": {
@@ -353,14 +408,19 @@
           "url": "https://redc.wgpsec.org/templates/aws_md_v0.0.1.zip",
           "sha256": "bcbe9bda4df85e6516289743388569b16cba70399d16d2dcb65b5743487047ce",
           "updated_at": "2026-01-20T15:28:34.149385Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aws_md_v1.0.0.zip",
+          "sha256": "31a97ac751deb8311feeeddf294b31ea21b1cfe133fd9999571685cf9eb2d123",
+          "updated_at": "2026-01-22T05:46:33.657519Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "md",
         "author": "r0fus0d",
         "description": "AWS HackMD/Docker 场景，ap-east-1 区域，t3.medium 实例，f8x 安装 Docker 并通过自定义 docker-compose.yml 启动",
-        "readme": "# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n**docker-compose.yml 配置**\n```\nsudo wget -O /tmp/docker-compose.yml 'https://这里替换成你自己的静态下载地址'\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n5. f8x 自动安装 docker 失败\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull aws/md\n```\n\n开启\n```\nredc run aws/md\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/md\n```\n\n开启\n```\nredc run aws/md\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n可自行替换模板中的静态资源下载链接\n\n**docker-compose.yml 配置**\n- https://github.com/No-Github/Archive/releases/download/1.0.8/docker-compose.yml\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n5. f8x 自动安装 docker 失败\n"
       }
     },
     "tencent/file": {
@@ -377,14 +437,19 @@
           "url": "https://redc.wgpsec.org/templates/tencent_file_v0.0.1.zip",
           "sha256": "da9e2b52ed2c6e8796de9a39ce617c1c5f503037266a758eab5725b87a759ff3",
           "updated_at": "2026-01-20T15:28:34.150362Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/tencent_file_v1.0.0.zip",
+          "sha256": "918202d89b83b080375ede6674763192a134791396967523514345085ed11720",
+          "updated_at": "2026-01-22T05:46:33.658495Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "file",
         "author": "r0fus0d",
         "description": "腾讯云文件服务场景，ap-beijing 区域，S6 2C4G 实例，预装 simplehttpserver 工具",
-        "readme": "# 注意事项\n\n请自行替换模板中的静态资源下载链接\n\n**替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n**请自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n对应\n```\nsudo wget -O simplehttpserver_0.0.5_linux_amd64.tar.gz 'https://这里替换成你自己的静态下载地址'\n```\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull tencent/file\n```\n\n开启\n```\nredc run tencent/file\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull tencent/file\n```\n\n开启\n```\nredc run tencent/file\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n**替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**可自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n"
       }
     },
     "tencent/jndi": {
@@ -401,14 +466,19 @@
           "url": "https://redc.wgpsec.org/templates/tencent_jndi_v0.0.1.zip",
           "sha256": "ea9d0a9f074eaeb490279917e18c14fad1570d92dd4628acdf675e55086dd015",
           "updated_at": "2026-01-20T15:28:34.151329Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/tencent_jndi_v1.0.0.zip",
+          "sha256": "4975e928346907248487336f034391028b6ab00febf85bf575a9c0cc5de0875a",
+          "updated_at": "2026-01-22T05:46:33.659427Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "jndi",
         "author": "r0fus0d",
         "description": "腾讯云 JNDI 演练场景，ap-beijing 区域，S6 2C4G 实例，预置 JDK8、JNDIExploit、java-chains、simplehttpserver 等组件",
-        "readme": "# 注意事项\n\n请自行替换模板中的静态资源下载链接\n\n**替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n\n**请自行替换 main.tf 中 jdk-8u321-linux-x64.tar.gz 的压缩包下载地址**\n- https://github.com/No-Github/Archive/releases/tag/1.0.5\n\n对应\n```\nsudo wget -O jdk-8u321-linux-x64.tar.gz 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 JNDIExploit_feihong.zip 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n对应\n```\nsudo wget -O JNDIExploit_feihong.zip 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 JNDIExploit_0x727.zip 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n对应\n```\nsudo wget -O JNDIExploit_0x727.zip 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 java-chains 的压缩包下载地址**\n- https://github.com/vulhub/java-chains/releases\n\n对应\n```\nsudo wget -O java-chains-1.4.1.7z.7z 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar 的压缩包下载地址**\n- https://github.com/welk1n/JNDI-Injection-Exploit/releases\n\n对应\n```\nsudo wget -O /root/JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 MemShellParty 的压缩包下载地址**\n- https://github.com/ReaJason/MemShellParty/releases\n\n对应\n```\nsudo wget -O /root/boot-2.1.0.jar 'https://这里替换成你自己的静态下载地址'\n```\n\n**请自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n对应\n```\nsudo wget -O simplehttpserver_0.0.5_linux_amd64.tar.gz 'https://这里替换成你自己的静态下载地址'\n```\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n4. jdk未正常安装\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull tencent/jndi\n```\n\n开启\n```\nredc run tencent/jndi\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull tencent/jndi\n```\n\n开启\n```\nredc run tencent/jndi\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n**替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**可自行替换 main.tf 中 jdk-8u321-linux-x64 的压缩包下载地址**\n- https://github.com/No-Github/Archive/releases/tag/1.0.5\n\n**可自行替换 main.tf 中 JNDIExploit_feihong 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n**可自行替换 main.tf 中 JNDIExploit_0x727 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n**可自行替换 main.tf 中 java-chains 的压缩包下载地址**\n- https://github.com/vulhub/java-chains/releases\n\n**可自行替换 main.tf 中 JNDI-Injection-Exploit 的压缩包下载地址**\n- https://github.com/welk1n/JNDI-Injection-Exploit/releases\n\n**可自行替换 main.tf 中 MemShellParty 的压缩包下载地址**\n- https://github.com/ReaJason/MemShellParty/releases\n\n**可自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n4. jdk未正常安装\n"
       }
     },
     "tencent/nps": {
@@ -425,14 +495,19 @@
           "url": "https://redc.wgpsec.org/templates/tencent_nps_v0.0.1.zip",
           "sha256": "cfcb98c4d7eb663a03d9a43716e050ceae25e8439c53fea0e4d1dd5f2316b1ff",
           "updated_at": "2026-01-20T15:28:34.152540Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.0.0.zip",
+          "sha256": "4ee8f3838bf9c19aeaf7ec2ddde4582fc2dc272af7bbf2131b44af5e3b30b2ac",
+          "updated_at": "2026-01-22T05:46:33.660572Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "nps",
         "author": "r0fus0d",
         "description": "腾讯云 NPS 内网穿透场景，ap-beijing 区域，S6 2C2G 实例，预置 nps server，支持 base64 注入自定义配置",
-        "readme": "# 注意事项\n\n请自行替换模板中的静态资源下载链接\n\n**替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n**请自行替换 main.tf 中 linux_amd64_server.tar.gz 的压缩包下载地址**\n- https://github.com/ehang-io/nps/releases\n\n对应\n```\nsudo wget -O linux_amd64_server.tar.gz 'https://这里替换成你自己的静态下载地址'\n```\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n4. jdk未正常安装\n\n# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 将该场景文件夹复制到 redc/utils/redc-templates/ 路径下\n3. 使用时命令如下\n\n拉取\n```\nredc pull tencent/nps\n```\n\n开启\n```\nredc run tencent/nps\n\n# 如果要在启动时加载自定义nps.conf配置,需要base64后传入\nredc run tencent/nps -base64command \"YXBwbmFtZSA9IG5wcwojQm9vdCBtb2RlKGRldnxwcm8pCnJ1bm1vZGUgPSBkZXYKCiNIVFRQKFMpIHByb3h5IHBvcnQsIG5vIHN0YXJ0dXAgaWYgZW1wdHkKaHR0cF9wcm94eV9pcD0wLjAuMC4wCmh0dHBfcHJveHlfcG9ydD04MApodHRwc19wcm94eV9wb3J0PTQ0MwpodHRwc19qdXN0X3Byb3h5PXRydWUKI2RlZmF1bHQgaHR0cHMgY2VydGlmaWNhdGUgc2V0dGluZwpodHRwc19kZWZhdWx0X2NlcnRfZmlsZT1jb25mL3NlcnZlci5wZW0KaHR0cHNfZGVmYXVsdF9rZXlfZmlsZT1jb25mL3NlcnZlci5rZXkKCiMjYnJpZGdlCmJyaWRnZV90eXBlPXRjcApicmlkZ2VfcG9ydD04MDI0CmJyaWRnZV9pcD0wLjAuMC4wCgojIFB1YmxpYyBwYXNzd29yZCwgd2hpY2ggY2xpZW50cyBjYW4gdXNlIHRvIGNvbm5lY3QgdG8gdGhlIHNlcnZlcgojIEFmdGVyIHRoZSBjb25uZWN0aW9uLCB0aGUgc2VydmVyIHdpbGwgYmUgYWJsZSB0byBvcGVuIHJlbGV2YW50IHBvcnRzIGFuZCBwYXJzZSByZWxhdGVkIGRvbWFpbiBuYW1lcyBhY2NvcmRpbmcgdG8gaXRzIG93biBjb25maWd1cmF0aW9uIGZpbGUuCnB1YmxpY192a2V5PTEyMwoKI1RyYWZmaWMgZGF0YSBwZXJzaXN0ZW5jZSBpbnRlcnZhbChtaW51dGUpCiNJZ25vcmFuY2UgbWVhbnMgbm8gcGVyc2lzdGVuY2UKI2Zsb3dfc3RvcmVfaW50ZXJ2YWw9MQoKIyBsb2cgbGV2ZWwgTGV2ZWxFbWVyZ2VuY3ktPjAgIExldmVsQWxlcnQtPjEgTGV2ZWxDcml0aWNhbC0+MiBMZXZlbEVycm9yLT4zIExldmVsV2FybmluZy0+NCBMZXZlbE5vdGljZS0+NSBMZXZlbEluZm9ybWF0aW9uYWwtPjYgTGV2ZWxEZWJ1Zy0+Nwpsb2dfbGV2ZWw9NwojbG9nX3BhdGg9bnBzLmxvZwoKI1doZXRoZXIgdG8gcmVzdHJpY3QgSVAgYWNjZXNzLCB0cnVlIG9yIGZhbHNlIG9yIGlnbm9yZQojaXBfbGltaXQ9dHJ1ZQoKI3AycAojcDJwX2lwPTEyNy4wLjAuMQojcDJwX3BvcnQ9NjAwMAoKI3dlYgp3ZWJfaG9zdD1hLm8uY29tCndlYl91c2VybmFtZT1yZWRvbmUKd2ViX3Bhc3N3b3JkPTEhMkEzZDR2NXM2ZQp3ZWJfcG9ydCA9IDgwODAKd2ViX2lwPTAuMC4wLjAKd2ViX2Jhc2VfdXJsPQp3ZWJfb3Blbl9zc2w9ZmFsc2UKd2ViX2NlcnRfZmlsZT1jb25mL3NlcnZlci5wZW0Kd2ViX2tleV9maWxlPWNvbmYvc2VydmVyLmtleQojIGlmIHdlYiB1bmRlciBwcm94eSB1c2Ugc3ViIHBhdGguIGxpa2UgaHR0cDovL2hvc3QvbnBzIG5lZWQgdGhpcy4KI3dlYl9iYXNlX3VybD0vbnBzCgojV2ViIEFQSSB1bmF1dGhlbnRpY2F0ZWQgSVAgYWRkcmVzcyh0aGUgbGVuIG9mIGF1dGhfY3J5cHRfa2V5IG11c3QgYmUgMTYpCiNSZW1vdmUgY29tbWVudHMgaWYgbmVlZGVkCmF1dGhfa2V5PXJlZHJlZHJlZAphdXRoX2NyeXB0X2tleSA9MTIzNDU2NzgxMjM0NTY3OQoKI2FsbG93X3BvcnRzPTkwMDEtOTAwOSwxMDAwMSwxMTAwMC0xMjAwMAoKI1dlYiBtYW5hZ2VtZW50IG11bHRpLXVzZXIgbG9naW4KYWxsb3dfdXNlcl9sb2dpbj1mYWxzZQphbGxvd191c2VyX3JlZ2lzdGVyPWZhbHNlCmFsbG93X3VzZXJfY2hhbmdlX3VzZXJuYW1lPWZhbHNlCgoKI2V4dGVuc2lvbgphbGxvd19mbG93X2xpbWl0PWZhbHNlCmFsbG93X3JhdGVfbGltaXQ9ZmFsc2UKYWxsb3dfdHVubmVsX251bV9saW1pdD1mYWxzZQphbGxvd19sb2NhbF9wcm94eT1mYWxzZQphbGxvd19jb25uZWN0aW9uX251bV9saW1pdD1mYWxzZQphbGxvd19tdWx0aV9pcD1mYWxzZQpzeXN0ZW1faW5mb19kaXNwbGF5PWZhbHNlCgojY2FjaGUKaHR0cF9jYWNoZT1mYWxzZQpodHRwX2NhY2hlX2xlbmd0aD0xMDAKCiNnZXQgb3JpZ2luIGlwCmh0dHBfYWRkX29yaWdpbl9oZWFkZXI9ZmFsc2UKCiNwcHJvZiBkZWJ1ZyBvcHRpb25zCiNwcHJvZl9pcD0wLjAuMC4wCiNwcHJvZl9wb3J0PTk5OTkKCiNjbGllbnQgZGlzY29ubmVjdCB0aW1lb3V0CmRpc2Nvbm5lY3RfdGltZW91dD02MA==\"\n```\n\n默认的配置\n```\nappname = nps\n#Boot mode(dev|pro)\nrunmode = dev\n\n#HTTP(S) proxy port, no startup if empty\nhttp_proxy_ip=0.0.0.0\nhttp_proxy_port=80\nhttps_proxy_port=443\nhttps_just_proxy=true\n#default https certificate setting\nhttps_default_cert_file=conf/server.pem\nhttps_default_key_file=conf/server.key\n\n##bridge\nbridge_type=tcp\nbridge_port=8001\nbridge_ip=0.0.0.0\n\n# Public password, which clients can use to connect to the server\n# After the connection, the server will be able to open relevant ports and parse related domain names according to its own configuration file.\npublic_vkey=123\n\n#Traffic data persistence interval(minute)\n#Ignorance means no persistence\n#flow_store_interval=1\n\n# log level LevelEmergency->0  LevelAlert->1 LevelCritical->2 LevelError->3 LevelWarning->4 LevelNotice->5 LevelInformational->6 LevelDebug->7\nlog_level=7\n#log_path=nps.log\n\n#Whether to restrict IP access, true or false or ignore\n#ip_limit=true\n\n#p2p\n#p2p_ip=127.0.0.1\n#p2p_port=6000\n\n#web\nweb_host=a.o.com\nweb_username=redone\nweb_password=1!2A3d4v5s6e\nweb_port = 8080\nweb_ip=0.0.0.0\nweb_base_url=\nweb_open_ssl=false\nweb_cert_file=conf/server.pem\nweb_key_file=conf/server.key\n# if web under proxy use sub path. like http://host/nps need this.\n#web_base_url=/nps\n\n#Web API unauthenticated IP address(the len of auth_crypt_key must be 16)\n#Remove comments if needed\nauth_key=redredred\nauth_crypt_key =1234567812345679\n\n#allow_ports=9001-9009,10001,11000-12000\n\n#Web management multi-user login\nallow_user_login=false\nallow_user_register=false\nallow_user_change_username=false\n\n\n#extension\nallow_flow_limit=false\nallow_rate_limit=false\nallow_tunnel_num_limit=false\nallow_local_proxy=false\nallow_connection_num_limit=false\nallow_multi_ip=false\nsystem_info_display=false\n\n#cache\nhttp_cache=false\nhttp_cache_length=100\n\n#get origin ip\nhttp_add_origin_header=false\n\n#pprof debug options\n#pprof_ip=0.0.0.0\n#pprof_port=9999\n\n#client disconnect timeout\ndisconnect_timeout=60\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull tencent/nps\n```\n\n开启\n```\nredc run tencent/nps\n\n# 如果要在启动时加载自定义nps.conf配置,需要base64后传入\nredc run tencent/nps -base64command \"YXBwbmFtZSA9IG5wcwojQm9vdCBtb2RlKGRldnxwcm8pCnJ1bm1vZGUgPSBkZXYKCiNIVFRQKFMpIHByb3h5IHBvcnQsIG5vIHN0YXJ0dXAgaWYgZW1wdHkKaHR0cF9wcm94eV9pcD0wLjAuMC4wCmh0dHBfcHJveHlfcG9ydD04MApodHRwc19wcm94eV9wb3J0PTQ0MwpodHRwc19qdXN0X3Byb3h5PXRydWUKI2RlZmF1bHQgaHR0cHMgY2VydGlmaWNhdGUgc2V0dGluZwpodHRwc19kZWZhdWx0X2NlcnRfZmlsZT1jb25mL3NlcnZlci5wZW0KaHR0cHNfZGVmYXVsdF9rZXlfZmlsZT1jb25mL3NlcnZlci5rZXkKCiMjYnJpZGdlCmJyaWRnZV90eXBlPXRjcApicmlkZ2VfcG9ydD04MDI0CmJyaWRnZV9pcD0wLjAuMC4wCgojIFB1YmxpYyBwYXNzd29yZCwgd2hpY2ggY2xpZW50cyBjYW4gdXNlIHRvIGNvbm5lY3QgdG8gdGhlIHNlcnZlcgojIEFmdGVyIHRoZSBjb25uZWN0aW9uLCB0aGUgc2VydmVyIHdpbGwgYmUgYWJsZSB0byBvcGVuIHJlbGV2YW50IHBvcnRzIGFuZCBwYXJzZSByZWxhdGVkIGRvbWFpbiBuYW1lcyBhY2NvcmRpbmcgdG8gaXRzIG93biBjb25maWd1cmF0aW9uIGZpbGUuCnB1YmxpY192a2V5PTEyMwoKI1RyYWZmaWMgZGF0YSBwZXJzaXN0ZW5jZSBpbnRlcnZhbChtaW51dGUpCiNJZ25vcmFuY2UgbWVhbnMgbm8gcGVyc2lzdGVuY2UKI2Zsb3dfc3RvcmVfaW50ZXJ2YWw9MQoKIyBsb2cgbGV2ZWwgTGV2ZWxFbWVyZ2VuY3ktPjAgIExldmVsQWxlcnQtPjEgTGV2ZWxDcml0aWNhbC0+MiBMZXZlbEVycm9yLT4zIExldmVsV2FybmluZy0+NCBMZXZlbE5vdGljZS0+NSBMZXZlbEluZm9ybWF0aW9uYWwtPjYgTGV2ZWxEZWJ1Zy0+Nwpsb2dfbGV2ZWw9NwojbG9nX3BhdGg9bnBzLmxvZwoKI1doZXRoZXIgdG8gcmVzdHJpY3QgSVAgYWNjZXNzLCB0cnVlIG9yIGZhbHNlIG9yIGlnbm9yZQojaXBfbGltaXQ9dHJ1ZQoKI3AycAojcDJwX2lwPTEyNy4wLjAuMQojcDJwX3BvcnQ9NjAwMAoKI3dlYgp3ZWJfaG9zdD1hLm8uY29tCndlYl91c2VybmFtZT1yZWRvbmUKd2ViX3Bhc3N3b3JkPTEhMkEzZDR2NXM2ZQp3ZWJfcG9ydCA9IDgwODAKd2ViX2lwPTAuMC4wLjAKd2ViX2Jhc2VfdXJsPQp3ZWJfb3Blbl9zc2w9ZmFsc2UKd2ViX2NlcnRfZmlsZT1jb25mL3NlcnZlci5wZW0Kd2ViX2tleV9maWxlPWNvbmYvc2VydmVyLmtleQojIGlmIHdlYiB1bmRlciBwcm94eSB1c2Ugc3ViIHBhdGguIGxpa2UgaHR0cDovL2hvc3QvbnBzIG5lZWQgdGhpcy4KI3dlYl9iYXNlX3VybD0vbnBzCgojV2ViIEFQSSB1bmF1dGhlbnRpY2F0ZWQgSVAgYWRkcmVzcyh0aGUgbGVuIG9mIGF1dGhfY3J5cHRfa2V5IG11c3QgYmUgMTYpCiNSZW1vdmUgY29tbWVudHMgaWYgbmVlZGVkCmF1dGhfa2V5PXJlZHJlZHJlZAphdXRoX2NyeXB0X2tleSA9MTIzNDU2NzgxMjM0NTY3OQoKI2FsbG93X3BvcnRzPTkwMDEtOTAwOSwxMDAwMSwxMTAwMC0xMjAwMAoKI1dlYiBtYW5hZ2VtZW50IG11bHRpLXVzZXIgbG9naW4KYWxsb3dfdXNlcl9sb2dpbj1mYWxzZQphbGxvd191c2VyX3JlZ2lzdGVyPWZhbHNlCmFsbG93X3VzZXJfY2hhbmdlX3VzZXJuYW1lPWZhbHNlCgoKI2V4dGVuc2lvbgphbGxvd19mbG93X2xpbWl0PWZhbHNlCmFsbG93X3JhdGVfbGltaXQ9ZmFsc2UKYWxsb3dfdHVubmVsX251bV9saW1pdD1mYWxzZQphbGxvd19sb2NhbF9wcm94eT1mYWxzZQphbGxvd19jb25uZWN0aW9uX251bV9saW1pdD1mYWxzZQphbGxvd19tdWx0aV9pcD1mYWxzZQpzeXN0ZW1faW5mb19kaXNwbGF5PWZhbHNlCgojY2FjaGUKaHR0cF9jYWNoZT1mYWxzZQpodHRwX2NhY2hlX2xlbmd0aD0xMDAKCiNnZXQgb3JpZ2luIGlwCmh0dHBfYWRkX29yaWdpbl9oZWFkZXI9ZmFsc2UKCiNwcHJvZiBkZWJ1ZyBvcHRpb25zCiNwcHJvZl9pcD0wLjAuMC4wCiNwcHJvZl9wb3J0PTk5OTkKCiNjbGllbnQgZGlzY29ubmVjdCB0aW1lb3V0CmRpc2Nvbm5lY3RfdGltZW91dD02MA==\"\n```\n\n默认的配置\n```\nappname = nps\n#Boot mode(dev|pro)\nrunmode = dev\n\n#HTTP(S) proxy port, no startup if empty\nhttp_proxy_ip=0.0.0.0\nhttp_proxy_port=80\nhttps_proxy_port=443\nhttps_just_proxy=true\n#default https certificate setting\nhttps_default_cert_file=conf/server.pem\nhttps_default_key_file=conf/server.key\n\n##bridge\nbridge_type=tcp\nbridge_port=8001\nbridge_ip=0.0.0.0\n\n# Public password, which clients can use to connect to the server\n# After the connection, the server will be able to open relevant ports and parse related domain names according to its own configuration file.\npublic_vkey=123\n\n#Traffic data persistence interval(minute)\n#Ignorance means no persistence\n#flow_store_interval=1\n\n# log level LevelEmergency->0  LevelAlert->1 LevelCritical->2 LevelError->3 LevelWarning->4 LevelNotice->5 LevelInformational->6 LevelDebug->7\nlog_level=7\n#log_path=nps.log\n\n#Whether to restrict IP access, true or false or ignore\n#ip_limit=true\n\n#p2p\n#p2p_ip=127.0.0.1\n#p2p_port=6000\n\n#web\nweb_host=a.o.com\nweb_username=redone\nweb_password=1!2A3d4v5s6e\nweb_port = 8080\nweb_ip=0.0.0.0\nweb_base_url=\nweb_open_ssl=false\nweb_cert_file=conf/server.pem\nweb_key_file=conf/server.key\n# if web under proxy use sub path. like http://host/nps need this.\n#web_base_url=/nps\n\n#Web API unauthenticated IP address(the len of auth_crypt_key must be 16)\n#Remove comments if needed\nauth_key=redredred\nauth_crypt_key =1234567812345679\n\n#allow_ports=9001-9009,10001,11000-12000\n\n#Web management multi-user login\nallow_user_login=false\nallow_user_register=false\nallow_user_change_username=false\n\n\n#extension\nallow_flow_limit=false\nallow_rate_limit=false\nallow_tunnel_num_limit=false\nallow_local_proxy=false\nallow_connection_num_limit=false\nallow_multi_ip=false\nsystem_info_display=false\n\n#cache\nhttp_cache=false\nhttp_cache_length=100\n\n#get origin ip\nhttp_add_origin_header=false\n\n#pprof debug options\n#pprof_ip=0.0.0.0\n#pprof_port=9999\n\n#client disconnect timeout\ndisconnect_timeout=60\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n请自行替换模板中的静态资源下载链接\n\n**替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**请自行替换 main.tf 中 linux_amd64_server.tar.gz 的压缩包下载地址**\n- https://github.com/ehang-io/nps/releases\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n4. jdk未正常安装\n"
       }
     },
     "vultr/hk-vps": {
