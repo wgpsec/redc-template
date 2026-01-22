@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-22T12:37:37.540647Z",
+  "updated_at": "2026-01-22T13:30:49.766447Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/aliyun-proxy": {
@@ -254,9 +254,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_dnslog_v1.0.2.zip",
           "sha256": "4cf2bd4af2380e8b756a817bb66fe514f0a86b67b19355c9fa7ac02e7c146f65",
           "updated_at": "2026-01-22T12:37:37.539957Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/aws_dnslog_v1.0.3.zip",
+          "sha256": "556c1ac2d113b40c30dcff71429557ec5a7d7d2f3dfc04db97a08a74c060621c",
+          "updated_at": "2026-01-22T13:30:49.765450Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "dnslog",
         "author": "r0fus0d",
