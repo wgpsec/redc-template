@@ -304,7 +304,12 @@
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang] && translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
+                    // Only hero_description contains safe HTML (<br>), use textContent for all others
+                    if (key === 'hero_description') {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
                 }
             });
 
@@ -322,10 +327,8 @@
             // Update HTML lang attribute
             document.documentElement.lang = lang;
 
-            // Re-render grid to update dynamic content
-            if (filteredTemplates.length > 0) {
-                renderGrid(filteredTemplates);
-            }
+            // Re-render grid to update dynamic content (always call to update translations even if empty)
+            renderGrid(filteredTemplates);
         }
 
         function toggleLanguage() {
@@ -546,7 +549,7 @@
             `;
             
             // 解析 Markdown (使用 DOMPurify 防止 XSS)
-            const readmeRaw = meta.readme || translations[currentLang].no_readme;
+            const readmeRaw = meta.readme || (translations[currentLang]?.no_readme || '> *No documentation available*');
             const htmlContent = DOMPurify.sanitize(marked.parse(readmeRaw));
             document.getElementById('markdown-content').innerHTML = htmlContent;
             
