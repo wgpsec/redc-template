@@ -1,12 +1,12 @@
 # redc-template Template Authoring Guide (English)
 
-This guide shows how to write templates for the redc engine (https://github.com/wgpsec/redc) following this repository's conventions. Works across multiple clouds (Alibaba Cloud, AWS, Tencent Cloud, etc.). Example references:
+This guide shows how to write templates for the redc engine https://github.com/wgpsec/redc following this repository's conventions. Works across multiple clouds (Alibaba Cloud, AWS, Tencent Cloud, etc.). Example references:
 - AWS generic scene: [aws/ec2](aws/ec2)
 - Alibaba Cloud proxy scene: [aliyun/proxy](aliyun/proxy)
 
 ## Directory and Naming
 - Path pattern: `<cloud>/<scene>`, e.g., `aws/ec2`, `aliyun/proxy`; keep names lowercase without spaces.
-- Recommended files per scene: `case.json`, `README.md`, `versions.tf`, `main.tf`, `variables.tf`, `terraform.tfvars` (optional), `outputs.tf`, `deploy.sh`.
+- Recommended files per scene: `case.json`, `README.md`, `versions.tf`, `main.tf`, `variables.tf`, `terraform.tfvars`, `outputs.tf`, `deploy.sh` (optional).
 
 ## File Conventions
 - `case.json`

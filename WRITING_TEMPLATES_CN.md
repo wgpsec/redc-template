@@ -1,12 +1,12 @@
 # redc-template 模板编写教程（中文）
 
-本教程说明如何为 redc 引擎（https://github.com/wgpsec/redc）编写符合仓库规范的模板，适用于阿里云、AWS、腾讯云等多云场景。参考现有示例：
+本教程说明如何为 redc 引擎 https://github.com/wgpsec/redc 编写符合仓库规范的模板，适用于阿里云、AWS、腾讯云等多云场景。参考现有示例：
 - AWS 通用场景：[aws/ec2](aws/ec2)
 - 阿里云代理场景：[aliyun/proxy](aliyun/proxy)
 
 ## 目录与命名
 - 路径规则：`<cloud>/<scene>`，如 `aws/ec2`、`aliyun/proxy`，保持小写无空格。
-- 每个场景目录内部的推荐文件：`case.json`、`README.md`、`versions.tf`、`main.tf`、`variables.tf`、`terraform.tfvars`（可选）、`outputs.tf`、`deploy.sh`。
+- 每个场景目录内部的推荐文件：`case.json`、`README.md`、`versions.tf`、`main.tf`、`variables.tf`、`terraform.tfvars`、`outputs.tf`、`deploy.sh` (可选)。
 
 ## 文件规范
 - `case.json`
