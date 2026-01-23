@@ -128,7 +128,7 @@ tencentcloud_secret_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接
 
-**请自行替换 main.tf 中 linux_amd64_server.tar.gz 的压缩包下载地址**
+**可自行替换 main.tf 中 linux_amd64_server.tar.gz 的压缩包下载地址**
 - https://github.com/ehang-io/nps/releases
 
 **可自行替换 terraform.tfvars 中 github 加速地址**

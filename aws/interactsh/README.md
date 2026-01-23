@@ -31,7 +31,7 @@ redc stop [uuid]
 
 可自行替换模板中的静态资源下载链接
 
-**请自行替换 main.tf 中 interactsh-server 的压缩包下载地址**
+**可自行替换 main.tf 中 interactsh-server 的压缩包下载地址**
 - https://github.com/projectdiscovery/interactsh/releases
 
 # 注意事项

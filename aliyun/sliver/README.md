@@ -34,13 +34,13 @@ redc stop [uuid]
 
 可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接
 
-**请自行替换 main.tf 中 sliver-server_linux 的压缩包下载地址**
+**可自行替换 main.tf 中 sliver-server_linux 的压缩包下载地址**
 - https://github.com/BishopFox/sliver/releases
 
-**请自行替换 main.tf 中 sliver-client_linux 的压缩包下载地址**
+**可自行替换 main.tf 中 sliver-client_linux 的压缩包下载地址**
 - https://github.com/BishopFox/sliver/releases
 
-**请自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**
+**可自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**
 - https://github.com/projectdiscovery/simplehttpserver
 
 **可自行替换 terraform.tfvars 中 github 加速地址**

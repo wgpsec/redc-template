@@ -7,6 +7,6 @@ output "web_link" {
   description = "web link"
 }
 output "web_domain" {
-  value       = "a.${var.domain}"
+  value       = "${var.domain}"
   description = "web domain"
 }

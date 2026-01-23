@@ -53,7 +53,7 @@ auto
 rclone lsf r2:test
 ```
 
-**请自行替换 deploy.sh 中 upload_to_r2 函数的配置下载地址**
+**可自行替换 deploy.sh 中 upload_to_r2 函数的配置下载地址**
 
 对应
 ```
