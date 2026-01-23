@@ -1,0 +1,3 @@
+# TruffleHog exclusion patterns
+# Exclude docker-compose files with placeholder passwords
+aws/md/docker-compose\.yml
