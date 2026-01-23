@@ -45,7 +45,7 @@ export VOLCENGINE_SECRET_KEY="your-secret-key"
 4. 未配置正确的访问凭证（AK/SK）
 
 ## 场景配置说明
-- **实例规格**: ecs.e-c1m1.large (1核1G内存)
+- **实例规格**: ecs.e-c1m1.large (2核2G内存)
 - **计费方式**: 按量计费（PostPaid）
 - **系统盘**: 20GB ESSD_PL0
 - **操作系统**: Debian 12
