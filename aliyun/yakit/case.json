@@ -1,0 +1,6 @@
+{
+    "name":"yakit",
+    "user":"r0fus0d",
+    "version": "1.0.0",
+    "description":"阿里云 Yakit 服务端场景，采用 ecs.c7a.large 规格，2核 4G，20G ESSD 系统盘，预置 yakit 服务端，从 OSS 存储桶下载无需 GitHub 代理"
+}
