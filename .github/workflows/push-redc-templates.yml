@@ -28,8 +28,19 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
 
+  wait-for-secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for secret scanning to complete
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'Scan for Secrets (AK/SK/Passwords)'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+
   build-and-deploy:
-    needs: wait-for-validation
+    needs: [wait-for-validation, wait-for-secret-scan]
     runs-on: ubuntu-latest
     steps:
       # 1. 拉取源码 (最新版)

@@ -45,3 +45,13 @@ Recommended to use with the redc tool
 Static resources required at runtime are downloaded through proxy links defined in github_proxy in the template. AWS scenarios do not need to consider proxies.
 
 Files generated after execution are stored on R2 storage, implemented through the upload_r2 module of the redc engine
+
+## Security
+
+This repository uses GitHub Actions to automatically check for sensitive information:
+
+- **Secret Scanning**: Automatically detects access keys (AK), secret keys (SK), passwords, and other sensitive information in the code
+- **CI/CD Integration**: Scanning is triggered on every push and pull request
+- **Leak Prevention**: CI fails and blocks merging when sensitive information is detected
+
+⚠️ **Important**: Do not write real AK/SK, passwords, or other sensitive information directly into the code. Use environment variables or configuration files to manage sensitive information.
