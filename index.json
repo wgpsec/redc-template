@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-23T07:52:36.014932Z",
+  "updated_at": "2026-01-23T09:47:49.292109Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -616,6 +616,25 @@
         "author": "r0fus0d",
         "description": "阿里云 Yakit 服务端场景，采用 ecs.c7a.large 规格，2核 4G，20G ESSD 系统盘，预置 yakit 服务端，从 OSS 存储桶下载无需 GitHub 代理",
         "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/yakit\n```\n\n开启\n```\nredc run aliyun/yakit\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n3. 部署完成后，可以通过以下方式连接 yakit 服务器：\n   - 使用 yakit 客户端连接到服务器 IP 的 8087 端口（默认）\n   - SSH 登录到服务器：`ssh root@<服务器IP>`，密码在 `redc status` 输出中\n\n# 静态资源\n\n本场景中 yakit 服务端（yak）从阿里云 OSS 存储桶直接下载，无需配置 GitHub 代理。\n\n下载链接：https://yaklang.oss-cn-beijing.aliyuncs.com/yak/latest/yak_linux_amd64\n\n如需更换版本或下载地址，可在 main.tf 的 user_data 部分修改下载链接。\n\n# 注意事项\n\n**端口配置**\n\n默认 yakit 服务端监听端口为 8087，可以通过修改 `terraform.tfvars` 中的 `yakit_port` 参数来自定义端口。\n\n```\nyakit_port = 8087\n```\n\n或在运行时通过 `-e` 参数指定：\n```\nredc run aliyun/yakit -e yakit_port=9999\n```\n\n**实例规格**\n\n本场景使用 ecs.c7a.large 规格（2核4G），如果该规格在某些地区不可用或售罄，可以修改 main.tf 中的 `instance_type` 为其他规格，例如：\n- ecs.n1.small (1核2G)\n- ecs.c7.large (2核4G)\n- ecs.g7.large (2核8G)\n\n**区域配置**\n\n默认部署在北京地区 (cn-beijing)，可以在 versions.tf 中修改 `region` 参数来更改部署区域。\n\n若启动场景报错，可能原因：\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 API 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n4. yakit 服务启动失败，可登录服务器查看日志：`systemctl status yakit`\n5. OSS 下载链接失效或网络问题导致无法下载 yak 二进制文件\n"
+      }
+    },
+    "volcengine/ecs": {
+      "id": "volcengine/ecs",
+      "provider": "volcengine",
+      "slug": "ecs",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/volcengine_ecs_v1.0.0.zip",
+          "sha256": "6243144a8676ccd3be8b0ba48cf01c7c4a121583dd7cd00ae84148fcb5fcfd13",
+          "updated_at": "2026-01-23T09:47:49.291907Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "ecs",
+        "author": "copilot",
+        "description": "火山引擎 ECS 场景，使用按量计费部署 Debian 实例",
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull volcengine/ecs\n```\n\n开启\n```\nredc run volcengine/ecs\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n## 认证配置\n需要配置火山引擎的访问凭证，有以下两种方式：\n\n1. **环境变量方式**（推荐）\n```bash\nexport VOLCENGINE_ACCESS_KEY=\"your-access-key\"\nexport VOLCENGINE_SECRET_KEY=\"your-secret-key\"\n```\n\n2. **配置文件方式**\n在 `~/.volcengine/config` 中配置\n\n## 常见问题\n若启动场景报错，可能原因：\n1. 火山引擎账户余额不足\n2. 与火山引擎 API 网络连接超时\n3. 火山引擎该区域售罄或下架 instance_type 的配置机型\n4. 未配置正确的访问凭证（AK/SK）\n\n## 场景配置说明\n- **实例规格**: ecs.e-c1m1.large (2核2G内存)\n- **计费方式**: 按量计费（PostPaid）\n- **系统盘**: 20GB ESSD_PL0\n- **操作系统**: Debian 12\n- **登录方式**: 随机生成的SSH密码\n- **区域**: 北京（cn-beijing）\n"
       }
     }
   }
