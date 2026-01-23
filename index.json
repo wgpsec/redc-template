@@ -1,41 +1,7 @@
 {
-  "updated_at": "2026-01-23T06:08:05.331741Z",
+  "updated_at": "2026-01-23T06:43:52.687336Z",
   "repo_name": "redc-template",
   "templates": {
-    "aliyun/aliyun-proxy": {
-      "id": "aliyun/aliyun-proxy",
-      "provider": "aliyun",
-      "slug": "aliyun-proxy",
-      "versions": {
-        "0.0.0": {
-          "url": "https://redc.wgpsec.org/templates/aliyun_aliyun-proxy_v0.0.0.zip",
-          "sha256": "92ee28aed9f8a0efac95e148b22a26eee46b1b2c9dfb29741524019450d92211",
-          "updated_at": "2026-01-20T12:14:00.140682Z"
-        },
-        "0.0.1": {
-          "url": "https://redc.wgpsec.org/templates/aliyun_aliyun-proxy_v0.0.1.zip",
-          "sha256": "6b8c27bc1382c33041a18e3966f844dd1778f63980a7a3a1bc0bb839ca994ebe",
-          "updated_at": "2026-01-20T15:28:34.138732Z"
-        },
-        "1.0.0": {
-          "url": "https://redc.wgpsec.org/templates/aliyun_aliyun-proxy_v1.0.0.zip",
-          "sha256": "aa0e9745b9300414f0a7fd541fe0ad7d801f53ea6548104f2537067680743ce2",
-          "updated_at": "2026-01-21T09:29:25.244884Z"
-        },
-        "1.0.1": {
-          "url": "https://redc.wgpsec.org/templates/aliyun_aliyun-proxy_v1.0.1.zip",
-          "sha256": "36422871940d45abb6161cbf385cefe8f38c23d70830a415ffcaabff850a9e0b",
-          "updated_at": "2026-01-22T05:46:33.647442Z"
-        }
-      },
-      "latest": "1.0.1",
-      "metadata": {
-        "name": "aliyun-proxy",
-        "author": "r0fus0d",
-        "description": "阿里云多节点代理场景，默认支持 10 台 spot ecs.n1.tiny 节点，shadowsocks-libev 搭建并可上传 clash 配置到 Cloudflare R2",
-        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/aliyun-proxy\n```\n\n开启\n```\n# 默认 10 台\nredc run aliyun/aliyun-proxy\n\n# 自定义节点数量,比如开 50 个节点\nredc run aliyun/aliyun-proxy -node 50\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n3. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件\n\n# 注意事项\n\n**r2 配置**\n\ndeploy.sh 中的 upload_to_r2 函数负责将 clash 配置传至 r2\n\n请自行安装 rclone 并设置 rclone 与 r2 的配置\n- https://github.com/rclone/rclone/releases\n- https://dash.cloudflare.com/ 的 r2\n\n![](../../img/redc-1.png)\n\n```\nrclone config\ns3\nCloudflare R2 Storage\nxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nhttps://xxxxxxxxxxxxxxxxxx.r2.cloudflarestorage.com\nauto\n\nrclone lsf r2:test\n```\n\n**请自行替换 deploy.sh 中 upload_to_r2 函数的配置下载地址**\n\n对应\n```\necho \"url : https://这里改成你的 r2 地址/proxyfile/aliyun-config.yaml\"\n```\n\n**抢占式实例**\n\nmain.tf中已配置\n```\nspot_strategy              = \"SpotWithPriceLimit\"\n```\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n4. rclone配置不正确\n5. r2 存储桶名称和配置不一致\n"
-      }
-    },
     "aliyun/ecs": {
       "id": "aliyun/ecs",
       "provider": "aliyun",
@@ -194,35 +160,6 @@
         "author": "r0fus0d",
         "description": "阿里云 Sliver C2 场景，采用 ecs.c7a.large 规格，2核 4G，20G ESSD 系统盘，预置 sliver server/client、mingw 交叉编译工具与 simplehttpserver",
         "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aliyun/sliver\n```\n\n开启\n```\nredc run aliyun/sliver\n```\n\n登录后下载sliver.cfg,本地导入使用\n```\nsliver import ./sliver.cfg\n# 运行\nsliver\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**请自行替换 main.tf 中 sliver-server_linux 的压缩包下载地址**\n- https://github.com/BishopFox/sliver/releases\n\n**请自行替换 main.tf 中 sliver-client_linux 的压缩包下载地址**\n- https://github.com/BishopFox/sliver/releases\n\n**请自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 阿里云账户余额不足 (需要大于 200)\n2. 与阿里云 api 网络连接超时\n3. 阿里云该区域售罄或下架 instance_type 的配置机型\n4. sliver部署方式更新，导致user_data中的配置过时\n"
-      }
-    },
-    "aws/aws-proxy": {
-      "id": "aws/aws-proxy",
-      "provider": "aws",
-      "slug": "aws-proxy",
-      "versions": {
-        "0.0.0": {
-          "url": "https://redc.wgpsec.org/templates/aws_aws-proxy_v0.0.0.zip",
-          "sha256": "19a154e7230c1c137be73648b0133da4ac0c2c7401b7f70e3ff3636656afb0fc",
-          "updated_at": "2026-01-20T12:14:00.145729Z"
-        },
-        "0.0.1": {
-          "url": "https://redc.wgpsec.org/templates/aws_aws-proxy_v0.0.1.zip",
-          "sha256": "13e0efc1245e92715ffbccb36666fe5259233e1575cb60b50832cd188f4e2107",
-          "updated_at": "2026-01-20T15:28:34.143609Z"
-        },
-        "1.0.0": {
-          "url": "https://redc.wgpsec.org/templates/aws_aws-proxy_v1.0.0.zip",
-          "sha256": "5388fddec887949a80091df27ef833fbbbe65c1412c6f2b275a24d26f5ed73a1",
-          "updated_at": "2026-01-22T05:46:33.652450Z"
-        }
-      },
-      "latest": "1.0.0",
-      "metadata": {
-        "name": "aws-proxy",
-        "author": "r0fus0d",
-        "description": "AWS 多节点代理场景，ap-east-1 区域，默认 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash 配置，需自备 launch template",
-        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/aws-proxy\n```\n\n开启\n```\n# 默认 10 台\nredc run aws/aws-proxy\n\n# 自定义节点数量,比如开 50 个节点\nredc run aws/aws-proxy -node 50\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n3. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件\n\n# 注意事项\n\n**r2 配置**\n\ndeploy.sh 中的 upload_to_r2 函数负责将 clash 配置传至 r2\n\n请自行安装 rclone 并设置 rclone 与 r2 的配置\n- https://github.com/rclone/rclone/releases\n- https://dash.cloudflare.com/ 的 r2\n\n![](../../img/redc-1.png)\n\n```\nrclone config\ns3\nCloudflare R2 Storage\nxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nhttps://xxxxxxxxxxxxxxxxxx.r2.cloudflarestorage.com\nauto\n\nrclone lsf r2:test\n```\n\n**请自行替换 deploy.sh 中 upload_to_r2 函数的配置下载地址**\n\n对应\n```\necho \"url : https://这里改成你的 r2 地址/proxyfile/aws-config.yaml\"\n```\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**launch_template 配置**\n\n自行替换 main.tf 中的 launch_template id 值\n\n![](../../img/redc-4.png)\n\n这个按你场景需求进行修改\n\n```\nlaunch_template {\n        id = \"这个改成你的 launch_template id 值\"\n    }\n```\n\n**spot实例**\n\n需要自行在创建 launch_template 时配置\n\n![](../../img/redc-5.png)\n\n若启动场景报错，可能原因\n1. 未替换 main.tf 中的 launch_template id 值\n2. 与 aws api 网络连接超时\n3. aws 该区域售罄或下架 instance_type 的配置机型\n4. 启动模板中的安全组未开放公网访问\n5. rclone配置不正确\n6. r2 存储桶名称和配置不一致\n"
       }
     },
     "aws/dnslog": {
