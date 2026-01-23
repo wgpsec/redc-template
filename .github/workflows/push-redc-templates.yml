@@ -103,6 +103,9 @@ jobs:
           
           # 标记本次构建是否有更新 (如果没有更新，甚至可以不提交 index.json，但为了更新时间戳还是提交吧)
           has_changes = False
+          
+          # 跟踪当前扫描到的所有模板 ID
+          current_template_ids = set()
 
           for provider in sorted(os.listdir(repo_root)):
               provider_path = os.path.join(repo_root, provider)
@@ -113,6 +116,7 @@ jobs:
                   if not os.path.isdir(template_path): continue
 
                   template_id = f'{provider}/{template}'
+                  current_template_ids.add(template_id)
                   
                   # 1. 读取本地最新信息
                   meta_name = template; meta_user = 'Unknown'; meta_desc = 'No description.'; meta_version = '0.0.0'
@@ -170,6 +174,13 @@ jobs:
                       has_changes = True
                   else:
                       print(f'⏩ Skipping: {zip_filename} (Version exists in index)')
+
+          # --- 删除不再存在的模板 ---
+          deleted_templates = [tid for tid in manifest_data.keys() if tid not in current_template_ids]
+          for template_id in deleted_templates:
+              print(f'🗑️  Removing deleted template: {template_id}')
+              del manifest_data[template_id]
+              has_changes = True
 
           # --- C. 保存 Index ---
           # 即使没有新 ZIP，更新一下 updated_at 也是好的
