@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-23T10:24:18.597796Z",
+  "updated_at": "2026-01-23T10:50:03.929636Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -627,9 +627,14 @@
           "url": "https://redc.wgpsec.org/templates/volcengine_ecs_v1.0.0.zip",
           "sha256": "6243144a8676ccd3be8b0ba48cf01c7c4a121583dd7cd00ae84148fcb5fcfd13",
           "updated_at": "2026-01-23T09:47:49.291907Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/volcengine_ecs_v1.0.1.zip",
+          "sha256": "4ae23bf5cfe28e2cea88c934bb12f63823961cdad3d4abd875b461f5f2755e56",
+          "updated_at": "2026-01-23T10:50:03.929405Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "ecs",
         "author": "copilot",
