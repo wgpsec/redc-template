@@ -4,6 +4,10 @@ terraform {
       source  = "volcengine/volcengine"
       version = "0.0.159"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.0"
+    }
   }
 }
 
