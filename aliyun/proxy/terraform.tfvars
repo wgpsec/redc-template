@@ -1,3 +1,5 @@
 port="60001"
 password="O9E3b1/OdxCrLkTmWyTL7w=="
+buckets_name="test"
+buckets_path="/proxyfile/"
 filename="aliyun-config.yaml"
