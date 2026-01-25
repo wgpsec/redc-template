@@ -5,7 +5,6 @@ on:
     branches: [ "master" ]
     paths-ignore:
       - 'public/**'
-      - 'index.html'
   pull_request:
     branches: [ "master" ]
 
