@@ -63,7 +63,7 @@ The validation script is embedded in `.github/workflows/validate.yml`. To run it
 The validation checks:
 1. **README.md existence** - MUST be uppercase, not lowercase
 2. **case.json structure** - Required fields: `name`, `user`, `version`, `description` (all lowercase)
-3. **Terraform validation** - Runs `terraform fmt -write=false -recursive` which validates both syntax and formatting (does not modify files, only reports errors for unparseable syntax)
+3. **Terraform syntax** - Runs `terraform fmt -write=false -recursive` which only reports errors for unparseable syntax (formatting issues are ignored)
 
 ### Terraform Commands
 
@@ -78,7 +78,7 @@ terraform init
 # Validate configuration
 terraform validate
 
-# Format check (validates syntax and formatting, does not modify files)
+# Format check (validates syntax only, does not modify files or enforce formatting)
 terraform fmt -write=false -recursive .
 
 # Plan deployment (requires cloud credentials)
