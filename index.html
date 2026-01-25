@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO & Meta Tags -->
-    <title>Redc - 红队基础设施多云自动化部署工具 | Infrastructure as Code</title>
+    <title>Redc - 红队基础设施多云自动化部署工具 | Red Team Infrastructure Multi-Cloud Automated Deployment Tool</title>
     <meta name="description" content="Redc 是一款基于 Terraform 的红队基础设施自动化工具。支持 MCP 协议与 AI 助手集成，提供 Compose 服务编排，一键自动化部署多云（阿里云、AWS、腾讯云等）攻防环境。">
     <meta name="keywords" content="Red Team, IaC, Terraform, MCP, Model Context Protocol, Compose, 自动化部署, 红队设施, 基础设施即代码, Aliyun, AWS, TencentCloud">
     <meta name="author" content="wgpsec">
@@ -798,21 +798,25 @@
                         ${desc}
                     </p>
 
-                    <div class="mt-auto pt-4 border-t border-slate-700/50 flex flex-col gap-3">
+                    <div class="mt-auto pt-4 border-t border-slate-700/50 flex flex-col gap-4">
                         <div class="flex justify-between items-center text-xs text-slate-500">
-                             <div class="flex items-center gap-1.5">
+                             <div class="flex items-center gap-1.5" title="Author">
                                 <i data-lucide="user" class="w-3 h-3"></i>
                                 <span class="truncate max-w-[100px]">${author}</span>
                             </div>
+                            <button onclick="openModal('${t.id}')" class="flex items-center gap-1 hover:text-slate-300 transition">
+                                <i data-lucide="file-text" class="w-3 h-3"></i>
+                                <span>Docs</span>
+                            </button>
                         </div>
                         
-                        <div class="grid grid-cols-4 gap-2">
+                        <div class="flex gap-2">
                              <button onclick="copyCommand('redc pull ${t.id}')" 
-                                class="col-span-3 flex items-center justify-center gap-2 py-2 bg-slate-800 hover:bg-primary-600 hover:text-white text-slate-300 text-xs font-medium rounded-lg border border-slate-700 hover:border-primary-500 transition-all active:scale-95">
-                                <i data-lucide="terminal" class="w-3 h-3"></i>
-                                Pull
+                                class="flex-1 flex items-center justify-between px-3 py-2 bg-[#0B0C15] hover:bg-slate-800 border border-slate-800 hover:border-slate-600 rounded-lg group/cmd transition-all cursor-copy">
+                                <code class="text-[10px] text-slate-300 font-mono truncate">redc pull ${t.id}</code>
+                                <i data-lucide="copy" class="w-3 h-3 text-slate-600 group-hover/cmd:text-white transition"></i>
                             </button>
-                            <a href="${t.versions?.[version]?.url || '#'}" class="col-span-1 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-lg border border-slate-700 transition">
+                            <a href="${t.versions?.[version]?.url || '#'}" class="flex items-center justify-center w-10 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-lg border border-slate-700 transition" title="Download ZIP">
                                 <i data-lucide="download" class="w-4 h-4"></i>
                             </a>
                         </div>
