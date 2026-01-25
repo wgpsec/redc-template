@@ -35,7 +35,7 @@ This is a Terraform template repository for the [redc engine](https://github.com
 Each cloud provider directory contains scenario-based subdirectories following the pattern `<cloud>/<scene>`. Each template scenario includes:
 
 **Required Files:**
-- `case.json` - Metadata with fields: `name`, `user`, `version`, `description`; optionally `redc_module`
+- `case.json` - Metadata with required fields: `name`, `user`, `version`, `description` (all lowercase); optional field: `redc_module`
 - `README.md` - Usage instructions and documentation (MUST be uppercase)
 - `main.tf` - Primary Terraform resource definitions
 - `variables.tf` - Variable declarations
@@ -63,7 +63,7 @@ The validation script is embedded in `.github/workflows/validate.yml`. To run it
 The validation checks:
 1. **README.md existence** - MUST be uppercase, not lowercase
 2. **case.json structure** - Required fields: `name`, `user`, `version`, `description` (all lowercase)
-3. **Terraform syntax** - Runs `terraform fmt -write=false -recursive` which only reports errors for unparseable syntax (formatting issues are ignored)
+3. **Terraform syntax** - Runs `terraform fmt -write=false -recursive <path>` on each template directory, which only reports errors for unparseable syntax (formatting issues are ignored)
 
 ### Terraform Commands
 
@@ -79,7 +79,8 @@ terraform init
 terraform validate
 
 # Format check (validates syntax only, does not modify files or enforce formatting)
-terraform fmt -write=false -recursive .
+# Note: Use terraform validate for best results
+terraform fmt -write=false .
 
 # Plan deployment (requires cloud credentials)
 terraform plan
