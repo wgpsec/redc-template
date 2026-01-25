@@ -18,16 +18,29 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  checks: read
+  actions: read
 
 jobs:
   wait-for-validation:
     runs-on: ubuntu-latest
     steps:
+      - name: Brief sleep
+        run: sleep 15
+        
       - name: Wait for validation to complete
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.ref }}
           check-name: 'Validate Standards'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+          
+      - name: Wait for Secret Scan
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'Scan for Secrets (AK/SK/Passwords)'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
 
