@@ -58,15 +58,12 @@ Each cloud provider directory contains scenario-based subdirectories following t
 
 **ALWAYS run validation before committing:**
 
-```bash
-# Run the full validation suite (CI validation)
-python3 -c "$(cat .github/workflows/validate.yml | grep -A 200 'Run Validation Script' | tail -n +3 | head -n -1)"
-```
+The validation script is embedded in `.github/workflows/validate.yml`. To run it locally, copy the Python script from the workflow file and execute it, or push to a branch to trigger the CI validation.
 
 The validation checks:
 1. **README.md existence** - MUST be uppercase, not lowercase
 2. **case.json structure** - Required fields: `name`, `user`, `version`, `description` (all lowercase)
-3. **Terraform syntax** - Runs `terraform fmt -write=false -recursive` to check syntax (ignores formatting)
+3. **Terraform validation** - Runs `terraform fmt -write=false -recursive` which validates both syntax and formatting (does not modify files, only reports errors for unparseable syntax)
 
 ### Terraform Commands
 
@@ -81,7 +78,7 @@ terraform init
 # Validate configuration
 terraform validate
 
-# Format check (syntax only, not enforced)
+# Format check (validates syntax and formatting, does not modify files)
 terraform fmt -write=false -recursive .
 
 # Plan deployment (requires cloud credentials)
