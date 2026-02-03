@@ -2,19 +2,50 @@ provider "aws" {
   region = "ap-east-1"
 }
 
+resource "tls_private_key" "pte_ssh" {
+  algorithm = "ED25519"
+}
+
+resource "aws_key_pair" "pte_key" {
+  key_name   = "pte-interactsh-key"
+  public_key = tls_private_key.pte_ssh.public_key_openssh
+}
+
+resource "aws_security_group" "pte_open_all" {
+  name        = "pte-open-all-interactsh"
+  description = "Allow all inbound and outbound"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_instance" "dnslog" {
+  ami                    = "ami-01c9cc5554738042c"
+  instance_type          = "t4g.nano"
+  vpc_security_group_ids = [aws_security_group.pte_open_all.id]
+  key_name               = aws_key_pair.pte_key.key_name
 
-    launch_template {
-        id = "这个改成你的 launch_template id 值"
-    }
+  root_block_device {
+    volume_type = "gp3"
+    volume_size = 18
+  }
 
-    instance_type = "t4g.nano"
+  tags = {
+    Name = "dnslog"
+  }
 
-    tags = {
-      Name = "dnslog"
-    }
-
-    user_data                   = <<EOF
+  user_data                   = <<EOF
 #!/bin/bash
 sudo apt-get update
 sudo apt-get install -y ca-certificates
@@ -45,4 +76,10 @@ sudo tmux send-keys -t dn:0 './interactsh-server -domain ${var.domain} -lip 0.0.
 
 EOF
 
+}
+
+resource "local_file" "pte_private_key" {
+  filename        = "./pte-interactsh-key.pem"
+  content         = tls_private_key.pte_ssh.private_key_openssh
+  file_permission = "0600"
 }

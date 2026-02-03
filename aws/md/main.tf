@@ -2,15 +2,46 @@ provider "aws" {
   region = "ap-east-1"
 }
 
+resource "tls_private_key" "pte_ssh" {
+  algorithm = "ED25519"
+}
+
+resource "aws_key_pair" "pte_key" {
+  key_name   = "pte-md-key"
+  public_key = tls_private_key.pte_ssh.public_key_openssh
+}
+
+resource "aws_security_group" "pte_open_all" {
+  name        = "pte-open-all-md"
+  description = "Allow all inbound and outbound"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_instance" "hackmd" {
+  ami                    = "ami-01c9cc5554738042c"
+  instance_type          = "t4g.medium"
+  vpc_security_group_ids = [aws_security_group.pte_open_all.id]
+  key_name               = aws_key_pair.pte_key.key_name
 
-    launch_template {
-        id = "这个改成你的 launch_template id 值"
-    }
+  root_block_device {
+    volume_type = "gp3"
+    volume_size = 18
+  }
 
-    instance_type = "t3.medium"
-
-    user_data                   = <<EOF
+  user_data                   = <<EOF
 #!/bin/bash
 sudo apt-get update
 sudo apt-get install -y ca-certificates
@@ -37,4 +68,10 @@ sudo tmux new-session -s docker -d
 sudo tmux send-keys -t docker:0 'touch /tmp/IS_CI;ulimit -n 65535;ulimit -u 65535;f8x -docker;cd /tmp;docker compose up -d' Enter
 EOF
 
+}
+
+resource "local_file" "pte_private_key" {
+  filename        = "./pte-md-key.pem"
+  content         = tls_private_key.pte_ssh.private_key_openssh
+  file_permission = "0600"
 }

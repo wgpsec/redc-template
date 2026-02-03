@@ -2,19 +2,51 @@ provider "aws" {
   region = "ap-east-1"
 }
 
+resource "tls_private_key" "pte_ssh" {
+  algorithm = "ED25519"
+}
+
+resource "aws_key_pair" "pte_key" {
+  key_name   = "pte-proxy-key"
+  public_key = tls_private_key.pte_ssh.public_key_openssh
+}
+
+resource "aws_security_group" "pte_open_all" {
+  name        = "pte-open-all-proxy"
+  description = "Allow all inbound and outbound"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_instance" "pte_node" {
-    count                      = "${var.node}"
-    launch_template {
-        id = "这个改成你的 launch_template id 值"
-    }
+  count                      = var.node
+  ami                        = "ami-01c9cc5554738042c"
+  instance_type              = "t4g.nano"
+  vpc_security_group_ids     = [aws_security_group.pte_open_all.id]
+  key_name                   = aws_key_pair.pte_key.key_name
 
-    instance_type = "t4g.nano"
+  root_block_device {
+    volume_type = "gp3"
+    volume_size = 18
+  }
 
-    tags = {
-      Name = "proxy"
-    }
+  tags = {
+    Name = "proxy"
+  }
 
-    user_data                   = <<EOF
+  user_data                   = <<EOF
 #!/bin/bash
 sudo apt-get update
 sudo sleep 2
@@ -51,4 +83,10 @@ sudo sysctl -p
 sudo service shadowsocks-libev restart
 EOF
 
+}
+
+resource "local_file" "pte_private_key" {
+  filename        = "./pte-proxy-key.pem"
+  content         = tls_private_key.pte_ssh.private_key_openssh
+  file_permission = "0600"
 }
