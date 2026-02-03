@@ -163,7 +163,7 @@ jobs:
                   # 总是更新通用元数据 (Title/Desc/Readme)
                   manifest_data[template_id]['latest'] = meta_version
                   manifest_data[template_id]['metadata'] = {
-                      'name': meta_name, 'author': meta_user, 'description': meta_desc, 'readme': readme_content
+                      'name': meta_name, 'user': meta_user, 'description': meta_desc, 'readme': readme_content
                   }
 
                   # 3. 检查版本是否存在
