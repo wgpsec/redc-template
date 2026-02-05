@@ -1,6 +1,6 @@
 {
     "name":"ecs",
     "user":"copilot",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description":"火山引擎 ECS 场景，使用按量计费部署 Debian 实例"
 }

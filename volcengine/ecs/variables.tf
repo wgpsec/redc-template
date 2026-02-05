@@ -1,9 +1,3 @@
-variable "yakit_port" {
-  type        = number
-  description = "Yakit server listening port"
-  default     = 8087
-}
-
 variable "instance_password" {
   type        = string
   description = "Instance login password (leave empty to auto-generate)"

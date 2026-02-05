@@ -1,13 +1,7 @@
-provider "random" {}
-
-resource "random_password" "password" {
-  length = 10
-  special = true
-  override_special = "_%@"
-  min_upper   = 1
-  min_lower   = 1
-  min_numeric = 1
-  min_special = 1
+locals {
+  password_seed      = replace(uuid(), "-", "")
+  generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
+  instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
 }
 
 resource "volcengine_ecs_instance" "instance" {
@@ -19,7 +13,7 @@ resource "volcengine_ecs_instance" "instance" {
   system_volume_type   = "ESSD_PL0"
   system_volume_size   = 20
   instance_charge_type = "PostPaid"
-  password             = random_password.password.result
+  password             = local.instance_password
   
   user_data = base64encode(<<EOF
 #!/bin/bash

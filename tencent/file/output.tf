@@ -3,6 +3,6 @@ output "ecs_ip" {
   description = "ip"
 }
 output "ecs_password" {
-  value       = nonsensitive(random_password.password.result)
+  value       = nonsensitive(local.instance_password)
   description = "vps password."
 }
