@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-05T06:26:54.690603Z",
+  "updated_at": "2026-02-05T06:27:12.900917Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -21,9 +21,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_ecs_v1.0.1.zip",
           "sha256": "e19731d4413de356ae2d966f7b1d373100b52851e455f64b19c985510a429d26",
           "updated_at": "2026-01-22T05:46:33.648588Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_ecs_v1.0.2.zip",
+          "sha256": "a0b5681c8394d766c70fde9311a3417d258f73c0919301b55b9f356d11f83354",
+          "updated_at": "2026-02-05T06:27:12.894709Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "ecs",
         "author": "r0fus0d",
@@ -55,9 +60,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_ecs1c2g_v1.0.1.zip",
           "sha256": "b03f1e9e90eb2f59a14bf3a6d88c0ac80b4dce19e00bbef9c13c00a8dc991743",
           "updated_at": "2026-01-22T05:46:33.649434Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_ecs1c2g_v1.0.2.zip",
+          "sha256": "162defc041377fe625621ed6315a2a587d057d0e9e6a1df1110318e32bc80af5",
+          "updated_at": "2026-02-05T06:27:12.895852Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "ecs1c2g",
         "author": "r0fus0d",
@@ -89,9 +99,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_file_v1.0.1.zip",
           "sha256": "927aec44d221ab49261ae431f1438854fbf71d66cb3e734d370655eb53afe3ec",
           "updated_at": "2026-01-22T05:46:33.650355Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_file_v1.0.2.zip",
+          "sha256": "e9158d5ac7267b81664b23a30207dce986255e1c141b1f1394a30aa8fbcbdc3a",
+          "updated_at": "2026-02-05T06:27:12.896785Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "file",
         "author": "r0fus0d",
@@ -123,9 +138,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_jndi_v1.0.1.zip",
           "sha256": "7624441a00fdd68c44af76ca41c709d399a8ca5c7c15d258630a66b045f3268a",
           "updated_at": "2026-01-22T05:46:33.651329Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_jndi_v1.0.2.zip",
+          "sha256": "e85f864617ecd36191f12ec57de0218ae9df42ef2a7afc44f6badbbe420fc6ac",
+          "updated_at": "2026-02-05T06:27:12.897795Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "jndi",
         "author": "r0fus0d",
@@ -157,9 +177,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_sliver_v1.0.1.zip",
           "sha256": "c710dadc4d45ee354a8dfef3879c762f576ba57f38b51899bf3201799c4ca705",
           "updated_at": "2026-01-23T06:57:39.157430Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_sliver_v1.0.2.zip",
+          "sha256": "7c970ca8a1461f4339efd683d412e237381500791efacaf4f61f0989e3764ce3",
+          "updated_at": "2026-02-05T06:27:12.899809Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "sliver",
         "author": "r0fus0d",
@@ -595,9 +620,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.0.6.zip",
           "sha256": "8468bec2e5911f181d5b4eebc4b87e9c4a7d780d7c940b842ae8585dd69fadc0",
           "updated_at": "2026-01-22T10:06:22.376224Z"
+        },
+        "1.0.7": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.0.7.zip",
+          "sha256": "f8b9f5c70e79cc9add508a95d33d61867feab37aa27e3c06731b9f784ae791c6",
+          "updated_at": "2026-02-05T06:27:12.898875Z"
         }
       },
-      "latest": "1.0.6",
+      "latest": "1.0.7",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
