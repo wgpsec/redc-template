@@ -1,6 +1,6 @@
 {
     "name":"jndi",
     "user":"r0fus0d",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description":"阿里云 JNDI 演练场景，采用 ecs.n1.small 规格，1核 2G，20G 系统盘，预置 JDK8、JNDIExploit、java-chains、simplehttpserver 等组件"
 }

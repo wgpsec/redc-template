@@ -1,13 +1,7 @@
-provider "random" {}
-
-resource "random_password" "password" {
-  length = 25
-  special = true
-  override_special = "_+-."
-  min_upper   = 1
-  min_lower   = 1
-  min_numeric = 1
-  min_special = 1
+locals {
+  password_seed      = replace(uuid(), "-", "")
+  generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
+  instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
 }
 
 resource "alicloud_instance" "instance" {
@@ -21,7 +15,7 @@ resource "alicloud_instance" "instance" {
   system_disk_description    = "sliver_system_disk_description"
   system_disk_size           = 20
   internet_max_bandwidth_out = 100
-  password = random_password.password.result
+  password = local.instance_password
   user_data                  = <<EOF
 #!/bin/bash
 sudo apt-get update

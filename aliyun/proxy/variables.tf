@@ -27,3 +27,10 @@ variable "buckets_path" {
   type        = string
   description = "OSS/R2 path prefix"
 }
+
+variable "instance_password" {
+  type        = string
+  description = "Instance login password (leave empty to auto-generate)"
+  sensitive   = true
+  default     = ""
+}

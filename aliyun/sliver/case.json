@@ -1,6 +1,6 @@
 {
     "name":"sliver",
     "user":"r0fus0d",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description":"阿里云 Sliver C2 场景，采用 ecs.c7a.large 规格，2核 4G，20G ESSD 系统盘，预置 sliver server/client、mingw 交叉编译工具与 simplehttpserver"
 }

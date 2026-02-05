@@ -1,6 +1,6 @@
 {
     "name":"file",
     "user":"r0fus0d",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description":"阿里云文件服务场景，采用 ecs.n1.small 规格，1核 2G，30G 系统盘，预装 simplehttpserver 及常用运维工具"
 }
