@@ -53,7 +53,6 @@ jobs:
           # ===========================================
 
           # 1. 暴力清理旧目录
-          # (必须清理，否则旧的深层目录结构会干扰 Terraform 索引)
           if MIRROR_ROOT.exists():
               print("🧹 Cleaning up old mirror directory...")
               shutil.rmtree(MIRROR_ROOT)
@@ -69,7 +68,6 @@ jobs:
                       return json.loads(r.read().decode())
 
               def download_file(self, url, dest_path: Path):
-                  # 如果文件存在且不为空，跳过 (节省时间)
                   if dest_path.exists() and dest_path.stat().st_size > 0:
                       return f'⏩ Skip: {dest_path.name}'
                   try:
@@ -93,8 +91,8 @@ jobs:
                       provider_dir.mkdir(parents=True, exist_ok=True)
                       
                       tasks = {}
-                      platform_meta = []
-                      base_download_url = None # 用于获取 SHA 文件的基准 URL
+                      platform_meta = [] # 暂存平台信息
+                      base_download_url = None 
 
                       with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
                           for os_name, arch in TARGET_PLATFORMS:
@@ -104,50 +102,51 @@ jobs:
                                   filename = dl_info['filename']
                                   file_url = dl_info['download_url']
                                   
-                                  # 记录任意一个成功的 URL 用于推导 SHA 文件地址
                                   if not base_download_url:
                                       base_download_url = file_url
                                   
-                                  # 【核心】扁平化存储：直接存在 provider_dir 下
                                   dest = provider_dir / filename
                                   tasks[executor.submit(self.download_file, file_url, dest)] = f'{os_name}/{arch}'
                                   
-                                  # 【核心】显式写入 download_url (相对路径)
+                                  # 先存入基础信息，稍后注入 sha 链接
                                   platform_meta.append({
                                       'os': os_name, 
                                       'arch': arch,
                                       'filename': filename,
-                                      'download_url': filename 
+                                      'download_url': filename
                                   })
                               except urllib.error.HTTPError:
-                                  pass # 该版本可能不支持某些架构，忽略
+                                  pass 
 
-                          # 下载签名文件 (如果至少有一个平台下载成功)
+                          # 下载签名文件
+                          shasums_name = ""
+                          shasums_sig_name = ""
+                          
                           if base_download_url:
                               base_url_sums = base_download_url.rsplit('/', 1)[0]
-                              sums_name = f'terraform-provider-{name}_{version}_SHA256SUMS'
+                              shasums_name = f'terraform-provider-{name}_{version}_SHA256SUMS'
+                              shasums_sig_name = f'{shasums_name}.sig'
                               
-                              tasks[executor.submit(self.download_file, f'{base_url_sums}/{sums_name}', provider_dir / sums_name)] = 'SHA256SUMS'
-                              tasks[executor.submit(self.download_file, f'{base_url_sums}/{sums_name}.sig', provider_dir / f'{sums_name}.sig')] = 'Signature'
-                              
-                              shasums_url = sums_name
-                              shasums_sig_url = f'{sums_name}.sig'
-                          else:
-                              # 极端情况：所有架构都下载失败
-                              shasums_url = ""
-                              shasums_sig_url = ""
+                              tasks[executor.submit(self.download_file, f'{base_url_sums}/{shasums_name}', provider_dir / shasums_name)] = 'SHA256SUMS'
+                              tasks[executor.submit(self.download_file, f'{base_url_sums}/{shasums_sig_name}', provider_dir / shasums_sig_name)] = 'Signature'
 
                           for future in as_completed(tasks):
                               print(f'   {future.result()}')
 
-                      # 生成符合协议的 index.json
+                      # 【关键修正】将 shasums 链接注入到每一个 platform 对象中
+                      # Network Mirror Protocol 要求每个 platform 条目都必须包含这两个字段
+                      final_platforms = []
+                      for p in platform_meta:
+                          if shasums_name:
+                              p['shasums_url'] = shasums_name
+                              p['shasums_signature_url'] = shasums_sig_name
+                          final_platforms.append(p)
+
                       index_data = {
                           'versions': {
                               version: {
                                   'protocols': ['5.0'],
-                                  'shasums_url': shasums_url,
-                                  'shasums_signature_url': shasums_sig_url,
-                                  'platforms': platform_meta
+                                  'platforms': final_platforms
                               }
                           }
                       }
@@ -172,7 +171,7 @@ jobs:
                   results.append(res)
                   print(f"✅ Finished processing {res['name']}")
 
-          # --- 生成 index.html (使用无转义模板) ---
+          # --- 生成 index.html ---
           print('📝 Generating index.html...')
           timestamp = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
           
@@ -267,4 +266,4 @@ jobs:
           publish_dir: ./public
           publish_branch: gh-pages
           keep_files: true
-          commit_message: "Mirror"
+          commit_message: "Mirror: Fix JSON structure (inject shasums into platforms)"
