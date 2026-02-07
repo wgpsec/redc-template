@@ -20,30 +20,25 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Force Sync Multi-Arch Providers
+      - name: Force Sync & Gen Index
+        shell: python
         run: |
-          # 创建镜像根目录
-          mkdir -p public/tf-mirror
-          
-          # 执行 Python 脚本
-          python3 -c "
           import json
           import urllib.request
           import urllib.error
           import shutil
           import os
           import sys
+          import datetime
           from pathlib import Path
           from concurrent.futures import ThreadPoolExecutor, as_completed
 
           # ================= 配置区域 =================
-          # 常用官方小工具
           PROVIDERS = [
               'random', 'null', 'time', 'local', 
               'tls', 'http', 'archive', 'external'
           ]
           
-          # 强制同步的平台列表 (Windows, Linux, macOS)
           TARGET_PLATFORMS = [
               ('linux', 'amd64'), ('linux', 'arm64'),
               ('windows', 'amd64'),
@@ -52,8 +47,13 @@ jobs:
           
           MIRROR_ROOT = Path('public/tf-mirror')
           REGISTRY_API = 'https://registry.terraform.io/v1/providers/hashicorp'
+          # 修改为您实际的 GitHub Pages 地址
+          MIRROR_URL = 'https://redc.wgpsec.org/tf-mirror/'
           MAX_WORKERS = 4
           # ===========================================
+
+          # 确保目录存在
+          MIRROR_ROOT.mkdir(parents=True, exist_ok=True)
 
           class MirrorSync:
               def __init__(self, base_dir: Path):
@@ -67,7 +67,6 @@ jobs:
               def download_file(self, url, dest_path: Path):
                   if dest_path.exists() and dest_path.stat().st_size > 0:
                       return f'⏩ Skip: {dest_path.name}'
-                  
                   try:
                       dest_path.parent.mkdir(parents=True, exist_ok=True)
                       req = urllib.request.Request(url, headers={'User-Agent': 'TF-Mirror-Bot'})
@@ -81,87 +80,145 @@ jobs:
               def process_provider(self, name):
                   print(f'🔍 Analyzing hashicorp/{name}...')
                   try:
-                      # 1. 获取最新版本
                       meta = self.fetch_json(f'{REGISTRY_API}/{name}')
                       version = meta['version']
                       
-                      # 准备目录结构
-                      # 格式: registry.terraform.io/hashicorp/{name}/{version}/{os}_{arch}/
                       provider_dir = self.base_dir / 'registry.terraform.io' / 'hashicorp' / name
                       
-                      # 2. 准备下载任务
                       tasks = {}
                       platform_meta = []
                       
                       with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-                          # A. 下载各平台 ZIP 包
                           for os_name, arch in TARGET_PLATFORMS:
                               try:
                                   dl_api = f'{REGISTRY_API}/{name}/{version}/download/{os_name}/{arch}'
                                   dl_info = self.fetch_json(dl_api)
-                                  
                                   filename = dl_info['filename']
                                   file_url = dl_info['download_url']
                                   
-                                  # 本地存放路径
                                   save_dir = provider_dir / version / f'{os_name}_{arch}'
                                   dest = save_dir / filename
                                   
                                   tasks[executor.submit(self.download_file, file_url, dest)] = f'{os_name}/{arch}'
-                                  
-                                  # 记录到索引元数据中
                                   platform_meta.append({'os': os_name, 'arch': arch})
-                                  
-                              except urllib.error.HTTPError as e:
-                                  print(f'   ⚠️ {name} {version} not found for {os_name}/{arch}')
+                              except urllib.error.HTTPError:
+                                  # 某些版本可能不支持特定架构，忽略即可
+                                  pass
 
-                          # B. 下载 SHA256SUMS 和 签名 (重要! Terraform 校验需要)
-                          # 通常在任意一个下载链接的同级目录
+                          # 下载签名文件
                           if 'file_url' in locals():
                               base_url_sums = file_url.rsplit('/', 1)[0]
                               sums_name = f'terraform-provider-{name}_{version}_SHA256SUMS'
-                              
-                              # 存放到 version 根目录
                               version_root = provider_dir / version
                               tasks[executor.submit(self.download_file, f'{base_url_sums}/{sums_name}', version_root / sums_name)] = 'SHA256SUMS'
                               tasks[executor.submit(self.download_file, f'{base_url_sums}/{sums_name}.sig', version_root / f'{sums_name}.sig')] = 'Signature'
 
-                          # 等待所有下载完成
                           for future in as_completed(tasks):
                               print(f'   {future.result()}')
 
-                      # 3. 生成 index.json (关键! Network Mirror 协议)
-                      # 路径: registry.terraform.io/hashicorp/{name}/index.json
-                      index_data = {
-                          'versions': {
-                              version: {
-                                  'protocols': ['5.0'],
-                                  'platforms': platform_meta
-                              }
-                          }
-                      }
+                      # 生成 index.json
+                      index_data = {'versions': {version: {'protocols': ['5.0'], 'platforms': platform_meta}}}
                       with open(provider_dir / 'index.json', 'w') as f:
                           json.dump(index_data, f, indent=2)
                       
-                      return f'✅ Finished: {name} v{version}'
+                      return {'name': name, 'version': version, 'status': 'success'}
 
                   except Exception as e:
-                      return f'🚫 Error: {name} - {e}'
+                      print(f'🚫 Error: {name} - {e}')
+                      return {'name': name, 'version': 'Error', 'status': 'failed'}
 
-          # --- 主程序 ---
+          # --- Main Execution ---
           syncer = MirrorSync(MIRROR_ROOT)
+          results = []
           
-          # 并发处理多个 Provider
           with ThreadPoolExecutor(max_workers=3) as main_executor:
               futures = {main_executor.submit(syncer.process_provider, p): p for p in PROVIDERS}
               for f in as_completed(futures):
-                  print(f.result())
-          "
+                  res = f.result()
+                  results.append(res)
+                  print(f"✅ Finished processing {res['name']}")
 
-      - name: Verify Windows Files
-        run: |
-          echo "📂 Checking for Windows binaries:"
-          find public/tf-mirror -name "*windows_amd64*" | head -n 5 || echo "No windows files found"
+          # --- Generate index.html (Dynamic Config) ---
+          print('📝 Generating index.html...')
+          timestamp = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
+          
+          sorted_providers = sorted(PROVIDERS)
+          config_list = [f'"registry.terraform.io/hashicorp/{p}"' for p in sorted_providers]
+          config_str = ",\n    ".join(config_list)
+          
+          html_content = f"""
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Terraform Provider Mirror</title>
+              <style>
+                  body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 2rem; color: #333; line-height: 1.6; }}
+                  h1 {{ border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }}
+                  .status {{ background: #f6f8fa; padding: 1rem; border-radius: 6px; margin-bottom: 2rem; border: 1px solid #e1e4e8; }}
+                  code {{ background: #eee; padding: 0.2rem 0.4rem; border-radius: 3px; font-family: monospace; font-size: 0.9em; }}
+                  pre {{ background: #2d333b; color: #adbac7; padding: 1.5rem; border-radius: 6px; overflow-x: auto; font-family: monospace; }}
+                  .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }}
+                  .card {{ border: 1px solid #e1e4e8; border-radius: 6px; padding: 1rem; transition: transform 0.2s; }}
+                  .card:hover {{ transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
+                  .name {{ font-weight: bold; color: #0366d6; margin-bottom: 0.5rem; }}
+                  .ver {{ font-size: 0.85em; color: #586069; background: #f1f8ff; display: inline-block; padding: 2px 8px; border-radius: 12px; }}
+                  footer {{ margin-top: 3rem; text-align: center; color: #666; font-size: 0.85rem; border-top: 1px solid #eee; padding-top: 1rem; }}
+                  a {{ color: #0366d6; text-decoration: none; }}
+                  a:hover {{ text-decoration: underline; }}
+              </style>
+          </head>
+          <body>
+              <h1>Terraform Provider Mirror</h1>
+              <div class="status">
+                  <p><strong>Last Updated:</strong> {timestamp}</p>
+                  <p><strong>Status:</strong> ✅ Ready</p>
+              </div>
+
+              <h2>Usage Configuration</h2>
+              <p>Add the following to your <code>~/.terraformrc</code> or <code>terraform.rc</code>:</p>
+              <pre>
+provider_installation {{
+  network_mirror {{
+    url = "{MIRROR_URL}"
+    # Automatically generated based on synced providers
+    include = [
+      {config_str}
+    ]
+  }}
+  direct {{
+    # Exclude mirrors to avoid conflicts
+    exclude = [
+      {config_str}
+    ]
+  }}
+}}</pre>
+
+              <h2>Synced Providers ({len(results)})</h2>
+              <div class="grid">
+          """
+          
+          for r in sorted(results, key=lambda x: x['name']):
+              if r['status'] == 'success':
+                  html_content += f"""
+                  <div class="card">
+                      <div class="name">hashicorp/{r['name']}</div>
+                      <div class="ver">v{r['version']}</div>
+                  </div>"""
+          
+          html_content += """
+              </div>
+              <footer>
+                  wgpsec terraform mirror | <a href="https://github.com/wgpsec/redc-template">Source Repository</a>
+              </footer>
+          </body>
+          </html>
+          """
+          
+          with open(MIRROR_ROOT / 'index.html', 'w', encoding='utf-8') as f:
+              f.write(html_content)
+          print('✅ index.html created successfully.')
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
@@ -170,4 +227,4 @@ jobs:
           publish_dir: ./public
           publish_branch: gh-pages
           keep_files: true
-          commit_message: "Mirror: Force sync Windows/Linux/Mac tools"
+          commit_message: "Mirror: Sync providers & update dynamic index.html"
