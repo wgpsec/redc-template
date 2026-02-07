@@ -4,38 +4,46 @@
       "protocols": [
         "5.0"
       ],
-      "shasums_url": "terraform-provider-http_3.5.0_SHA256SUMS",
-      "shasums_signature_url": "terraform-provider-http_3.5.0_SHA256SUMS.sig",
       "platforms": [
         {
           "os": "linux",
           "arch": "amd64",
           "filename": "terraform-provider-http_3.5.0_linux_amd64.zip",
-          "download_url": "terraform-provider-http_3.5.0_linux_amd64.zip"
+          "download_url": "terraform-provider-http_3.5.0_linux_amd64.zip",
+          "shasums_url": "terraform-provider-http_3.5.0_SHA256SUMS",
+          "shasums_signature_url": "terraform-provider-http_3.5.0_SHA256SUMS.sig"
         },
         {
           "os": "linux",
           "arch": "arm64",
           "filename": "terraform-provider-http_3.5.0_linux_arm64.zip",
-          "download_url": "terraform-provider-http_3.5.0_linux_arm64.zip"
+          "download_url": "terraform-provider-http_3.5.0_linux_arm64.zip",
+          "shasums_url": "terraform-provider-http_3.5.0_SHA256SUMS",
+          "shasums_signature_url": "terraform-provider-http_3.5.0_SHA256SUMS.sig"
         },
         {
           "os": "windows",
           "arch": "amd64",
           "filename": "terraform-provider-http_3.5.0_windows_amd64.zip",
-          "download_url": "terraform-provider-http_3.5.0_windows_amd64.zip"
+          "download_url": "terraform-provider-http_3.5.0_windows_amd64.zip",
+          "shasums_url": "terraform-provider-http_3.5.0_SHA256SUMS",
+          "shasums_signature_url": "terraform-provider-http_3.5.0_SHA256SUMS.sig"
         },
         {
           "os": "darwin",
           "arch": "amd64",
           "filename": "terraform-provider-http_3.5.0_darwin_amd64.zip",
-          "download_url": "terraform-provider-http_3.5.0_darwin_amd64.zip"
+          "download_url": "terraform-provider-http_3.5.0_darwin_amd64.zip",
+          "shasums_url": "terraform-provider-http_3.5.0_SHA256SUMS",
+          "shasums_signature_url": "terraform-provider-http_3.5.0_SHA256SUMS.sig"
         },
         {
           "os": "darwin",
           "arch": "arm64",
           "filename": "terraform-provider-http_3.5.0_darwin_arm64.zip",
-          "download_url": "terraform-provider-http_3.5.0_darwin_arm64.zip"
+          "download_url": "terraform-provider-http_3.5.0_darwin_arm64.zip",
+          "shasums_url": "terraform-provider-http_3.5.0_SHA256SUMS",
+          "shasums_signature_url": "terraform-provider-http_3.5.0_SHA256SUMS.sig"
         }
       ]
     }
