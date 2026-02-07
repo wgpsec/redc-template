@@ -2,273 +2,125 @@ name: Sync TF Mirror
 
 on:
   schedule:
-    - cron: '0 4 * * 0' # 每周日凌晨 4 点自动同步
-  workflow_dispatch:    # 支持手动触发
+    - cron: '0 4 * * 0' # 每周日运行
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  sync-mirror:
+  native-mirror:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "latest"
+
+      # 1. 生成配置文件 (只包含 HashiCorp 官方插件)
+      - name: Create Target Config
+        run: |
+          cat > main.tf <<EOF
+          terraform {
+            required_providers {
+              random   = { source = "hashicorp/random" }
+              null     = { source = "hashicorp/null" }
+              time     = { source = "hashicorp/time" }
+              local    = { source = "hashicorp/local" }
+              tls      = { source = "hashicorp/tls" }
+              http     = { source = "hashicorp/http" }
+              archive  = { source = "hashicorp/archive" }
+              external = { source = "hashicorp/external" }
+            }
+          }
+          EOF
+
+      # 2. 【关键修复】初始化 Terraform
+      # mirror 命令必须在已初始化的项目中运行，否则它不知道版本信息
+      - name: Terraform Init
+        run: terraform init
+
+      # 3. 执行官方镜像命令
+      # 这会自动处理下载、校验、生成 JSON、计算 Hash、目录结构
+      - name: Run Terraform Mirror
+        run: |
+          mkdir -p public/tf-mirror
+          
+          terraform providers mirror \
+            -platform=linux_amd64 \
+            -platform=linux_arm64 \
+            -platform=windows_amd64 \
+            -platform=darwin_amd64 \
+            -platform=darwin_arm64 \
+            ./public/tf-mirror
+
+      # 4. 生成 HTML 索引页面
+      - name: Generate HTML Index
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-
-      - name: Secure Sync & Verify
+      - name: Build HTML
         shell: python
         run: |
-          import json
-          import urllib.request
-          import urllib.error
-          import shutil
           import os
-          import sys
+          import json
           import datetime
           import textwrap
-          import hashlib
-          import binascii
-          import base64
           from pathlib import Path
-          from concurrent.futures import ThreadPoolExecutor, as_completed
 
-          # ==============================================================================
-          # 1. 全局配置 (Configuration)
-          # ==============================================================================
-          
-          # [必须修改] 您的镜像站地址，必须以 / 结尾
+          MIRROR_ROOT = Path('public/tf-mirror')
+          # [!] 请修改为您的实际 GitHub Pages 地址
           MIRROR_URL = 'https://redc.wgpsec.org/tf-mirror/'
 
-          # 需要同步的 Provider 列表
-          PROVIDERS = [
-              'random', 'null', 'time', 'local', 
-              'tls', 'http', 'archive', 'external'
-          ]
-          
-          # 需要同步的操作系统和架构
-          TARGET_PLATFORMS = [
-              ('linux', 'amd64'), ('linux', 'arm64'),
-              ('windows', 'amd64'),
-              ('darwin', 'amd64'), ('darwin', 'arm64')
-          ]
-          
-          MIRROR_ROOT = Path('public/tf-mirror')
-          REGISTRY_API = 'https://registry.terraform.io/v1/providers'
-          MAX_WORKERS = 4  # 并发下载数
-
-          # ==============================================================================
-          # 2. 核心逻辑 (Core Logic)
-          # ==============================================================================
-
-          class MirrorSync:
-              def __init__(self, base_dir: Path):
-                  self.base_dir = base_dir
-
-              def fetch_json(self, url):
-                  """从 Terraform Registry API 获取元数据"""
-                  req = urllib.request.Request(url, headers={'User-Agent': 'TF-Mirror-Bot'})
-                  with urllib.request.urlopen(req, timeout=15) as r:
-                      return json.loads(r.read().decode())
-
-              def verify_and_convert_hash(self, file_path: Path, expected_hex: str):
-                  """
-                  [核心安全逻辑]
-                  1. 读取已下载文件的内容，计算本地 SHA256 (Hex)。
-                  2. 与官方 API 返回的 expected_hex 进行比对。
-                  3. 如果一致，将 Hex 转换为 Terraform 需要的 h1:Base64 格式。
-                  """
-                  print(f"   🛡️  Verifying checksum for {file_path.name}...")
-                  sha256 = hashlib.sha256()
-                  
-                  # 分块读取文件，计算 Hash (避免大文件撑爆内存)
-                  with open(file_path, 'rb') as f:
-                      for block in iter(lambda: f.read(4096), b""):
-                          sha256.update(block)
-                  
-                  local_hex = sha256.hexdigest()
-                  
-                  # === 步骤 A: 安全比对 ===
-                  if local_hex != expected_hex:
-                      print(f"   ❌ CRITICAL: Hash Mismatch!")
-                      print(f"      Expected: {expected_hex}")
-                      print(f"      Actual:   {local_hex}")
-                      return None # 校验失败
-                  
-                  # === 步骤 B: 格式转换 ===
-                  # Terraform Network Mirror 协议要求: "h1:" + Base64编码的二进制Hash
-                  binary_hash = sha256.digest() # 获取二进制摘要
-                  b64_hash = base64.b64encode(binary_hash).decode('utf-8')
-                  return f"h1:{b64_hash}"
-
-              def download_file(self, url, dest_path: Path):
-                  """下载文件，如果已存在则跳过"""
-                  if dest_path.exists() and dest_path.stat().st_size > 0:
-                      return 'SKIP'
-                  try:
-                      dest_path.parent.mkdir(parents=True, exist_ok=True)
-                      req = urllib.request.Request(url, headers={'User-Agent': 'TF-Mirror-Bot'})
-                      with urllib.request.urlopen(req, timeout=60) as r, open(dest_path, 'wb') as f:
-                          shutil.copyfileobj(r, f)
-                      return 'OK'
-                  except Exception as e:
-                      if dest_path.exists(): dest_path.unlink() # 下载失败清理垃圾
-                      raise e
-
-              def process_single_arch(self, namespace, type_name, version, os_name, arch, provider_dir):
-                  """处理单个架构：下载 -> 校验 -> 返回元数据"""
-                  try:
-                      # 1. 调用 API 获取下载链接和官方 Hash
-                      dl_api = f'{REGISTRY_API}/{namespace}/{type_name}/{version}/download/{os_name}/{arch}'
-                      dl_info = self.fetch_json(dl_api)
-                      
-                      filename = dl_info['filename']
-                      file_url = dl_info['download_url']
-                      official_hex = dl_info['shasum'] # 官方宣称的 Hash (Hex格式)
-                      
-                      dest = provider_dir / filename
-                      
-                      # 2. 下载文件
-                      self.download_file(file_url, dest)
-                      
-                      # 3. [关键] 本地计算 Hash 并与官方比对
-                      tf_hash = self.verify_and_convert_hash(dest, official_hex)
-                      
-                      if not tf_hash:
-                          # 校验失败，立即删除文件，防止污染镜像
-                          if dest.exists(): dest.unlink()
-                          raise ValueError("Checksum verification failed (Local vs Official)")
-
-                      return {
-                          "status": "success",
-                          "os": os_name,
-                          "arch": arch,
-                          "filename": filename,
-                          "hash": tf_hash # 验证通过后的 h1 Hash
-                      }
-                  except urllib.error.HTTPError:
-                      return {"status": "skipped"} # 架构不存在
-                  except Exception as e:
-                      return {"status": "failed", "error": str(e)}
-
-              def process_provider(self, full_name):
-                  """处理单个 Provider 全流程"""
-                  if '/' in full_name:
-                      namespace, type_name = full_name.split('/')
-                  else:
-                      namespace = 'hashicorp'
-                      type_name = full_name
-
-                  print(f'🔍 Analyzing {namespace}/{type_name}...')
-                  
-                  try:
-                      # 1. 获取版本
-                      meta_url = f'{REGISTRY_API}/{namespace}/{type_name}'
-                      meta = self.fetch_json(meta_url)
-                      version = meta['version']
-                      
-                      # 目录结构: public/tf-mirror/registry.terraform.io/NAMESPACE/TYPE/
-                      provider_dir = self.base_dir / 'registry.terraform.io' / namespace / type_name
-                      provider_dir.mkdir(parents=True, exist_ok=True)
-                      
-                      archives_data = {}
-                      
-                      # 2. 并发处理所有架构
-                      with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-                          futures = []
-                          for os_name, arch in TARGET_PLATFORMS:
-                              futures.append(executor.submit(
-                                  self.process_single_arch, 
-                                  namespace, type_name, version, os_name, arch, provider_dir
-                              ))
-                          
-                          for future in as_completed(futures):
-                              res = future.result()
-                              if res["status"] == "success":
-                                  key = f"{res['os']}_{res['arch']}"
-                                  print(f"   ✅ Verified & Ready: {res['filename']}")
-                                  archives_data[key] = {
-                                      "url": res['filename'],
-                                      "hashes": [res['hash']]
-                                  }
-                              elif res["status"] == "failed":
-                                  print(f"   ❌ Failed: {res.get('error')}")
-
-                      # 3. 生成索引文件
-                      if archives_data:
-                          # index.json
-                          index_data = {"versions": {version: {}}}
-                          with open(provider_dir / 'index.json', 'w') as f:
-                              json.dump(index_data, f, indent=2)
-
-                          # VERSION.json (如 3.8.1.json)
-                          version_file_data = {"archives": archives_data}
-                          with open(provider_dir / f'{version}.json', 'w') as f:
-                              json.dump(version_file_data, f, indent=2)
-                          
-                          return {'name': type_name, 'namespace': namespace, 'version': version, 'status': 'success'}
-                      else:
-                           return {'name': type_name, 'namespace': namespace, 'version': version, 'status': 'empty'}
-
-                  except Exception as e:
-                      print(f'🚫 Error processing {namespace}/{type_name}: {e}')
-                      return {'name': type_name, 'namespace': namespace, 'version': 'Error', 'status': 'failed'}
-
-          # ==============================================================================
-          # 3. 主程序执行 (Main Execution)
-          # ==============================================================================
-          
-          # 清理旧目录
-          if MIRROR_ROOT.exists():
-              print("🧹 Cleaning up old mirror directory...")
-              shutil.rmtree(MIRROR_ROOT)
-          MIRROR_ROOT.mkdir(parents=True, exist_ok=True)
-
-          syncer = MirrorSync(MIRROR_ROOT)
-          results = []
-          
-          with ThreadPoolExecutor(max_workers=3) as main_executor:
-              futures = {main_executor.submit(syncer.process_provider, p): p for p in PROVIDERS}
-              for f in as_completed(futures):
-                  res = f.result()
-                  results.append(res)
-                  
-                  ns = res.get('namespace', 'unknown')
-                  nm = res.get('name', 'unknown')
-                  if res.get('status') == 'success':
-                      print(f"🎉 Completed {ns}/{nm}")
-                  else:
-                      print(f"⚠️ Skipped {ns}/{nm}")
-
-          # ==============================================================================
-          # 4. 生成 HTML 索引页面
-          # ==============================================================================
           print('📝 Generating index.html...')
+          providers = []
+
+          # 遍历 Terraform 生成的标准目录结构
+          base_registry = MIRROR_ROOT / 'registry.terraform.io'
+          
+          if base_registry.exists():
+              for namespace in base_registry.iterdir():
+                  if namespace.is_dir():
+                      for name in namespace.iterdir():
+                          if name.is_dir():
+                              # 读取 index.json 获取版本信息
+                              index_path = name / 'index.json'
+                              if index_path.exists():
+                                  try:
+                                      with open(index_path) as f:
+                                          data = json.load(f)
+                                          # 获取最新版本号
+                                          versions = sorted(data.get('versions', {}).keys(), reverse=True)
+                                          latest_ver = versions[0] if versions else 'unknown'
+                                          
+                                          providers.append({
+                                              'namespace': namespace.name,
+                                              'name': name.name,
+                                              'version': latest_ver
+                                          })
+                                  except:
+                                      pass
+
+          # 生成 HTML
           timestamp = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
           
-          sorted_results = sorted(results, key=lambda x: (x.get('namespace', ''), x.get('name', '')))
+          # 排序: namespace -> name
+          sorted_providers = sorted(providers, key=lambda x: (x['namespace'], x['name']))
           
-          # 生成 Terraform include 配置块
-          config_lines = []
-          for r in sorted_results:
-              if r.get('status') == 'success':
-                   config_lines.append(f'"registry.terraform.io/{r["namespace"]}/{r["name"]}"')
+          config_lines = [f'"registry.terraform.io/{p["namespace"]}/{p["name"]}"' for p in sorted_providers]
           config_str = ",\n    ".join(config_lines)
           
-          # 生成卡片 HTML
           cards_html = ""
-          for r in sorted_results:
-              if r.get('status') == 'success':
-                  cards_html += f"""
-                  <div class="card">
-                      <div class="name">{r['namespace']}/{r['name']}</div>
-                      <div class="ver">v{r['version']}</div>
-                  </div>
-                  """
+          for p in sorted_providers:
+              cards_html += f"""
+              <div class="card">
+                  <div class="name">{p['namespace']}/{p['name']}</div>
+                  <div class="ver">v{p['version']}</div>
+              </div>
+              """
 
           html_template = textwrap.dedent("""
           <!DOCTYPE html>
@@ -294,7 +146,7 @@ jobs:
           <body>
               <h1>Terraform Provider Mirror</h1>
               <div class="status">
-                  <p><strong>Protocol:</strong> Network Mirror (Strict Integrity Check)</p>
+                  <p><strong>Method:</strong> Native CLI (Strict Official)</p>
                   <p><strong>Last Updated:</strong> {{TIMESTAMP}}</p>
                   <p><strong>Mirror URL:</strong> <code>{{MIRROR_URL}}</code></p>
               </div>
@@ -331,12 +183,11 @@ jobs:
           final_html = html_template.replace("{{TIMESTAMP}}", timestamp) \
                                     .replace("{{MIRROR_URL}}", MIRROR_URL) \
                                     .replace("{{CONFIG_STR}}", config_str) \
-                                    .replace("{{COUNT}}", str(len(config_lines))) \
+                                    .replace("{{COUNT}}", str(len(providers))) \
                                     .replace("{{CARDS_HTML}}", cards_html)
           
           with open(MIRROR_ROOT / 'index.html', 'w', encoding='utf-8') as f:
               f.write(final_html)
-          print('✅ index.html created successfully.')
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
@@ -345,4 +196,4 @@ jobs:
           publish_dir: ./public
           publish_branch: gh-pages
           keep_files: true
-          commit_message: "Mirror: Sync providers with Strict Local Hash Verification"
+          commit_message: "Mirror: Sync using Native Terraform CLI with Init"
