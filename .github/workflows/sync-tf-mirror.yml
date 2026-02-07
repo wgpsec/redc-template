@@ -1,0 +1,89 @@
+name: Sync TF Mirror (Official Tools)
+
+on:
+  # 每周日凌晨 4 点自动同步一次
+  schedule:
+    - cron: '0 4 * * 0'
+  # 允许手动触发
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "latest"
+
+      - name: Prepare Mirror Config
+        run: |
+          # 1. 创建工作目录
+          mkdir -p tf-build
+          cd tf-build
+
+          # 2. 生成 main.tf，只包含官方轻量级工具类插件
+          # 注意：不要包含 AWS/Azure 等大型插件，以免超出 GitHub Pages 限制
+          cat > main.tf <<EOF
+          terraform {
+            required_providers {
+              random   = { source = "hashicorp/random" }
+              null     = { source = "hashicorp/null" }
+              time     = { source = "hashicorp/time" }
+              local    = { source = "hashicorp/local" }
+              tls      = { source = "hashicorp/tls" }
+              http     = { source = "hashicorp/http" }
+              archive  = { source = "hashicorp/archive" }
+              external = { source = "hashicorp/external" }
+            }
+          }
+          EOF
+
+      - name: Download and Lock Providers (Multi-Arch)
+        working-directory: ./tf-build
+        run: |
+          # 初始化
+          terraform init
+
+          # 锁定多平台版本 (Windows, Linux, macOS)
+          # 这一步会下载各平台的校验和，确保 mirror 命令能拉取到所有平台的包
+          echo "🔒 Locking dependencies for cross-platform..."
+          terraform providers lock \
+            -platform=linux_amd64 \
+            -platform=linux_arm64 \
+            -platform=darwin_amd64 \
+            -platform=darwin_arm64 \
+            -platform=windows_amd64
+
+      - name: Build Mirror
+        working-directory: ./tf-build
+        run: |
+          # 创建输出目录结构
+          # 注意：我们需要把它们放在 public/tf-mirror 下
+          mkdir -p ../public/tf-mirror
+
+          # 执行镜像命令
+          echo "📦 Mirroring providers..."
+          terraform providers mirror ../public/tf-mirror
+
+      - name: Verify Mirror Content
+        run: |
+          echo "✅ Listing mirrored files:"
+          ls -R public/tf-mirror
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          keep_files: true
+          commit_message: "Mirror: Sync official tools to /tf-mirror"
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
