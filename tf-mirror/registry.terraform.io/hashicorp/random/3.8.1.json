@@ -1,0 +1,19 @@
+{
+  "archives": {
+    "linux_amd64": {
+      "url": "terraform-provider-random_3.8.1_linux_amd64.zip"
+    },
+    "linux_arm64": {
+      "url": "terraform-provider-random_3.8.1_linux_arm64.zip"
+    },
+    "windows_amd64": {
+      "url": "terraform-provider-random_3.8.1_windows_amd64.zip"
+    },
+    "darwin_amd64": {
+      "url": "terraform-provider-random_3.8.1_darwin_amd64.zip"
+    },
+    "darwin_arm64": {
+      "url": "terraform-provider-random_3.8.1_darwin_arm64.zip"
+    }
+  }
+}

@@ -1,10 +1,19 @@
 {
   "archives": {
     "linux_amd64": {
-      "hashes": [
-        "h1:F5d6bQY8UlBo0D71Sv7CsV+3aZOFz0yeNF+vufog7h4="
-      ],
       "url": "terraform-provider-tls_4.2.1_linux_amd64.zip"
+    },
+    "linux_arm64": {
+      "url": "terraform-provider-tls_4.2.1_linux_arm64.zip"
+    },
+    "windows_amd64": {
+      "url": "terraform-provider-tls_4.2.1_windows_amd64.zip"
+    },
+    "darwin_amd64": {
+      "url": "terraform-provider-tls_4.2.1_darwin_amd64.zip"
+    },
+    "darwin_arm64": {
+      "url": "terraform-provider-tls_4.2.1_darwin_arm64.zip"
     }
   }
 }

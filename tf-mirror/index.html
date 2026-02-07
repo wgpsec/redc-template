@@ -17,24 +17,21 @@
         .name { font-weight: bold; color: #0366d6; margin-bottom: 0.5rem; }
         .ver { font-size: 0.85em; color: #586069; background: #f1f8ff; display: inline-block; padding: 2px 8px; border-radius: 12px; }
         footer { margin-top: 3rem; text-align: center; color: #666; font-size: 0.85rem; border-top: 1px solid #eee; padding-top: 1rem; }
-        a { color: #0366d6; text-decoration: none; }
-        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <h1>Terraform Provider Mirror</h1>
     <div class="status">
-        <p><strong>Last Updated:</strong> 2026-02-07 03:18:17 UTC</p>
-        <p><strong>Status:</strong> ✅ Ready</p>
+        <p><strong>Protocol:</strong> Network Mirror (Static)</p>
+        <p><strong>Last Updated:</strong> 2026-02-07 03:24:37 UTC</p>
     </div>
 
     <h2>Usage Configuration</h2>
-    <p>Add the following to your <code>~/.terraformrc</code> or <code>terraform.rc</code>:</p>
+    <p>Add the following to your <code>~/.terraformrc</code>:</p>
     <pre>
 provider_installation {
   network_mirror {
     url = "https://redc.wgpsec.org/tf-mirror/"
-    # Automatically generated based on synced providers
     include = [
       "registry.terraform.io/hashicorp/archive",
     "registry.terraform.io/hashicorp/external",
@@ -47,7 +44,6 @@ provider_installation {
     ]
   }
   direct {
-    # Exclude mirrors to avoid conflicts
     exclude = [
       "registry.terraform.io/hashicorp/archive",
     "registry.terraform.io/hashicorp/external",
@@ -105,8 +101,5 @@ provider_installation {
         </div>
         
     </div>
-    <footer>
-        wgpsec terraform mirror | <a href="https://github.com/wgpsec/redc-template">Source Repository</a>
-    </footer>
 </body>
 </html>
