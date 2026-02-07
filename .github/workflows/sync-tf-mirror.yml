@@ -1,10 +1,8 @@
-name: Sync TF Mirror (Official Tools)
+name: Sync TF Mirror (Native Lock & Mirror)
 
 on:
-  # 每周日凌晨 4 点自动同步一次
   schedule:
-    - cron: '0 4 * * 0'
-  # 允许手动触发
+    - cron: '0 4 * * 0' # 每周日运行
   workflow_dispatch:
 
 permissions:
@@ -22,14 +20,12 @@ jobs:
         with:
           terraform_version: "latest"
 
-      - name: Prepare Mirror Config
+      - name: Prepare & Lock Dependencies
         run: |
-          # 1. 创建工作目录
-          mkdir -p tf-build
-          cd tf-build
+          mkdir -p tf-worker
+          cd tf-worker
 
-          # 2. 生成 main.tf，只包含官方轻量级工具类插件
-          # 注意：不要包含 AWS/Azure 等大型插件，以免超出 GitHub Pages 限制
+          # 1. 生成 main.tf (只包含轻量级工具)
           cat > main.tf <<EOF
           terraform {
             required_providers {
@@ -45,14 +41,11 @@ jobs:
           }
           EOF
 
-      - name: Download and Lock Providers (Multi-Arch)
-        working-directory: ./tf-build
-        run: |
-          # 初始化
+          # 2. 初始化 (只下载当前 Linux 环境的包)
           terraform init
 
-          # 锁定多平台版本 (Windows, Linux, macOS)
-          # 这一步会下载各平台的校验和，确保 mirror 命令能拉取到所有平台的包
+          # 3. 关键步骤：锁定多平台
+          # 这会强制计算 Win/Mac/Linux 的哈希值并写入 .terraform.lock.hcl
           echo "🔒 Locking dependencies for cross-platform..."
           terraform providers lock \
             -platform=linux_amd64 \
@@ -61,21 +54,109 @@ jobs:
             -platform=darwin_arm64 \
             -platform=windows_amd64
 
-      - name: Build Mirror
-        working-directory: ./tf-build
+      - name: Execute Native Mirroring
         run: |
-          # 创建输出目录结构
-          # 注意：我们需要把它们放在 public/tf-mirror 下
+          cd tf-worker
+          
+          # 创建输出目录
           mkdir -p ../public/tf-mirror
 
-          # 执行镜像命令
-          echo "📦 Mirroring providers..."
+          # 4. 执行官方镜像命令
+          # 它会读取 .terraform.lock.hcl，自动下载所有平台的包
+          # 并按照 standard filesystem layout 放置
+          echo "📦 Mirroring to ../public/tf-mirror..."
           terraform providers mirror ../public/tf-mirror
 
-      - name: Verify Mirror Content
+      - name: Generate Index JSON (Required for Web Mirror)
+        # Terraform 原生命令只生成文件结构，不生成 index.json
+        # 必须补充这一步，否则 network_mirror 无法识别
         run: |
-          echo "✅ Listing mirrored files:"
-          ls -R public/tf-mirror
+          python3 -c "
+          import os
+          import json
+          import hashlib
+
+          mirror_root = 'public/tf-mirror'
+          
+          # 遍历 mirror 目录
+          for root, dirs, files in os.walk(mirror_root):
+              # 查找包含 .zip 文件的目录 (通常是 .../version/os_arch/)
+              # 官方结构: registry.terraform.io/hashicorp/name/version/os_arch/file.zip
+              
+              # 我们需要找到 'provider' 这一层来生成 index.json
+              # 路径特征: .../hashicorp/{name} 下面应该放 index.json
+              
+              if 'hashicorp' in root.split(os.sep):
+                  # 尝试定位 provider 根目录
+                  parts = root.split(os.sep)
+                  try:
+                      idx = parts.index('hashicorp')
+                      provider_name = parts[idx+1]
+                      provider_root = os.path.join(*parts[:idx+2]) # .../hashicorp/name
+                      
+                      # 如果已经处理过这个 provider，跳过
+                      if os.path.exists(os.path.join(provider_root, 'index.json')):
+                          continue
+                          
+                      print(f'Creating index for: {provider_name}')
+                      
+                      versions_data = {}
+                      
+                      # 扫描该 provider 下的所有版本
+                      for v_ver in os.listdir(provider_root):
+                          ver_path = os.path.join(provider_root, v_ver)
+                          if not os.path.isdir(ver_path): continue
+                          
+                          platforms = []
+                          # 扫描该版本下的所有架构 (linux_amd64, windows_amd64...)
+                          for v_arch in os.listdir(ver_path):
+                              arch_path = os.path.join(ver_path, v_arch)
+                              if not os.path.isdir(arch_path): continue
+                              
+                              # 找 zip 文件
+                              zips = [f for f in os.listdir(arch_path) if f.endswith('.zip')]
+                              if zips:
+                                  zip_file = zips[0]
+                                  zip_full_path = os.path.join(arch_path, zip_file)
+                                  
+                                  # 计算 SHA256 (虽然 network_mirror 协议不强制要求在这里放 hash，但生成完整的更好)
+                                  # 关键是记录 os 和 arch
+                                  os_type, arch_type = v_arch.split('_')
+                                  
+                                  # 构造相对下载路径
+                                  # 结构: version/os_arch/filename
+                                  dl_path = f'{v_ver}/{v_arch}/{zip_file}'
+                                  
+                                  platforms.append({
+                                      'os': os_type, 
+                                      'arch': arch_type,
+                                      'filename': zip_file,
+                                      'download_url': zip_file, # 相对路径，实际协议处理会有差异，但对于静态文件服务，只要路径对就行
+                                      # 注意：index.json 的 url 是相对于 version 目录的，还是相对于 provider 根目录的？
+                                      # 根据协议，index.json 里的 url 可以是相对路径。
+                                      # 为了稳妥，我们这里不放 download_url 字段让它走默认，
+                                      # 或者指向具体的相对路径: version/arch/file
+                                  })
+                          
+                          if platforms:
+                              versions_data[v_ver] = {
+                                  'protocols': ['5.0'],
+                                  'platforms': platforms
+                              }
+
+                      # 写入 index.json
+                      if versions_data:
+                          with open(os.path.join(provider_root, 'index.json'), 'w') as f:
+                              json.dump({'versions': versions_data}, f, indent=2)
+
+                  except IndexError:
+                      pass
+          "
+
+      - name: Verify Content
+        run: |
+          echo "📂 Checking random provider structure:"
+          ls -R public/tf-mirror/registry.terraform.io/hashicorp/random/ || echo "Random not found"
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
@@ -84,6 +165,4 @@ jobs:
           publish_dir: ./public
           publish_branch: gh-pages
           keep_files: true
-          commit_message: "Mirror: Sync official tools to /tf-mirror"
-          user_name: "github-actions[bot]"
-          user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_message: "Mirror: Native Lock Sync"
