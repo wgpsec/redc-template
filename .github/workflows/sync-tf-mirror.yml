@@ -48,11 +48,15 @@ jobs:
           
           MIRROR_ROOT = Path('public/tf-mirror')
           REGISTRY_API = 'https://registry.terraform.io/v1/providers/hashicorp'
+          # 修改为您实际的 GitHub Pages 地址 (确保以 / 结尾)
           MIRROR_URL = 'https://redc.wgpsec.org/tf-mirror/'
           MAX_WORKERS = 4
           # ===========================================
 
-          # 确保目录存在
+          # 1. 清理旧目录 (防止残留文件干扰)
+          if MIRROR_ROOT.exists():
+              print("🧹 Cleaning up old mirror directory...")
+              shutil.rmtree(MIRROR_ROOT)
           MIRROR_ROOT.mkdir(parents=True, exist_ok=True)
 
           class MirrorSync:
@@ -88,6 +92,10 @@ jobs:
                       tasks = {}
                       platform_meta = []
                       
+                      # 准备版本相关的元数据
+                      shasums_url_rel = ""
+                      shasums_sig_url_rel = ""
+
                       with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
                           for os_name, arch in TARGET_PLATFORMS:
                               try:
@@ -96,17 +104,32 @@ jobs:
                                   filename = dl_info['filename']
                                   file_url = dl_info['download_url']
                                   
+                                  # 目录结构: 3.8.1/linux_amd64/terraform-provider-xxx.zip
+                                  rel_path_dir = f'{version}/{os_name}_{arch}'
                                   save_dir = provider_dir / version / f'{os_name}_{arch}'
                                   dest = save_dir / filename
                                   
                                   tasks[executor.submit(self.download_file, file_url, dest)] = f'{os_name}/{arch}'
-                                  platform_meta.append({'os': os_name, 'arch': arch})
+                                  
+                                  # [关键修正] 显式指定 download_url 为相对路径
+                                  platform_meta.append({
+                                      'os': os_name, 
+                                      'arch': arch,
+                                      'filename': filename,
+                                      'download_url': f'{rel_path_dir}/{filename}'
+                                  })
                               except urllib.error.HTTPError:
                                   pass
 
+                          # 下载签名文件 (放在 version 根目录)
                           if 'file_url' in locals():
                               base_url_sums = file_url.rsplit('/', 1)[0]
                               sums_name = f'terraform-provider-{name}_{version}_SHA256SUMS'
+                              
+                              # 记录相对路径用于 index.json
+                              shasums_url_rel = f'{version}/{sums_name}'
+                              shasums_sig_url_rel = f'{version}/{sums_name}.sig'
+
                               version_root = provider_dir / version
                               tasks[executor.submit(self.download_file, f'{base_url_sums}/{sums_name}', version_root / sums_name)] = 'SHA256SUMS'
                               tasks[executor.submit(self.download_file, f'{base_url_sums}/{sums_name}.sig', version_root / f'{sums_name}.sig')] = 'Signature'
@@ -114,7 +137,18 @@ jobs:
                           for future in as_completed(tasks):
                               print(f'   {future.result()}')
 
-                      index_data = {'versions': {version: {'protocols': ['5.0'], 'platforms': platform_meta}}}
+                      # 生成符合 Network Mirror 规范的 index.json
+                      index_data = {
+                          'versions': {
+                              version: {
+                                  'protocols': ['5.0'],
+                                  'shasums_url': shasums_url_rel,
+                                  'shasums_signature_url': shasums_sig_url_rel,
+                                  'platforms': platform_meta
+                              }
+                          }
+                      }
+                      
                       with open(provider_dir / 'index.json', 'w') as f:
                           json.dump(index_data, f, indent=2)
                       
@@ -135,16 +169,14 @@ jobs:
                   results.append(res)
                   print(f"✅ Finished processing {res['name']}")
 
-          # --- Generate index.html (Fixed Syntax) ---
+          # --- Generate index.html ---
           print('📝 Generating index.html...')
           timestamp = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
           
-          # 生成配置列表字符串
           sorted_providers = sorted(PROVIDERS)
           config_list = [f'"registry.terraform.io/hashicorp/{p}"' for p in sorted_providers]
           config_str = ",\n    ".join(config_list)
           
-          # 生成卡片 HTML
           cards_html = ""
           for r in sorted(results, key=lambda x: x['name']):
               if r['status'] == 'success':
@@ -191,13 +223,11 @@ jobs:
           provider_installation {
             network_mirror {
               url = "{{MIRROR_URL}}"
-              # Automatically generated based on synced providers
               include = [
                 {{CONFIG_STR}}
               ]
             }
             direct {
-              # Exclude mirrors to avoid conflicts
               exclude = [
                 {{CONFIG_STR}}
               ]
@@ -215,7 +245,6 @@ jobs:
           </html>
           """)
           
-          # 替换占位符
           final_html = html_template.replace("{{TIMESTAMP}}", timestamp) \
                                     .replace("{{MIRROR_URL}}", MIRROR_URL) \
                                     .replace("{{CONFIG_STR}}", config_str) \
@@ -233,4 +262,4 @@ jobs:
           publish_dir: ./public
           publish_branch: gh-pages
           keep_files: true
-          commit_message: "Mirror: Sync providers & update dynamic index.html"
+          commit_message: "Mirror: Force sync with Fixed JSON Index"
