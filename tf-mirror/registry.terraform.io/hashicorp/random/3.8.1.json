@@ -1,0 +1,10 @@
+{
+  "archives": {
+    "linux_amd64": {
+      "hashes": [
+        "h1:Eexl06+6J+s75uD46+WnZtpJZYRVUMB0AiuPBifK6Jc="
+      ],
+      "url": "terraform-provider-random_3.8.1_linux_amd64.zip"
+    }
+  }
+}
