@@ -4,38 +4,38 @@
       "protocols": [
         "5.0"
       ],
-      "shasums_url": "0.13.1/terraform-provider-time_0.13.1_SHA256SUMS",
-      "shasums_signature_url": "0.13.1/terraform-provider-time_0.13.1_SHA256SUMS.sig",
+      "shasums_url": "terraform-provider-time_0.13.1_SHA256SUMS",
+      "shasums_signature_url": "terraform-provider-time_0.13.1_SHA256SUMS.sig",
       "platforms": [
         {
           "os": "linux",
           "arch": "amd64",
           "filename": "terraform-provider-time_0.13.1_linux_amd64.zip",
-          "download_url": "0.13.1/linux_amd64/terraform-provider-time_0.13.1_linux_amd64.zip"
+          "download_url": "terraform-provider-time_0.13.1_linux_amd64.zip"
         },
         {
           "os": "linux",
           "arch": "arm64",
           "filename": "terraform-provider-time_0.13.1_linux_arm64.zip",
-          "download_url": "0.13.1/linux_arm64/terraform-provider-time_0.13.1_linux_arm64.zip"
+          "download_url": "terraform-provider-time_0.13.1_linux_arm64.zip"
         },
         {
           "os": "windows",
           "arch": "amd64",
           "filename": "terraform-provider-time_0.13.1_windows_amd64.zip",
-          "download_url": "0.13.1/windows_amd64/terraform-provider-time_0.13.1_windows_amd64.zip"
+          "download_url": "terraform-provider-time_0.13.1_windows_amd64.zip"
         },
         {
           "os": "darwin",
           "arch": "amd64",
           "filename": "terraform-provider-time_0.13.1_darwin_amd64.zip",
-          "download_url": "0.13.1/darwin_amd64/terraform-provider-time_0.13.1_darwin_amd64.zip"
+          "download_url": "terraform-provider-time_0.13.1_darwin_amd64.zip"
         },
         {
           "os": "darwin",
           "arch": "arm64",
           "filename": "terraform-provider-time_0.13.1_darwin_arm64.zip",
-          "download_url": "0.13.1/darwin_arm64/terraform-provider-time_0.13.1_darwin_arm64.zip"
+          "download_url": "terraform-provider-time_0.13.1_darwin_arm64.zip"
         }
       ]
     }

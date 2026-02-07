@@ -24,7 +24,7 @@
 <body>
     <h1>Terraform Provider Mirror</h1>
     <div class="status">
-        <p><strong>Last Updated:</strong> 2026-02-07 02:57:48 UTC</p>
+        <p><strong>Last Updated:</strong> 2026-02-07 03:06:01 UTC</p>
         <p><strong>Status:</strong> ✅ Ready</p>
     </div>
 
@@ -34,6 +34,7 @@
 provider_installation {
   network_mirror {
     url = "https://redc.wgpsec.org/tf-mirror/"
+    # Automatically generated based on synced providers
     include = [
       "registry.terraform.io/hashicorp/archive",
     "registry.terraform.io/hashicorp/external",
@@ -46,6 +47,7 @@ provider_installation {
     ]
   }
   direct {
+    # Exclude mirrors to avoid conflicts
     exclude = [
       "registry.terraform.io/hashicorp/archive",
     "registry.terraform.io/hashicorp/external",

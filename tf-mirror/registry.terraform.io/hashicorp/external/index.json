@@ -4,38 +4,38 @@
       "protocols": [
         "5.0"
       ],
-      "shasums_url": "2.3.5/terraform-provider-external_2.3.5_SHA256SUMS",
-      "shasums_signature_url": "2.3.5/terraform-provider-external_2.3.5_SHA256SUMS.sig",
+      "shasums_url": "terraform-provider-external_2.3.5_SHA256SUMS",
+      "shasums_signature_url": "terraform-provider-external_2.3.5_SHA256SUMS.sig",
       "platforms": [
         {
           "os": "linux",
           "arch": "amd64",
           "filename": "terraform-provider-external_2.3.5_linux_amd64.zip",
-          "download_url": "2.3.5/linux_amd64/terraform-provider-external_2.3.5_linux_amd64.zip"
+          "download_url": "terraform-provider-external_2.3.5_linux_amd64.zip"
         },
         {
           "os": "linux",
           "arch": "arm64",
           "filename": "terraform-provider-external_2.3.5_linux_arm64.zip",
-          "download_url": "2.3.5/linux_arm64/terraform-provider-external_2.3.5_linux_arm64.zip"
+          "download_url": "terraform-provider-external_2.3.5_linux_arm64.zip"
         },
         {
           "os": "windows",
           "arch": "amd64",
           "filename": "terraform-provider-external_2.3.5_windows_amd64.zip",
-          "download_url": "2.3.5/windows_amd64/terraform-provider-external_2.3.5_windows_amd64.zip"
+          "download_url": "terraform-provider-external_2.3.5_windows_amd64.zip"
         },
         {
           "os": "darwin",
           "arch": "amd64",
           "filename": "terraform-provider-external_2.3.5_darwin_amd64.zip",
-          "download_url": "2.3.5/darwin_amd64/terraform-provider-external_2.3.5_darwin_amd64.zip"
+          "download_url": "terraform-provider-external_2.3.5_darwin_amd64.zip"
         },
         {
           "os": "darwin",
           "arch": "arm64",
           "filename": "terraform-provider-external_2.3.5_darwin_arm64.zip",
-          "download_url": "2.3.5/darwin_arm64/terraform-provider-external_2.3.5_darwin_arm64.zip"
+          "download_url": "terraform-provider-external_2.3.5_darwin_arm64.zip"
         }
       ]
     }

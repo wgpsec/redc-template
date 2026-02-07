@@ -4,38 +4,38 @@
       "protocols": [
         "5.0"
       ],
-      "shasums_url": "3.2.4/terraform-provider-null_3.2.4_SHA256SUMS",
-      "shasums_signature_url": "3.2.4/terraform-provider-null_3.2.4_SHA256SUMS.sig",
+      "shasums_url": "terraform-provider-null_3.2.4_SHA256SUMS",
+      "shasums_signature_url": "terraform-provider-null_3.2.4_SHA256SUMS.sig",
       "platforms": [
         {
           "os": "linux",
           "arch": "amd64",
           "filename": "terraform-provider-null_3.2.4_linux_amd64.zip",
-          "download_url": "3.2.4/linux_amd64/terraform-provider-null_3.2.4_linux_amd64.zip"
+          "download_url": "terraform-provider-null_3.2.4_linux_amd64.zip"
         },
         {
           "os": "linux",
           "arch": "arm64",
           "filename": "terraform-provider-null_3.2.4_linux_arm64.zip",
-          "download_url": "3.2.4/linux_arm64/terraform-provider-null_3.2.4_linux_arm64.zip"
+          "download_url": "terraform-provider-null_3.2.4_linux_arm64.zip"
         },
         {
           "os": "windows",
           "arch": "amd64",
           "filename": "terraform-provider-null_3.2.4_windows_amd64.zip",
-          "download_url": "3.2.4/windows_amd64/terraform-provider-null_3.2.4_windows_amd64.zip"
+          "download_url": "terraform-provider-null_3.2.4_windows_amd64.zip"
         },
         {
           "os": "darwin",
           "arch": "amd64",
           "filename": "terraform-provider-null_3.2.4_darwin_amd64.zip",
-          "download_url": "3.2.4/darwin_amd64/terraform-provider-null_3.2.4_darwin_amd64.zip"
+          "download_url": "terraform-provider-null_3.2.4_darwin_amd64.zip"
         },
         {
           "os": "darwin",
           "arch": "arm64",
           "filename": "terraform-provider-null_3.2.4_darwin_arm64.zip",
-          "download_url": "3.2.4/darwin_arm64/terraform-provider-null_3.2.4_darwin_arm64.zip"
+          "download_url": "terraform-provider-null_3.2.4_darwin_arm64.zip"
         }
       ]
     }
