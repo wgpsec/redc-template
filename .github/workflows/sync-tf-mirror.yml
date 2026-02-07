@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Force Sync & Gen Index
+      - name: Force Sync & Verify
         shell: python
         run: |
           import json
@@ -32,6 +32,7 @@ jobs:
           import datetime
           import textwrap
           import hashlib
+          import base64
           from pathlib import Path
           from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -40,8 +41,6 @@ jobs:
               'random', 'null', 'time', 'local', 
               'tls', 'http', 'archive', 'external'
           ]
-          
-
           
           TARGET_PLATFORMS = [
               ('linux', 'amd64'), ('linux', 'arm64'),
@@ -65,26 +64,86 @@ jobs:
               def __init__(self, base_dir: Path):
                   self.base_dir = base_dir
 
-              def fetch_json(self, url):
+              def fetch_text(self, url):
                   req = urllib.request.Request(url, headers={'User-Agent': 'TF-Mirror-Bot'})
                   with urllib.request.urlopen(req, timeout=15) as r:
-                      return json.loads(r.read().decode())
+                      return r.read().decode('utf-8')
+
+              def fetch_json(self, url):
+                  content = self.fetch_text(url)
+                  return json.loads(content)
 
               def download_file(self, url, dest_path: Path):
                   if dest_path.exists() and dest_path.stat().st_size > 0:
-                      return f'⏩ Skip: {dest_path.name}'
+                      return 'SKIP'
                   try:
                       dest_path.parent.mkdir(parents=True, exist_ok=True)
                       req = urllib.request.Request(url, headers={'User-Agent': 'TF-Mirror-Bot'})
                       with urllib.request.urlopen(req, timeout=60) as r, open(dest_path, 'wb') as f:
                           shutil.copyfileobj(r, f)
-                      return f'⬇️  Downloaded: {dest_path.name}'
+                      return 'OK'
                   except Exception as e:
                       if dest_path.exists(): dest_path.unlink()
-                      return f'❌ Failed: {dest_path.name} ({e})'
+                      raise e
+
+              def verify_integrity(self, file_path: Path, filename: str, official_sums: str):
+                  """
+                  计算本地文件的 SHA256，并检查是否在官方 SHA256SUMS 文件中
+                  """
+                  print(f"   🛡️  Verifying integrity for {filename}...")
+                  sha256_hash = hashlib.sha256()
+                  with open(file_path, "rb") as f:
+                      for byte_block in iter(lambda: f.read(4096), b""):
+                          sha256_hash.update(byte_block)
+                  
+                  # 1. 获取 Hex 格式 Hash (用于比对)
+                  local_hex = sha256_hash.hexdigest()
+                  
+                  # 2. 构造官方校验行特征 (格式: hash  filename)
+                  expected_entry = f"{local_hex}  {filename}"
+                  
+                  if expected_entry not in official_sums:
+                      print(f"   ❌ Hash Mismatch! Local: {local_hex}")
+                      return None # 校验失败
+                  
+                  # 3. 生成 Terraform 需要的 h1:Base64 格式
+                  digest = sha256_hash.digest()
+                  b64_hash = base64.b64encode(digest).decode('utf-8')
+                  return f"h1:{b64_hash}"
+
+              def process_single_arch(self, namespace, type_name, version, os_name, arch, provider_dir, official_sums):
+                  try:
+                      dl_api = f'{REGISTRY_API}/{namespace}/{type_name}/{version}/download/{os_name}/{arch}'
+                      dl_info = self.fetch_json(dl_api)
+                      filename = dl_info['filename']
+                      file_url = dl_info['download_url']
+                      
+                      dest = provider_dir / filename
+                      
+                      # 1. 下载
+                      self.download_file(file_url, dest)
+                      
+                      # 2. 校验 (对比官方指纹)
+                      tf_hash = self.verify_integrity(dest, filename, official_sums)
+                      
+                      if not tf_hash:
+                          # 校验失败，删除文件，抛出异常
+                          if dest.exists(): dest.unlink()
+                          return {"status": "failed", "error": "Checksum verification failed"}
+
+                      return {
+                          "status": "success",
+                          "os": os_name,
+                          "arch": arch,
+                          "filename": filename,
+                          "hash": tf_hash
+                      }
+                  except urllib.error.HTTPError:
+                      return {"status": "skipped"}
+                  except Exception as e:
+                      return {"status": "failed", "error": str(e)}
 
               def process_provider(self, full_name):
-                  # full_name 可能是 "random" (默认 hashicorp) 或 "aliyun/alicloud"
                   if '/' in full_name:
                       namespace, type_name = full_name.split('/')
                   else:
@@ -94,72 +153,70 @@ jobs:
                   print(f'🔍 Analyzing {namespace}/{type_name}...')
                   
                   try:
-                      # 获取最新版本
-                      meta = self.fetch_json(f'{REGISTRY_API}/{namespace}/{type_name}')
+                      # 1. 获取版本信息
+                      meta_url = f'{REGISTRY_API}/{namespace}/{type_name}'
+                      meta = self.fetch_json(meta_url)
                       version = meta['version']
                       
-                      # 目录路径: public/tf-mirror/registry.terraform.io/NAMESPACE/TYPE/
+                      # 2. 获取该版本的详细元数据 (为了拿到 shasums_url)
+                      version_meta_url = f'{REGISTRY_API}/{namespace}/{type_name}/{version}'
+                      version_meta = self.fetch_json(version_meta_url)
+                      shasums_url = version_meta.get('shasums_url')
+                      shasums_sig_url = version_meta.get('shasums_signature_url')
+
+                      if not shasums_url:
+                          print(f"   ⚠️ No SHA256SUMS url found for {type_name}, skipping verification.")
+                          return {'status': 'failed', 'name': type_name}
+
+                      # 3. 下载官方 SHA256SUMS 内容 (用于内存校验)
+                      print(f"   ⬇️  Fetching official SHA256SUMS for v{version}...")
+                      official_sums_content = self.fetch_text(shasums_url)
+
                       provider_dir = self.base_dir / 'registry.terraform.io' / namespace / type_name
                       provider_dir.mkdir(parents=True, exist_ok=True)
                       
-                      tasks = {}
-                      archives_data = {} # 用于生成 VERSION.json
-
+                      archives_data = {}
+                      
+                      # 4. 并发下载并校验
                       with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+                          futures = []
                           for os_name, arch in TARGET_PLATFORMS:
-                              try:
-                                  dl_api = f'{REGISTRY_API}/{namespace}/{type_name}/{version}/download/{os_name}/{arch}'
-                                  dl_info = self.fetch_json(dl_api)
-                                  filename = dl_info['filename']
-                                  file_url = dl_info['download_url']
-                                  
-                                  # 下载文件到 provider 根目录 (扁平化)
-                                  dest = provider_dir / filename
-                                  tasks[executor.submit(self.download_file, file_url, dest)] = f'{os_name}/{arch}'
-                                  
-                                  # 准备 VERSION.json 的数据结构
-                                  # 官方文档要求的结构:
-                                  # "darwin_amd64": { "url": "filename.zip", "hashes": [...] }
-                                  key = f"{os_name}_{arch}"
+                              futures.append(executor.submit(
+                                  self.process_single_arch, 
+                                  namespace, type_name, version, os_name, arch, provider_dir, official_sums_content
+                              ))
+                          
+                          for future in as_completed(futures):
+                              res = future.result()
+                              if res["status"] == "success":
+                                  key = f"{res['os']}_{res['arch']}"
+                                  print(f"   ✅ Verified: {res['filename']}")
                                   archives_data[key] = {
-                                      "url": filename, # 相对路径，就在同级目录
-                                      # "hashes": []
+                                      "url": res['filename'],
+                                      "hashes": [res['hash']]
                                   }
-                                  
-                              except urllib.error.HTTPError:
-                                  pass # 忽略不支持的架构
+                              elif res["status"] == "failed":
+                                  print(f"   ❌ Failed: {res.get('error')}")
 
-                          for future in as_completed(tasks):
-                              print(f'   {future.result()}')
+                      # 5. 生成 JSON 文件
+                      if archives_data:
+                          index_data = {"versions": {version: {}}}
+                          with open(provider_dir / 'index.json', 'w') as f:
+                              json.dump(index_data, f, indent=2)
 
-                      # ================= GENERATE JSON FILES (Official Protocol) =================
-                      
-                      # 1. 生成 index.json (列出版本)
-                      # 格式: { "versions": { "3.8.1": {} } }
-                      index_data = {
-                          "versions": {
-                              version: {}
-                          }
-                      }
-                      with open(provider_dir / 'index.json', 'w') as f:
-                          json.dump(index_data, f, indent=2)
-
-                      # 2. 生成 VERSION.json (列出详情)
-                      # 文件名: 3.8.1.json
-                      # 格式: { "archives": { "darwin_arm64": { "url": "..." } } }
-                      version_file_data = {
-                          "archives": archives_data
-                      }
-                      with open(provider_dir / f'{version}.json', 'w') as f:
-                          json.dump(version_file_data, f, indent=2)
-                      
-                      return {'name': type_name, 'namespace': namespace, 'version': version, 'status': 'success'}
+                          version_file_data = {"archives": archives_data}
+                          with open(provider_dir / f'{version}.json', 'w') as f:
+                              json.dump(version_file_data, f, indent=2)
+                          
+                          return {'name': type_name, 'namespace': namespace, 'version': version, 'status': 'success'}
+                      else:
+                           return {'name': type_name, 'namespace': namespace, 'version': version, 'status': 'empty'}
 
                   except Exception as e:
                       print(f'🚫 Error: {namespace}/{type_name} - {e}')
                       return {'name': type_name, 'namespace': namespace, 'version': 'Error', 'status': 'failed'}
 
-          # --- 主执行流程 ---
+          # --- Main ---
           syncer = MirrorSync(MIRROR_ROOT)
           results = []
           
@@ -168,13 +225,12 @@ jobs:
               for f in as_completed(futures):
                   res = f.result()
                   results.append(res)
-                  print(f"✅ Finished processing {res['namespace']}/{res['name']}")
+                  print(f"🎉 Completed {res['namespace']}/{res['name']}")
 
-          # --- 生成 index.html ---
+          # --- Generate HTML ---
           print('📝 Generating index.html...')
           timestamp = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
           
-          # 生成配置列表 (Include list)
           config_lines = []
           for r in sorted(results, key=lambda x: x['name']):
               if r['status'] == 'success':
@@ -215,7 +271,7 @@ jobs:
           <body>
               <h1>Terraform Provider Mirror</h1>
               <div class="status">
-                  <p><strong>Protocol:</strong> Network Mirror (Static)</p>
+                  <p><strong>Protocol:</strong> Network Mirror (Integrity Verified)</p>
                   <p><strong>Last Updated:</strong> {{TIMESTAMP}}</p>
               </div>
 
@@ -261,4 +317,4 @@ jobs:
           publish_dir: ./public
           publish_branch: gh-pages
           keep_files: true
-          commit_message: "Mirror"
+          commit_message: "Mirror: Sync with Official Integrity Verification"
