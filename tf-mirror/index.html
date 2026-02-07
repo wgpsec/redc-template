@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraform Provider Mirror</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 2rem; color: #333; line-height: 1.6; }
+        h1 { border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
+        .status { background: #f6f8fa; padding: 1rem; border-radius: 6px; margin-bottom: 2rem; border: 1px solid #e1e4e8; }
+        code { background: #eee; padding: 0.2rem 0.4rem; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        pre { background: #2d333b; color: #adbac7; padding: 1.5rem; border-radius: 6px; overflow-x: auto; font-family: monospace; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .card { border: 1px solid #e1e4e8; border-radius: 6px; padding: 1rem; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .name { font-weight: bold; color: #0366d6; margin-bottom: 0.5rem; }
+        .ver { font-size: 0.85em; color: #586069; background: #f1f8ff; display: inline-block; padding: 2px 8px; border-radius: 12px; }
+        footer { margin-top: 3rem; text-align: center; color: #666; font-size: 0.85rem; border-top: 1px solid #eee; padding-top: 1rem; }
+    </style>
+</head>
+<body>
+    <h1>Terraform Provider Mirror</h1>
+    <div class="status">
+        <p><strong>Method:</strong> Native CLI (Strict Official)</p>
+        <p><strong>Last Updated:</strong> 2026-02-07 03:49:42 UTC</p>
+        <p><strong>Mirror URL:</strong> <code>https://redc.wgpsec.org/tf-mirror/</code></p>
+    </div>
+
+    <h2>Usage Configuration</h2>
+    <p>Add the following to your <code>~/.terraformrc</code>:</p>
+    <pre>
+provider_installation {
+  network_mirror {
+    url = "https://redc.wgpsec.org/tf-mirror/"
+    include = [
+      "registry.terraform.io/hashicorp/archive",
+    "registry.terraform.io/hashicorp/external",
+    "registry.terraform.io/hashicorp/http",
+    "registry.terraform.io/hashicorp/local",
+    "registry.terraform.io/hashicorp/null",
+    "registry.terraform.io/hashicorp/random",
+    "registry.terraform.io/hashicorp/time",
+    "registry.terraform.io/hashicorp/tls"
+    ]
+  }
+  direct {
+    exclude = [
+      "registry.terraform.io/hashicorp/archive",
+    "registry.terraform.io/hashicorp/external",
+    "registry.terraform.io/hashicorp/http",
+    "registry.terraform.io/hashicorp/local",
+    "registry.terraform.io/hashicorp/null",
+    "registry.terraform.io/hashicorp/random",
+    "registry.terraform.io/hashicorp/time",
+    "registry.terraform.io/hashicorp/tls"
+    ]
+  }
+}</pre>
+
+    <h2>Synced Providers (8)</h2>
+    <div class="grid">
+        
+    <div class="card">
+        <div class="name">hashicorp/archive</div>
+        <div class="ver">v2.7.1</div>
+    </div>
+    
+    <div class="card">
+        <div class="name">hashicorp/external</div>
+        <div class="ver">v2.3.5</div>
+    </div>
+    
+    <div class="card">
+        <div class="name">hashicorp/http</div>
+        <div class="ver">v3.5.0</div>
+    </div>
+    
+    <div class="card">
+        <div class="name">hashicorp/local</div>
+        <div class="ver">v2.6.2</div>
+    </div>
+    
+    <div class="card">
+        <div class="name">hashicorp/null</div>
+        <div class="ver">v3.2.4</div>
+    </div>
+    
+    <div class="card">
+        <div class="name">hashicorp/random</div>
+        <div class="ver">v3.8.1</div>
+    </div>
+    
+    <div class="card">
+        <div class="name">hashicorp/time</div>
+        <div class="ver">v0.13.1</div>
+    </div>
+    
+    <div class="card">
+        <div class="name">hashicorp/tls</div>
+        <div class="ver">v4.2.1</div>
+    </div>
+    
+    </div>
+
+    <footer>
+        wgpsec terraform mirror | <a href="https://github.com/wgpsec/redc-template">Source Repository</a>
+    </footer>
+</body>
+</html>
