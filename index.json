@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-07T03:20:56.612886Z",
+  "updated_at": "2026-02-11T09:03:34.899689Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -236,9 +236,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_dnslog_v1.0.5.zip",
           "sha256": "2593e00f155878318326575fa804703e8afb297794ce633772f60a9a74128df2",
           "updated_at": "2026-02-03T13:01:42.988189Z"
+        },
+        "1.0.6": {
+          "url": "https://redc.wgpsec.org/templates/aws_dnslog_v1.0.6.zip",
+          "sha256": "f51b391379a8215f4687d0b1c596c05ff6ad45f38a86d33452b84ee4d7a4e82b",
+          "updated_at": "2026-02-11T09:03:34.888889Z"
         }
       },
-      "latest": "1.0.5",
+      "latest": "1.0.6",
       "metadata": {
         "name": "dnslog",
         "author": "r0fus0d",
@@ -270,9 +275,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_docker_v1.0.1.zip",
           "sha256": "bca79ff30b940f1046401913e58995a345bb1100084d39adb9947a3bd507cf90",
           "updated_at": "2026-02-03T13:01:42.989088Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aws_docker_v1.0.2.zip",
+          "sha256": "2fcc4e4a2337f87a5f2483947142caa0a9749ef98ce9bf62a80dfe8d3c7ba23b",
+          "updated_at": "2026-02-11T09:03:34.889823Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "docker",
         "author": "r0fus0d",
@@ -299,9 +309,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2_v1.0.0.zip",
           "sha256": "de50b15b53a1f61b8b8333f83e888b1606089733208fb46df45597f970aaf5e8",
           "updated_at": "2026-02-03T13:01:42.989871Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2_v1.0.1.zip",
+          "sha256": "79b4a43cdefc0fdd35702062167b9b79c96c9b577ebd531cf0a83fce2db5862a",
+          "updated_at": "2026-02-11T09:03:34.890648Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "ec2",
         "author": "r0fus0d",
@@ -333,9 +348,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2-1G_v1.0.1.zip",
           "sha256": "dc9a0d8299797d41ee3ece2b90a977063b010d54024fc180a1ff3ebf2a366f27",
           "updated_at": "2026-02-03T13:01:42.990641Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-1G_v1.0.2.zip",
+          "sha256": "2db4f3416792bf5d8afd8d97dfa31ab62c1c3e5ac40a14e08ec7c51d76783569",
+          "updated_at": "2026-02-11T09:03:34.891418Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "ec2-1G",
         "author": "r0fus0d",
@@ -367,9 +387,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2-4G_v1.0.1.zip",
           "sha256": "3b01e745ce8301dff8d60456ec78a1ede9bdfa54e228dc721dfc6ecfe276316a",
           "updated_at": "2026-02-03T13:01:42.991435Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-4G_v1.0.2.zip",
+          "sha256": "8108c2934b1ccd404278008e47bd0bd62fbd1b77242a4dad8b51881bc5cbb696",
+          "updated_at": "2026-02-11T09:03:34.892158Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "ec2-4G",
         "author": "r0fus0d",
@@ -416,9 +441,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_interactsh_v1.0.4.zip",
           "sha256": "28b890d2580d1b51a1e751087939358da4592c505d0818df2ab0204d85ad7fec",
           "updated_at": "2026-02-03T13:01:42.992345Z"
+        },
+        "1.0.5": {
+          "url": "https://redc.wgpsec.org/templates/aws_interactsh_v1.0.5.zip",
+          "sha256": "2dd1536352145d306ad524dfa3f57b5e2b227112505da899ac5327844e749fe8",
+          "updated_at": "2026-02-11T09:03:34.893058Z"
         }
       },
-      "latest": "1.0.4",
+      "latest": "1.0.5",
       "metadata": {
         "name": "interactsh",
         "author": "r0fus0d",
@@ -450,9 +480,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_md_v1.0.1.zip",
           "sha256": "a64fae5a38021b62623ddf8f10457a3704665895e3f87c670948e81212e9e7b7",
           "updated_at": "2026-02-03T13:01:42.993290Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aws_md_v1.0.2.zip",
+          "sha256": "4bda90a1b3314070b97d5d1f52599fd0a8074366b208cd364aa08339fac9b5cd",
+          "updated_at": "2026-02-11T09:03:34.894359Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "md",
         "author": "r0fus0d",
@@ -484,14 +519,19 @@
           "url": "https://redc.wgpsec.org/templates/tencent_file_v1.0.1.zip",
           "sha256": "de6fea0640d096a8362d425364ee648447033f7e24d5c3dcd730625b51685fcc",
           "updated_at": "2026-02-05T06:26:54.687316Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/tencent_file_v1.0.2.zip",
+          "sha256": "82de44d06b50bd8e045b3bd4d931ec2a893fc83fbe0e89e236b73190fe3629da",
+          "updated_at": "2026-02-11T09:03:34.897336Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "file",
         "author": "r0fus0d",
         "description": "腾讯云文件服务场景，ap-beijing 区域，S6 2C4G 实例，预装 simplehttpserver 工具",
-        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull tencent/file\n```\n\n开启\n```\nredc run tencent/file\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n**替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**可自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull tencent/file\n```\n\n开启\n```\nredc run tencent/file\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n**非 redc 使用请自行替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**可自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n"
       }
     },
     "tencent/jndi": {
@@ -518,14 +558,19 @@
           "url": "https://redc.wgpsec.org/templates/tencent_jndi_v1.0.1.zip",
           "sha256": "8c787e1b9c42ee445b23c41b89568592e77e5729b1315afa3f1c19ff5cc94415",
           "updated_at": "2026-02-05T06:26:54.688331Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/tencent_jndi_v1.0.2.zip",
+          "sha256": "8949bf9346cab77c64e6f8e671895a120972a962182f464770edbce06aab6aaa",
+          "updated_at": "2026-02-11T09:03:34.898305Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "jndi",
         "author": "r0fus0d",
         "description": "腾讯云 JNDI 演练场景，ap-beijing 区域，S6 2C4G 实例，预置 JDK8、JNDIExploit、java-chains、simplehttpserver 等组件",
-        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull tencent/jndi\n```\n\n开启\n```\nredc run tencent/jndi\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n**替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**可自行替换 main.tf 中 jdk-8u321-linux-x64 的压缩包下载地址**\n- https://github.com/No-Github/Archive/releases/tag/1.0.5\n\n**可自行替换 main.tf 中 JNDIExploit_feihong 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n**可自行替换 main.tf 中 JNDIExploit_0x727 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n**可自行替换 main.tf 中 java-chains 的压缩包下载地址**\n- https://github.com/vulhub/java-chains/releases\n\n**可自行替换 main.tf 中 JNDI-Injection-Exploit 的压缩包下载地址**\n- https://github.com/welk1n/JNDI-Injection-Exploit/releases\n\n**可自行替换 main.tf 中 MemShellParty 的压缩包下载地址**\n- https://github.com/ReaJason/MemShellParty/releases\n\n**可自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n4. jdk未正常安装\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull tencent/jndi\n```\n\n开启\n```\nredc run tencent/jndi\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n**非 redc 使用请自行替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**可自行替换 main.tf 中 jdk-8u321-linux-x64 的压缩包下载地址**\n- https://github.com/No-Github/Archive/releases/tag/1.0.5\n\n**可自行替换 main.tf 中 JNDIExploit_feihong 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n**可自行替换 main.tf 中 JNDIExploit_0x727 的压缩包下载地址**\n- https://github.com/No-Github/Archive/tree/master/JNDI\n\n**可自行替换 main.tf 中 java-chains 的压缩包下载地址**\n- https://github.com/vulhub/java-chains/releases\n\n**可自行替换 main.tf 中 JNDI-Injection-Exploit 的压缩包下载地址**\n- https://github.com/welk1n/JNDI-Injection-Exploit/releases\n\n**可自行替换 main.tf 中 MemShellParty 的压缩包下载地址**\n- https://github.com/ReaJason/MemShellParty/releases\n\n**可自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**\n- https://github.com/projectdiscovery/simplehttpserver\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n4. jdk未正常安装\n"
       }
     },
     "tencent/nps": {
@@ -557,14 +602,19 @@
           "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.0.2.zip",
           "sha256": "05ee5b95288f55ad6c55b7a8029ae14e052e135cf73924a36fbd7a4ee8fd300a",
           "updated_at": "2026-02-05T06:26:54.689554Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.0.3.zip",
+          "sha256": "d64e1006a1472684b38b20b1c15838d1a5864948429c3545b7dd6d22ed513863",
+          "updated_at": "2026-02-11T09:03:34.899465Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "nps",
         "author": "r0fus0d",
         "description": "腾讯云 NPS 内网穿透场景，ap-beijing 区域，S6 2C2G 实例，预置 nps server，支持 base64 注入自定义配置",
-        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull tencent/nps\n```\n\n开启\n```\nredc run tencent/nps\n\n# 如果要在启动时加载自定义nps.conf配置,需要base64后传入\nredc run tencent/nps -base64command \"YXBwbmFtZSA9IG5wcwojQm9vdCBtb2RlKGRldnxwcm8pCnJ1bm1vZGUgPSBkZXYKCiNIVFRQKFMpIHByb3h5IHBvcnQsIG5vIHN0YXJ0dXAgaWYgZW1wdHkKaHR0cF9wcm94eV9pcD0wLjAuMC4wCmh0dHBfcHJveHlfcG9ydD04MApodHRwc19wcm94eV9wb3J0PTQ0MwpodHRwc19qdXN0X3Byb3h5PXRydWUKI2RlZmF1bHQgaHR0cHMgY2VydGlmaWNhdGUgc2V0dGluZwpodHRwc19kZWZhdWx0X2NlcnRfZmlsZT1jb25mL3NlcnZlci5wZW0KaHR0cHNfZGVmYXVsdF9rZXlfZmlsZT1jb25mL3NlcnZlci5rZXkKCiMjYnJpZGdlCmJyaWRnZV90eXBlPXRjcApicmlkZ2VfcG9ydD04MDI0CmJyaWRnZV9pcD0wLjAuMC4wCgojIFB1YmxpYyBwYXNzd29yZCwgd2hpY2ggY2xpZW50cyBjYW4gdXNlIHRvIGNvbm5lY3QgdG8gdGhlIHNlcnZlcgojIEFmdGVyIHRoZSBjb25uZWN0aW9uLCB0aGUgc2VydmVyIHdpbGwgYmUgYWJsZSB0byBvcGVuIHJlbGV2YW50IHBvcnRzIGFuZCBwYXJzZSByZWxhdGVkIGRvbWFpbiBuYW1lcyBhY2NvcmRpbmcgdG8gaXRzIG93biBjb25maWd1cmF0aW9uIGZpbGUuCnB1YmxpY192a2V5PTEyMwoKI1RyYWZmaWMgZGF0YSBwZXJzaXN0ZW5jZSBpbnRlcnZhbChtaW51dGUpCiNJZ25vcmFuY2UgbWVhbnMgbm8gcGVyc2lzdGVuY2UKI2Zsb3dfc3RvcmVfaW50ZXJ2YWw9MQoKIyBsb2cgbGV2ZWwgTGV2ZWxFbWVyZ2VuY3ktPjAgIExldmVsQWxlcnQtPjEgTGV2ZWxDcml0aWNhbC0+MiBMZXZlbEVycm9yLT4zIExldmVsV2FybmluZy0+NCBMZXZlbE5vdGljZS0+NSBMZXZlbEluZm9ybWF0aW9uYWwtPjYgTGV2ZWxEZWJ1Zy0+Nwpsb2dfbGV2ZWw9NwojbG9nX3BhdGg9bnBzLmxvZwoKI1doZXRoZXIgdG8gcmVzdHJpY3QgSVAgYWNjZXNzLCB0cnVlIG9yIGZhbHNlIG9yIGlnbm9yZQojaXBfbGltaXQ9dHJ1ZQoKI3AycAojcDJwX2lwPTEyNy4wLjAuMQojcDJwX3BvcnQ9NjAwMAoKI3dlYgp3ZWJfaG9zdD1hLm8uY29tCndlYl91c2VybmFtZT1yZWRvbmUKd2ViX3Bhc3N3b3JkPTEhMkEzZDR2NXM2ZQp3ZWJfcG9ydCA9IDgwODAKd2ViX2lwPTAuMC4wLjAKd2ViX2Jhc2VfdXJsPQp3ZWJfb3Blbl9zc2w9ZmFsc2UKd2ViX2NlcnRfZmlsZT1jb25mL3NlcnZlci5wZW0Kd2ViX2tleV9maWxlPWNvbmYvc2VydmVyLmtleQojIGlmIHdlYiB1bmRlciBwcm94eSB1c2Ugc3ViIHBhdGguIGxpa2UgaHR0cDovL2hvc3QvbnBzIG5lZWQgdGhpcy4KI3dlYl9iYXNlX3VybD0vbnBzCgojV2ViIEFQSSB1bmF1dGhlbnRpY2F0ZWQgSVAgYWRkcmVzcyh0aGUgbGVuIG9mIGF1dGhfY3J5cHRfa2V5IG11c3QgYmUgMTYpCiNSZW1vdmUgY29tbWVudHMgaWYgbmVlZGVkCmF1dGhfa2V5PXJlZHJlZHJlZAphdXRoX2NyeXB0X2tleSA9MTIzNDU2NzgxMjM0NTY3OQoKI2FsbG93X3BvcnRzPTkwMDEtOTAwOSwxMDAwMSwxMTAwMC0xMjAwMAoKI1dlYiBtYW5hZ2VtZW50IG11bHRpLXVzZXIgbG9naW4KYWxsb3dfdXNlcl9sb2dpbj1mYWxzZQphbGxvd191c2VyX3JlZ2lzdGVyPWZhbHNlCmFsbG93X3VzZXJfY2hhbmdlX3VzZXJuYW1lPWZhbHNlCgoKI2V4dGVuc2lvbgphbGxvd19mbG93X2xpbWl0PWZhbHNlCmFsbG93X3JhdGVfbGltaXQ9ZmFsc2UKYWxsb3dfdHVubmVsX251bV9saW1pdD1mYWxzZQphbGxvd19sb2NhbF9wcm94eT1mYWxzZQphbGxvd19jb25uZWN0aW9uX251bV9saW1pdD1mYWxzZQphbGxvd19tdWx0aV9pcD1mYWxzZQpzeXN0ZW1faW5mb19kaXNwbGF5PWZhbHNlCgojY2FjaGUKaHR0cF9jYWNoZT1mYWxzZQpodHRwX2NhY2hlX2xlbmd0aD0xMDAKCiNnZXQgb3JpZ2luIGlwCmh0dHBfYWRkX29yaWdpbl9oZWFkZXI9ZmFsc2UKCiNwcHJvZiBkZWJ1ZyBvcHRpb25zCiNwcHJvZl9pcD0wLjAuMC4wCiNwcHJvZl9wb3J0PTk5OTkKCiNjbGllbnQgZGlzY29ubmVjdCB0aW1lb3V0CmRpc2Nvbm5lY3RfdGltZW91dD02MA==\"\n```\n\n默认的配置\n```\nappname = nps\n#Boot mode(dev|pro)\nrunmode = dev\n\n#HTTP(S) proxy port, no startup if empty\nhttp_proxy_ip=0.0.0.0\nhttp_proxy_port=80\nhttps_proxy_port=443\nhttps_just_proxy=true\n#default https certificate setting\nhttps_default_cert_file=conf/server.pem\nhttps_default_key_file=conf/server.key\n\n##bridge\nbridge_type=tcp\nbridge_port=8001\nbridge_ip=0.0.0.0\n\n# Public password, which clients can use to connect to the server\n# After the connection, the server will be able to open relevant ports and parse related domain names according to its own configuration file.\npublic_vkey=123\n\n#Traffic data persistence interval(minute)\n#Ignorance means no persistence\n#flow_store_interval=1\n\n# log level LevelEmergency->0  LevelAlert->1 LevelCritical->2 LevelError->3 LevelWarning->4 LevelNotice->5 LevelInformational->6 LevelDebug->7\nlog_level=7\n#log_path=nps.log\n\n#Whether to restrict IP access, true or false or ignore\n#ip_limit=true\n\n#p2p\n#p2p_ip=127.0.0.1\n#p2p_port=6000\n\n#web\nweb_host=a.o.com\nweb_username=redone\nweb_password=1!2A3d4v5s6e\nweb_port = 8080\nweb_ip=0.0.0.0\nweb_base_url=\nweb_open_ssl=false\nweb_cert_file=conf/server.pem\nweb_key_file=conf/server.key\n# if web under proxy use sub path. like http://host/nps need this.\n#web_base_url=/nps\n\n#Web API unauthenticated IP address(the len of auth_crypt_key must be 16)\n#Remove comments if needed\nauth_key=redredred\nauth_crypt_key =1234567812345679\n\n#allow_ports=9001-9009,10001,11000-12000\n\n#Web management multi-user login\nallow_user_login=false\nallow_user_register=false\nallow_user_change_username=false\n\n\n#extension\nallow_flow_limit=false\nallow_rate_limit=false\nallow_tunnel_num_limit=false\nallow_local_proxy=false\nallow_connection_num_limit=false\nallow_multi_ip=false\nsystem_info_display=false\n\n#cache\nhttp_cache=false\nhttp_cache_length=100\n\n#get origin ip\nhttp_add_origin_header=false\n\n#pprof debug options\n#pprof_ip=0.0.0.0\n#pprof_port=9999\n\n#client disconnect timeout\ndisconnect_timeout=60\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n请自行替换模板中的静态资源下载链接\n\n**替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**可自行替换 main.tf 中 linux_amd64_server.tar.gz 的压缩包下载地址**\n- https://github.com/ehang-io/nps/releases\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n4. jdk未正常安装\n"
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull tencent/nps\n```\n\n开启\n```\nredc run tencent/nps\n\n# 如果要在启动时加载自定义nps.conf配置,需要base64后传入\nredc run tencent/nps -base64command \"YXBwbmFtZSA9IG5wcwojQm9vdCBtb2RlKGRldnxwcm8pCnJ1bm1vZGUgPSBkZXYKCiNIVFRQKFMpIHByb3h5IHBvcnQsIG5vIHN0YXJ0dXAgaWYgZW1wdHkKaHR0cF9wcm94eV9pcD0wLjAuMC4wCmh0dHBfcHJveHlfcG9ydD04MApodHRwc19wcm94eV9wb3J0PTQ0MwpodHRwc19qdXN0X3Byb3h5PXRydWUKI2RlZmF1bHQgaHR0cHMgY2VydGlmaWNhdGUgc2V0dGluZwpodHRwc19kZWZhdWx0X2NlcnRfZmlsZT1jb25mL3NlcnZlci5wZW0KaHR0cHNfZGVmYXVsdF9rZXlfZmlsZT1jb25mL3NlcnZlci5rZXkKCiMjYnJpZGdlCmJyaWRnZV90eXBlPXRjcApicmlkZ2VfcG9ydD04MDI0CmJyaWRnZV9pcD0wLjAuMC4wCgojIFB1YmxpYyBwYXNzd29yZCwgd2hpY2ggY2xpZW50cyBjYW4gdXNlIHRvIGNvbm5lY3QgdG8gdGhlIHNlcnZlcgojIEFmdGVyIHRoZSBjb25uZWN0aW9uLCB0aGUgc2VydmVyIHdpbGwgYmUgYWJsZSB0byBvcGVuIHJlbGV2YW50IHBvcnRzIGFuZCBwYXJzZSByZWxhdGVkIGRvbWFpbiBuYW1lcyBhY2NvcmRpbmcgdG8gaXRzIG93biBjb25maWd1cmF0aW9uIGZpbGUuCnB1YmxpY192a2V5PTEyMwoKI1RyYWZmaWMgZGF0YSBwZXJzaXN0ZW5jZSBpbnRlcnZhbChtaW51dGUpCiNJZ25vcmFuY2UgbWVhbnMgbm8gcGVyc2lzdGVuY2UKI2Zsb3dfc3RvcmVfaW50ZXJ2YWw9MQoKIyBsb2cgbGV2ZWwgTGV2ZWxFbWVyZ2VuY3ktPjAgIExldmVsQWxlcnQtPjEgTGV2ZWxDcml0aWNhbC0+MiBMZXZlbEVycm9yLT4zIExldmVsV2FybmluZy0+NCBMZXZlbE5vdGljZS0+NSBMZXZlbEluZm9ybWF0aW9uYWwtPjYgTGV2ZWxEZWJ1Zy0+Nwpsb2dfbGV2ZWw9NwojbG9nX3BhdGg9bnBzLmxvZwoKI1doZXRoZXIgdG8gcmVzdHJpY3QgSVAgYWNjZXNzLCB0cnVlIG9yIGZhbHNlIG9yIGlnbm9yZQojaXBfbGltaXQ9dHJ1ZQoKI3AycAojcDJwX2lwPTEyNy4wLjAuMQojcDJwX3BvcnQ9NjAwMAoKI3dlYgp3ZWJfaG9zdD1hLm8uY29tCndlYl91c2VybmFtZT1yZWRvbmUKd2ViX3Bhc3N3b3JkPTEhMkEzZDR2NXM2ZQp3ZWJfcG9ydCA9IDgwODAKd2ViX2lwPTAuMC4wLjAKd2ViX2Jhc2VfdXJsPQp3ZWJfb3Blbl9zc2w9ZmFsc2UKd2ViX2NlcnRfZmlsZT1jb25mL3NlcnZlci5wZW0Kd2ViX2tleV9maWxlPWNvbmYvc2VydmVyLmtleQojIGlmIHdlYiB1bmRlciBwcm94eSB1c2Ugc3ViIHBhdGguIGxpa2UgaHR0cDovL2hvc3QvbnBzIG5lZWQgdGhpcy4KI3dlYl9iYXNlX3VybD0vbnBzCgojV2ViIEFQSSB1bmF1dGhlbnRpY2F0ZWQgSVAgYWRkcmVzcyh0aGUgbGVuIG9mIGF1dGhfY3J5cHRfa2V5IG11c3QgYmUgMTYpCiNSZW1vdmUgY29tbWVudHMgaWYgbmVlZGVkCmF1dGhfa2V5PXJlZHJlZHJlZAphdXRoX2NyeXB0X2tleSA9MTIzNDU2NzgxMjM0NTY3OQoKI2FsbG93X3BvcnRzPTkwMDEtOTAwOSwxMDAwMSwxMTAwMC0xMjAwMAoKI1dlYiBtYW5hZ2VtZW50IG11bHRpLXVzZXIgbG9naW4KYWxsb3dfdXNlcl9sb2dpbj1mYWxzZQphbGxvd191c2VyX3JlZ2lzdGVyPWZhbHNlCmFsbG93X3VzZXJfY2hhbmdlX3VzZXJuYW1lPWZhbHNlCgoKI2V4dGVuc2lvbgphbGxvd19mbG93X2xpbWl0PWZhbHNlCmFsbG93X3JhdGVfbGltaXQ9ZmFsc2UKYWxsb3dfdHVubmVsX251bV9saW1pdD1mYWxzZQphbGxvd19sb2NhbF9wcm94eT1mYWxzZQphbGxvd19jb25uZWN0aW9uX251bV9saW1pdD1mYWxzZQphbGxvd19tdWx0aV9pcD1mYWxzZQpzeXN0ZW1faW5mb19kaXNwbGF5PWZhbHNlCgojY2FjaGUKaHR0cF9jYWNoZT1mYWxzZQpodHRwX2NhY2hlX2xlbmd0aD0xMDAKCiNnZXQgb3JpZ2luIGlwCmh0dHBfYWRkX29yaWdpbl9oZWFkZXI9ZmFsc2UKCiNwcHJvZiBkZWJ1ZyBvcHRpb25zCiNwcHJvZl9pcD0wLjAuMC4wCiNwcHJvZl9wb3J0PTk5OTkKCiNjbGllbnQgZGlzY29ubmVjdCB0aW1lb3V0CmRpc2Nvbm5lY3RfdGltZW91dD02MA==\"\n```\n\n默认的配置\n```\nappname = nps\n#Boot mode(dev|pro)\nrunmode = dev\n\n#HTTP(S) proxy port, no startup if empty\nhttp_proxy_ip=0.0.0.0\nhttp_proxy_port=80\nhttps_proxy_port=443\nhttps_just_proxy=true\n#default https certificate setting\nhttps_default_cert_file=conf/server.pem\nhttps_default_key_file=conf/server.key\n\n##bridge\nbridge_type=tcp\nbridge_port=8001\nbridge_ip=0.0.0.0\n\n# Public password, which clients can use to connect to the server\n# After the connection, the server will be able to open relevant ports and parse related domain names according to its own configuration file.\npublic_vkey=123\n\n#Traffic data persistence interval(minute)\n#Ignorance means no persistence\n#flow_store_interval=1\n\n# log level LevelEmergency->0  LevelAlert->1 LevelCritical->2 LevelError->3 LevelWarning->4 LevelNotice->5 LevelInformational->6 LevelDebug->7\nlog_level=7\n#log_path=nps.log\n\n#Whether to restrict IP access, true or false or ignore\n#ip_limit=true\n\n#p2p\n#p2p_ip=127.0.0.1\n#p2p_port=6000\n\n#web\nweb_host=a.o.com\nweb_username=redone\nweb_password=1!2A3d4v5s6e\nweb_port = 8080\nweb_ip=0.0.0.0\nweb_base_url=\nweb_open_ssl=false\nweb_cert_file=conf/server.pem\nweb_key_file=conf/server.key\n# if web under proxy use sub path. like http://host/nps need this.\n#web_base_url=/nps\n\n#Web API unauthenticated IP address(the len of auth_crypt_key must be 16)\n#Remove comments if needed\nauth_key=redredred\nauth_crypt_key =1234567812345679\n\n#allow_ports=9001-9009,10001,11000-12000\n\n#Web management multi-user login\nallow_user_login=false\nallow_user_register=false\nallow_user_change_username=false\n\n\n#extension\nallow_flow_limit=false\nallow_rate_limit=false\nallow_tunnel_num_limit=false\nallow_local_proxy=false\nallow_connection_num_limit=false\nallow_multi_ip=false\nsystem_info_display=false\n\n#cache\nhttp_cache=false\nhttp_cache_length=100\n\n#get origin ip\nhttp_add_origin_header=false\n\n#pprof debug options\n#pprof_ip=0.0.0.0\n#pprof_port=9999\n\n#client disconnect timeout\ndisconnect_timeout=60\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n**非 redc 使用请自行替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接\n\n**可自行替换 main.tf 中 linux_amd64_server.tar.gz 的压缩包下载地址**\n- https://github.com/ehang-io/nps/releases\n\n**可自行替换 terraform.tfvars 中 github 加速地址**\n- https://ghfast.top/github.com\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n4. jdk未正常安装\n"
       }
     },
     "vultr/hk-vps": {
@@ -674,9 +724,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.0.8.zip",
           "sha256": "cc348a34be52316aaa7e5724ffad13a3bcc64bdf81da86edc83dae3280272746",
           "updated_at": "2026-02-03T13:01:42.994315Z"
+        },
+        "1.0.9": {
+          "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.0.9.zip",
+          "sha256": "88a23eec46e3903d9cd022ab74e1274d0a1c0615bcb409c400cd0d42dc360218",
+          "updated_at": "2026-02-11T09:03:34.895418Z"
         }
       },
-      "latest": "1.0.8",
+      "latest": "1.0.9",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
@@ -735,6 +790,25 @@
         "author": "copilot",
         "description": "火山引擎 ECS 场景，使用按量计费部署 Debian 实例",
         "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull volcengine/ecs\n```\n\n开启\n```\nredc run volcengine/ecs\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n## 认证配置\n需要配置火山引擎的访问凭证，有以下两种方式：\n\n1. **环境变量方式**（推荐）\n```bash\nexport VOLCENGINE_ACCESS_KEY=\"your-access-key\"\nexport VOLCENGINE_SECRET_KEY=\"your-secret-key\"\n```\n\n2. **配置文件方式**\n在 `~/.volcengine/config` 中配置\n\n## 常见问题\n若启动场景报错，可能原因：\n1. 火山引擎账户余额不足\n2. 与火山引擎 API 网络连接超时\n3. 火山引擎该区域售罄或下架 instance_type 的配置机型\n4. 未配置正确的访问凭证（AK/SK）\n\n## 场景配置说明\n- **实例规格**: ecs.e-c1m1.large (2核2G内存)\n- **计费方式**: 按量计费（PostPaid）\n- **系统盘**: 20GB ESSD_PL0\n- **操作系统**: Debian 12\n- **登录方式**: 随机生成的SSH密码\n- **区域**: 北京（cn-beijing）\n"
+      }
+    },
+    "tencent/cvm": {
+      "id": "tencent/cvm",
+      "provider": "tencent",
+      "slug": "cvm",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/tencent_cvm_v1.0.0.zip",
+          "sha256": "279cd8c770577fb88f813eaec353106e8f788d3bc1a8a2fc79d018ec2a43053e",
+          "updated_at": "2026-02-11T09:03:34.896408Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "cvm",
+        "author": "r0fus0d",
+        "description": "在腾讯云快速部署一台配置完善的CVM云服务器实例，自动安装常用开发工具（wget、curl、lrzsz、tmux等）和Python3环境，开放全部端口，适用于临时测试、开发调试或攻防演练等场景",
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull tencent/jndi\n```\n\n开启\n```\nredc run tencent/jndi\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n**非 redc 使用请自行替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n"
       }
     }
   }
