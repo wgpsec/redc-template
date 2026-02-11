@@ -5,12 +5,12 @@
 
 拉取
 ```
-redc pull tencent/file
+redc pull tencent/jndi
 ```
 
 开启
 ```
-redc run tencent/file
+redc run tencent/jndi
 ```
 
 查询
@@ -31,14 +31,6 @@ redc stop [uuid]
 tencentcloud_secret_id  = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 tencentcloud_secret_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
-
-可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接
-
-**可自行替换 main.tf 中 simplehttpserver 的压缩包下载地址**
-- https://github.com/projectdiscovery/simplehttpserver
-
-**可自行替换 terraform.tfvars 中 github 加速地址**
-- https://ghfast.top/github.com
 
 # 注意事项
 

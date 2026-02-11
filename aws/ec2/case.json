@@ -1,6 +1,6 @@
 {
     "name":"ec2",
     "user":"r0fus0d",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description":"AWS 通用 ECS 场景，ap-east-1 区域，t4g.small 实例，预装基础运维工具并屏蔽 169.254.169.254 元数据访问"
 }

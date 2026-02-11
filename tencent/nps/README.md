@@ -117,9 +117,7 @@ redc stop [uuid]
 
 # 静态资源
 
-请自行替换模板中的静态资源下载链接
-
-**替换 terraform.tfvars 中的 腾讯云 aksk**
+**非 redc 使用请自行替换 terraform.tfvars 中的 腾讯云 aksk**
 
 ```
 tencentcloud_secret_id  = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"

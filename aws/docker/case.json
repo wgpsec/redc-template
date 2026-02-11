@@ -1,6 +1,6 @@
 {
     "name":"docker",
     "user":"r0fus0d",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description":"AWS Docker 基础场景，ap-east-1 区域，t3.medium 实例，预装 f8x 自动安装 Docker，tmux 后台拉起环境"
 }
