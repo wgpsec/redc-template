@@ -1,7 +1,7 @@
 {
     "name":"interactsh",
     "user":"r0fus0d",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description":"AWS Interactsh 场景，ap-east-1 区域，t4g.nano 实例，部署 interactsh-server，需提供域名并配置 Cloudflare",
     "redc_module":"chang_dns"
 }
