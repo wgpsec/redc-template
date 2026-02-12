@@ -2,17 +2,21 @@ provider "aws" {
   region = "ap-east-1"
 }
 
+resource "random_id" "suffix" {
+  byte_length = 4
+}
+
 resource "tls_private_key" "pte_ssh" {
   algorithm = "ED25519"
 }
 
 resource "aws_key_pair" "pte_key" {
-  key_name   = "pte-ec2-key"
+  key_name   = "pte-ec2-key-${random_id.suffix.hex}"
   public_key = tls_private_key.pte_ssh.public_key_openssh
 }
 
 resource "aws_security_group" "pte_open_all" {
-  name        = "pte-open-all"
+  name        = "pte-open-all-${random_id.suffix.hex}"
   description = "Allow all inbound and outbound"
 
   ingress {
