@@ -1,32 +1,31 @@
 start_vps(){
-
-    terraform apply -var="VULTR_API_KEY=$1" -auto-approve
-
+    # API key is read from VULTR_API_KEY environment variable
+    terraform apply -auto-approve
 }
 
 stop_vps(){
-
-    terraform destroy -var="VULTR_API_KEY=$1" -auto-approve
-
+    # API key is read from VULTR_API_KEY environment variable
+    terraform destroy -auto-approve
 }
 
 status_vps(){
-
     terraform output -json vps_ip | jq '.' -r
     terraform output -json password | jq '.' -r
-
 }
 
-# 这里 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 要替换成 vultr 的 api kye
+# 使用方法：
+# 1. 通过 redc 配置文件（推荐）：编辑 ~/redc/config.yaml 添加 VULTR_API_KEY
+# 2. 通过环境变量：export VULTR_API_KEY="your_api_key"
+# 3. 直接在下面设置（不推荐）：export VULTR_API_KEY="your_api_key"
 case "$1" in
     -start)
-        start_vps "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        start_vps
         ;;
     -stop)
-        stop_vps "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        stop_vps
         ;;
     -status)
-        status_vps "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        status_vps
         ;;
     -debug)
         debugx

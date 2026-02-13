@@ -7,7 +7,7 @@ terraform {
   }
 }
 
-variable "VULTR_API_KEY" { }
 provider "vultr" {
-  api_key = var.VULTR_API_KEY
+  # API key is read from VULTR_API_KEY environment variable
+  # Set via redc config.yaml or export VULTR_API_KEY="your_key"
 }

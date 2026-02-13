@@ -1,6 +1,6 @@
 {
     "name":"hk-vps",
     "user":"r0fus0d",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description":"Vultr VPS 场景，plan vc2-1c-2gb，区域 sgp，使用 init.sh 启动脚本自动初始化"
 }
