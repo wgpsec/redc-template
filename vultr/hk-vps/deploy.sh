@@ -13,7 +13,7 @@ stop_vps(){
 status_vps(){
 
     terraform output -json vps_ip | jq '.' -r
-    terraform output -json vps_password | jq '.' -r
+    terraform output -json password | jq '.' -r
 
 }
 

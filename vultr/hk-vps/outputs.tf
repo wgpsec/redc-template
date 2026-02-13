@@ -22,7 +22,16 @@ output "vps_hostname" {
   value       = "${vultr_instance.test.hostname}"
   description = "vps hostname."
 }
-output "vps_password" {
+# 为 redc SSH 功能添加标准输出
+output "main_ip" {
+  value       = "${vultr_instance.test.main_ip}"
+  description = "Main IP address for SSH connection"
+}
+output "password" {
   value       = nonsensitive(vultr_instance.test.default_password)
-  description = "vps password."
+  description = "Root password for SSH connection"
+}
+output "ssh_user" {
+  value       = "root"
+  description = "SSH login username"
 }
