@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-13T07:44:16.035618Z",
+  "updated_at": "2026-02-13T08:43:05.922087Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -701,14 +701,19 @@
           "url": "https://redc.wgpsec.org/templates/vultr_hk-vps_v0.0.1.zip",
           "sha256": "42daf8e7566cb3a6a0958bc3b1b15896927c04df8bf1d899a59bac781f69c26c",
           "updated_at": "2026-01-20T15:28:34.153380Z"
+        },
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/vultr_hk-vps_v1.0.0.zip",
+          "sha256": "b1f5cbadc147f2d33c88c18b88033ae77e3692aaa6e64e3cae1599b85aa09e3c",
+          "updated_at": "2026-02-13T08:43:05.922049Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "1.0.0",
       "metadata": {
         "name": "hk-vps",
         "author": "r0fus0d",
         "description": "Vultr VPS 场景，plan vc2-1c-2gb，区域 sgp，使用 init.sh 启动脚本自动初始化",
-        "readme": "# 注意事项\n\n**配置 vultr api key**\n\n在 deploy.sh 中配置\n\n这里 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 要替换成 vultr 的 api kye\n```\n    -start)\n        start_vps \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n        ;;\n    -stop)\n        stop_vps \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n        ;;\n    -status)\n        status_vps \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n        ;;\n```\n\n若启动场景报错，可能原因\n1. 与 vultr api 网络连接超时\n2. vultr 该区域售罄或下架 vultr_instance 的配置机型 (plan)\n"
+        "readme": "# Vultr VPS 场景使用说明\n\n## 配置 Vultr API Key\n\n### 方法 1: 使用 redc 配置文件（推荐）\n\n编辑 `~/redc/config.yaml`，添加 Vultr 配置：\n\n```yaml\nproviders:\n  vultr:\n    VULTR_API_KEY: \"your_vultr_api_key_here\"\n```\n\n### 方法 2: 使用环境变量\n\n```bash\nexport VULTR_API_KEY=\"your_vultr_api_key_here\"\n```\n\n### 方法 3: 在 deploy.sh 中配置（不推荐）\n\n在 deploy.sh 中配置，将 `xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` 替换成 Vultr 的 API key：\n\n```bash\n    -start)\n        start_vps \"your_vultr_api_key_here\"\n        ;;\n    -stop)\n        stop_vps \"your_vultr_api_key_here\"\n        ;;\n    -status)\n        status_vps \"your_vultr_api_key_here\"\n        ;;\n```\n\n## 场景说明\n\n- **配置**: plan vc2-1c-2gb (1核2G内存)\n- **区域**: sgp (新加坡)\n- **操作系统**: os_id 477\n- **启动脚本**: 使用 init.sh 自动初始化环境\n\n## 使用 redc 启动场景\n\n```bash\n# 创建并启动场景\nredc run vultr/hk-vps\n\n# 或者分步操作\nredc plan vultr/hk-vps\nredc start <case_id>\n```\n\n## 可能的错误原因\n\n1. **与 Vultr API 网络连接超时**\n   - 检查网络连接\n   - 检查是否需要配置代理\n\n2. **Vultr 该区域售罄或下架该配置机型**\n   - 尝试更换区域（修改 main.tf 中的 region）\n   - 尝试更换机型（修改 main.tf 中的 plan）\n\n3. **API Key 配置错误**\n   - 确认 API Key 是否正确\n   - 确认 API Key 是否有足够的权限\n\n## 更新说明\n\n- 已更新 Terraform Provider 版本至 2.22.1（最新版本）\n- 已添加标准 SSH 输出，支持 redc 的 SSH 运维功能\n- 已在 redc 配置系统中添加 Vultr 支持\n"
       }
     },
     "aliyun/proxy": {
