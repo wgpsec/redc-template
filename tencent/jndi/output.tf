@@ -6,3 +6,7 @@ output "ecs_password" {
   value       = nonsensitive(local.instance_password)
   description = "vps password."
 }
+output "ssh_user" {
+  value       = "ubuntu"
+  description = "SSH login username"
+}

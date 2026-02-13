@@ -1,6 +1,6 @@
 {
     "name":"ec2-1G",
     "user":"r0fus0d",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description":"AWS 轻量 ECS 场景，ap-east-1 区域，t4g.micro 实例，预装基础运维工具并屏蔽元数据访问"
 }
