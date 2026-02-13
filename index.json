@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-13T08:43:05.922087Z",
+  "updated_at": "2026-02-13T15:40:55.763413Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -706,9 +706,14 @@
           "url": "https://redc.wgpsec.org/templates/vultr_hk-vps_v1.0.0.zip",
           "sha256": "b1f5cbadc147f2d33c88c18b88033ae77e3692aaa6e64e3cae1599b85aa09e3c",
           "updated_at": "2026-02-13T08:43:05.922049Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/vultr_hk-vps_v1.0.1.zip",
+          "sha256": "16b8aa1dd60c2186b5a1dd83d5a45ea644932ad0ee756b7b9fa590f01316e610",
+          "updated_at": "2026-02-13T15:40:55.763379Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "hk-vps",
         "author": "r0fus0d",
