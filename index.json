@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-12T15:13:10.630179Z",
+  "updated_at": "2026-02-13T07:44:16.035618Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -246,9 +246,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_dnslog_v1.0.7.zip",
           "sha256": "f53f5237a1c171a8cc4504586532554debd9c1e7d31dfd40600c1c62e7429a73",
           "updated_at": "2026-02-12T15:13:10.624753Z"
+        },
+        "1.0.8": {
+          "url": "https://redc.wgpsec.org/templates/aws_dnslog_v1.0.8.zip",
+          "sha256": "77512407a3310cb14eb0b8d6618d93b6be0958865d7b9fcedcba2ba9f00c98c2",
+          "updated_at": "2026-02-13T07:44:16.024108Z"
         }
       },
-      "latest": "1.0.7",
+      "latest": "1.0.8",
       "metadata": {
         "name": "dnslog",
         "author": "r0fus0d",
@@ -290,9 +295,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_docker_v1.0.3.zip",
           "sha256": "b9025fabdd5743be03f67d14ca6fa5bd2cc9d1b636348480724af90f143821dc",
           "updated_at": "2026-02-12T15:13:10.625901Z"
+        },
+        "1.0.4": {
+          "url": "https://redc.wgpsec.org/templates/aws_docker_v1.0.4.zip",
+          "sha256": "30042ff00a71858c5fcaf0a02c70c5b730c508b3b9af3d99bb43ca839c4a563d",
+          "updated_at": "2026-02-13T07:44:16.025286Z"
         }
       },
-      "latest": "1.0.3",
+      "latest": "1.0.4",
       "metadata": {
         "name": "docker",
         "author": "r0fus0d",
@@ -324,9 +334,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2_v1.0.1.zip",
           "sha256": "79b4a43cdefc0fdd35702062167b9b79c96c9b577ebd531cf0a83fce2db5862a",
           "updated_at": "2026-02-11T09:03:34.890648Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2_v1.0.2.zip",
+          "sha256": "4f59c6a3e92c3661a90f35c69798041020611d29e3643bc07d7009bd4c69bed2",
+          "updated_at": "2026-02-13T07:44:16.026154Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "ec2",
         "author": "r0fus0d",
@@ -363,9 +378,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2-1G_v1.0.2.zip",
           "sha256": "2db4f3416792bf5d8afd8d97dfa31ab62c1c3e5ac40a14e08ec7c51d76783569",
           "updated_at": "2026-02-11T09:03:34.891418Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-1G_v1.0.3.zip",
+          "sha256": "3258df6736af0c69a30c7546051ed06138088c48b2847a8c757eb0f15474ad23",
+          "updated_at": "2026-02-13T07:44:16.026981Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "ec2-1G",
         "author": "r0fus0d",
@@ -402,9 +422,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2-4G_v1.0.2.zip",
           "sha256": "8108c2934b1ccd404278008e47bd0bd62fbd1b77242a4dad8b51881bc5cbb696",
           "updated_at": "2026-02-11T09:03:34.892158Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-4G_v1.0.3.zip",
+          "sha256": "e6a5ab334faf5b503b96d132842eecdc60fac3d5c9ea5a3ec0ba58cefef9ba35",
+          "updated_at": "2026-02-13T07:44:16.027818Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "ec2-4G",
         "author": "r0fus0d",
@@ -461,9 +486,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_interactsh_v1.0.6.zip",
           "sha256": "626c5d4902579172118bffd3fde17f0ead5b7e3fc9a4f5a2918df46c610b8f94",
           "updated_at": "2026-02-12T15:13:10.627098Z"
+        },
+        "1.0.7": {
+          "url": "https://redc.wgpsec.org/templates/aws_interactsh_v1.0.7.zip",
+          "sha256": "40b3112a42d2715f2a941ea2fcec552d3e15d89fe6aac83b6855e0933dc31bf7",
+          "updated_at": "2026-02-13T07:44:16.028828Z"
         }
       },
-      "latest": "1.0.6",
+      "latest": "1.0.7",
       "metadata": {
         "name": "interactsh",
         "author": "r0fus0d",
@@ -505,9 +535,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_md_v1.0.3.zip",
           "sha256": "6f9f4e2dac8f88f7e32acb5c57c4a2b678dc984c3cfc17c6af6c71812f5dcc07",
           "updated_at": "2026-02-12T15:13:10.628130Z"
+        },
+        "1.0.4": {
+          "url": "https://redc.wgpsec.org/templates/aws_md_v1.0.4.zip",
+          "sha256": "5e8c641a97042767096968f5ee8a28d9130567ad16b0e854d9183bd6a895da54",
+          "updated_at": "2026-02-13T07:44:16.029839Z"
         }
       },
-      "latest": "1.0.3",
+      "latest": "1.0.4",
       "metadata": {
         "name": "md",
         "author": "r0fus0d",
@@ -544,9 +579,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_file_v1.0.2.zip",
           "sha256": "82de44d06b50bd8e045b3bd4d931ec2a893fc83fbe0e89e236b73190fe3629da",
           "updated_at": "2026-02-11T09:03:34.897336Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/tencent_file_v1.0.3.zip",
+          "sha256": "9e72832857b8cf1ff780b9204ad8b066e050d1b2394ab943424a66e90adc9e86",
+          "updated_at": "2026-02-13T07:44:16.033025Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "file",
         "author": "r0fus0d",
@@ -583,9 +623,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_jndi_v1.0.2.zip",
           "sha256": "8949bf9346cab77c64e6f8e671895a120972a962182f464770edbce06aab6aaa",
           "updated_at": "2026-02-11T09:03:34.898305Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/tencent_jndi_v1.0.3.zip",
+          "sha256": "4aef38ed90cf6baad73f4ae1d1dddd2ae468d0c565230ff77156b64c46efb580",
+          "updated_at": "2026-02-13T07:44:16.034086Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "jndi",
         "author": "r0fus0d",
@@ -627,9 +672,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.0.3.zip",
           "sha256": "d64e1006a1472684b38b20b1c15838d1a5864948429c3545b7dd6d22ed513863",
           "updated_at": "2026-02-11T09:03:34.899465Z"
+        },
+        "1.0.4": {
+          "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.0.4.zip",
+          "sha256": "e03688b1053a67c8058149611f8383418eddd70d975c3175069faa9e0a9a0d2b",
+          "updated_at": "2026-02-13T07:44:16.035342Z"
         }
       },
-      "latest": "1.0.3",
+      "latest": "1.0.4",
       "metadata": {
         "name": "nps",
         "author": "r0fus0d",
@@ -754,9 +804,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.1.0.zip",
           "sha256": "b8839d9f88d90ceda0e71976bb8fc7103f3698fba5a822d23ad677ef2d2a2ed2",
           "updated_at": "2026-02-12T15:13:10.629406Z"
+        },
+        "1.1.1": {
+          "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.1.1.zip",
+          "sha256": "06e9bd0c64a934484912d8acf99d826d7e457214ed594dedebb0a9890931a4e4",
+          "updated_at": "2026-02-13T07:44:16.030960Z"
         }
       },
-      "latest": "1.1.0",
+      "latest": "1.1.1",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
@@ -826,9 +881,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_cvm_v1.0.0.zip",
           "sha256": "279cd8c770577fb88f813eaec353106e8f788d3bc1a8a2fc79d018ec2a43053e",
           "updated_at": "2026-02-11T09:03:34.896408Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/tencent_cvm_v1.0.1.zip",
+          "sha256": "9c9a9e359c59a22c35e967efdbe4deb02e4c8d58d4f10b62bbff3a1a9d95edf4",
+          "updated_at": "2026-02-13T07:44:16.032033Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "cvm",
         "author": "r0fus0d",
