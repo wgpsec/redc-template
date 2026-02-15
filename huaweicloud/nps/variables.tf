@@ -17,6 +17,11 @@ variable "base64_command" {
   description = "base64 command"
 }
 
+variable "github_proxy" {
+  type        = string
+  description = "GitHub Proxy"
+}
+
 variable "instance_password" {
   type        = string
   description = "Instance login password (leave empty to auto-generate)"

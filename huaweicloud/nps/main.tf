@@ -49,7 +49,7 @@ sudo apt-get install -y tmux
 sudo apt-get -y install wget
 sudo apt-get -y install unzip
 
-sudo wget -O linux_amd64_server.tar.gz 'https://pub-4cbde83fd01f4fe98e2672c3b1f14315.r2.dev/nps/linux_amd64_server.tar.gz'
+sudo wget -O linux_amd64_server.tar.gz '${var.github_proxy}/ehang-io/nps/releases/download/v0.26.10/linux_amd64_server.tar.gz'
 sudo tar -zxvf linux_amd64_server.tar.gz
 sudo chmod +x nps
 sudo ./nps install
