@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-13T15:40:55.763413Z",
+  "updated_at": "2026-02-15T13:15:24.947223Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -904,6 +904,25 @@
         "author": "r0fus0d",
         "description": "在腾讯云快速部署一台配置完善的CVM云服务器实例，自动安装常用开发工具（wget、curl、lrzsz、tmux等）和Python3环境，开放全部端口，适用于临时测试、开发调试或攻防演练等场景",
         "readme": "# 场景使用\n\n1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull tencent/jndi\n```\n\n开启\n```\nredc run tencent/jndi\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n**非 redc 使用请自行替换 terraform.tfvars 中的 腾讯云 aksk**\n\n```\ntencentcloud_secret_id  = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\ntencentcloud_secret_key = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n```\n\n# 注意事项\n\n若启动场景报错，可能原因\n1. 腾讯云账户余额不足\n2. 与腾讯云 api 网络连接超时\n3. 腾讯云该区域售罄或下架 instance_type 的配置机型\n"
+      }
+    },
+    "huaweicloud/nps": {
+      "id": "huaweicloud/nps",
+      "provider": "huaweicloud",
+      "slug": "nps",
+      "versions": {
+        "0.0.1": {
+          "url": "https://redc.wgpsec.org/templates/huaweicloud_nps_v0.0.1.zip",
+          "sha256": "63c45a459cf59cae235ed1a6654349953910053827a4a8019703fd159a2506d3",
+          "updated_at": "2026-02-15T13:15:24.946297Z"
+        }
+      },
+      "latest": "0.0.1",
+      "metadata": {
+        "name": "nps",
+        "author": "r0fus0d",
+        "description": "在华为云上部署 NPS（内网穿透服务器），用于红队渗透测试中的内网穿透需求。",
+        "readme": "# 华为云 NPS 场景\n\n## 场景说明\n\n本场景在华为云上部署 NPS（内网穿透服务器），用于红队渗透测试中的内网穿透需求。\n\n## 配置说明\n\n### 自动生成的资源\n\n- **VPC 和子网**：自动创建独立的 VPC 网络环境\n- **安全组**：自动创建并配置允许所有流量的安全组规则\n- **EIP**：自动分配公网 IP\n- **随机密码**：自动生成强随机密码用于 SSH 登录\n\n### 实例配置\n\n- **区域**：cn-north-4（北京四）\n- **可用区**：cn-north-4a\n- **镜像**：Ubuntu 18.04 server 64bit\n- **规格**：1核1G（自动选择）\n- **认证方式**：密码认证（自动生成）\n\n## 使用方法\n\n### 1. 配置华为云凭据\n\n通过 redc-gui 的凭据管理页面配置，或编辑 `~/redc/config.yaml`：\n\n```yaml\nproviders:\n  huaweicloud:\n    HUAWEICLOUD_ACCESS_KEY: \"your_access_key\"\n    HUAWEICLOUD_SECRET_KEY: \"your_secret_key\"\n```\n\n### 2. 启动场景\n\n```bash\nredc run huaweicloud/nps\n```\n\n### 3. 获取连接信息\n\n场景启动后，redc 会输出以下信息：\n\n- **nps_ip**：NPS 服务器公网 IP\n- **nps_address_link**：NPS Web 管理界面地址（http://IP:8080）\n- **nps_username**：NPS 管理员用户名（redone）\n- **nps_password**：NPS 管理员密码（1!2A3d4v5s6e）\n- **ecs_password**：SSH 登录密码（自动生成）\n\n### 4. SSH 连接\n\n```bash\n# 使用 redc SSH 功能\nredc ssh <case_id>\n\n# 或手动连接\nssh root@<nps_ip>\n# 密码在 ecs_password 输出中\n```\n\n### 安全建议\n\n- 场景创建后，建议立即修改 NPS 管理员密码\n- 如需更严格的安全策略，可修改安全组规则限制访问源\n- 使用完毕后及时销毁场景，避免产生不必要的费用\n\n## 故障排查\n\n### 实例创建失败\n\n1. 检查华为云凭据是否正确\n2. 确认账户余额充足\n3. 检查区域配额是否足够\n\n### NPS 服务未启动\n\n1. SSH 登录实例检查日志：`journalctl -u nps`\n2. 手动启动服务：`sudo nps start`\n3. 检查配置文件：`/etc/nps/conf/nps.conf`\n\n## 相关链接\n\n- [NPS 官方文档](https://github.com/ehang-io/nps)\n- [华为云 Terraform Provider 文档](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs)\n"
       }
     }
   }
