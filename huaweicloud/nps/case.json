@@ -1,0 +1,6 @@
+{
+    "name":"nps",
+    "user":"r0fus0d",
+    "version": "0.0.1",
+    "description":"在华为云上部署 NPS（内网穿透服务器），用于红队渗透测试中的内网穿透需求。"
+}

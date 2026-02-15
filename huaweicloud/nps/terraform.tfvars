@@ -1,0 +1,2 @@
+huaweicloud_access_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+huaweicloud_secret_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
