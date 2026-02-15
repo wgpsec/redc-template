@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-15T13:15:24.947223Z",
+  "updated_at": "2026-02-15T13:17:00.605688Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -915,9 +915,14 @@
           "url": "https://redc.wgpsec.org/templates/huaweicloud_nps_v0.0.1.zip",
           "sha256": "63c45a459cf59cae235ed1a6654349953910053827a4a8019703fd159a2506d3",
           "updated_at": "2026-02-15T13:15:24.946297Z"
+        },
+        "0.0.2": {
+          "url": "https://redc.wgpsec.org/templates/huaweicloud_nps_v0.0.2.zip",
+          "sha256": "5230fb0f1850ca74b49e330ad863a47901f85a68cb3e35b26d3d7079003ae066",
+          "updated_at": "2026-02-15T13:17:00.604806Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "0.0.2",
       "metadata": {
         "name": "nps",
         "author": "r0fus0d",
