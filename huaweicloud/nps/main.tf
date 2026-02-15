@@ -39,6 +39,9 @@ resource "huaweicloud_compute_instance" "web" {
   admin_pass         = local.instance_password
   user_data          = <<EOF
 #!/bin/bash
+
+sudo echo "root:${local.instance_password}" | sudo chpasswd
+
 sudo apt-get update
 sudo sleep 2
 sudo apt-get install -y ca-certificates
