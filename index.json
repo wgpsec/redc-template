@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-15T14:48:38.023749Z",
+  "updated_at": "2026-02-15T15:32:01.768581Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -677,9 +677,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.0.4.zip",
           "sha256": "e03688b1053a67c8058149611f8383418eddd70d975c3175069faa9e0a9a0d2b",
           "updated_at": "2026-02-13T07:44:16.035342Z"
+        },
+        "1.0.5": {
+          "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.0.5.zip",
+          "sha256": "d009038a7ec08fa2cb42b5d6c12b6fcf8987d6ecdce1d3d5475b0be771cbc944",
+          "updated_at": "2026-02-15T15:32:01.767459Z"
         }
       },
-      "latest": "1.0.4",
+      "latest": "1.0.5",
       "metadata": {
         "name": "nps",
         "author": "r0fus0d",
@@ -872,9 +877,14 @@
           "url": "https://redc.wgpsec.org/templates/volcengine_ecs_v1.0.2.zip",
           "sha256": "ab53a8439a0f9a67d76d0db6f45f7b4c81eeb330c30dfa0de92f8b71625aff53",
           "updated_at": "2026-02-05T06:26:54.690471Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/volcengine_ecs_v1.0.3.zip",
+          "sha256": "bbef2a11052c0ce25abcac9e2309cef3c82b889600a142c9f8c75263497df719",
+          "updated_at": "2026-02-15T15:32:01.768437Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "ecs",
         "author": "copilot",
@@ -925,9 +935,14 @@
           "url": "https://redc.wgpsec.org/templates/huaweicloud_nps_v0.0.3.zip",
           "sha256": "668436ff785be172f6955003b19ddb6c9318e76db071cfbe7f206ce399605d87",
           "updated_at": "2026-02-15T14:48:38.022840Z"
+        },
+        "0.0.4": {
+          "url": "https://redc.wgpsec.org/templates/huaweicloud_nps_v0.0.4.zip",
+          "sha256": "f702fa58e4a7abf50b20bfa17ada55ec00fdf09ebfdf587718d2ac270406e154",
+          "updated_at": "2026-02-15T15:32:01.765596Z"
         }
       },
-      "latest": "0.0.3",
+      "latest": "0.0.4",
       "metadata": {
         "name": "nps",
         "author": "r0fus0d",
