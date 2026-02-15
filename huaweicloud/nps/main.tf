@@ -4,15 +4,18 @@ provider "huaweicloud" {
   secret_key = var.huaweicloud_secret_key
 }
 
-# 生成随机密码
+# 生成随机密码和资源名称后缀
 locals {
   password_seed      = replace(uuid(), "-", "")
   generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
   instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
+
+  # 生成8位随机后缀用于资源命名，避免名称冲突
+  random_suffix = substr(replace(uuid(), "-", ""), 0, 8)
 }
 
 resource "huaweicloud_networking_secgroup" "secgroup" {
-  name        = "redc_nps_secgroup"
+  name        = "redc_nps_secgroup_${local.random_suffix}"
   description = "Security group for NPS server - allow all traffic"
 }
 
@@ -31,7 +34,7 @@ resource "huaweicloud_networking_secgroup_rule" "allow_all_egress" {
 }
 
 resource "huaweicloud_compute_instance" "web" {
-  name               = "redc_nps_instance"
+  name               = "redc_nps_instance_${local.random_suffix}"
   image_id           = data.huaweicloud_images_image.myimage.id
   flavor_id          = data.huaweicloud_compute_flavors.myflavor.ids[0]
   security_group_ids = [huaweicloud_networking_secgroup.secgroup.id]
@@ -77,12 +80,12 @@ EOF
 }
 
 resource "huaweicloud_vpc" "vpc" {
-  name = "redc_nps_vpc"
+  name = "redc_nps_vpc_${local.random_suffix}"
   cidr = "10.77.0.0/16"
 }
 
 resource "huaweicloud_vpc_subnet" "subnet" {
-  name       = "redc_nps_subnet"
+  name       = "redc_nps_subnet_${local.random_suffix}"
   cidr       = "10.77.0.0/24"
   gateway_ip = "10.77.0.1"
   vpc_id     = huaweicloud_vpc.vpc.id
@@ -96,7 +99,7 @@ resource "huaweicloud_vpc_eip" "eip" {
     type = "5_bgp"
   }
   bandwidth {
-    name        = "redc_nps_eip"
+    name        = "redc_nps_eip_${local.random_suffix}"
     size        = 100
     share_type  = "PER"
     charge_mode = "traffic"

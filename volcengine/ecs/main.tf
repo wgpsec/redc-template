@@ -2,10 +2,13 @@ locals {
   password_seed      = replace(uuid(), "-", "")
   generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
   instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
+
+  # 生成8位随机后缀用于资源命名，避免名称冲突
+  random_suffix = substr(replace(uuid(), "-", ""), 0, 8)
 }
 
 resource "volcengine_ecs_instance" "instance" {
-  instance_name        = "volcengine_bj_ecs"
+  instance_name        = "volcengine_bj_ecs_${local.random_suffix}"
   instance_type        = "ecs.e-c1m1.large"
   image_id             = data.volcengine_images.debian.images[0].image_id
   subnet_id            = volcengine_subnet.subnet.id
@@ -14,7 +17,7 @@ resource "volcengine_ecs_instance" "instance" {
   system_volume_size   = 20
   instance_charge_type = "PostPaid"
   password             = local.instance_password
-  
+
   user_data = base64encode(<<EOF
 #!/bin/bash
 sudo apt-get update
@@ -42,7 +45,7 @@ resource "volcengine_eip_address" "eip" {
   billing_type = "PostPaidByTraffic"
   bandwidth    = 100
   isp          = "BGP"
-  name         = "volcengine_bj_eip"
+  name         = "volcengine_bj_eip_${local.random_suffix}"
   description  = "EIP for ECS instance"
 }
 
@@ -53,7 +56,7 @@ resource "volcengine_eip_associate" "eip_attach" {
 }
 
 resource "volcengine_security_group" "group" {
-  security_group_name = "volcengine_security_group"
+  security_group_name = "volcengine_security_group_${local.random_suffix}"
   vpc_id              = volcengine_vpc.vpc.id
 }
 
@@ -70,12 +73,12 @@ resource "volcengine_security_group_rule" "allow_all_tcp" {
 }
 
 resource "volcengine_vpc" "vpc" {
-  vpc_name   = "volcengine_vpc"
+  vpc_name   = "volcengine_vpc_${local.random_suffix}"
   cidr_block = "172.16.0.0/16"
 }
 
 resource "volcengine_subnet" "subnet" {
-  subnet_name = "volcengine_subnet"
+  subnet_name = "volcengine_subnet_${local.random_suffix}"
   cidr_block  = "172.16.0.0/24"
   zone_id     = data.volcengine_zones.default.zones[0].id
   vpc_id      = volcengine_vpc.vpc.id

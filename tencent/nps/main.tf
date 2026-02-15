@@ -8,16 +8,19 @@ locals {
   password_seed      = replace(uuid(), "-", "")
   generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
   instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
+
+  # 生成8位随机后缀用于资源命名，避免名称冲突
+  random_suffix = substr(replace(uuid(), "-", ""), 0, 8)
 }
 
 resource "tencentcloud_instance" "test" {
-  instance_name              = "nps"
+  instance_name              = "nps_${local.random_suffix}"
   availability_zone          = "ap-beijing-7"
   image_id                   = "img-pi0ii46r"
   instance_type              = data.tencentcloud_instance_types.instance_types.instance_types.0.instance_type
   allocate_public_ip         = true
   internet_max_bandwidth_out = 50
-  password = local.instance_password
+  password                   = local.instance_password
   orderly_security_groups    = [tencentcloud_security_group.default.id]
   user_data_raw              = <<EOF
 #!/bin/bash
@@ -60,7 +63,7 @@ EOF
 }
 
 resource "tencentcloud_security_group" "default" {
-  name        = "nps_security_group"
+  name        = "nps_security_group_${local.random_suffix}"
   description = "make it accessible for both production and stage ports"
   project_id  = 0
 }
