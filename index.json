@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-15T15:32:01.768581Z",
+  "updated_at": "2026-02-15T15:53:31.462750Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -682,9 +682,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.0.5.zip",
           "sha256": "d009038a7ec08fa2cb42b5d6c12b6fcf8987d6ecdce1d3d5475b0be771cbc944",
           "updated_at": "2026-02-15T15:32:01.767459Z"
+        },
+        "1.0.6": {
+          "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.0.6.zip",
+          "sha256": "4daf5da396597f1199f9787f3bc11baf363636db3692c67a390559d127779bf3",
+          "updated_at": "2026-02-15T15:53:31.462404Z"
         }
       },
-      "latest": "1.0.5",
+      "latest": "1.0.6",
       "metadata": {
         "name": "nps",
         "author": "r0fus0d",
