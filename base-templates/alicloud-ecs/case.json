@@ -1,8 +1,8 @@
 {
   "name": "alicloud-ecs",
   "description": "阿里云 ECS 实例",
-  "version": "1.0.3",
-  "author": "redc",
+  "version": "1.0.4",
+  "user": "redc",
   "tags": ["alicloud", "ecs", "compute"],
   "provider": "alicloud",
   "is_base_template": true
