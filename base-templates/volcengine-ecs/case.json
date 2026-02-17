@@ -1,0 +1,9 @@
+{
+  "name": "volcengine-ecs",
+  "description": "火山引擎 ECS 实例",
+  "version": "1.0.2",
+  "author": "redc",
+  "tags": ["volcengine", "ecs", "compute"],
+  "provider": "volcengine",
+  "is_base_template": true
+}

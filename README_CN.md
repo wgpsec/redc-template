@@ -14,8 +14,18 @@ https://github.com/wgpsec/redc 引擎要用到的 tf 模板仓库
 - aws 为 亚马逊云 上的各个场景
 - tencent 为 腾讯云 上的各个场景
 - vultr 为 vultr云 上的场景 (不是很推荐了,要用不如用 aws)
+- **base-templates 为基础模板** (支持自定义配置的通用模板，可通过 RedC GUI 的"自定义部署"功能使用)
+- huaweicloud 为 华为云 上的各个场景
+- volcengine 为 火山引擎 上的各个场景
 
-还有 华为云、火山等等后续慢慢补充
+### 什么是基础模板？
+
+基础模板是支持自定义配置的通用模板，与预定义模板的区别：
+
+- **预定义模板**: 固定配置，一键部署，适合快速使用
+- **基础模板**: 可自定义配置（云厂商、地域、实例规格等），适合灵活部署
+
+查看 [base-templates/README.md](base-templates/README.md) 了解更多。
 
 ## 需要准备什么
 
