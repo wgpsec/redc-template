@@ -3,5 +3,7 @@
   "nameZh": "MySQL 客户端安装",
   "type": "bash",
   "category": "basic",
+  "user": "r0fus0d",
+  "version": "1.0.0",
   "description": "安装 MySQL 客户端"
 }

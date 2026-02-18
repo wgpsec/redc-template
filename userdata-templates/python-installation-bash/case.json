@@ -3,5 +3,7 @@
   "nameZh": "Python 安装",
   "type": "bash",
   "category": "basic",
+  "user": "r0fus0d",
+  "version": "1.0.0",
   "description": "安装 Python 3 和 pip"
 }

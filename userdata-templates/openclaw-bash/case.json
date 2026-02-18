@@ -3,6 +3,8 @@
   "nameZh": "OpenClaw",
   "type": "bash",
   "category": "ai",
+  "user": "r0fus0d",
+  "version": "1.0.0",
   "url": "https://openclaw.ai/",
   "description": "开源 AI 编程助手，集成于 VSCode / JetBrains IDEs",
   "installNotes": "安装完成后，输入 openclaw onboard --install-daemon 命令配置"

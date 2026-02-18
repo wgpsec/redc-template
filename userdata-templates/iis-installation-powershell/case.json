@@ -3,5 +3,7 @@
   "nameZh": "IIS 安装",
   "type": "powershell",
   "category": "basic",
+  "user": "r0fus0d",
+  "version": "1.0.0",
   "description": "安装 IIS Web 服务器"
 }
