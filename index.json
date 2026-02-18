@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-17T05:10:34.553884Z",
+  "updated_at": "2026-02-18T05:41:20.280601Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -991,6 +991,310 @@
         "author": "redc",
         "description": "火山引擎 ECS 实例",
         "readme": "# 火山引擎 ECS 模板\n\n## 简介\n\n这是一个用于在火山引擎上创建 ECS 实例的基础模板。\n\n## 功能特性\n\n- 自动创建 VPC 和子网\n- 配置安全组（开放 SSH、HTTP、HTTPS 端口）\n- 分配公网 IP\n- 支持自定义用户数据脚本\n- 支持自定义实例密码\n\n## 使用方法\n\n### 必需参数\n\n- `region`: 火山引擎区域（如 `cn-beijing`）\n- `instance_type`: 实例规格（如 `ecs.g3i.large`）\n\n### 可选参数\n\n- `instance_name`: 实例名称（默认: `volcengine-ecs`）\n- `instance_password`: 实例密码（如果不设置，需要使用密钥登录）\n- `system_disk_size`: 系统盘大小，单位 GB（默认: `40`）\n- `internet_max_bandwidth_out`: 公网带宽，单位 Mbps（默认: `1`）\n- `userdata`: 用户数据脚本（可选）\n\n## 输出\n\n- `instance_id`: 实例 ID\n- `instance_name`: 实例名称\n- `public_ip`: 公网 IP 地址\n- `private_ip`: 私网 IP 地址\n- `region`: 区域\n- `instance_type`: 实例规格\n\n## 注意事项\n\n1. 确保你的火山引擎账号有足够的配额\n2. 实例密码必须符合火山引擎的密码策略\n3. 系统盘类型固定为 `ESSD_PL0`（标准云盘）\n4. 默认使用 veLinux 1.0 CentOS 兼容版镜像\n\n## 成本估算\n\n- ECS 实例费用根据实例规格和使用时长计费\n- 公网带宽按实际使用流量或固定带宽计费\n- 系统盘按容量和类型计费\n\n## 示例\n\n```hcl\nregion                      = \"cn-beijing\"\ninstance_type               = \"ecs.g3i.large\"\ninstance_name               = \"my-server\"\ninstance_password           = \"MyPassword123!\"\nsystem_disk_size            = 40\ninternet_max_bandwidth_out  = 5\nuserdata                    = <<-EOT\n#!/bin/bash\nyum update -y\nyum install -y nginx\nsystemctl start nginx\nsystemctl enable nginx\nEOT\n```\n"
+      }
+    },
+    "userdata-templates/basic-setup-bash": {
+      "id": "userdata-templates/basic-setup-bash",
+      "provider": "userdata-templates",
+      "slug": "basic-setup-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_basic-setup-bash_v1.0.0.zip",
+          "sha256": "2b302b6bb4a4e3fab9e6f208096b38f72d39c832825fd689dfe9b2804a5d88b8",
+          "updated_at": "2026-02-18T05:41:20.272436Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "basic-setup-bash",
+        "author": "r0fus0d",
+        "description": "基础系统设置，安装常用工具",
+        "readme": "# Linux 基础设置\n\n这是一个用于基础系统设置，安装常用工具的 userdata 模板。\n\n## 功能说明\n\n该模板在 Linux 系统启动时自动执行以下操作：\n\n1. **更新系统包** - 执行 `apt-get update -y` 和 `apt-get upgrade -y` 更新系统软件包\n2. **安装常用工具** - 安装以下常用工具：\n   - curl\n   - wget\n   - git\n   - vim\n\n## 使用方法\n\n通过 RedC GUI 的\"专项模块\"或\"自定义部署\"功能使用此模板：\n\n1. 选择 \"Linux 基础设置\" 模板\n2. 点击\"复制脚本\"按钮\n3. 在云服务器 userdata 中粘贴使用\n\n## 适用系统\n\n- Ubuntu / Debian 系 Linux 发行版\n"
+      }
+    },
+    "userdata-templates/basic-setup-powershell": {
+      "id": "userdata-templates/basic-setup-powershell",
+      "provider": "userdata-templates",
+      "slug": "basic-setup-powershell",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_basic-setup-powershell_v1.0.0.zip",
+          "sha256": "b91101d2c4d50f2726e36cef49ffc285cacaaab72e467e56579025c31e0e95be",
+          "updated_at": "2026-02-18T05:41:20.273117Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "basic-setup-powershell",
+        "author": "r0fus0d",
+        "description": "基础系统设置，安装 Chocolatey",
+        "readme": "# 基础设置\n\n这是一个用于基础系统设置，安装 Chocolatey 的 userdata 模板。\n\n## 功能说明\n\n1. 设置执行策略\n2. 安装 Chocolatey 包管理器\n"
+      }
+    },
+    "userdata-templates/dify-bash": {
+      "id": "userdata-templates/dify-bash",
+      "provider": "userdata-templates",
+      "slug": "dify-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_dify-bash_v1.0.0.zip",
+          "sha256": "80c60a2aa8ceca8f98b39174e99462ec053598e1e35f228ae73caeade5f7c257",
+          "updated_at": "2026-02-18T05:41:20.273689Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "dify-bash",
+        "author": "r0fus0d",
+        "description": "开源 LLM 应用开发平台，支持 RAG 和 AI Agent",
+        "readme": "# Dify\n\n这是一个用于自动安装 Dify 的 userdata 模板。\n\n## 功能说明\n\n1. 克隆 Dify 官方仓库\n2. 使用 Docker Compose 启动 Dify\n"
+      }
+    },
+    "userdata-templates/docker-compose-bash": {
+      "id": "userdata-templates/docker-compose-bash",
+      "provider": "userdata-templates",
+      "slug": "docker-compose-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_docker-compose-bash_v1.0.0.zip",
+          "sha256": "abb07ac0179aae7488e2c95f599c48f12761859e4c9773c7b77ad7637887eb46",
+          "updated_at": "2026-02-18T05:41:20.274219Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "docker-compose-bash",
+        "author": "r0fus0d",
+        "description": "安装 Docker Compose",
+        "readme": "# Docker Compose 安装\n\n这是一个用于安装 Docker Compose 的 userdata 模板。\n\n## 功能说明\n\n1. 下载并安装 Docker Compose v2.24.0\n2. 设置执行权限\n3. 验证安装\n"
+      }
+    },
+    "userdata-templates/docker-desktop-powershell": {
+      "id": "userdata-templates/docker-desktop-powershell",
+      "provider": "userdata-templates",
+      "slug": "docker-desktop-powershell",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_docker-desktop-powershell_v1.0.0.zip",
+          "sha256": "4d44f3f0f5b6b2c161144d1ab2d16ba8e99e932f5a9f2b077e2130619f55ab74",
+          "updated_at": "2026-02-18T05:41:20.274756Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "docker-desktop-powershell",
+        "author": "r0fus0d",
+        "description": "安装 Docker Desktop",
+        "readme": "# Docker Desktop 安装\n\n这是一个用于安装 Docker Desktop 的 userdata 模板。\n\n## 功能说明\n\n1. 通过 Chocolatey 安装 Docker Desktop\n2. 启动 Docker Desktop\n"
+      }
+    },
+    "userdata-templates/docker-installation-bash": {
+      "id": "userdata-templates/docker-installation-bash",
+      "provider": "userdata-templates",
+      "slug": "docker-installation-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_docker-installation-bash_v1.0.0.zip",
+          "sha256": "ba530870212bf02aa746f3e1b0056120bd18588edf742b78cf31b8e1fd2d96dd",
+          "updated_at": "2026-02-18T05:41:20.275252Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "docker-installation-bash",
+        "author": "r0fus0d",
+        "description": "安装 Docker 引擎",
+        "readme": "# Docker 安装\n\n这是一个用于安装 Docker 引擎的 userdata 模板。\n\n## 功能说明\n\n1. 下载并执行 Docker 安装脚本\n2. 启动并启用 Docker 服务\n3. 将当前用户添加到 docker 组\n"
+      }
+    },
+    "userdata-templates/git-installation-powershell": {
+      "id": "userdata-templates/git-installation-powershell",
+      "provider": "userdata-templates",
+      "slug": "git-installation-powershell",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_git-installation-powershell_v1.0.0.zip",
+          "sha256": "fe47650f7f9d9b3086acb2b55107e020e22eb20d28cfbb76efa5b0344a56638c",
+          "updated_at": "2026-02-18T05:41:20.275796Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "git-installation-powershell",
+        "author": "r0fus0d",
+        "description": "安装 Git 版本控制工具",
+        "readme": "# Git 安装\n\n这是一个用于安装 Git 的 userdata 模板。\n\n## 功能说明\n\n1. 通过 Chocolatey 安装 Git\n2. 验证安装\n"
+      }
+    },
+    "userdata-templates/iis-installation-powershell": {
+      "id": "userdata-templates/iis-installation-powershell",
+      "provider": "userdata-templates",
+      "slug": "iis-installation-powershell",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_iis-installation-powershell_v1.0.0.zip",
+          "sha256": "efb7406a936827828de0fdeb310e413b15324ee6d785975648054dda4f33d894",
+          "updated_at": "2026-02-18T05:41:20.276279Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "iis-installation-powershell",
+        "author": "r0fus0d",
+        "description": "安装 IIS Web 服务器",
+        "readme": "# IIS 安装\n\n这是一个用于安装 IIS Web 服务器的 userdata 模板。\n\n## 功能说明\n\n1. 安装 IIS Web 服务器\n2. 安装 IIS 管理工具\n"
+      }
+    },
+    "userdata-templates/mysql-client-bash": {
+      "id": "userdata-templates/mysql-client-bash",
+      "provider": "userdata-templates",
+      "slug": "mysql-client-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_mysql-client-bash_v1.0.0.zip",
+          "sha256": "14ce8acd740fad021043d04bdefcc3df45a2f375a74bacbf45ff56895767df98",
+          "updated_at": "2026-02-18T05:41:20.276793Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "mysql-client-bash",
+        "author": "r0fus0d",
+        "description": "安装 MySQL 客户端",
+        "readme": "# MySQL 客户端安装\n\n这是一个用于安装 MySQL 客户端的 userdata 模板。\n\n## 功能说明\n\n1. 更新软件包列表\n2. 安装 MySQL 客户端\n"
+      }
+    },
+    "userdata-templates/n8n-bash": {
+      "id": "userdata-templates/n8n-bash",
+      "provider": "userdata-templates",
+      "slug": "n8n-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_n8n-bash_v1.0.0.zip",
+          "sha256": "5c8d9a2c6f100b10e7a8c0c341bdf8ee8ad687fc789ac7000a7a182d45355514",
+          "updated_at": "2026-02-18T05:41:20.277283Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "n8n-bash",
+        "author": "r0fus0d",
+        "description": "开源工作流自动化工具，支持 AI 节点集成",
+        "readme": "# n8n\n\n这是一个用于自动安装 n8n 的 userdata 模板。\n\n## 功能说明\n\n1. 全局安装 n8n\n"
+      }
+    },
+    "userdata-templates/nginx-installation-bash": {
+      "id": "userdata-templates/nginx-installation-bash",
+      "provider": "userdata-templates",
+      "slug": "nginx-installation-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_nginx-installation-bash_v1.0.0.zip",
+          "sha256": "bbe37500830602c6296d16fefdb26bd08f0f20e22b64a5121cf5e44cb1b2fd05",
+          "updated_at": "2026-02-18T05:41:20.277823Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "nginx-installation-bash",
+        "author": "r0fus0d",
+        "description": "安装 Nginx Web 服务器",
+        "readme": "# Nginx 安装\n\n这是一个用于安装 Nginx Web 服务器的 userdata 模板。\n\n## 功能说明\n\n1. 更新软件包列表\n2. 安装 Nginx\n3. 启动并启用 Nginx 服务\n"
+      }
+    },
+    "userdata-templates/nodejs-installation-bash": {
+      "id": "userdata-templates/nodejs-installation-bash",
+      "provider": "userdata-templates",
+      "slug": "nodejs-installation-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_nodejs-installation-bash_v1.0.0.zip",
+          "sha256": "7c80ec7425d2110b363acdb3acf7ed07ea8f88bc1b1d3f1a1110a469702e3460",
+          "updated_at": "2026-02-18T05:41:20.278304Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "nodejs-installation-bash",
+        "author": "r0fus0d",
+        "description": "安装 Node.js 18.x",
+        "readme": "# Node.js 安装\n\n这是一个用于安装 Node.js 的 userdata 模板。\n\n## 功能说明\n\n1. 添加 Node.js 18.x 官方 APT 源\n2. 安装 Node.js 和 npm\n3. 验证安装\n"
+      }
+    },
+    "userdata-templates/openclaw-bash": {
+      "id": "userdata-templates/openclaw-bash",
+      "provider": "userdata-templates",
+      "slug": "openclaw-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_openclaw-bash_v1.0.0.zip",
+          "sha256": "402764718f7f4d87064715d3b69da229a2b7d00f72c8fa4b6862442a16a5d27e",
+          "updated_at": "2026-02-18T05:41:20.278826Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "openclaw-bash",
+        "author": "r0fus0d",
+        "description": "开源 AI 编程助手，集成于 VSCode / JetBrains IDEs",
+        "readme": "# OpenClaw\n\n这是一个用于自动安装 OpenClaw 的 userdata 模板。\n\n## 功能说明\n\n1. 执行官方安装脚本\n"
+      }
+    },
+    "userdata-templates/postgresql-client-bash": {
+      "id": "userdata-templates/postgresql-client-bash",
+      "provider": "userdata-templates",
+      "slug": "postgresql-client-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_postgresql-client-bash_v1.0.0.zip",
+          "sha256": "565df2b6022d8d0e11c38e25d4bf7837974093fd1e6443c36cb22185a9817a70",
+          "updated_at": "2026-02-18T05:41:20.279353Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "postgresql-client-bash",
+        "author": "r0fus0d",
+        "description": "安装 PostgreSQL 客户端",
+        "readme": "# PostgreSQL 客户端安装\n\n这是一个用于安装 PostgreSQL 客户端的 userdata 模板。\n\n## 功能说明\n\n1. 更新软件包列表\n2. 安装 PostgreSQL 客户端\n"
+      }
+    },
+    "userdata-templates/python-installation-bash": {
+      "id": "userdata-templates/python-installation-bash",
+      "provider": "userdata-templates",
+      "slug": "python-installation-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_python-installation-bash_v1.0.0.zip",
+          "sha256": "6c61dd62348279c0f02f5108e0f76d04834244524665573c3560622ba23854d8",
+          "updated_at": "2026-02-18T05:41:20.279848Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "python-installation-bash",
+        "author": "r0fus0d",
+        "description": "安装 Python 3 和 pip",
+        "readme": "# Python 安装\n\n这是一个用于安装 Python 的 userdata 模板。\n\n## 功能说明\n\n1. 更新软件包列表\n2. 安装 Python3、pip 和 venv\n3. 验证安装\n"
+      }
+    },
+    "userdata-templates/vscode-installation-powershell": {
+      "id": "userdata-templates/vscode-installation-powershell",
+      "provider": "userdata-templates",
+      "slug": "vscode-installation-powershell",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_vscode-installation-powershell_v1.0.0.zip",
+          "sha256": "3e0fd324e4064cd0392c2c2c20c63be5cfbed4410629bc37e4986f5f8b0d9883",
+          "updated_at": "2026-02-18T05:41:20.280322Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "vscode-installation-powershell",
+        "author": "r0fus0d",
+        "description": "安装 Visual Studio Code",
+        "readme": "# VSCode 安装\n\n这是一个用于安装 Visual Studio Code 的 userdata 模板。\n\n## 功能说明\n\n1. 通过 Chocolatey 安装 VSCode\n"
       }
     }
   }
