@@ -1,0 +1,10 @@
+#!/bin/bash
+# Install Python and pip
+apt-get update -y
+apt-get install -y python3 python3-pip python3-venv
+
+# Verify installation
+python3 --version
+pip3 --version
+
+echo "Python installed successfully!"

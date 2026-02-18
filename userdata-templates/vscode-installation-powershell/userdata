@@ -1,0 +1,6 @@
+<powershell>
+# Install VSCode via Chocolatey
+choco install vscode -y
+
+Write-Host "VSCode installed successfully!"
+</powershell>

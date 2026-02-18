@@ -1,0 +1,7 @@
+{
+  "name": "docker-compose-bash",
+  "nameZh": "Docker Compose 安装",
+  "type": "bash",
+  "category": "basic",
+  "description": "安装 Docker Compose"
+}

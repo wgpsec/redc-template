@@ -1,0 +1,10 @@
+#!/bin/bash
+# Install Nginx
+apt-get update -y
+apt-get install -y nginx
+
+# Start Nginx service
+systemctl start nginx
+systemctl enable nginx
+
+echo "Nginx installed and started!"

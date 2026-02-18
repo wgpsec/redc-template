@@ -1,0 +1,9 @@
+<powershell>
+# Install Git via Chocolatey
+choco install git -y
+
+# Verify installation
+git --version
+
+Write-Host "Git installed successfully!"
+</powershell>

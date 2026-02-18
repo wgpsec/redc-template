@@ -1,0 +1,13 @@
+#!/bin/bash
+# Install Docker
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+
+# Start Docker service
+systemctl start docker
+systemctl enable docker
+
+# Add user to docker group
+usermod -aG docker ubuntu
+
+echo "Docker installed successfully!"

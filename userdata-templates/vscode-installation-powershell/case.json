@@ -1,0 +1,7 @@
+{
+  "name": "vscode-installation-powershell",
+  "nameZh": "VSCode 安装",
+  "type": "powershell",
+  "category": "basic",
+  "description": "安装 Visual Studio Code"
+}

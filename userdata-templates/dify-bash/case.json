@@ -1,0 +1,9 @@
+{
+  "name": "dify-bash",
+  "nameZh": "Dify",
+  "type": "bash",
+  "category": "ai",
+  "url": "https://dify.ai/",
+  "description": "开源 LLM 应用开发平台，支持 RAG 和 AI Agent",
+  "installNotes": "访问 http://localhost:3000 进行初始化配置\n默认管理员邮箱: admin@example.com"
+}

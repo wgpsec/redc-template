@@ -1,0 +1,7 @@
+{
+  "name": "nginx-installation-bash",
+  "nameZh": "Nginx 安装",
+  "type": "bash",
+  "category": "basic",
+  "description": "安装 Nginx Web 服务器"
+}

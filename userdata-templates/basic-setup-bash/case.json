@@ -1,0 +1,7 @@
+{
+  "name": "basic-setup-bash",
+  "nameZh": "基础设置",
+  "type": "bash",
+  "category": "basic",
+  "description": "基础系统设置，安装常用工具"
+}

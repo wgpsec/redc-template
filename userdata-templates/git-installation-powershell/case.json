@@ -1,0 +1,7 @@
+{
+  "name": "git-installation-powershell",
+  "nameZh": "Git 安装",
+  "type": "powershell",
+  "category": "basic",
+  "description": "安装 Git 版本控制工具"
+}

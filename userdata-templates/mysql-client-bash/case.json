@@ -1,0 +1,7 @@
+{
+  "name": "mysql-client-bash",
+  "nameZh": "MySQL 客户端安装",
+  "type": "bash",
+  "category": "basic",
+  "description": "安装 MySQL 客户端"
+}

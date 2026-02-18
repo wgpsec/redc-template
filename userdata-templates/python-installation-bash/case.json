@@ -1,0 +1,7 @@
+{
+  "name": "python-installation-bash",
+  "nameZh": "Python 安装",
+  "type": "bash",
+  "category": "basic",
+  "description": "安装 Python 3 和 pip"
+}

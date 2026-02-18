@@ -1,0 +1,7 @@
+{
+  "name": "iis-installation-powershell",
+  "nameZh": "IIS 安装",
+  "type": "powershell",
+  "category": "basic",
+  "description": "安装 IIS Web 服务器"
+}

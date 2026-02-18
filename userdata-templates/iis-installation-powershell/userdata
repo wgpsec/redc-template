@@ -1,0 +1,6 @@
+<powershell>
+# Install IIS
+Install-WindowsFeature -name Web-Server -IncludeManagementTools
+
+Write-Host "IIS installed successfully!"
+</powershell>

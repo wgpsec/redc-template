@@ -1,0 +1,7 @@
+{
+  "name": "postgresql-client-bash",
+  "nameZh": "PostgreSQL 客户端安装",
+  "type": "bash",
+  "category": "basic",
+  "description": "安装 PostgreSQL 客户端"
+}

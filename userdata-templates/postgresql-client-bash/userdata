@@ -1,0 +1,6 @@
+#!/bin/bash
+# Install PostgreSQL client
+apt-get update -y
+apt-get install -y postgresql-client
+
+echo "PostgreSQL client installed successfully!"

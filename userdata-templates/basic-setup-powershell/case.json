@@ -1,0 +1,7 @@
+{
+  "name": "basic-setup-powershell",
+  "nameZh": "基础设置",
+  "type": "powershell",
+  "category": "basic",
+  "description": "基础系统设置，安装 Chocolatey"
+}

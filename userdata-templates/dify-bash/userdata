@@ -1,0 +1,9 @@
+#!/bin/bash
+# Dify Docker 部署
+# 请确保已安装 Docker 和 Docker Compose
+
+git clone https://github.com/langgenius/dify.git
+cd dify/docker
+docker-compose up -d
+
+# 默认端口: 3000

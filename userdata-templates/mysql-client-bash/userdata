@@ -1,0 +1,6 @@
+#!/bin/bash
+# Install MySQL client
+apt-get update -y
+apt-get install -y default-mysql-client
+
+echo "MySQL client installed successfully!"

@@ -1,0 +1,9 @@
+<powershell>
+# Install Docker Desktop via Chocolatey
+choco install docker-desktop -y
+
+# Start Docker Desktop
+Start-Process 'C:\Program Files\Docker\Docker\Docker Desktop.exe'
+
+Write-Host "Docker Desktop installation completed!"
+</powershell>

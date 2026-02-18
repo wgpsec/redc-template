@@ -1,0 +1,7 @@
+{
+  "name": "docker-desktop-powershell",
+  "nameZh": "Docker Desktop 安装",
+  "type": "powershell",
+  "category": "basic",
+  "description": "安装 Docker Desktop"
+}

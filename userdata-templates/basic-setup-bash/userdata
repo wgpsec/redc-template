@@ -1,0 +1,9 @@
+#!/bin/bash
+# Update system packages
+apt-get update -y
+apt-get upgrade -y
+
+# Install common tools
+apt-get install -y curl wget git vim
+
+echo "Setup completed!"

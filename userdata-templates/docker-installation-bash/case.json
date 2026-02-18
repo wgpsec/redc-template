@@ -1,0 +1,7 @@
+{
+  "name": "docker-installation-bash",
+  "nameZh": "Docker 安装",
+  "type": "bash",
+  "category": "basic",
+  "description": "安装 Docker 引擎"
+}

@@ -1,0 +1,7 @@
+#!/bin/bash
+# n8n 自动安装脚本
+npm install -g n8n
+
+# 启动 n8n
+# n8n
+# 默认端口: 5678
