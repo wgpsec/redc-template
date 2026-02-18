@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-18T05:41:20.280601Z",
+  "updated_at": "2026-02-18T08:21:24.906949Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1230,13 +1230,18 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_openclaw-bash_v1.0.0.zip",
           "sha256": "402764718f7f4d87064715d3b69da229a2b7d00f72c8fa4b6862442a16a5d27e",
           "updated_at": "2026-02-18T05:41:20.278826Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_openclaw-bash_v1.0.1.zip",
+          "sha256": "42662a57bd51f7609a8ec133e1a20ca63c870d8e6eae00cc6402e5acd945e28f",
+          "updated_at": "2026-02-18T08:21:24.906420Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "openclaw-bash",
         "author": "r0fus0d",
-        "description": "开源 AI 编程助手，集成于 VSCode / JetBrains IDEs",
+        "description": "开源 AI 编程助手",
         "readme": "# OpenClaw\n\n这是一个用于自动安装 OpenClaw 的 userdata 模板。\n\n## 功能说明\n\n1. 执行官方安装脚本\n"
       }
     },
