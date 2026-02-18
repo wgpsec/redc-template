@@ -4,8 +4,8 @@
   "type": "bash",
   "category": "ai",
   "user": "r0fus0d",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "url": "https://openclaw.ai/",
-  "description": "开源 AI 编程助手，集成于 VSCode / JetBrains IDEs",
+  "description": "开源 AI 编程助手",
   "installNotes": "安装完成后，输入 openclaw onboard --install-daemon 命令配置"
 }
