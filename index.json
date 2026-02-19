@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-19T10:56:41.995938Z",
+  "updated_at": "2026-02-19T11:36:19.839136Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1002,9 +1002,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_basic-setup-bash_v1.0.0.zip",
           "sha256": "2b302b6bb4a4e3fab9e6f208096b38f72d39c832825fd689dfe9b2804a5d88b8",
           "updated_at": "2026-02-18T05:41:20.272436Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_basic-setup-bash_v1.0.1.zip",
+          "sha256": "f654756884f814da1719086af0bc93bbf7f42a256b7a9f3db89d99a1bbc198f4",
+          "updated_at": "2026-02-19T11:36:19.831097Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "basic-setup-bash",
         "author": "r0fus0d",
@@ -1021,9 +1026,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_basic-setup-powershell_v1.0.0.zip",
           "sha256": "b91101d2c4d50f2726e36cef49ffc285cacaaab72e467e56579025c31e0e95be",
           "updated_at": "2026-02-18T05:41:20.273117Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_basic-setup-powershell_v1.0.1.zip",
+          "sha256": "96d64f5d4b7daac835f522c8a92d354feb2863208a2e7aceff8f8ca03a95eaa0",
+          "updated_at": "2026-02-19T11:36:19.831767Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "basic-setup-powershell",
         "author": "r0fus0d",
@@ -1040,9 +1050,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_dify-bash_v1.0.0.zip",
           "sha256": "80c60a2aa8ceca8f98b39174e99462ec053598e1e35f228ae73caeade5f7c257",
           "updated_at": "2026-02-18T05:41:20.273689Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_dify-bash_v1.0.1.zip",
+          "sha256": "e93fa5283415bcb8feac52dd1f6f1a26c035a94f7a14a8a23a4951ad0f399b16",
+          "updated_at": "2026-02-19T11:36:19.832321Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "dify-bash",
         "author": "r0fus0d",
@@ -1059,9 +1074,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_docker-compose-bash_v1.0.0.zip",
           "sha256": "abb07ac0179aae7488e2c95f599c48f12761859e4c9773c7b77ad7637887eb46",
           "updated_at": "2026-02-18T05:41:20.274219Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_docker-compose-bash_v1.0.1.zip",
+          "sha256": "456d9a7548d60c922c749bc8a6dc1e0ad43f5e1647bf47ec9e8d6e5e718ff1ba",
+          "updated_at": "2026-02-19T11:36:19.832838Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "docker-compose-bash",
         "author": "r0fus0d",
@@ -1078,9 +1098,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_docker-desktop-powershell_v1.0.0.zip",
           "sha256": "4d44f3f0f5b6b2c161144d1ab2d16ba8e99e932f5a9f2b077e2130619f55ab74",
           "updated_at": "2026-02-18T05:41:20.274756Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_docker-desktop-powershell_v1.0.1.zip",
+          "sha256": "eaf47087afe4934c324f618bb4cd499d23b98cb447ed99477e3efbb1e102c591",
+          "updated_at": "2026-02-19T11:36:19.833352Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "docker-desktop-powershell",
         "author": "r0fus0d",
@@ -1097,9 +1122,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_docker-installation-bash_v1.0.0.zip",
           "sha256": "ba530870212bf02aa746f3e1b0056120bd18588edf742b78cf31b8e1fd2d96dd",
           "updated_at": "2026-02-18T05:41:20.275252Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_docker-installation-bash_v1.0.1.zip",
+          "sha256": "89b7413dd493d781f8bb9114244fa84d75c1917f98653f47c0180d2db5828aec",
+          "updated_at": "2026-02-19T11:36:19.833843Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "docker-installation-bash",
         "author": "r0fus0d",
@@ -1116,9 +1146,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_git-installation-powershell_v1.0.0.zip",
           "sha256": "fe47650f7f9d9b3086acb2b55107e020e22eb20d28cfbb76efa5b0344a56638c",
           "updated_at": "2026-02-18T05:41:20.275796Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_git-installation-powershell_v1.0.1.zip",
+          "sha256": "adaf9ef07d8406267acfcfccfc5bf3bab00f4498e0506d7ceb617abf43e7ae56",
+          "updated_at": "2026-02-19T11:36:19.834371Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "git-installation-powershell",
         "author": "r0fus0d",
@@ -1135,9 +1170,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_iis-installation-powershell_v1.0.0.zip",
           "sha256": "efb7406a936827828de0fdeb310e413b15324ee6d785975648054dda4f33d894",
           "updated_at": "2026-02-18T05:41:20.276279Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_iis-installation-powershell_v1.0.1.zip",
+          "sha256": "a3882e008ffc9a3a4654a495bf35dcc70b909cb82346bfa05f264be2c13aa7c2",
+          "updated_at": "2026-02-19T11:36:19.834852Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "iis-installation-powershell",
         "author": "r0fus0d",
@@ -1154,9 +1194,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_mysql-client-bash_v1.0.0.zip",
           "sha256": "14ce8acd740fad021043d04bdefcc3df45a2f375a74bacbf45ff56895767df98",
           "updated_at": "2026-02-18T05:41:20.276793Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_mysql-client-bash_v1.0.1.zip",
+          "sha256": "769dea8abedddee27b5c6c3de958d4d627b89db7e9cab741d0f6161ca7b8fb83",
+          "updated_at": "2026-02-19T11:36:19.835373Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "mysql-client-bash",
         "author": "r0fus0d",
@@ -1173,9 +1218,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_n8n-bash_v1.0.0.zip",
           "sha256": "5c8d9a2c6f100b10e7a8c0c341bdf8ee8ad687fc789ac7000a7a182d45355514",
           "updated_at": "2026-02-18T05:41:20.277283Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_n8n-bash_v1.0.1.zip",
+          "sha256": "8f4bcdcfc317545735709cec53efe23e6be50ddd79ed95f1870b748f14037071",
+          "updated_at": "2026-02-19T11:36:19.835860Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "n8n-bash",
         "author": "r0fus0d",
@@ -1192,9 +1242,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_nginx-installation-bash_v1.0.0.zip",
           "sha256": "bbe37500830602c6296d16fefdb26bd08f0f20e22b64a5121cf5e44cb1b2fd05",
           "updated_at": "2026-02-18T05:41:20.277823Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_nginx-installation-bash_v1.0.1.zip",
+          "sha256": "b31688a585b280a1dc69a0d4f1d28cd7a92121395f0da3e9c1510950bec2d4d2",
+          "updated_at": "2026-02-19T11:36:19.836402Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "nginx-installation-bash",
         "author": "r0fus0d",
@@ -1211,9 +1266,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_nodejs-installation-bash_v1.0.0.zip",
           "sha256": "7c80ec7425d2110b363acdb3acf7ed07ea8f88bc1b1d3f1a1110a469702e3460",
           "updated_at": "2026-02-18T05:41:20.278304Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_nodejs-installation-bash_v1.0.1.zip",
+          "sha256": "0d2150bc14b1e2fc6cffbff151c7bf4fd08502d3b58f856a0924a82461e989c4",
+          "updated_at": "2026-02-19T11:36:19.836902Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "nodejs-installation-bash",
         "author": "r0fus0d",
@@ -1235,9 +1295,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_openclaw-bash_v1.0.1.zip",
           "sha256": "42662a57bd51f7609a8ec133e1a20ca63c870d8e6eae00cc6402e5acd945e28f",
           "updated_at": "2026-02-18T08:21:24.906420Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_openclaw-bash_v1.0.2.zip",
+          "sha256": "a96d679a3ec19048c2c026f294a06d2dd59bbccb51f4e86fc8034d8aaebf427c",
+          "updated_at": "2026-02-19T11:36:19.837438Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "openclaw-bash",
         "author": "r0fus0d",
@@ -1254,9 +1319,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_postgresql-client-bash_v1.0.0.zip",
           "sha256": "565df2b6022d8d0e11c38e25d4bf7837974093fd1e6443c36cb22185a9817a70",
           "updated_at": "2026-02-18T05:41:20.279353Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_postgresql-client-bash_v1.0.1.zip",
+          "sha256": "42189a32bd21fac5737837c898216ec5ad7791b5f1faa7c7cc88a2ed29ddbd0d",
+          "updated_at": "2026-02-19T11:36:19.837918Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "postgresql-client-bash",
         "author": "r0fus0d",
@@ -1273,9 +1343,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_python-installation-bash_v1.0.0.zip",
           "sha256": "6c61dd62348279c0f02f5108e0f76d04834244524665573c3560622ba23854d8",
           "updated_at": "2026-02-18T05:41:20.279848Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_python-installation-bash_v1.0.1.zip",
+          "sha256": "5bfc8de81041214b603315a239207b969c4112894a79de8e75a7069eb9f43b43",
+          "updated_at": "2026-02-19T11:36:19.838424Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "python-installation-bash",
         "author": "r0fus0d",
@@ -1292,9 +1367,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_vscode-installation-powershell_v1.0.0.zip",
           "sha256": "3e0fd324e4064cd0392c2c2c20c63be5cfbed4410629bc37e4986f5f8b0d9883",
           "updated_at": "2026-02-18T05:41:20.280322Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_vscode-installation-powershell_v1.0.1.zip",
+          "sha256": "3705e8f8f4036c1b1f15ac3d5e98bf5551ee9793089ea9b84a82bf66f44fec54",
+          "updated_at": "2026-02-19T11:36:19.838891Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "vscode-installation-powershell",
         "author": "r0fus0d",
