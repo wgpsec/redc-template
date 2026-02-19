@@ -1,0 +1,17 @@
+{
+  "name": "spring-core-rce",
+  "nameZh": "Spring Core RCE (CVE-2022-22965)",
+  "type": "bash",
+  "category": "vulhub",
+  "user": "redc",
+  "version": "1.0.0",
+  "cveId": "CVE-2022-22965",
+  "vulType": "RCE",
+  "level": "critical",
+  "description": "Spring Framework 远程代码执行漏洞，攻击者可利用 SpEL 表达式执行任意代码",
+  "environment": {
+    "port": 8080,
+    "image": "vulhub/spring-core-rce"
+  },
+  "is_userdata_template": true
+}

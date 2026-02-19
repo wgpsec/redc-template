@@ -1,0 +1,40 @@
+#!/bin/bash
+set -e
+
+echo "=========================================="
+echo "Vulhub Spring Core RCE 环境部署脚本"
+echo "CVE-2022-22965"
+echo "=========================================="
+
+if ! command -v docker &> /dev/null; then
+    echo "[*] 安装 Docker..."
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sh get-docker.sh
+    systemctl enable docker
+    systemctl start docker
+    echo "[*] Docker 安装完成"
+else
+    echo "[*] Docker 已安装"
+fi
+
+echo "[*] 等待 Docker 服务启动..."
+sleep 3
+
+echo "[*] 拉取 Vulhub Spring Core RCE 镜像..."
+docker pull vulhub/spring-core-rce
+
+echo "[*] 启动 Spring Core RCE 漏洞环境..."
+docker run -d --name spring-core-rce -p 8080:8080 vulhub/spring-core-rce
+
+echo ""
+echo "=========================================="
+echo "Spring Core RCE 环境部署完成!"
+echo "=========================================="
+echo "漏洞环境: CVE-2022-22965"
+echo "服务端口: 8080"
+echo "测试路径: http://<your-ip>:8080"
+echo ""
+echo "注意事项:"
+echo "- 此环境仅用于安全研究，请勿用于非法用途"
+echo "- 建议在防火墙中限制访问来源"
+echo "=========================================="

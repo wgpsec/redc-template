@@ -1,0 +1,17 @@
+{
+  "name": "log4j-rce",
+  "nameZh": "Log4j RCE (CVE-2021-44228)",
+  "type": "bash",
+  "category": "vulhub",
+  "user": "redc",
+  "version": "1.0.0",
+  "cveId": "CVE-2021-44228",
+  "vulType": "RCE",
+  "level": "critical",
+  "description": "Apache Log4j2 JNDI 远程代码执行漏洞，又称 Log4Shell",
+  "environment": {
+    "port": 8989,
+    "image": "vulhub/log4j:2.17.0"
+  },
+  "is_userdata_template": true
+}

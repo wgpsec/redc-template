@@ -1,0 +1,16 @@
+{
+  "name": "fastjson-rce",
+  "nameZh": "Fastjson 远程代码执行",
+  "type": "bash",
+  "category": "vulhub",
+  "user": "redc",
+  "version": "1.0.0",
+  "vulType": "RCE",
+  "level": "high",
+  "description": "Fastjson 反序列化远程代码执行漏洞，攻击者可利用 autotype 机制执行任意代码",
+  "environment": {
+    "port": 8090,
+    "image": "vulhub/fastjson:1.2.47"
+  },
+  "is_userdata_template": true
+}

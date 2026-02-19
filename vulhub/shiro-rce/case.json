@@ -1,0 +1,17 @@
+{
+  "name": "shiro-rce",
+  "nameZh": "Shiro RCE (CVE-2020-1957)",
+  "type": "bash",
+  "category": "vulhub",
+  "user": "redc",
+  "version": "1.0.0",
+  "cveId": "CVE-2020-1957",
+  "vulType": "RCE",
+  "level": "high",
+  "description": "Apache Shiro 认证绕过漏洞，攻击者可构造特殊 URL 绕过身份验证",
+  "environment": {
+    "port": 8080,
+    "image": "vulhub/shiro:1.4.2"
+  },
+  "is_userdata_template": true
+}
