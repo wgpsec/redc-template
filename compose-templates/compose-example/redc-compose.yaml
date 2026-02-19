@@ -1,0 +1,49 @@
+version: "3.9"
+
+# ==============================================================================
+# 简单示例：同时部署阿里云和火山云 ECS
+# 使用模板自带的默认配置，无需传递额外变量
+# ==============================================================================
+
+# 服务定义
+services:
+  
+  # 阿里云 ECS 实例
+  # 使用模板默认配置：
+  # - 实例规格: ecs.e-c1m2.large
+  # - 镜像: debian_12_2_x64_20G_alibase_20231012.vhd
+  # - 密码: 自动生成（通过 random_password）
+  # - 区域: 从 ~/redc/config.yaml 中读取
+  aliyun_server:
+    image: aliyun/ecs
+    container_name: my_aliyun_ecs
+    
+    # 实例启动后执行的命令
+    command: |
+      echo "阿里云 ECS 初始化完成"
+      uptime
+      df -h
+  
+  # 火山云 ECS 实例
+  # 使用模板默认配置
+  volcengine_server:
+    image: volcengine/ecs
+    container_name: my_volcengine_ecs
+    
+    # 实例启动后执行的命令
+    command: |
+      echo "火山云 ECS 初始化完成"
+      uptime
+      df -h
+
+# 后置编排任务（可选）
+setup:
+  # 任务1：检查阿里云实例状态
+  - name: "检查阿里云实例"
+    service: aliyun_server
+    command: hostname && ip addr show
+
+  # 任务2：检查火山云实例状态  
+  - name: "检查火山云实例"
+    service: volcengine_server
+    command: hostname && ip addr show
