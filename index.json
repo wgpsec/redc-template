@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-18T08:21:24.906949Z",
+  "updated_at": "2026-02-19T10:56:41.995938Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1300,6 +1300,25 @@
         "author": "r0fus0d",
         "description": "安装 Visual Studio Code",
         "readme": "# VSCode 安装\n\n这是一个用于安装 Visual Studio Code 的 userdata 模板。\n\n## 功能说明\n\n1. 通过 Chocolatey 安装 VSCode\n"
+      }
+    },
+    "compose-templates/compose-example": {
+      "id": "compose-templates/compose-example",
+      "provider": "compose-templates",
+      "slug": "compose-example",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/compose-templates_compose-example_v1.0.0.zip",
+          "sha256": "1b223d2c6835a99eda0ba9a403d0582ac15ace8d5ccf8b63afb14012a1eed75d",
+          "updated_at": "2026-02-19T10:56:41.993932Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "compose-example",
+        "author": "r0fus0d",
+        "description": "Compose 示例",
+        "readme": "# 场景使用\n\n简单示例：同时部署阿里云和火山云 ECS\n\n使用模板自带的默认配置，无需传递额外变量\n"
       }
     }
   }
