@@ -4,6 +4,7 @@
   "type": "bash",
   "category": "basic",
   "user": "r0fus0d",
-  "version": "1.0.0",
-  "description": "基础系统设置，安装常用工具"
+  "version": "1.0.1",
+  "description": "基础系统设置，安装常用工具",
+  "is_userdata_template": true
 }

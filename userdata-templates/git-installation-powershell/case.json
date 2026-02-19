@@ -4,6 +4,7 @@
   "type": "powershell",
   "category": "basic",
   "user": "r0fus0d",
-  "version": "1.0.0",
-  "description": "安装 Git 版本控制工具"
+  "version": "1.0.1",
+  "description": "安装 Git 版本控制工具",
+  "is_userdata_template": true
 }

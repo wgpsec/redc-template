@@ -4,6 +4,7 @@
   "type": "bash",
   "category": "basic",
   "user": "r0fus0d",
-  "version": "1.0.0",
-  "description": "安装 Node.js 18.x"
+  "version": "1.0.1",
+  "description": "安装 Node.js 18.x",
+  "is_userdata_template": true
 }

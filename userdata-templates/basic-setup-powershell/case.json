@@ -4,6 +4,7 @@
   "type": "powershell",
   "category": "basic",
   "user": "r0fus0d",
-  "version": "1.0.0",
-  "description": "基础系统设置，安装 Chocolatey"
+  "version": "1.0.1",
+  "description": "基础系统设置，安装 Chocolatey",
+  "is_userdata_template": true
 }

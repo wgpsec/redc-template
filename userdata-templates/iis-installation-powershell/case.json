@@ -4,6 +4,7 @@
   "type": "powershell",
   "category": "basic",
   "user": "r0fus0d",
-  "version": "1.0.0",
-  "description": "安装 IIS Web 服务器"
+  "version": "1.0.1",
+  "description": "安装 IIS Web 服务器",
+  "is_userdata_template": true
 }
