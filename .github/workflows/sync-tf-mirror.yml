@@ -15,6 +15,14 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v4
 
+      # 拉取现有的 gh-pages 分支数据作为本地缓存，实现增量更新
+      - name: Checkout existing mirror data (Incremental Sync)
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: public
+          continue-on-error: true # 第一次运行可能没有 gh-pages 分支，允许报错跳过
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
@@ -23,12 +31,11 @@ jobs:
       - name: Install jq
         run: sudo apt-get install -y jq
 
-      # 循环获取所有历史版本并执行镜像下载
       - name: Fetch and Mirror All Versions
         run: |
           mkdir -p public/tf-mirror
           
-          # 定义需要同步的插件列表 (HashiCorp 常用基础插件)
+          # 定义需要同步的插件列表
           PROVIDERS=(
             "hashicorp/random"
             "hashicorp/null"
@@ -43,15 +50,21 @@ jobs:
           for PROVIDER in "${PROVIDERS[@]}"; do
             IFS='/' read -r NAMESPACE NAME <<< "$PROVIDER"
             echo "========================================"
-            echo "🔍 Fetching all versions for $PROVIDER..."
+            echo "🔍 Fetching versions for $PROVIDER..."
             
-            # 调用官方 API 获取所有版本号
-            VERSIONS=$(curl -s "https://registry.terraform.io/v1/providers/${NAMESPACE}/${NAME}" | jq -r '.versions[]')
+            # 调用官方 API，提取最新的 20 个版本 (若需全部同步，去掉 | tail -n 20)
+            VERSIONS=$(curl -s "https://registry.terraform.io/v1/providers/${NAMESPACE}/${NAME}" | jq -r '.versions[]' | tail -n 20)
             
             for VERSION in $VERSIONS; do
+              # 检查该版本是否已经存在于本地缓存中。如果有 .zip 文件，直接跳过下载！
+              TARGET_DIR="../public/tf-mirror/registry.terraform.io/${NAMESPACE}/${NAME}/${VERSION}"
+              if [ -d "$TARGET_DIR" ] && ls "$TARGET_DIR"/*.zip >/dev/null 2>&1; then
+                echo "⏭️  Skipped: $PROVIDER v$VERSION already exists. Moving to next."
+                continue
+              fi
+              
               echo "⬇️ Syncing $PROVIDER v$VERSION..."
               
-              # 创建独立临时工作区，避免 lock 文件冲突
               mkdir -p run_tmp && cd run_tmp
               
               cat > main.tf <<EOF
@@ -64,34 +77,32 @@ jobs:
             }
           }
           EOF
-              # 跳过版本问题
               if ! terraform init -no-color > /dev/null 2>&1; then
-                echo "  ⚠️ Skipped: v$VERSION is too old/incompatible with current Terraform CLI."
+                echo "  ⚠️ Skipped: v$VERSION is too old/incompatible."
                 cd ..
                 rm -rf run_tmp
                 continue
               fi
               
-              # 执行镜像命令，将多架构的包追加下载到公用目录
               terraform providers mirror \
                 -platform=linux_amd64 \
                 -platform=linux_arm64 \
                 -platform=windows_amd64 \
                 -platform=darwin_amd64 \
                 -platform=darwin_arm64 \
-                ../public/tf-mirror > /dev/null 2>&1 || true # 忽略个别极老版本不支持某些架构的报错
+                ../public/tf-mirror > /dev/null 2>&1 || true
                 
               cd ..
               rm -rf run_tmp
             done
           done
 
-      # 生成 HTML 索引页面，并重建 index.json
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
+      # 生成 HTML 索引页面，并重建 index.json (此部分代码保持你的原样逻辑，非常完善)
       - name: Rebuild Index JSON & Generate HTML
         shell: python
         run: |
@@ -115,8 +126,6 @@ jobs:
                   for name in namespace.iterdir():
                       if not name.is_dir(): continue
                       
-                      # 扫描真实的 .zip 文件提取版本号
-                      # 文件名格式: terraform-provider-random_3.5.1_linux_amd64.zip
                       actual_versions = set()
                       for zip_file in name.glob('*.zip'):
                           parts = zip_file.name.split('_')
@@ -126,7 +135,6 @@ jobs:
                       if not actual_versions:
                           continue
                           
-                      # 按语义化版本号倒序排序 (最新版本在前)
                       def version_key(v):
                           parts = v.replace('-', '.').split('.')
                           return [int(p) if p.isdigit() else p for p in parts]
@@ -134,8 +142,6 @@ jobs:
                       versions_sorted = sorted(list(actual_versions), key=version_key, reverse=True)
                       latest_ver = versions_sorted[0]
                       
-                      # 强制覆盖并重建 index.json，确保包含所有已下载的历史版本
-                      # 避免原生 CLI 覆盖造成的版本丢失导致 terraform init 报错
                       index_data = {"versions": {v: {} for v in versions_sorted}}
                       with open(name / 'index.json', 'w', encoding='utf-8') as f:
                           json.dump(index_data, f)
@@ -148,7 +154,6 @@ jobs:
                           'count': len(versions_sorted)
                       })
 
-          # 生成前端卡片 HTML
           timestamp = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
           sorted_providers = sorted(providers, key=lambda x: (x['namespace'], x['name']))
           
@@ -157,7 +162,6 @@ jobs:
           
           cards_html = ""
           for p in sorted_providers:
-              # 最多显示前 15 个版本标签，超出的折叠显示
               display_limit = 15
               version_tags = "".join([f'<span class="ver-tag">v{v}</span>' for v in p['all_versions'][:display_limit]])
               if p['count'] > display_limit:
@@ -171,7 +175,6 @@ jobs:
               </div>
               """
 
-          # 完整的 HTML 模板
           html_template = textwrap.dedent("""
           <!DOCTYPE html>
           <html lang="en">
@@ -199,7 +202,7 @@ jobs:
           <body>
               <h1>Terraform Provider Mirror</h1>
               <div class="status">
-                  <p><strong>Method:</strong> Native CLI (Full History Sync)</p>
+                  <p><strong>Method:</strong> Native CLI (Incremental Sync)</p>
                   <p><strong>Last Updated:</strong> {{TIMESTAMP}}</p>
                   <p><strong>Mirror URL:</strong> <code>{{MIRROR_URL}}</code></p>
               </div>
@@ -242,7 +245,6 @@ jobs:
           with open(MIRROR_ROOT / 'index.html', 'w', encoding='utf-8') as f:
               f.write(final_html)
 
-      # 3. 部署到 GitHub Pages
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -250,4 +252,4 @@ jobs:
           publish_dir: ./public
           publish_branch: gh-pages
           keep_files: true
-          commit_message: "Mirror: Sync all historical versions & rebuild index"
+          commit_message: "Mirror: Sync latest versions & rebuild index"
