@@ -64,9 +64,13 @@ jobs:
             }
           }
           EOF
-              
-              # 初始化 (忽略输出以保持日志整洁)
-              terraform init -no-color > /dev/null
+              # 跳过版本问题
+              if ! terraform init -no-color > /dev/null 2>&1; then
+                echo "  ⚠️ Skipped: v$VERSION is too old/incompatible with current Terraform CLI."
+                cd ..
+                rm -rf run_tmp
+                continue
+              fi
               
               # 执行镜像命令，将多架构的包追加下载到公用目录
               terraform providers mirror \
