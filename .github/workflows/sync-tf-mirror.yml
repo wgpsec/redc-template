@@ -46,7 +46,7 @@ jobs:
             echo "🔍 Fetching all versions for $PROVIDER..."
             
             # 调用官方 API 获取所有版本号
-            VERSIONS=$(curl -s "https://registry.terraform.io/v1/providers/${NAMESPACE}/${NAME}" | jq -r '.versions[].version')
+            VERSIONS=$(curl -s "https://registry.terraform.io/v1/providers/${NAMESPACE}/${NAME}" | jq -r '.versions[]')
             
             for VERSION in $VERSIONS; do
               echo "⬇️ Syncing $PROVIDER v$VERSION..."
