@@ -20,49 +20,76 @@ jobs:
         with:
           terraform_version: "latest"
 
-      # 1. 生成配置文件 (只包含 HashiCorp 官方插件)
-      - name: Create Target Config
-        run: |
-          cat > main.tf <<EOF
-          terraform {
-            required_providers {
-              random   = { source = "hashicorp/random" }
-              null     = { source = "hashicorp/null" }
-              time     = { source = "hashicorp/time" }
-              local    = { source = "hashicorp/local" }
-              tls      = { source = "hashicorp/tls" }
-              http     = { source = "hashicorp/http" }
-              archive  = { source = "hashicorp/archive" }
-              external = { source = "hashicorp/external" }
-            }
-          }
-          EOF
+      - name: Install jq
+        run: sudo apt-get install -y jq
 
-      # 2. 【关键修复】初始化 Terraform
-      # mirror 命令必须在已初始化的项目中运行，否则它不知道版本信息
-      - name: Terraform Init
-        run: terraform init
-
-      # 3. 执行官方镜像命令
-      # 这会自动处理下载、校验、生成 JSON、计算 Hash、目录结构
-      - name: Run Terraform Mirror
+      # 循环获取所有历史版本并执行镜像下载
+      - name: Fetch and Mirror All Versions
         run: |
           mkdir -p public/tf-mirror
           
-          terraform providers mirror \
-            -platform=linux_amd64 \
-            -platform=linux_arm64 \
-            -platform=windows_amd64 \
-            -platform=darwin_amd64 \
-            -platform=darwin_arm64 \
-            ./public/tf-mirror
+          # 定义需要同步的插件列表
+          PROVIDERS=(
+            "hashicorp/random"
+            "hashicorp/null"
+            "hashicorp/time"
+            "hashicorp/local"
+            "hashicorp/tls"
+            "hashicorp/http"
+            "hashicorp/archive"
+            "hashicorp/external"
+          )
+          
+          for PROVIDER in "${PROVIDERS[@]}"; do
+            IFS='/' read -r NAMESPACE NAME <<< "$PROVIDER"
+            echo "========================================"
+            echo "🔍 Fetching all versions for $PROVIDER..."
+            
+            # 调用官方 API 获取所有版本号
+            VERSIONS=$(curl -s "https://registry.terraform.io/v1/providers/${NAMESPACE}/${NAME}" | jq -r '.versions[].version')
+            
+            for VERSION in $VERSIONS; do
+              echo "⬇️ Syncing $PROVIDER v$VERSION..."
+              
+              # 创建独立临时工作区，避免 lock 文件冲突
+              mkdir -p run_tmp && cd run_tmp
+              
+              # 动态生成严格匹配该版本的配置文件
+              cat > main.tf <<EOF
+              terraform {
+                required_providers {
+                  $NAME = {
+                    source  = "$PROVIDER"
+                    version = "= $VERSION"
+                  }
+                }
+              }
+              EOF
+              
+              # 初始化 (忽略输出以保持日志整洁)
+              terraform init -no-color > /dev/null
+              
+              # 执行镜像命令，将多架构的包追加下载到公用目录
+              terraform providers mirror \
+                -platform=linux_amd64 \
+                -platform=linux_arm64 \
+                -platform=windows_amd64 \
+                -platform=darwin_amd64 \
+                -platform=darwin_arm64 \
+                ../public/tf-mirror > /dev/null 2>&1 || true # 忽略个别极老版本不支持某些架构的报错
+                
+              cd ..
+              rm -rf run_tmp
+            done
+          done
 
-      # 4. 生成 HTML 索引页面
-      - name: Generate HTML Index
+      # 生成 HTML 索引页面，并重建 index.json
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      - name: Build HTML
+
+      - name: Rebuild Index JSON & Generate HTML
         shell: python
         run: |
           import os
@@ -72,56 +99,76 @@ jobs:
           from pathlib import Path
 
           MIRROR_ROOT = Path('public/tf-mirror')
-          # [!] 请修改为您的实际 GitHub Pages 地址
           MIRROR_URL = 'https://redc.wgpsec.org/tf-mirror/'
 
-          print('📝 Generating index.html...')
+          print('📝 Rebuilding index.json and generating index.html...')
           providers = []
 
-          # 遍历 Terraform 生成的标准目录结构
           base_registry = MIRROR_ROOT / 'registry.terraform.io'
           
           if base_registry.exists():
               for namespace in base_registry.iterdir():
-                  if namespace.is_dir():
-                      for name in namespace.iterdir():
-                          if name.is_dir():
-                              # 读取 index.json 获取版本信息
-                              index_path = name / 'index.json'
-                              if index_path.exists():
-                                  try:
-                                      with open(index_path) as f:
-                                          data = json.load(f)
-                                          # 获取最新版本号
-                                          versions = sorted(data.get('versions', {}).keys(), reverse=True)
-                                          latest_ver = versions[0] if versions else 'unknown'
-                                          
-                                          providers.append({
-                                              'namespace': namespace.name,
-                                              'name': name.name,
-                                              'version': latest_ver
-                                          })
-                                  except:
-                                      pass
+                  if not namespace.is_dir(): continue
+                  for name in namespace.iterdir():
+                      if not name.is_dir(): continue
+                      
+                      # 扫描真实的 .zip 文件提取版本号
+                      # 文件名格式: terraform-provider-random_3.5.1_linux_amd64.zip
+                      actual_versions = set()
+                      for zip_file in name.glob('*.zip'):
+                          parts = zip_file.name.split('_')
+                          if len(parts) >= 2:
+                              actual_versions.add(parts[1])
+                      
+                      if not actual_versions:
+                          continue
+                          
+                      # 按语义化版本号倒序排序 (最新版本在前)
+                      def version_key(v):
+                          parts = v.replace('-', '.').split('.')
+                          return [int(p) if p.isdigit() else p for p in parts]
+                          
+                      versions_sorted = sorted(list(actual_versions), key=version_key, reverse=True)
+                      latest_ver = versions_sorted[0]
+                      
+                      # 强制覆盖并重建 index.json，确保包含所有已下载的历史版本
+                      # 避免原生 CLI 覆盖造成的版本丢失导致 terraform init 报错
+                      index_data = {"versions": {v: {} for v in versions_sorted}}
+                      with open(name / 'index.json', 'w', encoding='utf-8') as f:
+                          json.dump(index_data, f)
+                      
+                      providers.append({
+                          'namespace': namespace.name,
+                          'name': name.name,
+                          'latest': latest_ver,
+                          'all_versions': versions_sorted,
+                          'count': len(versions_sorted)
+                      })
 
-          # 生成 HTML
+          # 生成前端卡片 HTML
           timestamp = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
-          
-          # 排序: namespace -> name
           sorted_providers = sorted(providers, key=lambda x: (x['namespace'], x['name']))
           
           config_lines = [f'"registry.terraform.io/{p["namespace"]}/{p["name"]}"' for p in sorted_providers]
-          config_str = ",\n    ".join(config_lines)
+          config_str = ",\n                ".join(config_lines)
           
           cards_html = ""
           for p in sorted_providers:
+              # 最多显示前 15 个版本标签，超出的折叠显示
+              display_limit = 15
+              version_tags = "".join([f'<span class="ver-tag">v{v}</span>' for v in p['all_versions'][:display_limit]])
+              if p['count'] > display_limit:
+                  version_tags += f'<span class="ver-tag more">+{p["count"] - display_limit} more</span>'
+                  
               cards_html += f"""
               <div class="card">
                   <div class="name">{p['namespace']}/{p['name']}</div>
-                  <div class="ver">v{p['version']}</div>
+                  <div class="latest">Latest: v{p['latest']}</div>
+                  <div class="version-list">{version_tags}</div>
               </div>
               """
 
+          # 完整的 HTML 模板
           html_template = textwrap.dedent("""
           <!DOCTYPE html>
           <html lang="en">
@@ -130,29 +177,32 @@ jobs:
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <title>Terraform Provider Mirror</title>
               <style>
-                  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 2rem; color: #333; line-height: 1.6; }
+                  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; max-width: 1000px; margin: 0 auto; padding: 2rem; color: #333; line-height: 1.6; }
                   h1 { border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
                   .status { background: #f6f8fa; padding: 1rem; border-radius: 6px; margin-bottom: 2rem; border: 1px solid #e1e4e8; }
                   code { background: #eee; padding: 0.2rem 0.4rem; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
                   pre { background: #2d333b; color: #adbac7; padding: 1.5rem; border-radius: 6px; overflow-x: auto; font-family: monospace; }
-                  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
-                  .card { border: 1px solid #e1e4e8; border-radius: 6px; padding: 1rem; transition: transform 0.2s; }
-                  .card:hover { transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-                  .name { font-weight: bold; color: #0366d6; margin-bottom: 0.5rem; }
-                  .ver { font-size: 0.85em; color: #586069; background: #f1f8ff; display: inline-block; padding: 2px 8px; border-radius: 12px; }
+                  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem; }
+                  .card { border: 1px solid #e1e4e8; border-radius: 6px; padding: 1.2rem; transition: transform 0.2s; background: #fff; }
+                  .card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                  .name { font-weight: bold; color: #0366d6; font-size: 1.1em; }
+                  .latest { font-weight: bold; color: #28a745; font-size: 0.85em; margin: 6px 0 10px 0; }
+                  .version-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+                  .ver-tag { font-size: 0.75em; background: #f1f8ff; color: #586069; padding: 2px 6px; border-radius: 4px; border: 1px solid #e1e4e8;}
+                  .ver-tag.more { background: #fffbe6; color: #d48806; border-color: #ffe58f; }
                   footer { margin-top: 3rem; text-align: center; color: #666; font-size: 0.85rem; border-top: 1px solid #eee; padding-top: 1rem; }
               </style>
           </head>
           <body>
               <h1>Terraform Provider Mirror</h1>
               <div class="status">
-                  <p><strong>Method:</strong> Native CLI (Strict Official)</p>
+                  <p><strong>Method:</strong> Native CLI (Full History Sync)</p>
                   <p><strong>Last Updated:</strong> {{TIMESTAMP}}</p>
                   <p><strong>Mirror URL:</strong> <code>{{MIRROR_URL}}</code></p>
               </div>
 
               <h2>Usage Configuration</h2>
-              <p>Add the following to your <code>~/.terraformrc</code>:</p>
+              <p>Add the following to your <code>~/.terraformrc</code> (Linux/Mac) or <code>%APPDATA%\\terraform.rc</code> (Windows):</p>
               <pre>
           provider_installation {
             network_mirror {
@@ -189,6 +239,7 @@ jobs:
           with open(MIRROR_ROOT / 'index.html', 'w', encoding='utf-8') as f:
               f.write(final_html)
 
+      # 3. 部署到 GitHub Pages
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -196,4 +247,4 @@ jobs:
           publish_dir: ./public
           publish_branch: gh-pages
           keep_files: true
-          commit_message: "Mirror: Sync using Native Terraform CLI with Init"
+          commit_message: "Mirror: Sync all historical versions & rebuild index"
