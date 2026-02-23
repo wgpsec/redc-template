@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir -p public/tf-mirror
           
-          # 定义需要同步的插件列表
+          # 定义需要同步的插件列表 (HashiCorp 常用基础插件)
           PROVIDERS=(
             "hashicorp/random"
             "hashicorp/null"
@@ -54,17 +54,16 @@ jobs:
               # 创建独立临时工作区，避免 lock 文件冲突
               mkdir -p run_tmp && cd run_tmp
               
-              # 动态生成严格匹配该版本的配置文件
               cat > main.tf <<EOF
-              terraform {
-                required_providers {
-                  $NAME = {
-                    source  = "$PROVIDER"
-                    version = "= $VERSION"
-                  }
-                }
+          terraform {
+            required_providers {
+              $NAME = {
+                source  = "$PROVIDER"
+                version = "= $VERSION"
               }
-              EOF
+            }
+          }
+          EOF
               
               # 初始化 (忽略输出以保持日志整洁)
               terraform init -no-color > /dev/null
