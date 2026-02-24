@@ -218,5 +218,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          keep_files: false
+          keep_files: true
           commit_message: "Deploy: ${{ github.event.head_commit.message }}"
