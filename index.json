@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-24T04:47:28.418564Z",
+  "updated_at": "2026-02-24T11:15:33.287358Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -296,9 +296,14 @@
           "url": "https://redc.wgpsec.org/templates/base-templates_alicloud-ecs_v1.0.4.zip",
           "sha256": "99a4be5a8973941b7c96295c07e35faf42d52a3372ece1569aec11d7767c26e0",
           "updated_at": "2026-02-24T04:47:28.400479Z"
+        },
+        "1.0.5": {
+          "url": "https://redc.wgpsec.org/templates/base-templates_alicloud-ecs_v1.0.5.zip",
+          "sha256": "760a756f200e03b1cf4e7fcaff963ada95ae29b177b06e690c6688e4c9e052bf",
+          "updated_at": "2026-02-24T11:15:33.284107Z"
         }
       },
-      "latest": "1.0.4",
+      "latest": "1.0.5",
       "metadata": {
         "name": "alicloud-ecs",
         "author": "redc",
@@ -315,9 +320,14 @@
           "url": "https://redc.wgpsec.org/templates/base-templates_volcengine-ecs_v1.0.3.zip",
           "sha256": "c1ff6b020e0453687fe518bd3dae9915b1ffa7e0ef1d72cac71777f809961213",
           "updated_at": "2026-02-24T04:47:28.401456Z"
+        },
+        "1.0.4": {
+          "url": "https://redc.wgpsec.org/templates/base-templates_volcengine-ecs_v1.0.4.zip",
+          "sha256": "e3f3a0aebf96cfffc4a9116a9c3e97a52de9d1afded0b22d662a768a35bb49f0",
+          "updated_at": "2026-02-24T11:15:33.285303Z"
         }
       },
-      "latest": "1.0.3",
+      "latest": "1.0.4",
       "metadata": {
         "name": "volcengine-ecs",
         "author": "redc",
