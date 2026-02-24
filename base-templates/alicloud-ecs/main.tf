@@ -14,6 +14,10 @@ resource "alicloud_instance" "this" {
   internet_max_bandwidth_out = var.internet_max_bandwidth_out
   internet_charge_type       = "PayByTraffic"
   
+  # 抢占式实例配置
+  instance_charge_type = var.is_spot_instance ? "PostPaid" : "PrePaid"
+  spot_strategy        = var.is_spot_instance ? "SpotAsPriceGo" : ""
+  
   # 确保实例在 VPC 和交换机创建后再创建
   depends_on = [alicloud_vswitch.this]
 }

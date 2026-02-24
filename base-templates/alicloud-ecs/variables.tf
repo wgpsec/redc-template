@@ -24,6 +24,7 @@ variable "instance_password" {
   description = "实例密码（8-30个字符，必须包含大小写字母、数字）。如果不提供，系统会自动生成"
   type        = string
   sensitive   = true
+  default     = ""
 }
 
 variable "system_disk_size" {
@@ -48,4 +49,10 @@ variable "internet_max_bandwidth_out" {
   description = "公网带宽 (Mbps)"
   type        = number
   default     = 1
+}
+
+variable "is_spot_instance" {
+  description = "是否为抢占式实例 (true/false)"
+  type        = bool
+  default     = false
 }
