@@ -8,10 +8,11 @@ locals {
   password_seed      = replace(uuid(), "-", "")
   generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
   instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
+  instance_name     = var.instance_name != "" ? var.instance_name : "jndi"
 }
 
 resource "tencentcloud_instance" "test" {
-  instance_name              = "jndi"
+  instance_name              = local.instance_name
   availability_zone          = "ap-beijing-7"
   image_id                   = "img-pi0ii46r"
   instance_type              = data.tencentcloud_instance_types.instance_types.instance_types.0.instance_type

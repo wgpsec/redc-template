@@ -1,6 +1,6 @@
 {
     "name":"ecs1c2g",
     "user":"r0fus0d",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description":"阿里云 ecs 场景，采用 ecs.n1.small 规格, 1核 2G 20G存储"
 }

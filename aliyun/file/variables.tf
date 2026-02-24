@@ -1,3 +1,9 @@
+variable "instance_name" {
+  type        = string
+  description = "Instance name (leave empty to use default)"
+  default     = "fileserver"
+}
+
 variable "github_proxy" {
   type        = string
   description = "GitHub Proxy"

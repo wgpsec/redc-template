@@ -2,13 +2,14 @@ locals {
   password_seed      = replace(uuid(), "-", "")
   generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
   instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
+  instance_name     = var.instance_name != "" ? var.instance_name : "aliyun_ecs"
 }
 
 resource "alicloud_instance" "instance" {
   security_groups            = alicloud_security_group.group.*.id
   instance_type              = "ecs.e-c1m2.large"
   image_id                   = "debian_12_2_x64_20G_alibase_20231012.vhd"
-  instance_name              = "aliyun_bj_ecs"
+  instance_name              = local.instance_name
   vswitch_id                 = alicloud_vswitch.vswitch.id
   system_disk_category       = "cloud_essd_entry"
   system_disk_size           = 20

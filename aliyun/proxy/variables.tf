@@ -1,3 +1,9 @@
+variable "instance_name" {
+  type        = string
+  description = "Instance name (leave empty to use default)"
+  default     = "proxy"
+}
+
 variable "node" {
   type        = number
   description = "node count"

@@ -1,6 +1,6 @@
 {
     "name":"cvm",
     "user":"r0fus0d",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description":"在腾讯云快速部署一台配置完善的CVM云服务器实例，自动安装常用开发工具（wget、curl、lrzsz、tmux等）和Python3环境，开放全部端口，适用于临时测试、开发调试或攻防演练等场景"
 }

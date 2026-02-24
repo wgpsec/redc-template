@@ -1,3 +1,9 @@
+variable "instance_name" {
+  type        = string
+  description = "Instance name (leave empty to use default)"
+  default     = "fileserver"
+}
+
 variable "tencentcloud_secret_id" {
   type        = string
   description = "Set TencentCloud secret id."

@@ -2,13 +2,14 @@ locals {
   password_seed      = replace(uuid(), "-", "")
   generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
   instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
+  instance_name     = var.instance_name != "" ? var.instance_name : "jndi"
 }
 
 resource "alicloud_instance" "instance" {
   security_groups            = alicloud_security_group.group.*.id
   instance_type              = "ecs.n1.small"
   image_id                   = "debian_11_7_x64_20G_alibase_20230907.vhd"
-  instance_name              = "jndiserver"
+  instance_name              = local.instance_name
   vswitch_id                 = alicloud_vswitch.vswitch.id
   system_disk_size           = 20
   internet_max_bandwidth_out = 100
