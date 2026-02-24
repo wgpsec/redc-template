@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-24T11:15:33.287358Z",
+  "updated_at": "2026-02-24T12:43:54.203646Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -11,9 +11,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_ecs_v1.0.2.zip",
           "sha256": "c5b4a28c38f84c9f110a98ec42b1abd055552b5e0c3026f98628a47f64c32ca7",
           "updated_at": "2026-02-24T04:47:28.386441Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_ecs_v1.0.3.zip",
+          "sha256": "6ea2ee73911a0536bdafbdd30983fe61d9a3d211e52142263cae6ebc246fe340",
+          "updated_at": "2026-02-24T12:43:54.189496Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "ecs",
         "author": "r0fus0d",
@@ -30,9 +35,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_ecs1c2g_v1.0.2.zip",
           "sha256": "d60ee3240df4faa5050bd2f84a0a425a6ab3ec39cdf2675c80c7648ac1a5354d",
           "updated_at": "2026-02-24T04:47:28.387466Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_ecs1c2g_v1.0.3.zip",
+          "sha256": "8dd22cc91121e57aaf1f8458c71d5a7434ea5d5fe8e612cebe573c8a0266e524",
+          "updated_at": "2026-02-24T12:43:54.190516Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "ecs1c2g",
         "author": "r0fus0d",
@@ -49,9 +59,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_file_v1.0.2.zip",
           "sha256": "dbe204f0e53bd68a00787f57b84eca180ae1a200cb09c9125b9c0fbbbfc66c09",
           "updated_at": "2026-02-24T04:47:28.388462Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_file_v1.0.3.zip",
+          "sha256": "006152ccece44f3b52a96e30c1dbec70f7d0a80715dadcc5762560a40a8e0eee",
+          "updated_at": "2026-02-24T12:43:54.191488Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "file",
         "author": "r0fus0d",
@@ -68,9 +83,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_jndi_v1.0.2.zip",
           "sha256": "9064d6829ef3daaf44fc67d9a3eea4f2f5702cef9c408473fc8b5b6a945222ad",
           "updated_at": "2026-02-24T04:47:28.389495Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_jndi_v1.0.3.zip",
+          "sha256": "1ac0b29f796389d4145e97836dadec1269548d5b5013dbce2af86de4bc4ec08b",
+          "updated_at": "2026-02-24T12:43:54.192522Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "jndi",
         "author": "r0fus0d",
@@ -87,9 +107,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.0.7.zip",
           "sha256": "e8c79487e149cdd5431bce23ad964b81447bd4fed1316d570ea1c400e90247c2",
           "updated_at": "2026-02-24T04:47:28.390543Z"
+        },
+        "1.0.8": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.0.8.zip",
+          "sha256": "f283b5566647e6d8234c20738753cc7643f568fd5cad8224f046ed56ebf33832",
+          "updated_at": "2026-02-24T12:43:54.193570Z"
         }
       },
-      "latest": "1.0.7",
+      "latest": "1.0.8",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
@@ -106,9 +131,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_sliver_v1.0.2.zip",
           "sha256": "b11c718b9c88a68898d7aa8bb2aeeb1dba03c4152584d6067cc2baabee2276ff",
           "updated_at": "2026-02-24T04:47:28.391495Z"
+        },
+        "1.0.3": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_sliver_v1.0.3.zip",
+          "sha256": "6d241d36d0e41f3ec91c65f8c71076b654466e75af3fd12cac357f93e95cf94e",
+          "updated_at": "2026-02-24T12:43:54.194551Z"
         }
       },
-      "latest": "1.0.2",
+      "latest": "1.0.3",
       "metadata": {
         "name": "sliver",
         "author": "r0fus0d",
@@ -125,9 +155,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_yakit_v1.0.1.zip",
           "sha256": "6235275e25367018c19a8fcf0395474940c28900e6d83bf382c561d1a5f3ff38",
           "updated_at": "2026-02-24T04:47:28.392491Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_yakit_v1.0.2.zip",
+          "sha256": "09ece4bedb4965459373503e3223786169c70d1a807d4222d83c81f60fa90924",
+          "updated_at": "2026-02-24T12:43:54.195537Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "yakit",
         "author": "r0fus0d",
@@ -382,9 +417,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_cvm_v1.0.1.zip",
           "sha256": "2d9eee1441f50cf3a773b9cf329414067c60d729fe870cddd0577537aff14df5",
           "updated_at": "2026-02-24T04:47:28.404157Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/tencent_cvm_v1.0.2.zip",
+          "sha256": "a60e4ca71d1f24576ef5cd516e76f8c46e626dcf6fb63b1d30a216c2d4b7dc0c",
+          "updated_at": "2026-02-24T12:43:54.197415Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "cvm",
         "author": "r0fus0d",
@@ -401,9 +441,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_file_v1.0.3.zip",
           "sha256": "858c4a6828a3e50609d4bfd0a5ca6b160b00eb7714a93ceb7a40b5a63a2fd50e",
           "updated_at": "2026-02-24T04:47:28.405094Z"
+        },
+        "1.0.4": {
+          "url": "https://redc.wgpsec.org/templates/tencent_file_v1.0.4.zip",
+          "sha256": "a6a1564e7fc2a173cba4929905065ca7145a5f75cfe6dd132d7a9e7d3d641d25",
+          "updated_at": "2026-02-24T12:43:54.198341Z"
         }
       },
-      "latest": "1.0.3",
+      "latest": "1.0.4",
       "metadata": {
         "name": "file",
         "author": "r0fus0d",
@@ -420,9 +465,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_jndi_v1.0.3.zip",
           "sha256": "955776b7a5d61e3886f0a58eac20cec1678b0dc936390c5ea427f152e7cea74a",
           "updated_at": "2026-02-24T04:47:28.406060Z"
+        },
+        "1.0.4": {
+          "url": "https://redc.wgpsec.org/templates/tencent_jndi_v1.0.4.zip",
+          "sha256": "481d7d929ee11e0594c29c5b59990386c7f804f544136c9e4dd7022e835b3256",
+          "updated_at": "2026-02-24T12:43:54.199406Z"
         }
       },
-      "latest": "1.0.3",
+      "latest": "1.0.4",
       "metadata": {
         "name": "jndi",
         "author": "r0fus0d",
@@ -439,9 +489,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.0.6.zip",
           "sha256": "f0b2a04bce62b65f644be4db9131eadbc7de1b7792b424577b5ddc613a8be147",
           "updated_at": "2026-02-24T04:47:28.407268Z"
+        },
+        "1.0.7": {
+          "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.0.7.zip",
+          "sha256": "475f2b2e31b25c0e45d518ee4e3a57cc35a303cd2a84e9cb5d00eb136a893712",
+          "updated_at": "2026-02-24T12:43:54.200839Z"
         }
       },
-      "latest": "1.0.6",
+      "latest": "1.0.7",
       "metadata": {
         "name": "nps",
         "author": "r0fus0d",
@@ -762,9 +817,14 @@
           "url": "https://redc.wgpsec.org/templates/volcengine_ecs_v1.0.3.zip",
           "sha256": "8ec02b96c0dff9a142d16dcef1b4586c60244b1d8fb19ed862b6f29f4cf1a570",
           "updated_at": "2026-02-24T04:47:28.415461Z"
+        },
+        "1.0.4": {
+          "url": "https://redc.wgpsec.org/templates/volcengine_ecs_v1.0.4.zip",
+          "sha256": "9dadd26877fdda3daeb56590ead1b7d1904619281773fea712696a6eb2cf5392",
+          "updated_at": "2026-02-24T12:43:54.203068Z"
         }
       },
-      "latest": "1.0.3",
+      "latest": "1.0.4",
       "metadata": {
         "name": "ecs",
         "author": "copilot",
