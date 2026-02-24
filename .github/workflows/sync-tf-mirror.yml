@@ -53,7 +53,7 @@ jobs:
             echo "🔍 Fetching versions for $PROVIDER..."
             
             # 调用官方 API，提取最新的 20 个版本 (若需全部同步，去掉 | tail -n 20)
-            VERSIONS=$(curl -s "https://registry.terraform.io/v1/providers/${NAMESPACE}/${NAME}" | jq -r '.versions[]' | tail -n 20)
+            VERSIONS=$(curl -s "https://registry.terraform.io/v1/providers/${NAMESPACE}/${NAME}" | jq -r '.versions[]' | tail -n 5)
             
             for VERSION in $VERSIONS; do
               # 检查该版本是否已经存在于本地缓存中。如果有 .zip 文件，直接跳过下载！
