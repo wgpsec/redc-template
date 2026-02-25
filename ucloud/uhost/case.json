@@ -1,0 +1,8 @@
+{
+  "name": "uhost",
+  "description": "UCloud UHost 实例",
+  "version": "1.0.0",
+  "user": "r0fus0d",
+  "provider": "ucloud",
+  "template": "preset"
+}
