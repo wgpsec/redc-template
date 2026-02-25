@@ -1,7 +1,7 @@
 {
   "name": "compose-example",
   "user": "r0fus0d",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Compose 示例",
-  "is_compose_template": true
+  "template": "compose"
 }

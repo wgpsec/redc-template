@@ -4,7 +4,7 @@
   "type": "bash",
   "category": "vulhub",
   "user": "redc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "cveId": "CVE-2020-1957",
   "vulType": "RCE",
   "level": "high",
@@ -13,5 +13,5 @@
     "port": 8080,
     "image": "vulhub/shiro:1.4.2"
   },
-  "is_userdata_template": true
+  "template": "userdata"
 }

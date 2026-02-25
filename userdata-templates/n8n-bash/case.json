@@ -4,9 +4,9 @@
   "type": "bash",
   "category": "ai",
   "user": "r0fus0d",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "url": "https://n8n.io/",
   "description": "开源工作流自动化工具，支持 AI 节点集成",
   "installNotes": "启动命令: n8n\n环境变量: N8N_BASIC_AUTH_ACTIVE=true 设置登录账号密码",
-  "is_userdata_template": true
+  "template": "userdata"
 }

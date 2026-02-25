@@ -4,7 +4,7 @@
   "type": "bash",
   "category": "vulhub",
   "user": "redc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "cveId": "CVE-2021-44228",
   "vulType": "RCE",
   "level": "critical",
@@ -13,5 +13,5 @@
     "port": 8989,
     "image": "vulhub/log4j:2.17.0"
   },
-  "is_userdata_template": true
+  "template": "userdata"
 }

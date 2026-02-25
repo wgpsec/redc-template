@@ -4,7 +4,7 @@
   "type": "bash",
   "category": "vulhub",
   "user": "redc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "cveId": "CVE-2022-22965",
   "vulType": "RCE",
   "level": "critical",
@@ -13,5 +13,5 @@
     "port": 8080,
     "image": "vulhub/spring-core-rce"
   },
-  "is_userdata_template": true
+  "template": "userdata"
 }
