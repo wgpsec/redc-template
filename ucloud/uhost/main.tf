@@ -65,7 +65,7 @@ resource "ucloud_eip" "web-eip" {
   charge_mode   = "bandwidth"
   charge_type   = "dynamic"
   name          = "web-eip"
-  bandwidth     = 100
+  bandwidth     = 1
 }
 
 resource "ucloud_eip_association" "web-eip-association" {
