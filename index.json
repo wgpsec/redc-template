@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-25T10:41:44.730639Z",
+  "updated_at": "2026-02-25T12:31:36.772878Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1161,9 +1161,14 @@
           "url": "https://redc.wgpsec.org/templates/ucloud_uhost_v1.0.0.zip",
           "sha256": "264f0058b160867ea41d54d67d8722b200f0cdcbabbc433538f33c3e89c67f06",
           "updated_at": "2026-02-25T10:41:44.728874Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/ucloud_uhost_v1.0.1.zip",
+          "sha256": "a810de5f4efa0e07d550fb8af7299aece6d0b27ca40b42cf64bbfd0926da72bb",
+          "updated_at": "2026-02-25T12:31:36.771269Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "uhost",
         "author": "r0fus0d",
