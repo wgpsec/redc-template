@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-25T02:16:42.658075Z",
+  "updated_at": "2026-02-25T10:41:44.730639Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1150,6 +1150,25 @@
         "author": "redc",
         "description": "Spring Framework 远程代码执行漏洞，攻击者可利用 SpEL 表达式执行任意代码",
         "readme": "# Spring Core RCE (CVE-2022-22965)\n\n## 漏洞简介\n\nSpring Framework 远程代码执行漏洞，攻击者可利用 SpEL 表达式注入执行任意代码。该漏洞存在于 Spring 框架的参数绑定机制中，通过构造特殊的请求参数可以触发 SpEL 表达式执行。\n\n## CVE 信息\n\n- **CVE 编号**: CVE-2022-22965\n- **漏洞类型**: RCE (远程代码执行)\n- **危险等级**: Critical (严重)\n- **影响版本**: Spring Framework 5.3.0 ~ 5.3.17\n\n## 环境信息\n\n- **镜像**: vulhub/spring-core-rce\n- **端口**: 8080\n- **服务**: Spring Core RCE 测试环境\n\n## 使用方法\n\n1. 在云服务器上执行 userdata 脚本\n2. 脚本会自动安装 Docker 并启动 Spring Core 漏洞环境\n3. 访问 `http://<your-ip>:8080` 进行测试\n\n## 测试方法\n\n```bash\n# 使用 curl 发送恶意请求（需要根据实际环境调整）\ncurl -X POST \"http://<your-ip>:8080\" -d \"class.module.classLoader.resources.context.parent.pipeline.first.pattern=%23\"\n```\n\n## 注意事项\n\n- 此环境仅用于安全研究\n- 请在防火墙中限制访问来源\n- 测试完成后请及时删除环境\n\n## 参考链接\n\n- [Vulhub Spring Core RCE 漏洞环境](https://github.com/vulhub/vulhub/tree/master/spring/CVE-2022-22965)\n- [NVD CVE-2022-22965](https://nvd.nist.gov/vuln/detail/CVE-2022-22965)\n"
+      }
+    },
+    "ucloud/uhost": {
+      "id": "ucloud/uhost",
+      "provider": "ucloud",
+      "slug": "uhost",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/ucloud_uhost_v1.0.0.zip",
+          "sha256": "264f0058b160867ea41d54d67d8722b200f0cdcbabbc433538f33c3e89c67f06",
+          "updated_at": "2026-02-25T10:41:44.728874Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "uhost",
+        "author": "r0fus0d",
+        "description": "UCloud UHost 实例",
+        "readme": "# UCloud UHost 场景\n\n使用 Terraform 在 UCloud 创建 UHost 实例。\n\n## 使用方法\n\n### 1. 拉取场景\n\n```bash\nredc pull ucloud/uhost\ncd ucloud/uhost\n```\n\n### 2. 配置凭据\n\n在 `config.yaml` 中配置 UCloud 凭据：\n\n```yaml\nproviders:\n  ucloud:\n    public_key: \"your_public_key\"\n    private_key: \"your_private_key\"\n    project_id: \"Default\"\n    region: \"cn-bj2\"\n```\n\n或者通过环境变量：\n\n```bash\nexport UCLOUD_PUBLIC_KEY=\"your_public_key\"\nexport UCLOUD_PRIVATE_KEY=\"your_private_key\"\nexport UCLOUD_PROJECT_ID=\"Default\"\n```\n\n### 3. 自定义配置（可选）\n\n编辑 `terraform.tfvars` 修改默认配置：\n\n```hcl\ninstance_name        = \"my-uhost\"\ninstance_type        = \"n-standard-2\"\navailability_zone    = \"cn-bj2-05\"\nimage_id            = \"uimage/uhost/CentOS_7.6_x64_20G_alibaba\"\npassword             = \"YourPassword123\"\n```\n\n### 4. 运行场景\n\n```bash\nredc run ucloud/uhost\n```\n\n### 5. 查看状态\n\n```bash\nredc status\n```\n\n### 6. 停止并销毁\n\n```bash\nredc stop\n```\n\n## 变量说明\n\n| 变量 | 默认值 | 说明 |\n|------|--------|------|\n| `region` | cn-bj2 | 区域 |\n| `availability_zone` | cn-bj2-05 | 可用区 |\n| `project_id` | Default | 项目 ID |\n| `instance_name` | redc-uhost | 实例名称 |\n| `instance_type` | n-standard-1 | 实例规格 |\n| `image_id` | uimage/uhost/CentOS_7.6_x64_20G_alibaba | 镜像 ID |\n| `password` | UCloud2024 | 实例密码 |\n\n## 输出说明\n\n| 输出 | 说明 |\n|------|------|\n| `instance_id` | 实例 ID |\n| `instance_name` | 实例名称 |\n| `private_ip` | 内网 IP |\n| `public_ip` | 公网 IP |\n\n## 常用可用区\n\n- `cn-bj2-05` - 北京二区 05\n- `cn-sh2-03` - 上海二区 03\n- `cn-gd-02` - 广州区 02\n\n## 注意事项\n\n1. 确保 UCloud 账户余额充足\n2. 默认 project_id 为 \"Default\"\n3. 默认使用按量付费，停止后不会产生费用\n"
       }
     }
   }
