@@ -4,6 +4,63 @@
 - AWS 通用场景：[aws/ec2](aws/ec2)
 - 阿里云代理场景：[aliyun/proxy](aliyun/proxy)
 
+## 模板类型
+
+redc 支持四种模板类型，通过 `case.json` 中的 `template` 字段区分：
+
+| 类型 | template 值 | 目录 | 用途 |
+|------|------------|------|------|
+| 预定义模板 | `preset` 或不填 | `aliyun/`、`aws/`、`tencent/` 等 | 场景管理页面使用 |
+| 自定义部署模板 | `base` | `base-templates/` | 自定义部署使用 |
+| Userdata 模板 | `userdata` | `userdata-templates/` | 自定义部署和专项场景使用 |
+| Compose 模板 | `compose` | `compose-templates/` | 编排管理使用 |
+
+### case.json 模板类型标记示例
+
+**预定义模板**（默认，可不填）：
+```json
+{
+  "name": "ecs",
+  "description": "阿里云 ECS 实例",
+  "version": "1.0.0",
+  "user": "redc",
+  "provider": "alicloud"
+}
+```
+
+**自定义部署模板**：
+```json
+{
+  "name": "alicloud-ecs",
+  "description": "阿里云 ECS 实例",
+  "version": "1.0.5",
+  "user": "redc",
+  "provider": "alicloud",
+  "template": "base"
+}
+```
+
+**Userdata 模板**：
+```json
+{
+  "name": "docker-installation-bash",
+  "name_zh": "Docker 安装脚本",
+  "type": "bash",
+  "category": "basic",
+  "template": "userdata",
+  "script": "#!/bin/bash\n..."
+}
+```
+
+**Compose 模板**：
+```json
+{
+  "name": "compose-example",
+  "description": "Compose 示例",
+  "template": "compose"
+}
+```
+
 ## 目录与命名
 - 路径规则：`<cloud>/<scene>`，如 `aws/ec2`、`aliyun/proxy`，保持小写无空格。
 - 每个场景目录内部的推荐文件：`case.json`、`README.md`、`versions.tf`、`main.tf`、`variables.tf`、`terraform.tfvars`、`outputs.tf`、`deploy.sh` (可选)。

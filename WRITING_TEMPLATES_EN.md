@@ -4,6 +4,63 @@ This guide shows how to write templates for the redc engine https://github.com/w
 - AWS generic scene: [aws/ec2](aws/ec2)
 - Alibaba Cloud proxy scene: [aliyun/proxy](aliyun/proxy)
 
+## Template Types
+
+redc supports four template types, distinguished by the `template` field in `case.json`:
+
+| Type | template Value | Directory | Usage |
+|------|---------------|-----------|-------|
+| Preset Template | `preset` or omit | `aliyun/`, `aws/`, `tencent/`, etc. | Used in Scene Management |
+| Base Template | `base` | `base-templates/` | Used in Custom Deployment |
+| Userdata Template | `userdata` | `userdata-templates/` | Used in Custom Deployment and Special Modules |
+| Compose Template | `compose` | `compose-templates/` | Used in Compose Management |
+
+### case.json Template Type Examples
+
+**Preset Template** (default, can be omitted):
+```json
+{
+  "name": "ecs",
+  "description": "Alibaba Cloud ECS Instance",
+  "version": "1.0.0",
+  "user": "redc",
+  "provider": "alicloud"
+}
+```
+
+**Base Template**:
+```json
+{
+  "name": "alicloud-ecs",
+  "description": "Alibaba Cloud ECS Instance",
+  "version": "1.0.5",
+  "user": "redc",
+  "provider": "alicloud",
+  "template": "base"
+}
+```
+
+**Userdata Template**:
+```json
+{
+  "name": "docker-installation-bash",
+  "name_zh": "Docker Installation Script",
+  "type": "bash",
+  "category": "basic",
+  "template": "userdata",
+  "script": "#!/bin/bash\n..."
+}
+```
+
+**Compose Template**:
+```json
+{
+  "name": "compose-example",
+  "description": "Compose Example",
+  "template": "compose"
+}
+```
+
 ## Directory and Naming
 - Path pattern: `<cloud>/<scene>`, e.g., `aws/ec2`, `aliyun/proxy`; keep names lowercase without spaces.
 - Recommended files per scene: `case.json`, `README.md`, `versions.tf`, `main.tf`, `variables.tf`, `terraform.tfvars`, `outputs.tf`, `deploy.sh` (optional).

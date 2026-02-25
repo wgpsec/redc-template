@@ -33,7 +33,7 @@
   "version": "1.0.0",
   "user": "作者名称",
   "provider": "支持的云厂商",
-  "is_base_template": true
+  "template": "base"
 }
 ```
 
