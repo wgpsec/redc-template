@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-25T16:13:00.696658Z",
+  "updated_at": "2026-02-26T07:35:48.371380Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -137,9 +137,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.0.9.zip",
           "sha256": "bd44dbdc8d07f0acc6d4d0d9a51108e7432b4c9a43d1e3b523794b2e20f572fb",
           "updated_at": "2026-02-25T02:16:42.628635Z"
+        },
+        "1.1.0": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.1.0.zip",
+          "sha256": "d30c5791ac7d5d72e16f252b2088364987edc7553777a9e8a3f9d67300f3fe4a",
+          "updated_at": "2026-02-26T07:35:48.365506Z"
         }
       },
-      "latest": "1.0.9",
+      "latest": "1.1.0",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
@@ -387,13 +392,18 @@
           "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.1.2.zip",
           "sha256": "bfd64adb3e0e7c63e469db401494233b2f733a8b46d3af1ba6e92da7507dd8a4",
           "updated_at": "2026-02-25T02:16:42.637651Z"
+        },
+        "1.1.3": {
+          "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.1.3.zip",
+          "sha256": "30c5c8aefacd5c41cd678d37cee4d8b8df77a5c319ddefb7c40b352ca8172f7e",
+          "updated_at": "2026-02-26T07:35:48.367812Z"
         }
       },
-      "latest": "1.1.2",
+      "latest": "1.1.3",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
-        "description": "AWS 多节点代理场景，ap-east-1 区域，默认 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash 配置",
+        "description": "AWS 多节点代理场景，ap-east-1 区域，默认 10 台 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash 配置",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/proxy\n```\n\n开启\n```\n# 默认 10 台\nredc run aws/proxy\n\n# 通过 -e 参数，进行自定义节点数量,比如开 10 个节点\nredc run aws/proxy -e node=10\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n3. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件\n\n# 注意事项\n\n**r2 配置**\n\ndeploy.sh 中的 upload_to_r2 函数负责将 clash 配置传至 r2\n\n请自行安装 rclone 并设置 rclone 与 r2 的配置\n- https://github.com/rclone/rclone/releases\n- https://dash.cloudflare.com/ 的 r2\n\n![](../../img/redc-1.png)\n\n```\nrclone config\ns3\nCloudflare R2 Storage\nxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nhttps://xxxxxxxxxxxxxxxxxx.r2.cloudflarestorage.com\nauto\n\nrclone lsf r2:test\n```\n\n**可自行替换 deploy.sh 中 upload_to_r2 函数的配置下载地址**\n\n对应\n```\necho \"url : https://这里改成你的 r2 地址/proxyfile/aws-config.yaml\"\n```\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n若启动场景报错，可能原因\n1. 与 aws api 网络连接超时\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n4. rclone配置不正确\n5. r2 存储桶名称和配置不一致\n"
       }
     },
@@ -1193,6 +1203,25 @@
         "author": "r0fus0d",
         "description": "天翼云 ECS 实例",
         "readme": "# 天翼云 ECS 场景\n\n使用 Terraform 在天翼云创建 ECS 实例。\n\n## 使用方法\n\n### 1. 拉取场景\n\n```bash\nredc pull ctyun/ecs\ncd ctyun/ecs\n```\n\n### 2. 配置凭据\n\n在 `config.yaml` 中配置天翼云凭据：\n\n```yaml\nproviders:\n  ctyun:\n    access_key: \"your_access_key\"\n    secret_key: \"your_secret_key\"\n    region: \"cn-gd\"\n```\n\n或者通过环境变量：\n\n```bash\nexport CTYUN_ACCESS_KEY=\"your_access_key\"\nexport CTYUN_SECRET_KEY=\"your_secret_key\"\n```\n\n### 3. 自定义配置（可选）\n\n编辑 `terraform.tfvars` 修改默认配置：\n\n```hcl\ninstance_name  = \"my-ecs\"\ninstance_type = \"s3.medium.2\"\nregion        = \"cn-gd\"\n```\n\n### 4. 运行场景\n\n```bash\nredc run ctyun/ecs\n```\n\n### 5. 查看状态\n\n```bash\nredc status\n```\n\n### 6. 停止并销毁\n\n```bash\nredc stop\n```\n\n## 变量说明\n\n| 变量 | 默认值 | 说明 |\n|------|--------|------|\n| `region` | cn-gd | 区域，如 cn-gd, cn-sh |\n| `instance_name` | redc-ecs | 实例名称 |\n| `instance_type` | s3.medium.1 | 实例规格 |\n| `image_id` | (空) | 镜像 ID，留空则使用默认 |\n| `password` | (自动生成) | 实例密码 |\n\n## 输出说明\n\n| 输出 | 说明 |\n|------|------|\n| `instance_id` | 实例 ID |\n| `instance_name` | 实例名称 |\n| `private_ip` | 内网 IP |\n| `ssh_user` | SSH 用户名 |\n| `ssh_password` | SSH 密码 |\n\n## 常用区域\n\n- `cn-gd` - 广东\n- `cn-sh` - 上海\n- `cn-bj` - 北京\n\n## 注意事项\n\n1. 确保天翼云账户余额充足\n2. 实例规格和区域可根据需要调整\n"
+      }
+    },
+    "gcp/compute_instance": {
+      "id": "gcp/compute_instance",
+      "provider": "gcp",
+      "slug": "compute_instance",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/gcp_compute_instance_v1.0.0.zip",
+          "sha256": "5da32be7b0c801b9eb3f39b03c712f2587559c4b4935e8b3d3b9280a374758d9",
+          "updated_at": "2026-02-26T07:35:48.369141Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "compute_instance",
+        "author": "r0fus0d",
+        "description": "GCP Compute Engine 实例，us-central1 区域，默认 e2-micro 实例，可自定义实例类型、镜像等参数",
+        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull gcp/compute_instance\n```\n\n开启\n```\nredc run gcp/compute_instance\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**GCP 凭据配置**\n\n需要配置 GCP 服务账号 JSON 凭据文件路径，详见 [redc 凭据管理](../../README_CN.md#gcp-配置)\n\n```yaml\n# ~/redc/config.yaml\nproviders:\n  google:\n    GOOGLE_APPLICATION_CREDENTIALS: \"/path/to/your-service-account.json\"\n    project: \"your-project-id\"\n    region: \"us-central1\"\n```\n\n**区域配置**\n\n默认使用 us-central1 (爱荷华) 区域\n\n若启动场景报错，可能原因\n1. 与 GCP API 网络连接超时\n2. GCP 项目未启用 Compute Engine API\n3. 服务账号权限不足\n4. 该区域无可用资源\n"
       }
     }
   }
