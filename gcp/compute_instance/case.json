@@ -1,0 +1,7 @@
+{
+    "name":"compute_instance",
+    "user":"r0fus0d",
+    "version": "1.0.0",
+    "description":"GCP Compute Engine 实例，us-central1 区域，默认 e2-micro 实例，可自定义实例类型、镜像等参数",
+    "template": "preset"
+}
