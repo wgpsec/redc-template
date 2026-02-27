@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-27T03:19:32.810885Z",
+  "updated_at": "2026-02-27T07:24:35.599999Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1200,9 +1200,14 @@
           "url": "https://redc.wgpsec.org/templates/ctyun_ecs_v1.0.1.zip",
           "sha256": "5e47aed6fcb1b347514b09e6010b348b7e33bca797ac3a1682998de062bf4b52",
           "updated_at": "2026-02-27T03:19:32.807271Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/ctyun_ecs_v1.0.2.zip",
+          "sha256": "31e5529a15f0b443e1f8c3ab53ec935c4f71c3bfe4113b69f81654784ec5daaf",
+          "updated_at": "2026-02-27T07:24:35.597669Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "ecs",
         "author": "r0fus0d",
@@ -1232,6 +1237,25 @@
         "author": "r0fus0d",
         "description": "GCP Compute Engine 实例，us-central1 区域，默认 e2-micro 实例，可自定义实例类型、镜像等参数",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull gcp/compute_instance\n```\n\n开启\n```\nredc run gcp/compute_instance\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**GCP 凭据配置**\n\n需要配置 GCP 服务账号 JSON 凭据文件路径，详见 [redc 凭据管理](../../README_CN.md#gcp-配置)\n\n```yaml\n# ~/redc/config.yaml\nproviders:\n  google:\n    GOOGLE_APPLICATION_CREDENTIALS: \"/path/to/your-service-account.json\"\n    project: \"your-project-id\"\n    region: \"us-central1\"\n```\n\n**区域配置**\n\n默认使用 us-central1 (爱荷华) 区域\n\n若启动场景报错，可能原因\n1. 与 GCP API 网络连接超时\n2. GCP 项目未启用 Compute Engine API\n3. 服务账号权限不足\n4. 该区域无可用资源\n"
+      }
+    },
+    "azure/vm": {
+      "id": "azure/vm",
+      "provider": "azure",
+      "slug": "vm",
+      "versions": {
+        "0.0.1": {
+          "url": "https://redc.wgpsec.org/templates/azure_vm_v0.0.1.zip",
+          "sha256": "694a79c9493831ad4b850beb52ff7e7ac7357fe93bcaeb387c80acfc3e84a739",
+          "updated_at": "2026-02-27T07:24:35.596039Z"
+        }
+      },
+      "latest": "0.0.1",
+      "metadata": {
+        "name": "vm",
+        "author": "r0fus0d",
+        "description": "Azure VM 实例，该场景测试由于配额问题未跑通，仅记录参考",
+        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull azure/vm\n```\n\n开启\n```\nredc run azure/vm\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**Azure 凭据配置**\n\n需要配置 Azure 服务凭据，详见 [redc 凭据管理](../../README_CN.md#azure-配置)\n\n```yaml\n# ~/redc/config.yaml\nproviders:\n  azure:\n    ARM_CLIENT_ID: \"your-client-id\"\n    ARM_CLIENT_SECRET: \"your-client-secret\"\n    ARM_SUBSCRIPTION_ID: \"your-subscription-id\"\n    ARM_TENANT_ID: \"your-tenant-id\"\n```\n\n**区域说明**\n\n默认使用 `West Europe`（西欧洲）区域\n\n**配额问题**\n\nAzure 创建虚拟机需要满足以下条件：\n\n1. **区域配额**：目标区域需要有可用的 vCPU 配额\n2. **SKU 可用性**：所选 VM 规格在该区域需要有可用容量\n\n如遇到以下错误：\n- `SkuNotAvailable`: VM 规格在当前区域不可用 → 更换 `vm_size` 或 `location`\n- `quota exceeded`: vCPU 配额不足 → 在 Azure 门户申请增加配额，或更换区域\n\n**默认配置**\n\n| 参数 | 默认值 |\n|------|--------|\n| VM 规格 | Standard_D2a_v4 |\n| 区域 | West Europe |\n| 系统镜像 | Ubuntu 18.04 LTS |\n| 用户名 | redcadmin |\n| 密码 | 自动生成 |\n\n**自定义参数**\n\n可以通过 `terraform.tfvars` 覆盖默认配置：\n\n```hcl\ninstance_password = \"YourPassword123\"\n```\n"
       }
     }
   }
