@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "user_data test" > /tmp/user_data.log

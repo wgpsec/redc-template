@@ -82,8 +82,5 @@ resource "ctyun_ecs" "test" {
   cycle_type       = "on_demand"
   bandwidth        = 100
   security_group_ids = [ctyun_security_group.security_group_test.id]
-  user_data = <<EOF
-#!/bin/bash
-echo "user_data test" > /tmp/user_data.log
-EOF
+  user_data = base64encode(file("userdata"))
 }
