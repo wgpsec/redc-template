@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-26T07:35:48.371380Z",
+  "updated_at": "2026-02-27T03:19:32.810885Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1195,9 +1195,14 @@
           "url": "https://redc.wgpsec.org/templates/ctyun_ecs_v1.0.0.zip",
           "sha256": "d19997e820110b4d56574eb878a1197ed13e8ecf47dfd7f2c8f12ddf6fa52e05",
           "updated_at": "2026-02-25T16:13:00.694519Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/ctyun_ecs_v1.0.1.zip",
+          "sha256": "5e47aed6fcb1b347514b09e6010b348b7e33bca797ac3a1682998de062bf4b52",
+          "updated_at": "2026-02-27T03:19:32.807271Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "ecs",
         "author": "r0fus0d",
@@ -1214,9 +1219,14 @@
           "url": "https://redc.wgpsec.org/templates/gcp_compute_instance_v1.0.0.zip",
           "sha256": "5da32be7b0c801b9eb3f39b03c712f2587559c4b4935e8b3d3b9280a374758d9",
           "updated_at": "2026-02-26T07:35:48.369141Z"
+        },
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/gcp_compute_instance_v1.0.1.zip",
+          "sha256": "b319e66687ea3454fb286bde2c09d313f45189016d0a9d20daa66733bbb7d4d4",
+          "updated_at": "2026-02-27T03:19:32.808637Z"
         }
       },
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "metadata": {
         "name": "compute_instance",
         "author": "r0fus0d",
