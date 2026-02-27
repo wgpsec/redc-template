@@ -13,4 +13,11 @@ resource "google_compute_instance" "default" {
     network = "default"
     access_config {}
   }
+
+  metadata = {
+    startup-script = <<EOF
+#!/bin/bash
+echo "user_data test" > /tmp/user_data.log
+EOF
+  }
 }
