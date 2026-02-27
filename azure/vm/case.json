@@ -1,7 +1,7 @@
 {
     "name":"vm",
     "user":"r0fus0d",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description":"Azure VM 实例，该场景测试由于配额问题未跑通，仅记录参考",
     "template": "preset"
 }
