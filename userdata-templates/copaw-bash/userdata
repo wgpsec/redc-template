@@ -1,0 +1,15 @@
+#!/bin/bash
+# CoPaw 自动安装脚本
+
+# 安装 CoPaw
+pip install copaw
+
+# 初始化 CoPaw（使用默认配置）
+copaw init --defaults
+
+# 启动 CoPaw 服务
+# 默认端口: 8088
+copaw app &
+
+echo "CoPaw 安装完成！"
+echo "访问 http://localhost:8088 进入控制台"

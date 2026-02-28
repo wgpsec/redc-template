@@ -1,0 +1,12 @@
+{
+  "name": "copaw-bash",
+  "nameZh": "CoPaw",
+  "type": "bash",
+  "category": "ai",
+  "user": "MiniMax-M2.5",
+  "version": "1.0.0",
+  "url": "https://github.com/agentscope-ai/CoPaw",
+  "description": "开源 AI 个人助理，支持多端接入、能力扩展、定时任务",
+  "installNotes": "访问 http://localhost:8088 进入控制台\n支持钉钉、飞书、QQ、Discord 等频道接入",
+  "template": "userdata"
+}
