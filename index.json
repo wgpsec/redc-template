@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-27T07:24:35.599999Z",
+  "updated_at": "2026-02-28T08:05:19.510648Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1256,6 +1256,25 @@
         "author": "r0fus0d",
         "description": "Azure VM 实例，该场景测试由于配额问题未跑通，仅记录参考",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull azure/vm\n```\n\n开启\n```\nredc run azure/vm\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**Azure 凭据配置**\n\n需要配置 Azure 服务凭据，详见 [redc 凭据管理](../../README_CN.md#azure-配置)\n\n```yaml\n# ~/redc/config.yaml\nproviders:\n  azure:\n    ARM_CLIENT_ID: \"your-client-id\"\n    ARM_CLIENT_SECRET: \"your-client-secret\"\n    ARM_SUBSCRIPTION_ID: \"your-subscription-id\"\n    ARM_TENANT_ID: \"your-tenant-id\"\n```\n\n**区域说明**\n\n默认使用 `West Europe`（西欧洲）区域\n\n**配额问题**\n\nAzure 创建虚拟机需要满足以下条件：\n\n1. **区域配额**：目标区域需要有可用的 vCPU 配额\n2. **SKU 可用性**：所选 VM 规格在该区域需要有可用容量\n\n如遇到以下错误：\n- `SkuNotAvailable`: VM 规格在当前区域不可用 → 更换 `vm_size` 或 `location`\n- `quota exceeded`: vCPU 配额不足 → 在 Azure 门户申请增加配额，或更换区域\n\n**默认配置**\n\n| 参数 | 默认值 |\n|------|--------|\n| VM 规格 | Standard_D2a_v4 |\n| 区域 | West Europe |\n| 系统镜像 | Ubuntu 18.04 LTS |\n| 用户名 | redcadmin |\n| 密码 | 自动生成 |\n\n**自定义参数**\n\n可以通过 `terraform.tfvars` 覆盖默认配置：\n\n```hcl\ninstance_password = \"YourPassword123\"\n```\n"
+      }
+    },
+    "userdata-templates/copaw-bash": {
+      "id": "userdata-templates/copaw-bash",
+      "provider": "userdata-templates",
+      "slug": "copaw-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_copaw-bash_v1.0.0.zip",
+          "sha256": "4783bc746d4dfc49c83521eac67897fcc2ca92a43a60c62a20ad6b973c10d960",
+          "updated_at": "2026-02-28T08:05:19.508637Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "copaw-bash",
+        "author": "MiniMax-M2.5",
+        "description": "开源 AI 个人助理，支持多端接入、能力扩展、定时任务",
+        "readme": "# CoPaw\n\n开源 AI 个人助理；安装极简、本地与云上均可部署；支持多端接入、能力轻松扩展。\n\n## 核心能力\n\n- **全域触达** — 钉钉、飞书、QQ、Discord、iMessage 等频道，一个 CoPaw 按需连接。\n- **由你掌控** — 记忆与个性化由你掌控，本地或云端均可；定时与协作发往指定频道。\n- **Skills 扩展** — 内置定时任务，自定义技能目录，CoPaw 自动加载，无绑定。\n\n## 使用场景\n\n### 社交媒体\n- 每日热帖摘要（小红书、知乎、Reddit）\n- B 站/YouTube 新视频摘要\n\n### 生产力\n- 邮件与 Newsletter 精华推送到钉钉/飞书/QQ\n- 邮件与日历整理联系人\n\n### 创意与构建\n- 睡前说明目标、自动执行，次日获得雏形\n- 从选题到成片全流程\n\n### 研究与学习\n- 追踪科技与 AI 资讯\n- 个人知识库检索复用\n\n### 桌面与文件\n- 整理与搜索本地文件\n- 阅读与摘要文档\n\n## 快速开始\n\n### 访问控制台\n\n部署完成后，访问 http://localhost:8088 进入控制台。\n\n### 配置 AI 模型\n\n首次使用需要配置 LLM 提供商：\n\n1. 打开 http://localhost:8088 → 设置 → 模型\n2. 选择提供商（如 DashScope、OpenAI 等）\n3. 填写 API Key 并启用\n\n### 本地模型支持\n\n如使用本地模型（无需 API Key）：\n\n```bash\n# 安装支持\npip install 'copaw[llamacpp]'\n\n# 下载模型\ncopaw models download Qwen/Qwen3-4B-GGUF\n\n# 启动并选择本地模型\ncopaw models\ncopaw app\n```\n\n### 接入频道\n\n支持多种通讯平台接入：\n\n- 钉钉\n- 飞书\n- QQ\n- Discord\n- iMessage\n\n详见官方文档。\n\n## 环境变量\n\n| 变量 | 说明 |\n|------|------|\n| `DASHSCOPE_API_KEY` | 阿里云 DashScope API Key |\n| `OPENAI_API_KEY` | OpenAI API Key |\n| `MODELSCOPE_API_KEY` | ModelScope API Key |\n\n## 更多信息\n\n- 官方文档：https://copaw.agentscope.io\n- GitHub：https://github.com/agentscope-ai/CoPaw\n"
       }
     }
   }
