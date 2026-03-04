@@ -1,7 +1,8 @@
 {
     "name":"cvm",
     "user":"r0fus0d",
-    "version": "1.0.3",
-    "description":"在腾讯云快速部署一台配置完善的CVM云服务器实例，自动安装常用开发工具（wget、curl、lrzsz、tmux等）和Python3环境，开放全部端口，适用于临时测试、开发调试或攻防演练等场景",
+    "version": "1.0.4",
+    "description":"在腾讯云快速部署一台配置完善的CVM云服务器实例，自动安装常用开发工具（wget、curl、lrzsz、tmux等）和Python3环境，开放全部端口，适用于临时测试，开发调试或攻防演练等场景",
+    "description_en":"Quickly deploy a fully configured CVM cloud server instance on Tencent Cloud with automatic installation of common development tools (wget, curl, lrzsz, tmux, etc.) and Python3 environment, all ports open, suitable for temporary testing, development debugging or attack-defense exercises",
     "template": "preset"
 }

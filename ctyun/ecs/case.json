@@ -1,7 +1,8 @@
 {
   "name": "ecs",
   "description": "天翼云 ECS 实例",
-  "version": "1.0.2",
+  "description_en": "CTyun ECS instance",
+  "version": "1.0.3",
   "user": "r0fus0d",
   "provider": "ctyun",
   "template": "preset"

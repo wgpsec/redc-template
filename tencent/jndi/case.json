@@ -1,7 +1,8 @@
 {
     "name":"jndi",
     "user":"r0fus0d",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description":"腾讯云 JNDI 演练场景，ap-beijing 区域，S6 2C4G 实例，预置 JDK8、JNDIExploit、java-chains、simplehttpserver 等组件",
+    "description_en":"Tencent Cloud JNDI practice scenario in ap-beijing region with S6 2C4G instance, pre-installed JDK8, JNDIExploit, java-chains, simplehttpserver and other components",
     "template": "preset"
 }
