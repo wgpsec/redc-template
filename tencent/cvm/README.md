@@ -5,12 +5,12 @@
 
 拉取
 ```
-redc pull tencent/jndi
+redc pull tencent/cvm
 ```
 
 开启
 ```
-redc run tencent/jndi
+redc run tencent/cvm
 ```
 
 查询
