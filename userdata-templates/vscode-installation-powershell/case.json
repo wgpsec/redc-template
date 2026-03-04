@@ -4,7 +4,8 @@
   "type": "powershell",
   "category": "basic",
   "user": "r0fus0d",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "安装 Visual Studio Code",
+  "description_en": "Install Visual Studio Code",
   "template": "userdata"
 }

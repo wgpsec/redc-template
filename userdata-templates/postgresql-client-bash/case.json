@@ -4,7 +4,8 @@
   "type": "bash",
   "category": "basic",
   "user": "r0fus0d",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "安装 PostgreSQL 客户端",
+  "description_en": "Install PostgreSQL client",
   "template": "userdata"
 }
