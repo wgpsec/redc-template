@@ -3,5 +3,6 @@
     "user":"r0fus0d",
     "version": "1.0.4",
     "description":"引擎内嵌的阿里云 ecs 场景，仅作参考模板使用",
+    "description_en":"Aliyun ECS scenario embedded in the engine, for reference only",
     "template": "preset"
 }

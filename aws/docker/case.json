@@ -3,5 +3,6 @@
     "user":"r0fus0d",
     "version": "1.0.6",
     "description":"AWS Docker 基础场景，ap-east-1 区域，t3.medium 实例，预装 f8x 自动安装 Docker，tmux 后台拉起环境",
+    "description_en":"AWS Docker basic scenario in ap-east-1 region with t3.medium instance, f8x automatically installs Docker, tmux pulls up environment in background",
     "template": "preset"
 }
