@@ -1,0 +1,5 @@
+node="10"
+ddos_target="http://www.target.com:8000"
+ddos_threads="1500"
+ddos_time="300"
+ddos_mode="APACHE"
