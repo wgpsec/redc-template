@@ -1,0 +1,5 @@
+#!/bin/bash
+wget -O f8x https://f8x.wgpsec.org/f8x
+chmod +x f8x
+
+echo "f8x installation completed! use ./f8x -h to get help"
