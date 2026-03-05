@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-04T14:46:35.027763Z",
+  "updated_at": "2026-03-05T07:59:34.566647Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1525,6 +1525,44 @@
         "author": "MiniMax-M2.5",
         "description": "开源 AI 个人助理，支持多端接入、能力扩展、定时任务",
         "readme": "# CoPaw\n\n开源 AI 个人助理；安装极简、本地与云上均可部署；支持多端接入、能力轻松扩展。\n\n## 核心能力\n\n- **全域触达** — 钉钉、飞书、QQ、Discord、iMessage 等频道，一个 CoPaw 按需连接。\n- **由你掌控** — 记忆与个性化由你掌控，本地或云端均可；定时与协作发往指定频道。\n- **Skills 扩展** — 内置定时任务，自定义技能目录，CoPaw 自动加载，无绑定。\n\n## 使用场景\n\n### 社交媒体\n- 每日热帖摘要（小红书、知乎、Reddit）\n- B 站/YouTube 新视频摘要\n\n### 生产力\n- 邮件与 Newsletter 精华推送到钉钉/飞书/QQ\n- 邮件与日历整理联系人\n\n### 创意与构建\n- 睡前说明目标、自动执行，次日获得雏形\n- 从选题到成片全流程\n\n### 研究与学习\n- 追踪科技与 AI 资讯\n- 个人知识库检索复用\n\n### 桌面与文件\n- 整理与搜索本地文件\n- 阅读与摘要文档\n\n## 快速开始\n\n### 访问控制台\n\n部署完成后，访问 http://localhost:8088 进入控制台。\n\n### 配置 AI 模型\n\n首次使用需要配置 LLM 提供商：\n\n1. 打开 http://localhost:8088 → 设置 → 模型\n2. 选择提供商（如 DashScope、OpenAI 等）\n3. 填写 API Key 并启用\n\n### 本地模型支持\n\n如使用本地模型（无需 API Key）：\n\n```bash\n# 安装支持\npip install 'copaw[llamacpp]'\n\n# 下载模型\ncopaw models download Qwen/Qwen3-4B-GGUF\n\n# 启动并选择本地模型\ncopaw models\ncopaw app\n```\n\n### 接入频道\n\n支持多种通讯平台接入：\n\n- 钉钉\n- 飞书\n- QQ\n- Discord\n- iMessage\n\n详见官方文档。\n\n## 环境变量\n\n| 变量 | 说明 |\n|------|------|\n| `DASHSCOPE_API_KEY` | 阿里云 DashScope API Key |\n| `OPENAI_API_KEY` | OpenAI API Key |\n| `MODELSCOPE_API_KEY` | ModelScope API Key |\n\n## 更多信息\n\n- 官方文档：https://copaw.agentscope.io\n- GitHub：https://github.com/agentscope-ai/CoPaw\n"
+      }
+    },
+    "aws/MHDDoS": {
+      "id": "aws/MHDDoS",
+      "provider": "aws",
+      "slug": "MHDDoS",
+      "versions": {
+        "0.0.1": {
+          "url": "https://redc.wgpsec.org/templates/aws_MHDDoS_v0.0.1.zip",
+          "sha256": "0bb1dbd46583fb347041c6f236aad8e41c9770914d2379dc8368e4c4ca095606",
+          "updated_at": "2026-03-05T07:59:34.561289Z"
+        }
+      },
+      "latest": "0.0.1",
+      "metadata": {
+        "name": "MHDDoS",
+        "author": "r0fus0d",
+        "description": "MHDDoS 分布式拒绝服务攻击工具，支持多种攻击模式（SOCKS5 代理、TCP、UDP、HTTP 等），适用于渗透测试场景，慎用，价格昂贵,1T 1k",
+        "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/MHDDoS\n```\n\n开启\n```\nredc run aws/MHDDoS\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 参数说明\n\n| 参数 | 说明 | 默认值 |\n|------|------|--------|\n| node | 节点数量 | 1 |\n| ddos_target | 攻击目标 (IP 或域名) | - |\n| ddos_threads | 攻击线程数 | 100 |\n| ddos_time | 攻击持续时间 (秒) | 3600 |\n| ddos_mode | 攻击模式 (layer7/layer4) | layer7 |\n\n# 攻击模式说明\n\n- **layer7**: HTTP Flood, GET/POST 洪水攻击\n- **layer4**: TCP/UDP 洪水攻击\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**使用限制**\n\n本工具仅供 **授权的渗透测试** 使用，未经目标授权的 DDoS 攻击是违法行为。\n\n若启动场景报错，可能原因\n1. 与 aws api 网络连接超时\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n"
+      }
+    },
+    "userdata-templates/f8x-bash": {
+      "id": "userdata-templates/f8x-bash",
+      "provider": "userdata-templates",
+      "slug": "f8x-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_f8x-bash_v1.0.0.zip",
+          "sha256": "0db0599b1594d33e6b84f5c4433d37039bb8dfdf6e030ce0ebcece513e96e1f4",
+          "updated_at": "2026-03-05T07:59:34.565350Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "f8x-bash",
+        "author": "r0fus0d",
+        "description": "f8x 渗透测试工具集，一键部署多种渗透测试工具",
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项进行配置\n2. 使用方法：在终端中运行以下命令\n\n```\n./f8x\n```\n\n查看帮助信息：\n\n```\n./f8x -h\n```\n\n# f8x 简介\n\nf8x 是一款渗透测试工具集，可以一键部署多种渗透测试工具，包括：\n\n- 扫描器\n- 漏洞利用工具\n- 后门生成工具\n- 提权工具\n- 等等\n\n# 注意事项\n\n- 本工具仅供 **授权的渗透测试** 使用\n- 首次运行会自动安装依赖\n"
       }
     }
   }
