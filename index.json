@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-05T07:59:34.566647Z",
+  "updated_at": "2026-03-05T08:58:07.853910Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1563,6 +1563,25 @@
         "author": "r0fus0d",
         "description": "f8x 渗透测试工具集，一键部署多种渗透测试工具",
         "readme": "# 场景使用\n\n1. 使用前请按照注意事项进行配置\n2. 使用方法：在终端中运行以下命令\n\n```\n./f8x\n```\n\n查看帮助信息：\n\n```\n./f8x -h\n```\n\n# f8x 简介\n\nf8x 是一款渗透测试工具集，可以一键部署多种渗透测试工具，包括：\n\n- 扫描器\n- 漏洞利用工具\n- 后门生成工具\n- 提权工具\n- 等等\n\n# 注意事项\n\n- 本工具仅供 **授权的渗透测试** 使用\n- 首次运行会自动安装依赖\n"
+      }
+    },
+    "userdata-templates/msf-bash": {
+      "id": "userdata-templates/msf-bash",
+      "provider": "userdata-templates",
+      "slug": "msf-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_msf-bash_v1.0.0.zip",
+          "sha256": "7ffec88bb2a0cc70ee645ba1578bff65cb7be8e34d1df64a36e798f4b79a906d",
+          "updated_at": "2026-03-05T08:58:07.852823Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "msf-bash",
+        "author": "r0fus0d",
+        "description": "Metasploit 渗透测试框架，安装全球最流行的渗透测试工具",
+        "readme": "# 场景使用\n\n1. 使用前请按照注意事项进行配置\n2. 使用方法：安装完成后运行以下命令\n\n启动 msfconsole：\n```\nmsfconsole\n```\n\n更新 Metasploit：\n```\nmsfupdate\n```\n\n# MSF 简介\n\nMetasploit (MSF) 是全球最流行的渗透测试框架，包含：\n\n- 漏洞利用模块 (Exploits)\n- 辅助模块 (Auxiliary)\n- 后渗透模块 (Post)\n- 载荷生成器 (Payloads)\n- 编码器 (Encoders)\n- 等等\n\n# 注意事项\n\n- 本工具仅供 **授权的渗透测试** 使用\n- 首次运行会初始化数据库\n- 可使用 `msfdb init` 初始化数据库\n"
       }
     }
   }
