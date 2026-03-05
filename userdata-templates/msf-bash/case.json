@@ -1,0 +1,11 @@
+{
+  "name": "msf-bash",
+  "nameZh": "Metasploit 渗透测试框架",
+  "type": "bash",
+  "category": "c2",
+  "user": "r0fus0d",
+  "version": "1.0.0",
+  "description": "Metasploit 渗透测试框架，安装全球最流行的渗透测试工具",
+  "description_en": "Metasploit penetration testing framework, install the world's most popular penetration testing tool",
+  "template": "userdata"
+}

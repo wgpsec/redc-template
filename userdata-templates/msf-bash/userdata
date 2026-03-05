@@ -1,0 +1,5 @@
+#!/bin/bash
+curl -o msfinstall https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb
+mv msfinstall /root
+chmod 777 /root/msfinstall
+/root/msfinstall
