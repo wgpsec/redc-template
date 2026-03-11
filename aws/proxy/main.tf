@@ -43,6 +43,14 @@ resource "aws_instance" "pte_node" {
   vpc_security_group_ids     = [aws_security_group.pte_open_all.id]
   key_name                   = aws_key_pair.pte_key.key_name
 
+  instance_market_options {
+    market_type = "spot"
+    spot_options {
+      spot_instance_type             = "one-time"
+      instance_interruption_behavior = "terminate"
+    }
+  }
+
   root_block_device {
     volume_type = "gp3"
     volume_size = 18
