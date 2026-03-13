@@ -51,7 +51,7 @@ read_tfvar() {
     local key="$1"
     local file="$CASE_PATH/terraform.tfvars"
     if [ -f "$file" ]; then
-        grep -E "^\\s*${key}\\s*=" "$file" 2>/dev/null | head -1 | sed 's/[^=]*=\s*//; s/^"//; s/"$//' || true
+        grep -E "^[[:space:]]*${key}[[:space:]]*=" "$file" 2>/dev/null | head -1 | sed 's/[^=]*=[[:space:]]*//; s/^"//; s/"$//' || true
     fi
 }
 
@@ -61,6 +61,13 @@ FILENAME="${REDC_PLUGIN_CONFIG_FILENAME:-$(read_tfvar filename)}"
 FILENAME="${FILENAME:-config.yaml}"
 
 if [ -z "$PORT" ] || [ -z "$PASSWORD" ]; then
+    echo "[clash-config] DEBUG: CASE_PATH=$CASE_PATH"
+    echo "[clash-config] DEBUG: tfvars exists=$([ -f "$CASE_PATH/terraform.tfvars" ] && echo yes || echo no)"
+    echo "[clash-config] DEBUG: PORT=[$PORT] PASSWORD=[$PASSWORD]"
+    if [ -f "$CASE_PATH/terraform.tfvars" ]; then
+        echo "[clash-config] DEBUG: tfvars content:"
+        cat "$CASE_PATH/terraform.tfvars" 2>/dev/null || true
+    fi
     echo "[clash-config] ERROR: port or password not found (check tfvars or plugin config)"
     exit 1
 fi

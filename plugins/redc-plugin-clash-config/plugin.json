@@ -1,6 +1,6 @@
 {
   "name": "redc-plugin-clash-config",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "场景部署后自动生成 Clash (Shadowsocks) 代理配置文件",
   "description_en": "Auto-generate Clash proxy config (Shadowsocks) after deployment",
   "author": "wgpsec",
