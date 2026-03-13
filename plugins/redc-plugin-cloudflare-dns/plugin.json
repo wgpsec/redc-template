@@ -1,6 +1,6 @@
 {
   "name": "redc-plugin-cloudflare-dns",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "场景部署后自动更新 Cloudflare DNS A 记录指向实例 IP",
   "description_en": "Auto-update Cloudflare DNS A record to point to instance IP after deployment",
   "author": "wgpsec",

@@ -49,9 +49,16 @@ echo "[cf-dns] target IP: $TARGET_IP"
 # 优先插件配置，其次场景参数
 DOMAIN="${REDC_PLUGIN_CONFIG_DOMAIN:-}"
 if [ -z "$DOMAIN" ]; then
-    # 从场景参数解析 (REDC_CASE_PATH/terraform.tfvars)
+    # 从场景参数解析 (REDC_CASE_VARS JSON)
+    if [ -n "${REDC_CASE_VARS:-}" ] && command -v jq &>/dev/null; then
+        DOMAIN=$(echo "$REDC_CASE_VARS" | jq -r '.domain // empty' 2>/dev/null || true)
+    fi
+fi
+
+if [ -z "$DOMAIN" ]; then
+    # 从 terraform.tfvars 读取
     if [ -f "${REDC_CASE_PATH:-}/terraform.tfvars" ]; then
-        DOMAIN=$(grep -E '^\s*domain\s*=' "${REDC_CASE_PATH}/terraform.tfvars" 2>/dev/null | head -1 | sed 's/[^=]*=\s*//; s/^"//; s/"$//' || true)
+        DOMAIN=$(grep -E '^[[:space:]]*domain[[:space:]]*=' "${REDC_CASE_PATH}/terraform.tfvars" 2>/dev/null | head -1 | sed 's/[^=]*=[[:space:]]*//; s/^"//; s/"$//' || true)
     fi
 fi
 
@@ -59,6 +66,9 @@ if [ -z "$DOMAIN" ]; then
     echo "[cf-dns] WARNING: domain not configured, skipping"
     exit 0
 fi
+
+# Strip leading "a." prefix (redc adds it for dnslog scenarios)
+DOMAIN=$(echo "$DOMAIN" | sed 's/^a\.//')
 
 # 提取 zone 名称 (后两段)
 extract_zone() {
