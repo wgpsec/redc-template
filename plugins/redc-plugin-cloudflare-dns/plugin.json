@@ -1,0 +1,46 @@
+{
+  "name": "redc-plugin-cloudflare-dns",
+  "version": "1.0.0",
+  "description": "场景部署后自动更新 Cloudflare DNS A 记录指向实例 IP",
+  "description_en": "Auto-update Cloudflare DNS A record to point to instance IP after deployment",
+  "author": "wgpsec",
+  "homepage": "https://github.com/wgpsec/redc-template",
+  "category": "dns",
+  "tags": ["cloudflare", "dns", "domain"],
+  "min_redc_version": "3.1.0",
+  "capabilities": {
+    "hooks": {
+      "post-apply": "hooks/post-apply.sh",
+      "pre-destroy": "hooks/pre-destroy.sh"
+    }
+  },
+  "config_schema": {
+    "cf_email": {
+      "type": "string",
+      "required": true,
+      "description": "Cloudflare 账户邮箱"
+    },
+    "cf_api_key": {
+      "type": "string",
+      "required": true,
+      "description": "Cloudflare Global API Key"
+    },
+    "domain": {
+      "type": "string",
+      "required": false,
+      "description": "要更新的域名 (如 ns1.example.com)，不填则从场景参数 domain 读取"
+    },
+    "record_name": {
+      "type": "string",
+      "required": false,
+      "description": "DNS 记录名，不填则使用 ns1.<zone>",
+      "default": ""
+    },
+    "cleanup_on_destroy": {
+      "type": "boolean",
+      "required": false,
+      "description": "销毁时是否删除 DNS 记录",
+      "default": "true"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "redc-plugin-clash-config",
+  "version": "1.0.0",
+  "description": "场景部署后自动生成 Clash (Shadowsocks) 代理配置文件",
+  "description_en": "Auto-generate Clash proxy config (Shadowsocks) after deployment",
+  "author": "wgpsec",
+  "homepage": "https://github.com/wgpsec/redc-template",
+  "category": "proxy",
+  "tags": ["clash", "proxy", "shadowsocks"],
+  "min_redc_version": "3.1.0",
+  "capabilities": {
+    "hooks": {
+      "post-apply": "hooks/post-apply.sh"
+    }
+  },
+  "config_schema": {
+    "port": {
+      "type": "string",
+      "required": false,
+      "description": "Shadowsocks 端口 (默认从 terraform.tfvars 读取 port)",
+      "default": ""
+    },
+    "password": {
+      "type": "string",
+      "required": false,
+      "description": "Shadowsocks 密码 (默认从 terraform.tfvars 读取 password)",
+      "default": ""
+    },
+    "filename": {
+      "type": "string",
+      "required": false,
+      "description": "输出文件名",
+      "default": "config.yaml"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "redc-plugin-upload-r2",
+  "version": "1.0.0",
+  "description": "场景部署后将生成的配置文件上传到 Cloudflare R2 存储桶",
+  "description_en": "Upload generated config files to Cloudflare R2 bucket after deployment",
+  "author": "wgpsec",
+  "homepage": "https://github.com/wgpsec/redc-template",
+  "category": "storage",
+  "tags": ["r2", "cloudflare", "rclone", "upload"],
+  "min_redc_version": "3.1.0",
+  "capabilities": {
+    "hooks": {
+      "post-apply": "hooks/post-apply.sh"
+    }
+  },
+  "config_schema": {
+    "bucket_name": {
+      "type": "string",
+      "required": false,
+      "description": "R2 存储桶名称 (默认从 tfvars 读取 buckets_name，兜底 test)",
+      "default": "test"
+    },
+    "bucket_path": {
+      "type": "string",
+      "required": false,
+      "description": "R2 存储桶内路径 (默认从 tfvars 读取 buckets_path)",
+      "default": ""
+    },
+    "filename": {
+      "type": "string",
+      "required": false,
+      "description": "要上传的文件名 (默认从 tfvars 读取 filename，兜底 default-config.yaml)",
+      "default": "default-config.yaml"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "redc-plugin-example",
+  "version": "1.0.0",
+  "description": "RedC 示例插件 — 展示插件开发的基本结构和功能",
+  "description_en": "RedC Example Plugin — Demonstrates basic plugin structure and features",
+  "author": "wgpsec",
+  "homepage": "https://github.com/wgpsec/redc-template",
+  "category": "example",
+  "tags": ["example", "demo", "tutorial"],
+  "min_redc_version": "3.1.0",
+  "capabilities": {
+    "hooks": {
+      "post-apply": "hooks/post-apply.sh",
+      "pre-destroy": "hooks/pre-destroy.sh"
+    }
+  },
+  "config_schema": {
+    "notify_url": {
+      "type": "string",
+      "required": false,
+      "description": "部署完成后的 Webhook 通知地址",
+      "default": ""
+    },
+    "enable_log": {
+      "type": "boolean",
+      "required": false,
+      "description": "是否记录详细日志到插件目录",
+      "default": "true"
+    }
+  }
+}

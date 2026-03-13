@@ -211,6 +211,116 @@ jobs:
           print(f'✨ Index updated.')
           "
 
+      # 3.5 构建插件索引和 ZIP 包
+      - name: Build Plugin Registry
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+        run: |
+          mkdir -p public/plugins
+          
+          python3 -c "
+          import os
+          import json
+          import shutil
+          import hashlib
+          import datetime
+
+          repo_owner = os.environ.get('REPO_OWNER')
+          base_url = f'https://redc.{repo_owner}.org'
+          plugins_src = 'plugins'
+          plugins_out = os.path.join('public', 'plugins')
+          
+          if not os.path.isdir(plugins_src):
+              print('⏩ No plugins/ directory, skipping')
+              exit(0)
+
+          os.makedirs(plugins_out, exist_ok=True)
+
+          # 加载已有的 registry (如果有)
+          prev_registry_url = f'{base_url}/plugins/plugin-registry.json'
+          prev_registry = {'version': 1, 'plugins': []}
+          prev_path = 'prev_plugin_registry.json'
+          os.system(f'curl -sL \"{prev_registry_url}\" -o {prev_path} 2>/dev/null || true')
+          try:
+              with open(prev_path, 'r') as f:
+                  prev_registry = json.load(f)
+          except:
+              pass
+
+          # 已有插件的 hash 缓存
+          prev_hashes = {}
+          for p in prev_registry.get('plugins', []):
+              if 'sha256' in p:
+                  prev_hashes[p['name']] = p['sha256']
+
+          plugins = []
+
+          for entry in sorted(os.listdir(plugins_src)):
+              plugin_dir = os.path.join(plugins_src, entry)
+              manifest_path = os.path.join(plugin_dir, 'plugin.json')
+              
+              if not os.path.isdir(plugin_dir) or not os.path.exists(manifest_path):
+                  continue
+              
+              try:
+                  with open(manifest_path, 'r', encoding='utf-8') as f:
+                      manifest = json.load(f)
+              except:
+                  print(f'⚠️ Invalid plugin.json in {entry}, skipping')
+                  continue
+              
+              name = manifest.get('name', entry)
+              version = manifest.get('version', '0.0.0')
+              zip_filename = f'{name}_v{version}.zip'
+              zip_path = os.path.join(plugins_out, zip_filename)
+
+              # 计算源码 hash
+              h = hashlib.sha256()
+              for root, dirs, files in sorted(os.walk(plugin_dir)):
+                  dirs.sort()
+                  for fn in sorted(files):
+                      fp = os.path.join(root, fn)
+                      rel = os.path.relpath(fp, plugin_dir)
+                      h.update(rel.encode())
+                      with open(fp, 'rb') as ff:
+                          for chunk in iter(lambda: ff.read(4096), b''):
+                              h.update(chunk)
+              src_hash = h.hexdigest()
+
+              # 只有内容变化才重新打包
+              if src_hash != prev_hashes.get(name, ''):
+                  print(f'🔨 Packaging plugin: {zip_filename}')
+                  shutil.make_archive(zip_path.replace('.zip', ''), 'zip', root_dir=plugin_dir)
+              else:
+                  print(f'⏩ Skipping plugin: {zip_filename} (unchanged)')
+
+              plugins.append({
+                  'name': name,
+                  'version': version,
+                  'description': manifest.get('description', ''),
+                  'description_en': manifest.get('description_en', ''),
+                  'author': manifest.get('author', ''),
+                  'category': manifest.get('category', ''),
+                  'tags': manifest.get('tags', []),
+                  'min_redc_version': manifest.get('min_redc_version', ''),
+                  'url': f'{base_url}/plugins/{zip_filename}',
+                  'sha256': src_hash
+              })
+
+          # 写入 plugin-registry.json
+          registry = {
+              'version': 1,
+              'updated': datetime.datetime.utcnow().strftime('%Y-%m-%d'),
+              'plugins': plugins
+          }
+          
+          registry_path = os.path.join(plugins_out, 'plugin-registry.json')
+          with open(registry_path, 'w', encoding='utf-8') as f:
+              json.dump(registry, f, indent=2, ensure_ascii=False)
+          
+          print(f'✨ Plugin registry updated: {len(plugins)} plugins')
+          "
+
       # 4. 部署 (Keep Files 模式)
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
