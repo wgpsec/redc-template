@@ -20,7 +20,7 @@
     },
     {
       "name": "redc-plugin-cloudflare-dns",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "description": "场景部署后自动更新 Cloudflare DNS A 记录指向实例 IP",
       "description_en": "Auto-update Cloudflare DNS A record to point to instance IP after deployment",
       "author": "wgpsec",
@@ -31,8 +31,8 @@
         "domain"
       ],
       "min_redc_version": "3.1.0",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-cloudflare-dns_v1.0.1.zip",
-      "sha256": "800be88ac92196ed4c78e4dcfa76cd4e6638287f7f402bf83e11e03762cbf49e"
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-cloudflare-dns_v1.0.2.zip",
+      "sha256": "29516428e166e3f0c2718acb02b351f275193e26dff64dfe9d866ca118b457fa"
     },
     {
       "name": "redc-plugin-example",
