@@ -1,7 +1,7 @@
 {
     "name":"dnslog",
     "user":"r0fus0d",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description":"AWS DNSLog 场景，ap-east-1 区域，t4g.nano 实例，内置 pdnslog 与前端静态资源，需配置 Cloudflare",
     "description_en":"AWS DNSLog scenario in ap-east-1 region with t4g.nano instance, built-in pdnslog and frontend static resources, requires Cloudflare configuration",
     "redc_plugins":"redc-plugin-cloudflare-dns",
