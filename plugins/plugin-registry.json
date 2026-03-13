@@ -4,7 +4,7 @@
   "plugins": [
     {
       "name": "redc-plugin-clash-config",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "description": "场景部署后自动生成 Clash (Shadowsocks) 代理配置文件",
       "description_en": "Auto-generate Clash proxy config (Shadowsocks) after deployment",
       "author": "wgpsec",
@@ -15,8 +15,8 @@
         "shadowsocks"
       ],
       "min_redc_version": "3.1.0",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-clash-config_v1.0.1.zip",
-      "sha256": "7af87fa8970b8d46bcbac931bf66cf9f9b1dafa7a13fd97886d9a8ead82558d6"
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-clash-config_v1.0.2.zip",
+      "sha256": "3d92e74e42b199d0e86bceb657742bcda91a8c7f6f871bef37bfe7b3047279e0"
     },
     {
       "name": "redc-plugin-cloudflare-dns",
