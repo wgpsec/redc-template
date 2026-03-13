@@ -4,6 +4,6 @@
     "version": "1.1.5",
     "description":"AWS 多节点代理场景（抢占式实例），ap-east-1 区域，默认 10 台 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash 配置",
     "description_en":"AWS multi-node proxy scenario (spot instances) in ap-east-1 region with 10 t4g.nano nodes (shadowsocks-libev) by default, supports R2 upload clash configuration",
-    "redc_module":"gen_clash_config,upload_r2",
+    "redc_plugins":"redc-plugin-clash-config,redc-plugin-upload-r2",
     "template": "preset"
 }

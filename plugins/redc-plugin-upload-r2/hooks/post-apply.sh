@@ -64,3 +64,6 @@ echo "[upload-r2] uploading: $FILENAME -> $REMOTE_DIR"
 rclone copy "$FILENAME" "$REMOTE_DIR"
 
 echo "[upload-r2] upload completed: ${REMOTE_DIR}${FILENAME}"
+
+# Output for GUI display
+echo "REDC_OUTPUT:r2_path=${REMOTE_DIR}${FILENAME}"

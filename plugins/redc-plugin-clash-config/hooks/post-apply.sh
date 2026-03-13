@@ -143,3 +143,7 @@ FOOTER
 echo "[clash-config] generated: $CONFIG_FILE ($(wc -l < "$CONFIG_FILE") lines)"
 echo "[clash-config] IPs: $(echo $IPS | tr '\n' ', ')"
 echo "[clash-config] port=$PORT, filename=$FILENAME"
+
+# Output for GUI display
+echo "REDC_OUTPUT:clash_config_file=$CONFIG_FILE"
+echo "REDC_OUTPUT:clash_node_count=$(echo "$IPS" | wc -w | tr -d ' ')"

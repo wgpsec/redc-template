@@ -128,3 +128,6 @@ ZONE_ID=$ZONE_ID
 RECORD_NAME=$RECORD_NAME
 EOF
 echo "[cf-dns] state saved to $STATE_FILE"
+
+# Output for GUI display
+echo "REDC_OUTPUT:dns_record=${RECORD_NAME} -> ${TARGET_IP}"
