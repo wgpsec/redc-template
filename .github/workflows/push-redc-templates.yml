@@ -114,7 +114,7 @@ jobs:
 
           # --- B. 遍历处理 ---
           repo_root = '.'
-          exclude = {'.git', '.github', 'public', 'previous_build', '.gitignore', 'index.html'}
+          exclude = {'.git', '.github', 'public', 'previous_build', '.gitignore', 'index.html', 'plugins'}
           
           # 标记本次构建是否有更新 (如果没有更新，甚至可以不提交 index.json，但为了更新时间戳还是提交吧)
           has_changes = False
