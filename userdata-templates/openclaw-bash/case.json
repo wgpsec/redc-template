@@ -4,10 +4,11 @@
   "type": "bash",
   "category": "ai",
   "user": "r0fus0d",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "url": "https://openclaw.ai/",
   "description": "开源 AI 编程助手",
   "description_en": "Open source AI programming assistant",
   "installNotes": "安装完成后，输入 openclaw onboard --install-daemon 命令配置",
+  "minMemoryMB": 4096,
   "template": "userdata"
 }

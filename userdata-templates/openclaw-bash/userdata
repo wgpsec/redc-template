@@ -1,3 +1,13 @@
 #!/bin/bash
 # OpenClaw 自动安装脚本
+# 修复阿里云 Debian bullseye-backports 源 404 问题
+sed -i '/bullseye-backports/d' /etc/apt/sources.list 2>/dev/null
+sed -i '/bullseye-backports/d' /etc/apt/sources.list.d/*.list 2>/dev/null
+# 等待云初始化释放 apt 锁
+for i in $(seq 1 30); do
+  if ! fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; then break; fi
+  echo "Waiting for apt lock... ($i/30)"
+  sleep 5
+done
+export DEBIAN_FRONTEND=noninteractive
 curl -fsSL https://openclaw.ai/install.sh | bash
