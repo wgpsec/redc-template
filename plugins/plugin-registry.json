@@ -4,7 +4,7 @@
   "plugins": [
     {
       "name": "redc-plugin-clash-config",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "场景部署后自动生成 Clash (Shadowsocks) 代理配置文件",
       "description_en": "Auto-generate Clash proxy config (Shadowsocks) after deployment",
       "author": "wgpsec",
@@ -15,12 +15,12 @@
         "shadowsocks"
       ],
       "min_redc_version": "3.1.0",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-clash-config_v1.0.0.zip",
-      "sha256": "a70bea5bc0370aa44cdcb1368dcbb5e9ee4876a40a9f4b09418202589da154be"
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-clash-config_v1.0.1.zip",
+      "sha256": "7af87fa8970b8d46bcbac931bf66cf9f9b1dafa7a13fd97886d9a8ead82558d6"
     },
     {
       "name": "redc-plugin-cloudflare-dns",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "场景部署后自动更新 Cloudflare DNS A 记录指向实例 IP",
       "description_en": "Auto-update Cloudflare DNS A record to point to instance IP after deployment",
       "author": "wgpsec",
@@ -31,8 +31,8 @@
         "domain"
       ],
       "min_redc_version": "3.1.0",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-cloudflare-dns_v1.0.0.zip",
-      "sha256": "edbdbc17993ffb5e14f3ec68e9ae20d277d8e5b86c75f39d8e42378936ea47f8"
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-cloudflare-dns_v1.0.1.zip",
+      "sha256": "800be88ac92196ed4c78e4dcfa76cd4e6638287f7f402bf83e11e03762cbf49e"
     },
     {
       "name": "redc-plugin-example",
@@ -52,7 +52,7 @@
     },
     {
       "name": "redc-plugin-upload-r2",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "场景部署后将生成的配置文件上传到 Cloudflare R2 存储桶",
       "description_en": "Upload generated config files to Cloudflare R2 bucket after deployment",
       "author": "wgpsec",
@@ -64,8 +64,8 @@
         "upload"
       ],
       "min_redc_version": "3.1.0",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-upload-r2_v1.0.0.zip",
-      "sha256": "7f4c8e0c04aecb20adbcd772dcea790f3d0068560123b52d44198229bc7ca7e3"
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-upload-r2_v1.0.1.zip",
+      "sha256": "24f77316b501b3e5faa584a41ea76ec056030fc646d7a293e89f9bbd3f41a370"
     }
   ]
 }
