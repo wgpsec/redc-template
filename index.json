@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-14T13:17:34.823790Z",
+  "updated_at": "2026-03-14T15:30:59.584872Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1617,6 +1617,25 @@
         "author": "r0fus0d",
         "description": "Metasploit 渗透测试框架，安装全球最流行的渗透测试工具",
         "readme": "# 场景使用\n\n1. 使用前请按照注意事项进行配置\n2. 使用方法：安装完成后运行以下命令\n\n启动 msfconsole：\n```\nmsfconsole\n```\n\n更新 Metasploit：\n```\nmsfupdate\n```\n\n# MSF 简介\n\nMetasploit (MSF) 是全球最流行的渗透测试框架，包含：\n\n- 漏洞利用模块 (Exploits)\n- 辅助模块 (Auxiliary)\n- 后渗透模块 (Post)\n- 载荷生成器 (Payloads)\n- 编码器 (Encoders)\n- 等等\n\n# 注意事项\n\n- 本工具仅供 **授权的渗透测试** 使用\n- 首次运行会初始化数据库\n- 可使用 `msfdb init` 初始化数据库\n"
+      }
+    },
+    "userdata-templates/shadowsocks-libev-bash": {
+      "id": "userdata-templates/shadowsocks-libev-bash",
+      "provider": "userdata-templates",
+      "slug": "shadowsocks-libev-bash",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_shadowsocks-libev-bash_v1.0.0.zip",
+          "sha256": "35b2022cdb73b9273ab0dfc0098e9d9ebe57e953c31e764a6bc9c380bdfc9d78",
+          "updated_at": "2026-03-14T15:30:59.584177Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "shadowsocks-libev-bash",
+        "author": "r0fus0d",
+        "description": "安装 shadowsocks-libev 代理服务，支持自定义端口和密码，启用 BBR 加速",
+        "readme": "# Shadowsocks-libev 代理\n\n安装 shadowsocks-libev 代理服务。\n\n## 环境变量\n\n| 变量 | 默认值 | 说明 |\n|------|--------|------|\n| `SS_PORT` | `10443` | 代理端口 |\n| `SS_PASSWORD` | `redc_proxy_default` | 代理密码 |\n| `SS_METHOD` | `chacha20-ietf-poly1305` | 加密方式 |\n\n## 使用场景\n\n从 `aliyun/proxy` 和 `aws/proxy` 预定义模板中提取，可独立用于任意 ECS/EC2 实例。\n\n部署后可配合 clash 配置使用，代理信息：\n- 类型：ss\n- 服务器：实例公网 IP\n- 端口：`SS_PORT`\n- 加密：`SS_METHOD`\n- 密码：`SS_PASSWORD`\n"
       }
     }
   }
