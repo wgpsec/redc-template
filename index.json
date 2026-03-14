@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-14T15:30:59.584872Z",
+  "updated_at": "2026-03-14T17:36:56.648395Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -279,13 +279,18 @@
           "url": "https://redc.wgpsec.org/templates/aws_dnslog_v1.1.1.zip",
           "sha256": "b254d80ac2b3d8470db6f836e7dd9eb788878097d1a81aab3b7424161547285e",
           "updated_at": "2026-03-13T10:14:48.333557Z"
+        },
+        "1.1.2": {
+          "url": "https://redc.wgpsec.org/templates/aws_dnslog_v1.1.2.zip",
+          "sha256": "280ec338af9eeb26d41b287c1e74631afc4453c41c5ea096c0a251c867f515c9",
+          "updated_at": "2026-03-14T17:36:56.637089Z"
         }
       },
-      "latest": "1.1.1",
+      "latest": "1.1.2",
       "metadata": {
         "name": "dnslog",
         "author": "r0fus0d",
-        "description": "AWS DNSLog 场景，ap-east-1 区域，t4g.nano 实例，内置 pdnslog 与前端静态资源，需配置 Cloudflare",
+        "description": "AWS DNSLog 场景，ap-east-1 区域，t4g.nano 实例，内置 pdnslog 与前端静态资源，需配置 Cloudflare（ARM64 架构）",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/dnslog\n```\n\n开启\n```\nredc run aws/dnslog -e domain=dnslog.com\n\n# domain 是你的 dnslog 域名\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n3. 如果未配置 cf api 该场景创建完毕后需要手动修改 cname\n\n# 静态资源\n\n可自行替换模板中的静态资源下载链接\n\n**dig.pm 配置**\n- https://github.com/yumusb/DNSLog-Platform-Golang\n\n可以用我编译好的版本 (没啥区别,也可以自己编译原版)\n- https://github.com/No-Github/pdnslog/releases/tag/v1.0.0\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**cf 配置**\n\n申请 API 令牌\n\n配置类似如下 (ip 先随便填一个)(域名加个 ns1)\n```\n# A ns1 1.2.34\n# NS a ns1.dnslog.com\n```\n\n**redc config.yaml 配置**\n\nconfig.yaml 中配置你的 cf 的 邮箱 和 accesskey\n\n若启动场景报错，可能原因\n1. 与 aws api 网络连接超时\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n4. cf 的 dns 配置不对\n5. cf 的 key 权限不够\n"
       }
     },
@@ -308,13 +313,18 @@
           "url": "https://redc.wgpsec.org/templates/aws_docker_v1.0.6.zip",
           "sha256": "f34e544fd29b0af9d7ead0fe5a26bec006d107fbb618004ffaaaa433ed248e7e",
           "updated_at": "2026-03-04T14:46:34.992502Z"
+        },
+        "1.0.7": {
+          "url": "https://redc.wgpsec.org/templates/aws_docker_v1.0.7.zip",
+          "sha256": "a8397471c028772a272b7655ca0e84d4e0dd3121a86875bddc801ec18794e2bb",
+          "updated_at": "2026-03-14T17:36:56.638058Z"
         }
       },
-      "latest": "1.0.6",
+      "latest": "1.0.7",
       "metadata": {
         "name": "docker",
         "author": "r0fus0d",
-        "description": "AWS Docker 基础场景，ap-east-1 区域，t3.medium 实例，预装 f8x 自动安装 Docker，tmux 后台拉起环境",
+        "description": "AWS Docker 基础场景，ap-east-1 区域，t3.medium 实例，预装 f8x 自动安装 Docker，tmux 后台拉起环境（x86_64 架构）",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/docker\n```\n\n开启\n```\nredc run aws/docker\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\ntmux 中可看安装进度\n\n若启动场景报错，可能原因\n1. 与 aws api 网络连接超时\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n"
       }
     },
@@ -337,13 +347,18 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2_v1.0.5.zip",
           "sha256": "0289e85e034992d821570b230435602811b3c518203393453956a0e270ca9164",
           "updated_at": "2026-03-04T14:46:34.993417Z"
+        },
+        "1.0.6": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2_v1.0.6.zip",
+          "sha256": "885f144f40f9b3f624a02952fa79e134c7637d98aff001dedb8e973463f238f9",
+          "updated_at": "2026-03-14T17:36:56.638997Z"
         }
       },
-      "latest": "1.0.5",
+      "latest": "1.0.6",
       "metadata": {
         "name": "ec2",
         "author": "r0fus0d",
-        "description": "AWS 通用 ECS 场景，ap-east-1 区域，t4g.small 实例，预装基础运维工具并屏蔽 169.254.169.254 元数据访问",
+        "description": "AWS 通用 ECS 场景，ap-east-1 区域，t4g.small 实例，预装基础运维工具并屏蔽 169.254.169.254 元数据访问（ARM64 架构）",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/ec2\n```\n\n开启\n```\nredc run aws/ec2\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n若启动场景报错，可能原因\n1. 与 aws api 网络连接超时\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n"
       }
     },
@@ -366,13 +381,18 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2-1G_v1.0.5.zip",
           "sha256": "930952175f4b349209e20a57dc70170b4801e2f933cb5fd985e8697b76eb8877",
           "updated_at": "2026-03-04T14:46:34.994353Z"
+        },
+        "1.0.6": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-1G_v1.0.6.zip",
+          "sha256": "4e36a614581bfad98c8f352773dad0cce5a2ba1ba7098f802df9241842b024a9",
+          "updated_at": "2026-03-14T17:36:56.639925Z"
         }
       },
-      "latest": "1.0.5",
+      "latest": "1.0.6",
       "metadata": {
         "name": "ec2-1G",
         "author": "r0fus0d",
-        "description": "AWS 轻量 ECS 场景，ap-east-1 区域，t4g.micro 实例，预装基础运维工具并屏蔽元数据访问",
+        "description": "AWS 轻量 ECS 场景，ap-east-1 区域，t4g.micro 实例，预装基础运维工具并屏蔽元数据访问（ARM64 架构）",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/ec2-1G\n```\n\n开启\n```\nredc run aws/ec2-1G\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n若启动场景报错，可能原因\n1. 与 aws api 网络连接超时\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n"
       }
     },
@@ -395,13 +415,18 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2-4G_v1.0.5.zip",
           "sha256": "39a977968f0847e4b0bc07d6d10bd6471de045032c79111c2022e7caa2b6babd",
           "updated_at": "2026-03-04T14:46:34.995248Z"
+        },
+        "1.0.6": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-4G_v1.0.6.zip",
+          "sha256": "c023bc81ae71b1670cb9392b6c1048218c5da46efcc70d9c85d9ff81d7c0f4a5",
+          "updated_at": "2026-03-14T17:36:56.640811Z"
         }
       },
-      "latest": "1.0.5",
+      "latest": "1.0.6",
       "metadata": {
         "name": "ec2-4G",
         "author": "r0fus0d",
-        "description": "AWS 增强 ECS 场景，ap-east-1 区域，t4g.medium 实例，预装基础运维工具并屏蔽元数据访问",
+        "description": "AWS 增强 ECS 场景，ap-east-1 区域，t4g.medium 实例，预装基础运维工具并屏蔽元数据访问（ARM64 架构）",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/ec2-4G\n```\n\n开启\n```\nredc run aws/ec2-4G\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n若启动场景报错，可能原因\n1. 与 aws api 网络连接超时\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n"
       }
     },
@@ -429,13 +454,18 @@
           "url": "https://redc.wgpsec.org/templates/aws_interactsh_v1.1.0.zip",
           "sha256": "feb4b1d8a149147ab702fdfdb5f7406123bbfdccfd6eb0d4f05da2ce4a0cf488",
           "updated_at": "2026-03-13T10:14:48.335064Z"
+        },
+        "1.1.1": {
+          "url": "https://redc.wgpsec.org/templates/aws_interactsh_v1.1.1.zip",
+          "sha256": "0b25c003b4ae2c7c670a19929d1604769c7213e8bc3131c7c8cf48e8bc97f6bd",
+          "updated_at": "2026-03-14T17:36:56.642934Z"
         }
       },
-      "latest": "1.1.0",
+      "latest": "1.1.1",
       "metadata": {
         "name": "interactsh",
         "author": "r0fus0d",
-        "description": "AWS Interactsh 场景，ap-east-1 区域，t4g.nano 实例，部署 interactsh-server，需提供域名并配置 Cloudflare",
+        "description": "AWS Interactsh 场景，ap-east-1 区域，t4g.nano 实例，部署 interactsh-server，需提供域名并配置 Cloudflare（ARM64 架构）",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/interactsh\n```\n\n开启\n```\nredc run aws/interactsh -e domain=dnslog.com\n\n# domain 是你的 dnslog 域名\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n3. 如果未配置 cf api 该场景创建完毕后需要手动修改 cname\n\n# 静态资源\n\n可自行替换模板中的静态资源下载链接\n\n**可自行替换 main.tf 中 interactsh-server 的压缩包下载地址**\n- https://github.com/projectdiscovery/interactsh/releases\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**cf 配置**\n\n申请 API 令牌\n\n配置类似如下 (ip 先随便填一个)(域名加个 ns1)\n```\n# A ns1 1.2.34\n# NS a ns1.dnslog.com\n```\n\n**redc config.yaml 配置**\n\nconfig.yaml 中配置你的 cf 的 邮箱 和 accesskey\n\n若启动场景报错，可能原因\n1. 与 aws api 网络连接超时\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n4. cf 的 dns 配置不对\n5. cf 的 key 权限不够\n"
       }
     },
@@ -458,13 +488,18 @@
           "url": "https://redc.wgpsec.org/templates/aws_md_v1.0.6.zip",
           "sha256": "13cac09a5a745d9412e2e4e77ef08fd99d8c2e1ef9b04a26651970f2570e2f67",
           "updated_at": "2026-03-04T14:46:34.997476Z"
+        },
+        "1.0.7": {
+          "url": "https://redc.wgpsec.org/templates/aws_md_v1.0.7.zip",
+          "sha256": "4531c1f7c58dea3ed5c273e4b0139070388347e9722edf1deca025a036534f7d",
+          "updated_at": "2026-03-14T17:36:56.644064Z"
         }
       },
-      "latest": "1.0.6",
+      "latest": "1.0.7",
       "metadata": {
         "name": "md",
         "author": "r0fus0d",
-        "description": "AWS HackMD/Docker 场景，ap-east-1 区域，t4g.medium 实例，f8x 安装 Docker 并通过自定义 docker-compose.yml 启动",
+        "description": "AWS HackMD/Docker 场景，ap-east-1 区域，t4g.medium 实例，f8x 安装 Docker 并通过自定义 docker-compose.yml 启动（ARM64 架构）",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/md\n```\n\n开启\n```\nredc run aws/md\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 静态资源\n\n可自行替换模板中的静态资源下载链接\n\n**docker-compose.yml 配置**\n- https://github.com/No-Github/Archive/releases/download/1.0.8/docker-compose.yml\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n若启动场景报错，可能原因\n1. 与 aws api 网络连接超时\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n4. f8x 自动安装 docker 失败\n"
       }
     },
@@ -502,13 +537,18 @@
           "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.1.6.zip",
           "sha256": "d1e608fc55754e5c408c82de82c765424457752312b4c8f703d4035ebed7547b",
           "updated_at": "2026-03-13T10:14:48.336426Z"
+        },
+        "1.1.7": {
+          "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.1.7.zip",
+          "sha256": "4db9296eee29c6628fe2093298c4e909cc10c3a301478e4c868bc66f342dad3f",
+          "updated_at": "2026-03-14T17:36:56.645276Z"
         }
       },
-      "latest": "1.1.6",
+      "latest": "1.1.7",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
-        "description": "AWS 多节点代理场景（抢占式实例），ap-east-1 区域，默认 10 台 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash 配置",
+        "description": "AWS 多节点代理场景（抢占式实例），ap-east-1 区域，默认 10 台 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash 配置（ARM64 架构）",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/proxy\n```\n\n开启\n```\n# 默认 10 台\nredc run aws/proxy\n\n# 通过 -e 参数，进行自定义节点数量,比如开 10 个节点\nredc run aws/proxy -e node=10\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n3. 如果未配置 r2 上传，可以在本地查看 clash 的配置文件\n\n# 注意事项\n\n**r2 配置**\n\ndeploy.sh 中的 upload_to_r2 函数负责将 clash 配置传至 r2\n\n请自行安装 rclone 并设置 rclone 与 r2 的配置\n- https://github.com/rclone/rclone/releases\n- https://dash.cloudflare.com/ 的 r2\n\n![](../../img/redc-1.png)\n\n```\nrclone config\ns3\nCloudflare R2 Storage\nxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nhttps://xxxxxxxxxxxxxxxxxx.r2.cloudflarestorage.com\nauto\n\nrclone lsf r2:test\n```\n\n**可自行替换 deploy.sh 中 upload_to_r2 函数的配置下载地址**\n\n对应\n```\necho \"url : https://这里改成你的 r2 地址/proxyfile/aws-config.yaml\"\n```\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n若启动场景报错，可能原因\n1. 与 aws api 网络连接超时\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n4. rclone配置不正确\n5. r2 存储桶名称和配置不一致\n"
       }
     },
@@ -1571,13 +1611,18 @@
           "url": "https://redc.wgpsec.org/templates/aws_MHDDoS_v0.0.1.zip",
           "sha256": "0bb1dbd46583fb347041c6f236aad8e41c9770914d2379dc8368e4c4ca095606",
           "updated_at": "2026-03-05T07:59:34.561289Z"
+        },
+        "0.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aws_MHDDoS_v0.0.2.zip",
+          "sha256": "0f5a961beb4bf770bef0b3733d51bfa4d81b87a887370a067d5a4e34636b000f",
+          "updated_at": "2026-03-14T17:36:56.635588Z"
         }
       },
-      "latest": "0.0.1",
+      "latest": "0.0.2",
       "metadata": {
         "name": "MHDDoS",
         "author": "r0fus0d",
-        "description": "MHDDoS 分布式拒绝服务攻击工具，支持多种攻击模式（SOCKS5 代理、TCP、UDP、HTTP 等），适用于渗透测试场景，慎用，价格昂贵,1T 1k",
+        "description": "MHDDoS 分布式拒绝服务攻击工具，支持多种攻击模式（SOCKS5 代理、TCP、UDP、HTTP 等），适用于渗透测试场景，慎用，价格昂贵,1T 1k（ARM64 架构）",
         "readme": "# 场景使用\n\n1. 使用前请 **一定** 按照注意事项里内容进行配置 (若空则无需配置)\n2. 使用时命令如下\n\n拉取\n```\nredc pull aws/MHDDoS\n```\n\n开启\n```\nredc run aws/MHDDoS\n```\n\n查询\n```\nredc status [uuid]\n```\n\n关闭\n```\nredc stop [uuid]\n```\n\n# 参数说明\n\n| 参数 | 说明 | 默认值 |\n|------|------|--------|\n| node | 节点数量 | 1 |\n| ddos_target | 攻击目标 (IP 或域名) | - |\n| ddos_threads | 攻击线程数 | 100 |\n| ddos_time | 攻击持续时间 (秒) | 3600 |\n| ddos_mode | 攻击模式 (layer7/layer4) | layer7 |\n\n# 攻击模式说明\n\n- **layer7**: HTTP Flood, GET/POST 洪水攻击\n- **layer4**: TCP/UDP 洪水攻击\n\n# 注意事项\n\n**区域配置**\n\naws 开启 ap-east-1 (香港) 区域\n\n![](../../img/redc-2.png)\n\n![](../../img/redc-3.png)\n\n**使用限制**\n\n本工具仅供 **授权的渗透测试** 使用，未经目标授权的 DDoS 攻击是违法行为。\n\n若启动场景报错，可能原因\n1. 与 aws api 网络连接超时\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n"
       }
     },
@@ -1636,6 +1681,25 @@
         "author": "r0fus0d",
         "description": "安装 shadowsocks-libev 代理服务，支持自定义端口和密码，启用 BBR 加速",
         "readme": "# Shadowsocks-libev 代理\n\n安装 shadowsocks-libev 代理服务。\n\n## 环境变量\n\n| 变量 | 默认值 | 说明 |\n|------|--------|------|\n| `SS_PORT` | `10443` | 代理端口 |\n| `SS_PASSWORD` | `redc_proxy_default` | 代理密码 |\n| `SS_METHOD` | `chacha20-ietf-poly1305` | 加密方式 |\n\n## 使用场景\n\n从 `aliyun/proxy` 和 `aws/proxy` 预定义模板中提取，可独立用于任意 ECS/EC2 实例。\n\n部署后可配合 clash 配置使用，代理信息：\n- 类型：ss\n- 服务器：实例公网 IP\n- 端口：`SS_PORT`\n- 加密：`SS_METHOD`\n- 密码：`SS_PASSWORD`\n"
+      }
+    },
+    "aws/ec2-x86": {
+      "id": "aws/ec2-x86",
+      "provider": "aws",
+      "slug": "ec2-x86",
+      "versions": {
+        "1.0.0": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-x86_v1.0.0.zip",
+          "sha256": "8885e7625e521b71cf1b5bf4cbd6365138771fc22298ba0f0b9c53fff3eacd78",
+          "updated_at": "2026-03-14T17:36:56.641811Z"
+        }
+      },
+      "latest": "1.0.0",
+      "metadata": {
+        "name": "ec2-x86",
+        "author": "r0fus0d",
+        "description": "AWS x86 通用场景，ap-east-1 区域，t3.medium 实例（x86_64 架构），适用于需要 x86 兼容性的 Docker 镜像和软件部署",
+        "readme": "# AWS EC2 x86 通用场景\n\nap-east-1 区域，t3.medium 实例（x86_64 架构，2C4G），预装基础运维工具。\n\n适用于需要 x86 兼容性的部署场景，如 VulHub 漏洞环境、仅提供 x86 Docker 镜像的项目。\n\n## 配置\n\n| 参数 | 值 |\n|------|------|\n| 区域 | ap-east-1 (香港) |\n| 实例类型 | t3.medium |\n| 架构 | x86_64 |\n| 系统盘 | 20GB gp3 |\n| AMI | Debian (x86_64) |\n\n## 常见问题\n\n1. 创建实例后 SSH 连不上：实例刚启动需要 1-2 分钟初始化\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n"
       }
     }
   }
