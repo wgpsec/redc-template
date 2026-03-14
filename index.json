@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-13T12:14:38.913849Z",
+  "updated_at": "2026-03-14T13:17:34.823790Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -1141,9 +1141,14 @@
           "url": "https://redc.wgpsec.org/templates/userdata-templates_openclaw-bash_v1.0.4.zip",
           "sha256": "d73358a39c79c6420d8f8e01e0c3ac680c46e247f81c26180889d864a40269bf",
           "updated_at": "2026-03-04T14:46:35.022526Z"
+        },
+        "1.0.5": {
+          "url": "https://redc.wgpsec.org/templates/userdata-templates_openclaw-bash_v1.0.5.zip",
+          "sha256": "aa58057b1557453ed631240ee53ade261e1f7f85045aa59e54963d61defc528b",
+          "updated_at": "2026-03-14T13:17:34.822933Z"
         }
       },
-      "latest": "1.0.4",
+      "latest": "1.0.5",
       "metadata": {
         "name": "openclaw-bash",
         "author": "r0fus0d",
