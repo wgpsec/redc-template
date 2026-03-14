@@ -1,8 +1,9 @@
 {
-    "name":"md",
-    "user":"r0fus0d",
-    "version": "1.0.6",
-    "description":"AWS HackMD/Docker 场景，ap-east-1 区域，t4g.medium 实例，f8x 安装 Docker 并通过自定义 docker-compose.yml 启动",
-    "description_en":"AWS HackMD/Docker scenario in ap-east-1 region with t4g.medium instance, f8x installs Docker and starts via custom docker-compose.yml",
-    "template": "preset"
+    "name": "md",
+    "user": "r0fus0d",
+    "version": "1.0.7",
+    "description": "AWS HackMD/Docker 场景，ap-east-1 区域，t4g.medium 实例，f8x 安装 Docker 并通过自定义 docker-compose.yml 启动（ARM64 架构）",
+    "description_en": "AWS HackMD/Docker scenario in ap-east-1 region with t4g.medium instance, f8x installs Docker and starts via custom docker-compose.yml (ARM64 architecture)",
+    "template": "preset",
+    "arch": "ARM64"
 }

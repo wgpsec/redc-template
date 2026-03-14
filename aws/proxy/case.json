@@ -1,9 +1,10 @@
 {
-    "name":"proxy",
-    "user":"r0fus0d",
-    "version": "1.1.6",
-    "description":"AWS 多节点代理场景（抢占式实例），ap-east-1 区域，默认 10 台 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash 配置",
-    "description_en":"AWS multi-node proxy scenario (spot instances) in ap-east-1 region with 10 t4g.nano nodes (shadowsocks-libev) by default, supports R2 upload clash configuration",
-    "redc_plugins":"redc-plugin-clash-config,redc-plugin-upload-r2",
-    "template": "preset"
+    "name": "proxy",
+    "user": "r0fus0d",
+    "version": "1.1.7",
+    "description": "AWS 多节点代理场景（抢占式实例），ap-east-1 区域，默认 10 台 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash 配置（ARM64 架构）",
+    "description_en": "AWS multi-node proxy scenario (spot instances) in ap-east-1 region with 10 t4g.nano nodes (shadowsocks-libev) by default, supports R2 upload clash configuration (ARM64 architecture)",
+    "redc_plugins": "redc-plugin-clash-config,redc-plugin-upload-r2",
+    "template": "preset",
+    "arch": "ARM64"
 }
