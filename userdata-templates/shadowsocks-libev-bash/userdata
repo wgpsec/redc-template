@@ -1,0 +1,35 @@
+#!/bin/bash
+export DEBIAN_FRONTEND=noninteractive
+
+# Wait for apt lock
+while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do sleep 2; done
+
+SS_PORT="${SS_PORT:-10443}"
+SS_PASSWORD="${SS_PASSWORD:-redc_proxy_default}"
+SS_METHOD="${SS_METHOD:-chacha20-ietf-poly1305}"
+
+apt-get update -y
+apt-get install -y shadowsocks-libev
+
+# Generate config
+cat > /etc/shadowsocks-libev/config.json <<SSEOF
+{
+    "server": ["0.0.0.0"],
+    "server_port": ${SS_PORT},
+    "method": "${SS_METHOD}",
+    "password": "${SS_PASSWORD}",
+    "mode": "tcp_and_udp",
+    "fast_open": false
+}
+SSEOF
+
+# Enable BBR
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
+
+# Start service
+systemctl restart shadowsocks-libev
+systemctl enable shadowsocks-libev
+
+echo "Shadowsocks-libev installed: port=${SS_PORT} method=${SS_METHOD}"
