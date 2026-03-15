@@ -1,13 +1,14 @@
 {
-    "name": "ecs",
-    "description": "天翼云 ECS 实例",
-    "description_en": "CTyun ECS instance",
-    "version": "1.0.4",
-    "user": "r0fus0d",
-    "provider": "ctyun",
-    "template": "preset",
-    "tags": [
-        "base",
-        "infra"
-    ]
+  "name": "ecs",
+  "arch": "x86_64",
+  "description": "天翼云 ECS 实例",
+  "description_en": "CTyun ECS instance",
+  "version": "1.0.5",
+  "user": "r0fus0d",
+  "provider": "ctyun",
+  "template": "preset",
+  "tags": [
+    "base",
+    "infra"
+  ]
 }

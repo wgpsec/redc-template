@@ -1,12 +1,13 @@
 {
-    "name": "compute_instance",
-    "user": "r0fus0d",
-    "version": "1.0.3",
-    "description": "GCP Compute Engine 实例，us-central1 区域，默认 e2-micro 实例，可自定义实例类型、镜像等参数",
-    "description_en": "GCP Compute Engine instance in us-central1 region with default e2-micro instance, customizable instance type, image and other parameters",
-    "template": "preset",
-    "tags": [
-        "base",
-        "infra"
-    ]
+  "name": "compute_instance",
+  "arch": "x86_64",
+  "user": "r0fus0d",
+  "version": "1.0.4",
+  "description": "GCP Compute Engine 实例，us-central1 区域，默认 e2-micro 实例，可自定义实例类型、镜像等参数",
+  "description_en": "GCP Compute Engine instance in us-central1 region with default e2-micro instance, customizable instance type, image and other parameters",
+  "template": "preset",
+  "tags": [
+    "base",
+    "infra"
+  ]
 }

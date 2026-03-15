@@ -33,3 +33,8 @@ output "ssh_user" {
   value       = "root"
   description = "SSH login username"
 }
+
+output "ssh_command" {
+  description = "SSH 连接命令"
+  value       = "ssh root@${huaweicloud_compute_eip_associate.associated.public_ip}"
+}

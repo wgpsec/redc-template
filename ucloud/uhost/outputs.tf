@@ -28,3 +28,8 @@ output "ssh_password" {
   value       = var.instance_password
   sensitive   = true
 }
+
+output "ssh_command" {
+  description = "SSH 连接命令"
+  value       = "ssh root@${ucloud_eip.web-eip.public_ip}"
+}

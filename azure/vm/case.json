@@ -1,12 +1,13 @@
 {
-    "name": "vm",
-    "user": "r0fus0d",
-    "version": "0.0.3",
-    "description": "Azure VM 实例，该场景测试由于配额问题未跑通，仅记录参考",
-    "description_en": "Azure VM instance, this scenario was not tested successfully due to quota issues, for reference only",
-    "template": "preset",
-    "tags": [
-        "base",
-        "infra"
-    ]
+  "name": "vm",
+  "arch": "x86_64",
+  "user": "r0fus0d",
+  "version": "0.0.4",
+  "description": "Azure VM 实例，该场景测试由于配额问题未跑通，仅记录参考",
+  "description_en": "Azure VM instance, this scenario was not tested successfully due to quota issues, for reference only",
+  "template": "preset",
+  "tags": [
+    "base",
+    "infra"
+  ]
 }

@@ -135,6 +135,7 @@ jobs:
                   
                   # 1. 读取本地最新信息
                   meta_name = template; meta_user = 'Unknown'; meta_desc = 'No description.'; meta_version = '0.0.0'
+                  meta_desc_en = ''; meta_tags = []
                   case_path = os.path.join(template_path, 'case.json')
                   try:
                       if os.path.exists(case_path):
@@ -144,6 +145,8 @@ jobs:
                               meta_user = c.get('user', 'Unknown')
                               meta_desc = c.get('description', 'No description.')
                               meta_version = c.get('version', '0.0.0')
+                              meta_desc_en = c.get('description_en', '')
+                              meta_tags = c.get('tags', [])
                   except: pass
 
                   # 读取 README
@@ -163,7 +166,8 @@ jobs:
                   # 总是更新通用元数据 (Title/Desc/Readme)
                   manifest_data[template_id]['latest'] = meta_version
                   manifest_data[template_id]['metadata'] = {
-                      'name': meta_name, 'author': meta_user, 'description': meta_desc, 'readme': readme_content
+                      'name': meta_name, 'author': meta_user, 'description': meta_desc,
+                      'description_en': meta_desc_en, 'tags': meta_tags, 'readme': readme_content
                   }
 
                   # 3. 检查版本是否存在

@@ -35,10 +35,12 @@ jobs:
           
           # case.json 必须存在的字段
           REQUIRED_FIELDS = {
-              'name':        '模版名称 (name)',
-              'user':        '作者 (user)',
-              'version':     '版本号 (version)',
-              'description': '描述信息 (description)'
+              'name':           '模版名称 (name)',
+              'user':           '作者 (user)',
+              'version':        '版本号 (version)',
+              'description':    '描述信息 (description)',
+              'description_en': '英文描述 (description_en)',
+              'tags':           '标签 (tags)'
           }
 
           repo_root = '.'
@@ -119,6 +121,15 @@ jobs:
                                       has_error = True
                                   elif ver.strip() == '':
                                       print(f'❌ [JSON] {template_id}: Field \"version\" cannot be empty')
+                                      has_error = True
+
+                                  if not data['description_en'] or str(data['description_en']).strip() == '':
+                                      print(f'❌ [JSON] {template_id}: Field \"description_en\" cannot be empty')
+                                      has_error = True
+
+                                  tags = data['tags']
+                                  if not isinstance(tags, list) or len(tags) == 0:
+                                      print(f'❌ [JSON] {template_id}: Field \"tags\" must be a non-empty list')
                                       has_error = True
 
                       except json.JSONDecodeError as e:

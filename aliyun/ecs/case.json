@@ -1,12 +1,13 @@
 {
-    "name": "ecs",
-    "user": "r0fus0d",
-    "version": "1.0.6",
-    "description": "引擎内嵌的阿里云 ecs 场景，仅作参考模板使用",
-    "description_en": "Aliyun ECS scenario embedded in the engine, for reference only",
-    "template": "preset",
-    "tags": [
-        "base",
-        "infra"
-    ]
+  "name": "ecs",
+  "arch": "x86_64",
+  "user": "r0fus0d",
+  "version": "1.0.7",
+  "description": "引擎内嵌的阿里云 ecs 场景，仅作参考模板使用",
+  "description_en": "Aliyun ECS scenario embedded in the engine, for reference only",
+  "template": "preset",
+  "tags": [
+    "base",
+    "infra"
+  ]
 }

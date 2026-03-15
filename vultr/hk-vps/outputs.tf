@@ -35,3 +35,7 @@ output "ssh_user" {
   value       = "root"
   description = "SSH login username"
 }
+output "ssh_command" {
+  description = "SSH 连接命令"
+  value       = "ssh root@${vultr_instance.test.main_ip}"
+}

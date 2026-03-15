@@ -24,3 +24,8 @@ output "ssh_password" {
   sensitive   = true
 
 }
+
+output "ssh_command" {
+  description = "SSH 连接命令"
+  value       = "ssh root@${ctyun_ecs.test.eip_address}"
+}
