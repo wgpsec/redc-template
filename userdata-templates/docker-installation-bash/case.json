@@ -1,11 +1,15 @@
 {
-  "name": "docker-installation-bash",
-  "nameZh": "Docker 安装",
-  "type": "bash",
-  "category": "basic",
-  "user": "r0fus0d",
-  "version": "1.0.3",
-  "description": "安装 Docker 引擎",
-  "description_en": "Install Docker Engine",
-  "template": "userdata"
+    "name": "docker-installation-bash",
+    "nameZh": "Docker 安装",
+    "type": "bash",
+    "category": "basic",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "安装 Docker 引擎",
+    "description_en": "Install Docker Engine",
+    "template": "userdata",
+    "tags": [
+        "docker",
+        "base"
+    ]
 }

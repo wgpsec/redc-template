@@ -1,11 +1,14 @@
 {
-  "name": "vscode-installation-powershell",
-  "nameZh": "VSCode 安装",
-  "type": "powershell",
-  "category": "basic",
-  "user": "r0fus0d",
-  "version": "1.0.3",
-  "description": "安装 Visual Studio Code",
-  "description_en": "Install Visual Studio Code",
-  "template": "userdata"
+    "name": "vscode-installation-powershell",
+    "nameZh": "VSCode 安装",
+    "type": "powershell",
+    "category": "basic",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "安装 Visual Studio Code",
+    "description_en": "Install Visual Studio Code",
+    "template": "userdata",
+    "tags": [
+        "base"
+    ]
 }

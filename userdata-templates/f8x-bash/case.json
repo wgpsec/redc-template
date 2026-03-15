@@ -1,11 +1,14 @@
 {
-  "name": "f8x-bash",
-  "nameZh": "f8x 渗透测试工具集",
-  "type": "bash",
-  "category": "tool",
-  "user": "r0fus0d",
-  "version": "1.0.0",
-  "description": "f8x 渗透测试工具集，一键部署多种渗透测试工具",
-  "description_en": "f8x penetration testing toolkit, one-click deployment of multiple penetration testing tools",
-  "template": "userdata"
+    "name": "f8x-bash",
+    "nameZh": "f8x 渗透测试工具集",
+    "type": "bash",
+    "category": "tool",
+    "user": "r0fus0d",
+    "version": "1.0.1",
+    "description": "f8x 渗透测试工具集，一键部署多种渗透测试工具",
+    "description_en": "f8x penetration testing toolkit, one-click deployment of multiple penetration testing tools",
+    "template": "userdata",
+    "tags": [
+        "base"
+    ]
 }

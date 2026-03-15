@@ -1,8 +1,12 @@
 {
-    "name":"ecs1c2g",
-    "user":"r0fus0d",
-    "version": "1.0.5",
-    "description":"阿里云 ecs 场景，采用 ecs.n1.small 规格, 1核 2G 20G存储",
-    "description_en":"Aliyun ECS scenario with ecs.n1.small specification, 1 core 2GB RAM 20GB storage",
-    "template": "preset"
+    "name": "ecs1c2g",
+    "user": "r0fus0d",
+    "version": "1.0.6",
+    "description": "阿里云 ecs 场景，采用 ecs.n1.small 规格, 1核 2G 20G存储",
+    "description_en": "Aliyun ECS scenario with ecs.n1.small specification, 1 core 2GB RAM 20GB storage",
+    "template": "preset",
+    "tags": [
+        "base",
+        "infra"
+    ]
 }

@@ -1,11 +1,14 @@
 {
-  "name": "iis-installation-powershell",
-  "nameZh": "IIS 安装",
-  "type": "powershell",
-  "category": "basic",
-  "user": "r0fus0d",
-  "version": "1.0.3",
-  "description": "安装 IIS Web 服务器",
-  "description_en": "Install IIS Web server",
-  "template": "userdata"
+    "name": "iis-installation-powershell",
+    "nameZh": "IIS 安装",
+    "type": "powershell",
+    "category": "basic",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "安装 IIS Web 服务器",
+    "description_en": "Install IIS Web server",
+    "template": "userdata",
+    "tags": [
+        "base"
+    ]
 }

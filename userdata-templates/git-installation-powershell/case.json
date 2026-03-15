@@ -1,11 +1,14 @@
 {
-  "name": "git-installation-powershell",
-  "nameZh": "Git 安装",
-  "type": "powershell",
-  "category": "basic",
-  "user": "r0fus0d",
-  "version": "1.0.3",
-  "description": "安装 Git 版本控制工具",
-  "description_en": "Install Git version control tool",
-  "template": "userdata"
+    "name": "git-installation-powershell",
+    "nameZh": "Git 安装",
+    "type": "powershell",
+    "category": "basic",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "安装 Git 版本控制工具",
+    "description_en": "Install Git version control tool",
+    "template": "userdata",
+    "tags": [
+        "base"
+    ]
 }

@@ -1,8 +1,12 @@
 {
-  "name": "compose-example",
-  "user": "r0fus0d",
-  "version": "1.0.2",
-  "description": "Compose 示例",
-  "description_en": "Compose example",
-  "template": "compose"
+    "name": "compose-example",
+    "user": "r0fus0d",
+    "version": "1.0.3",
+    "description": "Compose 示例",
+    "description_en": "Compose example",
+    "template": "compose",
+    "tags": [
+        "docker",
+        "base"
+    ]
 }

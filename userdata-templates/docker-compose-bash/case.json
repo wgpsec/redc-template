@@ -1,11 +1,15 @@
 {
-  "name": "docker-compose-bash",
-  "nameZh": "Docker Compose 安装",
-  "type": "bash",
-  "category": "basic",
-  "user": "r0fus0d",
-  "version": "1.0.3",
-  "description": "安装 Docker Compose",
-  "description_en": "Install Docker Compose",
-  "template": "userdata"
+    "name": "docker-compose-bash",
+    "nameZh": "Docker Compose 安装",
+    "type": "bash",
+    "category": "basic",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "安装 Docker Compose",
+    "description_en": "Install Docker Compose",
+    "template": "userdata",
+    "tags": [
+        "docker",
+        "base"
+    ]
 }

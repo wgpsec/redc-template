@@ -1,11 +1,14 @@
 {
-  "name": "basic-setup-powershell",
-  "nameZh": "基础设置",
-  "type": "powershell",
-  "category": "basic",
-  "user": "r0fus0d",
-  "version": "1.0.3",
-  "description": "基础系统设置，安装 Chocolatey",
-  "description_en": "Basic system setup with Chocolatey installation",
-  "template": "userdata"
+    "name": "basic-setup-powershell",
+    "nameZh": "基础设置",
+    "type": "powershell",
+    "category": "basic",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "基础系统设置，安装 Chocolatey",
+    "description_en": "Basic system setup with Chocolatey installation",
+    "template": "userdata",
+    "tags": [
+        "base"
+    ]
 }

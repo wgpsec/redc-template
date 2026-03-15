@@ -1,11 +1,14 @@
 {
-  "name": "shadowsocks-libev-bash",
-  "nameZh": "Shadowsocks-libev 代理",
-  "type": "bash",
-  "category": "proxy",
-  "user": "r0fus0d",
-  "version": "1.0.0",
-  "description": "安装 shadowsocks-libev 代理服务，支持自定义端口和密码，启用 BBR 加速",
-  "description_en": "Install shadowsocks-libev proxy with custom port/password and BBR acceleration",
-  "template": "userdata"
+    "name": "shadowsocks-libev-bash",
+    "nameZh": "Shadowsocks-libev 代理",
+    "type": "bash",
+    "category": "proxy",
+    "user": "r0fus0d",
+    "version": "1.0.1",
+    "description": "安装 shadowsocks-libev 代理服务，支持自定义端口和密码，启用 BBR 加速",
+    "description_en": "Install shadowsocks-libev proxy with custom port/password and BBR acceleration",
+    "template": "userdata",
+    "tags": [
+        "proxy"
+    ]
 }

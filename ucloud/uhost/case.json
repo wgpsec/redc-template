@@ -1,9 +1,13 @@
 {
-  "name": "uhost",
-  "description": "UCloud UHost 实例",
-  "description_en": "UCloud UHost instance",
-  "version": "1.0.2",
-  "user": "r0fus0d",
-  "provider": "ucloud",
-  "template": "preset"
+    "name": "uhost",
+    "description": "UCloud UHost 实例",
+    "description_en": "UCloud UHost instance",
+    "version": "1.0.3",
+    "user": "r0fus0d",
+    "provider": "ucloud",
+    "template": "preset",
+    "tags": [
+        "base",
+        "infra"
+    ]
 }

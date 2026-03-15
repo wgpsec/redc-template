@@ -1,11 +1,15 @@
 {
-  "name": "docker-desktop-powershell",
-  "nameZh": "Docker Desktop 安装",
-  "type": "powershell",
-  "category": "basic",
-  "user": "r0fus0d",
-  "version": "1.0.3",
-  "description": "安装 Docker Desktop",
-  "description_en": "Install Docker Desktop",
-  "template": "userdata"
+    "name": "docker-desktop-powershell",
+    "nameZh": "Docker Desktop 安装",
+    "type": "powershell",
+    "category": "basic",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "安装 Docker Desktop",
+    "description_en": "Install Docker Desktop",
+    "template": "userdata",
+    "tags": [
+        "docker",
+        "base"
+    ]
 }

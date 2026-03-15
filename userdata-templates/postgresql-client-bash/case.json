@@ -1,11 +1,14 @@
 {
-  "name": "postgresql-client-bash",
-  "nameZh": "PostgreSQL 客户端安装",
-  "type": "bash",
-  "category": "basic",
-  "user": "r0fus0d",
-  "version": "1.0.3",
-  "description": "安装 PostgreSQL 客户端",
-  "description_en": "Install PostgreSQL client",
-  "template": "userdata"
+    "name": "postgresql-client-bash",
+    "nameZh": "PostgreSQL 客户端安装",
+    "type": "bash",
+    "category": "basic",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "安装 PostgreSQL 客户端",
+    "description_en": "Install PostgreSQL client",
+    "template": "userdata",
+    "tags": [
+        "base"
+    ]
 }

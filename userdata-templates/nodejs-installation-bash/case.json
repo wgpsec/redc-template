@@ -1,11 +1,14 @@
 {
-  "name": "nodejs-installation-bash",
-  "nameZh": "Node.js 安装",
-  "type": "bash",
-  "category": "basic",
-  "user": "r0fus0d",
-  "version": "1.0.3",
-  "description": "安装 Node.js 18.x",
-  "description_en": "Install Node.js 18.x",
-  "template": "userdata"
+    "name": "nodejs-installation-bash",
+    "nameZh": "Node.js 安装",
+    "type": "bash",
+    "category": "basic",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "安装 Node.js 18.x",
+    "description_en": "Install Node.js 18.x",
+    "template": "userdata",
+    "tags": [
+        "base"
+    ]
 }

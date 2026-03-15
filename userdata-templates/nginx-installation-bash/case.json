@@ -1,11 +1,14 @@
 {
-  "name": "nginx-installation-bash",
-  "nameZh": "Nginx 安装",
-  "type": "bash",
-  "category": "basic",
-  "user": "r0fus0d",
-  "version": "1.0.3",
-  "description": "安装 Nginx Web 服务器",
-  "description_en": "Install Nginx Web server",
-  "template": "userdata"
+    "name": "nginx-installation-bash",
+    "nameZh": "Nginx 安装",
+    "type": "bash",
+    "category": "basic",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "安装 Nginx Web 服务器",
+    "description_en": "Install Nginx Web server",
+    "template": "userdata",
+    "tags": [
+        "base"
+    ]
 }

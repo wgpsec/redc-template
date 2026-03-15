@@ -1,8 +1,12 @@
 {
-    "name":"hk-vps",
-    "user":"r0fus0d",
-    "version": "1.0.3",
-    "description":"Vultr VPS 场景，plan vc2-1c-2gb，区域 sgp，使用 init.sh 启动脚本自动初始化",
-    "description_en":"Vultr VPS scenario with plan vc2-1c-2gb in sgp region, automatically initialized using init.sh startup script",
-    "template": "preset"
+    "name": "hk-vps",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "Vultr VPS 场景，plan vc2-1c-2gb，区域 sgp，使用 init.sh 启动脚本自动初始化",
+    "description_en": "Vultr VPS scenario with plan vc2-1c-2gb in sgp region, automatically initialized using init.sh startup script",
+    "template": "preset",
+    "tags": [
+        "base",
+        "infra"
+    ]
 }

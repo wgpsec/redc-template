@@ -1,11 +1,14 @@
 {
-  "name": "mysql-client-bash",
-  "nameZh": "MySQL 客户端安装",
-  "type": "bash",
-  "category": "basic",
-  "user": "r0fus0d",
-  "version": "1.0.3",
-  "description": "安装 MySQL 客户端",
-  "description_en": "Install MySQL client",
-  "template": "userdata"
+    "name": "mysql-client-bash",
+    "nameZh": "MySQL 客户端安装",
+    "type": "bash",
+    "category": "basic",
+    "user": "r0fus0d",
+    "version": "1.0.4",
+    "description": "安装 MySQL 客户端",
+    "description_en": "Install MySQL client",
+    "template": "userdata",
+    "tags": [
+        "base"
+    ]
 }

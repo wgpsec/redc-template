@@ -1,8 +1,12 @@
 {
-    "name":"file",
-    "user":"r0fus0d",
-    "version": "1.0.6",
-    "description":"腾讯云文件服务场景，ap-beijing 区域，S6 2C4G 实例，预装 simplehttpserver 工具",
-    "description_en":"Tencent Cloud file service scenario in ap-beijing region with S6 2C4G instance, pre-installed simplehttpserver tool",
-    "template": "preset"
+    "name": "file",
+    "user": "r0fus0d",
+    "version": "1.0.7",
+    "description": "腾讯云文件服务场景，ap-beijing 区域，S6 2C4G 实例，预装 simplehttpserver 工具",
+    "description_en": "Tencent Cloud file service scenario in ap-beijing region with S6 2C4G instance, pre-installed simplehttpserver tool",
+    "template": "preset",
+    "tags": [
+        "file",
+        "infra"
+    ]
 }

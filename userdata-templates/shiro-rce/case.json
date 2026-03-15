@@ -1,18 +1,21 @@
 {
-  "name": "shiro-rce",
-  "nameZh": "Shiro RCE (CVE-2020-1957)",
-  "type": "bash",
-  "category": "vulhub",
-  "user": "redc",
-  "version": "1.0.2",
-  "cveId": "CVE-2020-1957",
-  "vulType": "RCE",
-  "level": "high",
-  "description": "Apache Shiro 认证绕过漏洞，攻击者可构造特殊 URL 绕过身份验证",
-  "description_en": "Apache Shiro authentication bypass vulnerability, attackers can construct special URLs to bypass authentication",
-  "environment": {
-    "port": 8080,
-    "image": "vulhub/shiro:1.4.2"
-  },
-  "template": "userdata"
+    "name": "shiro-rce",
+    "nameZh": "Shiro RCE (CVE-2020-1957)",
+    "type": "bash",
+    "category": "vulhub",
+    "user": "redc",
+    "version": "1.0.3",
+    "cveId": "CVE-2020-1957",
+    "vulType": "RCE",
+    "level": "high",
+    "description": "Apache Shiro 认证绕过漏洞，攻击者可构造特殊 URL 绕过身份验证",
+    "description_en": "Apache Shiro authentication bypass vulnerability, attackers can construct special URLs to bypass authentication",
+    "environment": {
+        "port": 8080,
+        "image": "vulhub/shiro:1.4.2"
+    },
+    "template": "userdata",
+    "tags": [
+        "vulhub"
+    ]
 }
