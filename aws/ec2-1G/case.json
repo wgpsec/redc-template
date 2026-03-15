@@ -1,9 +1,13 @@
 {
     "name": "ec2-1G",
     "user": "r0fus0d",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "AWS 轻量 ECS 场景，ap-east-1 区域，t4g.micro 实例，预装基础运维工具并屏蔽元数据访问（ARM64 架构）",
     "description_en": "AWS lightweight ECS scenario in ap-east-1 region with t4g.micro instance, pre-installed basic operation tools and blocked metadata access (ARM64 architecture)",
     "template": "preset",
-    "arch": "ARM64"
+    "arch": "ARM64",
+    "tags": [
+        "base",
+        "infra"
+    ]
 }

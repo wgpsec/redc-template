@@ -1,10 +1,14 @@
 {
     "name": "interactsh",
     "user": "r0fus0d",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "AWS Interactsh 场景，ap-east-1 区域，t4g.nano 实例，部署 interactsh-server，需提供域名并配置 Cloudflare（ARM64 架构）",
     "description_en": "AWS Interactsh scenario in ap-east-1 region with t4g.nano instance, deploys interactsh-server, requires domain and Cloudflare configuration (ARM64 architecture)",
     "redc_plugins": "redc-plugin-cloudflare-dns",
     "template": "preset",
-    "arch": "ARM64"
+    "arch": "ARM64",
+    "tags": [
+        "dns",
+        "recon"
+    ]
 }
