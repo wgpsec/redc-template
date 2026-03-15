@@ -63,7 +63,7 @@ sudo echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 sudo echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 sudo sysctl -p
 
-sudo curl -o f8x https://f8x.ffffffff0x.com/ && mv --force f8x /usr/local/bin/f8x && chmod +x /usr/local/bin/f8x
+sudo curl -o f8x https://f8x.wgpsec.org/ && mv --force f8x /usr/local/bin/f8x && chmod +x /usr/local/bin/f8x
 
 sudo apt-get install -y python3-pip
 sudo pip3 install trzsz --break-system-packages
