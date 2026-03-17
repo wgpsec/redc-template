@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-15T16:57:41.780871Z",
+  "updated_at": "2026-03-17T13:04:52.186113Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -440,9 +440,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_docker_v1.0.9.zip",
           "sha256": "9d1362fe4e7085aef25d94208953552d591352e185121471c8f0e0f4e8ac2187",
           "updated_at": "2026-03-15T16:57:41.775609Z"
+        },
+        "1.1.0": {
+          "url": "https://redc.wgpsec.org/templates/aws_docker_v1.1.0.zip",
+          "sha256": "db33fb6332c9e003a96916ae0d4077686073893bf3376d838b39634dbfd82af8",
+          "updated_at": "2026-03-17T13:04:52.181050Z"
         }
       },
-      "latest": "1.0.9",
+      "latest": "1.1.0",
       "metadata": {
         "name": "docker",
         "author": "r0fus0d",
@@ -670,9 +675,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_md_v1.0.9.zip",
           "sha256": "fdb49790a7a6976811f20a72c58293d31c529cc4ea8f2b9db2c9ed58abff627d",
           "updated_at": "2026-03-15T16:57:41.777555Z"
+        },
+        "1.1.0": {
+          "url": "https://redc.wgpsec.org/templates/aws_md_v1.1.0.zip",
+          "sha256": "9aa44c28c95fb989c09434413067bcad2da9165368aa4b6d329d594494e825e7",
+          "updated_at": "2026-03-17T13:04:52.182920Z"
         }
       },
-      "latest": "1.0.9",
+      "latest": "1.1.0",
       "metadata": {
         "name": "md",
         "author": "r0fus0d",
