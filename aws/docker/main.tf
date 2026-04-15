@@ -69,7 +69,7 @@ sudo apt-get install -y python3-pip
 sudo pip3 install trzsz --break-system-packages
 
 sudo tmux new-session -s docker -d
-sudo tmux send-keys -t docker:0 'touch /tmp/IS_CI;ulimit -n 65535;ulimit -u 65535;f8x -docker;history -c;exit' Enter
+sudo tmux send-keys -t docker:0 'touch /tmp/IS_CI;f8x -docker;history -c;exit' Enter
 EOF
 
 }
