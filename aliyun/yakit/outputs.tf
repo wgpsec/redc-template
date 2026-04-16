@@ -1,5 +1,5 @@
 output "ecs_ip" {
-  value       = "${alicloud_instance.instance.public_ip}"
+  value       = alicloud_instance.instance.public_ip
   description = "Yakit server public IP"
 }
 
@@ -21,4 +21,14 @@ output "ssh_user" {
 output "ssh_command" {
   description = "SSH 连接命令"
   value       = "ssh root@${alicloud_instance.instance.public_ip}"
+}
+
+output "public_ip" {
+  description = "Public IP address"
+  value       = alicloud_instance.instance.public_ip
+}
+
+output "ssh_password" {
+  description = "SSH password"
+  value       = nonsensitive(local.instance_password)
 }

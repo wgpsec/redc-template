@@ -1,5 +1,5 @@
 output "ecs_ip" {
-  value       = "${alicloud_instance.instance[*].public_ip}"
+  value       = alicloud_instance.instance[*].public_ip
   description = "ip"
 }
 output "ecs_password" {
@@ -14,4 +14,14 @@ output "ssh_user" {
 output "ssh_commands" {
   description = "SSH 连接命令"
   value       = [for ip in alicloud_instance.instance[*].public_ip : "ssh root@${ip}"]
+}
+
+output "public_ip" {
+  description = "Public IP address"
+  value       = alicloud_instance.instance[*].public_ip
+}
+
+output "ssh_password" {
+  description = "SSH password"
+  value       = nonsensitive(local.instance_password)
 }

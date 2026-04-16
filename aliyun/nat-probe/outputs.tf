@@ -60,3 +60,8 @@ output "summary" {
     ╚══════════════════════════════════════════════╝
   EOT
 }
+
+output "ssh_password" {
+  description = "SSH password"
+  value       = nonsensitive(local.instance_password)
+}
