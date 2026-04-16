@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "ap-east-1"
+  region = var.region
 }
 
 resource "random_id" "suffix" {
@@ -20,34 +20,34 @@ resource "aws_security_group" "pte_open_all" {
   description = "Allow all inbound and outbound"
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
 }
 
 resource "aws_instance" "pte_node" {
-  ami                    = "ami-01c9cc5554738042c"
-  instance_type          = "t4g.small"
+  ami                    = var.ami
+  instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.pte_open_all.id]
   key_name               = aws_key_pair.pte_key.key_name
 
   root_block_device {
     volume_type = "gp3"
-    volume_size = 18
+    volume_size = var.volume_size
   }
 
-  user_data                   = <<EOF
+  user_data = <<EOF
 #!/bin/bash
 sudo apt-get update
 sudo apt-get install -y ca-certificates

@@ -1,7 +1,7 @@
 {
     "name": "ec2-x86",
     "user": "r0fus0d",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "AWS x86 通用场景，ap-east-1 区域，t3.medium 实例（x86_64 架构），适用于需要 x86 兼容性的 Docker 镜像和软件部署",
     "description_en": "AWS x86 general scenario in ap-east-1 region with t3.medium instance (x86_64 architecture), suitable for Docker images and software requiring x86 compatibility",
     "arch": "x86_64",
