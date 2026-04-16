@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-17T13:04:52.186113Z",
+  "updated_at": "2026-04-16T05:43:18.466028Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -36,9 +36,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_ecs_v1.0.7.zip",
           "sha256": "39937f1b62ae5c0a4737b4c25952e1a246347ae094f31890a44ccfe25af42e15",
           "updated_at": "2026-03-15T11:12:20.101964Z"
+        },
+        "1.0.8": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_ecs_v1.0.8.zip",
+          "sha256": "c987eb5a120bc258b9edad4220d051ba95076bb719abce6b101202b62cae6b5a",
+          "updated_at": "2026-04-16T05:43:18.434586Z"
         }
       },
-      "latest": "1.0.7",
+      "latest": "1.0.8",
       "metadata": {
         "name": "ecs",
         "author": "r0fus0d",
@@ -85,9 +90,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_ecs1c2g_v1.0.7.zip",
           "sha256": "4a5c4d5465f44644b48b4efe953f194d62c65823b6f4ad6ea5bd85ec5a655ac4",
           "updated_at": "2026-03-15T11:12:20.103521Z"
+        },
+        "1.0.8": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_ecs1c2g_v1.0.8.zip",
+          "sha256": "f299b1f123a849dabeb0fff9753beb552db84b4fceb0045e9ba1a4425b423e5e",
+          "updated_at": "2026-04-16T05:43:18.435850Z"
         }
       },
-      "latest": "1.0.7",
+      "latest": "1.0.8",
       "metadata": {
         "name": "ecs1c2g",
         "author": "r0fus0d",
@@ -134,9 +144,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_file_v1.0.7.zip",
           "sha256": "4bbc82103ef520cfa9304e699b8f41f476590f55e8e3da412820b02a56fa8992",
           "updated_at": "2026-03-15T11:12:20.104678Z"
+        },
+        "1.0.8": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_file_v1.0.8.zip",
+          "sha256": "6b805f21484043f3d32a4b9944db7aadcfeebc8250921ded7e5e53ebaebb7012",
+          "updated_at": "2026-04-16T05:43:18.436948Z"
         }
       },
-      "latest": "1.0.7",
+      "latest": "1.0.8",
       "metadata": {
         "name": "file",
         "author": "r0fus0d",
@@ -183,9 +198,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_jndi_v1.0.7.zip",
           "sha256": "74254123de89b4ae360fdd06ff7013c988a1151d61bd3ea17a24e4291cc70610",
           "updated_at": "2026-03-15T11:12:20.105863Z"
+        },
+        "1.0.8": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_jndi_v1.0.8.zip",
+          "sha256": "2885ef41c80c8f8cc68b9481528fcd7094536ba32e04694b4edfe5e31799afa8",
+          "updated_at": "2026-04-16T05:43:18.438120Z"
         }
       },
-      "latest": "1.0.7",
+      "latest": "1.0.8",
       "metadata": {
         "name": "jndi",
         "author": "r0fus0d",
@@ -246,9 +266,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.1.5.zip",
           "sha256": "6cbe401e9bf5a9dcbca36ff5072e64fd937bbd16c2c9ffbe7a7742f6ccd34581",
           "updated_at": "2026-03-15T11:12:20.107121Z"
+        },
+        "1.1.6": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.1.6.zip",
+          "sha256": "11fd4d0577cccccd6dec88d174b8abbdd8a8961cc3c1fb530c04ac08bf436e57",
+          "updated_at": "2026-04-16T05:43:18.440442Z"
         }
       },
-      "latest": "1.1.5",
+      "latest": "1.1.6",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
@@ -294,9 +319,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_sliver_v1.0.7.zip",
           "sha256": "f83ae79e254b82cfb33471a0d2d73d882b81b23ed8b46fcff00756841ea122c1",
           "updated_at": "2026-03-15T11:12:20.108269Z"
+        },
+        "1.0.8": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_sliver_v1.0.8.zip",
+          "sha256": "d0930a8162eff1f17257f2fdced8370373e83dbe4440473333159b1791d74be7",
+          "updated_at": "2026-04-16T05:43:18.441541Z"
         }
       },
-      "latest": "1.0.7",
+      "latest": "1.0.8",
       "metadata": {
         "name": "sliver",
         "author": "r0fus0d",
@@ -342,9 +372,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_yakit_v1.0.6.zip",
           "sha256": "640fff346a8fb845396099a42a6d006e989fc0ec9495930c11b968bdc83f7763",
           "updated_at": "2026-03-15T11:12:20.109915Z"
+        },
+        "1.0.7": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_yakit_v1.0.7.zip",
+          "sha256": "3f4b940b19f8737c35326493661ef918b0b067ceb8a9530b1b1b86e4ba751d8c",
+          "updated_at": "2026-04-16T05:43:18.442694Z"
         }
       },
-      "latest": "1.0.6",
+      "latest": "1.0.7",
       "metadata": {
         "name": "yakit",
         "author": "r0fus0d",
@@ -391,9 +426,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_dnslog_v1.1.3.zip",
           "sha256": "e943fb50945296dd65cc739abfb9eb4b8b784b9afc6aa5b0dd3d7a57f24119c8",
           "updated_at": "2026-03-15T09:49:20.122220Z"
+        },
+        "1.1.4": {
+          "url": "https://redc.wgpsec.org/templates/aws_dnslog_v1.1.4.zip",
+          "sha256": "a23721e55ff5077f56a78a9ee1baffc9a0d4953a495f691f6c7bedec62a072e4",
+          "updated_at": "2026-04-16T05:43:18.444923Z"
         }
       },
-      "latest": "1.1.3",
+      "latest": "1.1.4",
       "metadata": {
         "name": "dnslog",
         "author": "r0fus0d",
@@ -445,9 +485,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_docker_v1.1.0.zip",
           "sha256": "db33fb6332c9e003a96916ae0d4077686073893bf3376d838b39634dbfd82af8",
           "updated_at": "2026-03-17T13:04:52.181050Z"
+        },
+        "1.1.2": {
+          "url": "https://redc.wgpsec.org/templates/aws_docker_v1.1.2.zip",
+          "sha256": "f3e672ee151a6f2a5a12a9f37a352df585fb40df830b115d68fec18ae0eaa1bb",
+          "updated_at": "2026-04-16T05:43:18.445861Z"
         }
       },
-      "latest": "1.1.0",
+      "latest": "1.1.2",
       "metadata": {
         "name": "docker",
         "author": "r0fus0d",
@@ -489,9 +534,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2_v1.0.7.zip",
           "sha256": "f9995d4300ae718e2b5c7250a176afde632e239c4f0c39ef4a10f52e42ef7f98",
           "updated_at": "2026-03-15T09:49:20.124127Z"
+        },
+        "1.0.8": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2_v1.0.8.zip",
+          "sha256": "e588bbb0c66a1029b6f35a13e2912bf3e6e174768f47c08d352aff4fb70ece91",
+          "updated_at": "2026-04-16T05:43:18.446803Z"
         }
       },
-      "latest": "1.0.7",
+      "latest": "1.0.8",
       "metadata": {
         "name": "ec2",
         "author": "r0fus0d",
@@ -533,9 +583,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2-1G_v1.0.7.zip",
           "sha256": "38a96422ccd113e3b0857e32250342a2001f2aa29c7ffd5217947e7d12d8646c",
           "updated_at": "2026-03-15T09:49:20.125069Z"
+        },
+        "1.0.8": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-1G_v1.0.8.zip",
+          "sha256": "dd80f1606fe7fecb8217bbfdd4a921e0ac772ea8c26af06ae4b9cefb1cef42cc",
+          "updated_at": "2026-04-16T05:43:18.447754Z"
         }
       },
-      "latest": "1.0.7",
+      "latest": "1.0.8",
       "metadata": {
         "name": "ec2-1G",
         "author": "r0fus0d",
@@ -577,9 +632,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2-4G_v1.0.7.zip",
           "sha256": "2314513280d1b8ea96c34da33da9b5301a488222ba145d02feadcd30184f1190",
           "updated_at": "2026-03-15T09:49:20.125998Z"
+        },
+        "1.0.8": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-4G_v1.0.8.zip",
+          "sha256": "d1ce3bdd09ec32a6ff5262c521ffe7e812a1cbf9a45fcf901280d0a107a43df2",
+          "updated_at": "2026-04-16T05:43:18.448679Z"
         }
       },
-      "latest": "1.0.7",
+      "latest": "1.0.8",
       "metadata": {
         "name": "ec2-4G",
         "author": "r0fus0d",
@@ -626,9 +686,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_interactsh_v1.1.2.zip",
           "sha256": "a101948d96c734c27453f5f7dd34f107545e861cc36017e0f32ed6760855bc61",
           "updated_at": "2026-03-15T09:49:20.128041Z"
+        },
+        "1.1.3": {
+          "url": "https://redc.wgpsec.org/templates/aws_interactsh_v1.1.3.zip",
+          "sha256": "728543777258d8d4d946fb9089fd1c6d10abbd104ead124ea54cffe30e16790b",
+          "updated_at": "2026-04-16T05:43:18.450663Z"
         }
       },
-      "latest": "1.1.2",
+      "latest": "1.1.3",
       "metadata": {
         "name": "interactsh",
         "author": "r0fus0d",
@@ -680,9 +745,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_md_v1.1.0.zip",
           "sha256": "9aa44c28c95fb989c09434413067bcad2da9165368aa4b6d329d594494e825e7",
           "updated_at": "2026-03-17T13:04:52.182920Z"
+        },
+        "1.1.1": {
+          "url": "https://redc.wgpsec.org/templates/aws_md_v1.1.1.zip",
+          "sha256": "9a8e3e1812f7e85004bc26261c5f6841455c4765a7d24df70a6bab67a8f42d25",
+          "updated_at": "2026-04-16T05:43:18.451793Z"
         }
       },
-      "latest": "1.1.0",
+      "latest": "1.1.1",
       "metadata": {
         "name": "md",
         "author": "r0fus0d",
@@ -739,9 +809,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.1.8.zip",
           "sha256": "cfff361fc4193a7cc5741ca9ab555a17ce2f5883e31033518128cf13bd780680",
           "updated_at": "2026-03-15T09:49:20.130401Z"
+        },
+        "1.1.9": {
+          "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.1.9.zip",
+          "sha256": "60a6f1992e52dbeb0071edc89ce62fb297edbf4152d5cdbd6aa36215d99492ea",
+          "updated_at": "2026-04-16T05:43:18.452965Z"
         }
       },
-      "latest": "1.1.8",
+      "latest": "1.1.9",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
@@ -911,9 +986,14 @@
           "url": "https://redc.wgpsec.org/templates/huaweicloud_nps_v0.0.8.zip",
           "sha256": "e862ec7a1206f1a608e52b36499370a5df1cfe63bfed06b4f9614d57a02e4993",
           "updated_at": "2026-03-15T11:12:20.118292Z"
+        },
+        "0.0.9": {
+          "url": "https://redc.wgpsec.org/templates/huaweicloud_nps_v0.0.9.zip",
+          "sha256": "97349c7176c1fecb185fcf1085878fb33c71195e33e82d484b4a8d007f340540",
+          "updated_at": "2026-04-16T05:43:18.457439Z"
         }
       },
-      "latest": "0.0.8",
+      "latest": "0.0.9",
       "metadata": {
         "name": "nps",
         "author": "r0fus0d",
@@ -960,9 +1040,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_cvm_v1.0.6.zip",
           "sha256": "9e34934ca67bd505a1d3db3d70c99def8638a7dbc611bfa2b26e8c28765fc063",
           "updated_at": "2026-03-15T11:12:20.119488Z"
+        },
+        "1.0.7": {
+          "url": "https://redc.wgpsec.org/templates/tencent_cvm_v1.0.7.zip",
+          "sha256": "643dbfd8fc94e1cfe5bbadff4ede7ca05ad0ba4ea78c54339749e94c4d5a7870",
+          "updated_at": "2026-04-16T05:43:18.458558Z"
         }
       },
-      "latest": "1.0.6",
+      "latest": "1.0.7",
       "metadata": {
         "name": "cvm",
         "author": "r0fus0d",
@@ -1009,9 +1094,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_file_v1.0.8.zip",
           "sha256": "8aa17ee6d10701a83885ee372b85c89aab4c680d464dd98ce6299c06e72f17c5",
           "updated_at": "2026-03-15T11:12:20.120580Z"
+        },
+        "1.0.9": {
+          "url": "https://redc.wgpsec.org/templates/tencent_file_v1.0.9.zip",
+          "sha256": "1f36eb4b0fe9c58928fe6b51e94e59fa8a2265673b6c6356ac852286009a4633",
+          "updated_at": "2026-04-16T05:43:18.459608Z"
         }
       },
-      "latest": "1.0.8",
+      "latest": "1.0.9",
       "metadata": {
         "name": "file",
         "author": "r0fus0d",
@@ -1058,9 +1148,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_jndi_v1.0.8.zip",
           "sha256": "61cb554b2216f8d809c9731e703b4b0aae00950378991f4163caaa1fc5d30af5",
           "updated_at": "2026-03-15T11:12:20.121734Z"
+        },
+        "1.0.9": {
+          "url": "https://redc.wgpsec.org/templates/tencent_jndi_v1.0.9.zip",
+          "sha256": "07aff3eb747dfb4c7c48d2571c91b782e5e895f072eee9ca5ed3be889d5f655c",
+          "updated_at": "2026-04-16T05:43:18.460710Z"
         }
       },
-      "latest": "1.0.8",
+      "latest": "1.0.9",
       "metadata": {
         "name": "jndi",
         "author": "r0fus0d",
@@ -1106,9 +1201,14 @@
           "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.1.1.zip",
           "sha256": "439414221c1173213a842cc44bd6bde54507774e54179b0d9c291e307b5c6080",
           "updated_at": "2026-03-15T11:12:20.123191Z"
+        },
+        "1.1.2": {
+          "url": "https://redc.wgpsec.org/templates/tencent_nps_v1.1.2.zip",
+          "sha256": "a523d31d2e817b9d0da0b781cfc9004bf533af69a3cb70fd2c6de577a6aa581a",
+          "updated_at": "2026-04-16T05:43:18.462110Z"
         }
       },
-      "latest": "1.1.1",
+      "latest": "1.1.2",
       "metadata": {
         "name": "nps",
         "author": "r0fus0d",
@@ -1771,9 +1871,14 @@
           "url": "https://redc.wgpsec.org/templates/volcengine_ecs_v1.0.8.zip",
           "sha256": "62d1c00a11853c5c61e9d817b9e97cb55458a2d30d16ccbd033e0cca015c5ebf",
           "updated_at": "2026-03-15T11:12:20.127160Z"
+        },
+        "1.0.9": {
+          "url": "https://redc.wgpsec.org/templates/volcengine_ecs_v1.0.9.zip",
+          "sha256": "6dd4e98fbb58f1f885bd3a5fa3be174aae5c7e1e88d08dc23b2c03908108bb52",
+          "updated_at": "2026-04-16T05:43:18.464888Z"
         }
       },
-      "latest": "1.0.8",
+      "latest": "1.0.9",
       "metadata": {
         "name": "ecs",
         "author": "copilot",
@@ -1815,9 +1920,14 @@
           "url": "https://redc.wgpsec.org/templates/vultr_hk-vps_v1.0.5.zip",
           "sha256": "eec53cc1452ff4247bd28e6ca0957f438d4125418c143608148b3941e461392e",
           "updated_at": "2026-03-15T11:12:20.128204Z"
+        },
+        "1.0.6": {
+          "url": "https://redc.wgpsec.org/templates/vultr_hk-vps_v1.0.6.zip",
+          "sha256": "7c02ede35dc1c1c584f304988762a21fae43d68c48cf3a9aaa8407ebcf4f7063",
+          "updated_at": "2026-04-16T05:43:18.465975Z"
         }
       },
-      "latest": "1.0.5",
+      "latest": "1.0.6",
       "metadata": {
         "name": "hk-vps",
         "author": "r0fus0d",
@@ -2060,9 +2170,14 @@
           "url": "https://redc.wgpsec.org/templates/ctyun_ecs_v1.0.5.zip",
           "sha256": "57cbb07992094b2f9196ef38c2baff82c57541732c5a094cdf8ed9aba57bb94c",
           "updated_at": "2026-03-15T11:12:20.115929Z"
+        },
+        "1.0.6": {
+          "url": "https://redc.wgpsec.org/templates/ctyun_ecs_v1.0.6.zip",
+          "sha256": "bb45f642410592d44d10c8908a4a6f159155db2b39cc5f8e96bd278aa9588b8b",
+          "updated_at": "2026-04-16T05:43:18.455983Z"
         }
       },
-      "latest": "1.0.5",
+      "latest": "1.0.6",
       "metadata": {
         "name": "ecs",
         "author": "r0fus0d",
@@ -2143,9 +2258,14 @@
           "url": "https://redc.wgpsec.org/templates/azure_vm_v0.0.4.zip",
           "sha256": "862ccf48bb647aec45b01f79db0f1342bd8fa4679882814981024eeb01ba9f72",
           "updated_at": "2026-03-15T11:12:20.112223Z"
+        },
+        "0.0.5": {
+          "url": "https://redc.wgpsec.org/templates/azure_vm_v0.0.5.zip",
+          "sha256": "a5a448605d15f2eed09bb5b4e7f3142f28793ac8b27a106db4dda49dd587ed5b",
+          "updated_at": "2026-04-16T05:43:18.454031Z"
         }
       },
-      "latest": "0.0.4",
+      "latest": "0.0.5",
       "metadata": {
         "name": "vm",
         "author": "r0fus0d",
@@ -2210,9 +2330,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_MHDDoS_v0.0.3.zip",
           "sha256": "7099ea683d7bb6c86e7fb21394fcd82906fa1f504ca72ab7b54fd760a9ff552e",
           "updated_at": "2026-03-15T09:49:20.120697Z"
+        },
+        "0.0.4": {
+          "url": "https://redc.wgpsec.org/templates/aws_MHDDoS_v0.0.4.zip",
+          "sha256": "a6dd89eb1e332a85feb7d6c8c2cc5ad5795d602109d3c7bce107e2a072178897",
+          "updated_at": "2026-04-16T05:43:18.443808Z"
         }
       },
-      "latest": "0.0.3",
+      "latest": "0.0.4",
       "metadata": {
         "name": "MHDDoS",
         "author": "r0fus0d",
@@ -2322,9 +2447,14 @@
           "url": "https://redc.wgpsec.org/templates/aws_ec2-x86_v1.0.1.zip",
           "sha256": "17b3c3cb6efe8741f80d70bf8d21c18ce9606022c813d010251bc8c724dce57e",
           "updated_at": "2026-03-15T09:49:20.126920Z"
+        },
+        "1.0.2": {
+          "url": "https://redc.wgpsec.org/templates/aws_ec2-x86_v1.0.2.zip",
+          "sha256": "fd12981be5f7b2256737d68dae517ddb12385f84d0c2387dd897ef7207a3a2cc",
+          "updated_at": "2026-04-16T05:43:18.449619Z"
         }
       },
-      "latest": "1.0.1",
+      "latest": "1.0.2",
       "metadata": {
         "name": "ec2-x86",
         "author": "r0fus0d",
@@ -2335,6 +2465,32 @@
           "infra"
         ],
         "readme": "# AWS EC2 x86 通用场景\n\nap-east-1 区域，t3.medium 实例（x86_64 架构，2C4G），预装基础运维工具。\n\n适用于需要 x86 兼容性的部署场景，如 VulHub 漏洞环境、仅提供 x86 Docker 镜像的项目。\n\n## 配置\n\n| 参数 | 值 |\n|------|------|\n| 区域 | ap-east-1 (香港) |\n| 实例类型 | t3.medium |\n| 架构 | x86_64 |\n| 系统盘 | 20GB gp3 |\n| AMI | Debian (x86_64) |\n\n## 常见问题\n\n1. 创建实例后 SSH 连不上：实例刚启动需要 1-2 分钟初始化\n2. aws 该区域售罄或下架 instance_type 的配置机型\n3. AMI 架构与 instance_type 不匹配\n"
+      }
+    },
+    "aliyun/nat-probe": {
+      "id": "aliyun/nat-probe",
+      "provider": "aliyun",
+      "slug": "nat-probe",
+      "versions": {
+        "1.0.1": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_nat-probe_v1.0.1.zip",
+          "sha256": "023e7ebf3dd07e69b8a121ef5bb15381820bee18c06758c006d7f380225d94eb",
+          "updated_at": "2026-04-16T05:43:18.439236Z"
+        }
+      },
+      "latest": "1.0.1",
+      "metadata": {
+        "name": "nat-probe",
+        "author": "r0fus0d",
+        "description": "阿里云 ECS + NAT 网关多 EIP 流量探针场景，支持绑定多个弹性公网IP，可用于流量探测、蜜罐、多出口代理等",
+        "description_en": "Alibaba Cloud ECS + NAT Gateway with multiple EIPs for traffic probing, supporting multiple elastic IPs bound to NAT gateway for traffic detection, honeypots, and multi-exit proxy scenarios",
+        "tags": [
+          "nat",
+          "eip",
+          "probe",
+          "infra"
+        ],
+        "readme": "# NAT 多 EIP 流量探针\n\n阿里云 ECS + NAT 网关 + 多弹性公网 IP 流量探针场景\n\n## 架构\n\n```\n                    ┌─────────────┐\n    Internet ──────>│  NAT 网关    │\n                    │             │\n                    │  EIP-1 ─────┤──> SNAT + DNAT (EIP:22 → ECS:22)\n                    │  EIP-2 ─────┤──> SNAT + DNAT (EIP:22 → ECS:122)\n                    │  EIP-3 ─────┤──> SNAT + DNAT (EIP:22 → ECS:222)\n                    │  EIP-N ─────┤──> SNAT + DNAT (EIP:22 → ECS:N*100+22)\n                    └──────┬──────┘\n                           │\n                    ┌──────┴──────┐\n                    │   ECS 实例   │\n                    │  (内网 IP)   │\n                    │ 多端口 sshd  │\n                    │ tcpdump/nmap│\n                    └─────────────┘\n```\n\n## 特性\n\n- **多 EIP 绑定**: 默认 5 个 EIP（通过 `eip_count` 变量调整），全部绑定到 NAT 网关\n- **所有 EIP 可达**: 每个 EIP 的 22 端口 DNAT 到 ECS 不同内部端口（22, 122, 222...），通过任一 EIP 均可 SSH\n- **SNAT 出口 IP 池**: 所有 EIP 组成出口 IP 池，出网流量轮换使用不同 EIP\n- **流量来源识别**: 通过 ECS 内部监听端口号区分流量来自哪个 EIP\n- **预装工具**: tcpdump、nmap、net-tools 等探测工具\n\n## DNAT 端口映射规则\n\n| EIP | 外部端口 | ECS 内部端口 | 说明 |\n|-----|---------|-------------|------|\n| EIP[1] | 22 | 22 | 默认 SSH |\n| EIP[2] | 22 | 122 | 第 2 个 EIP |\n| EIP[3] | 22 | 222 | 第 3 个 EIP |\n| EIP[N] | 22 | N×100+22 | 第 N 个 EIP |\n\nECS 的 user_data 自动配置 sshd 监听所有这些端口。\n\n## 设计说明与限制\n\n### 为什么不能多 EIP 全端口映射到同一台 ECS？\n\n阿里云 DNAT 有两个限制：\n1. `ip_protocol=any` + `port=any`（IP 映射模式）会与 SNAT 规则冲突\n2. 同一个 `internal_ip + internal_port` 只能被一条 DNAT 规则映射\n\n因此无法让多个 EIP 都全端口转发到同一台 ECS。当前方案采用 **端口级映射**：每个 EIP 的特定端口（如 22）映射到 ECS 的不同内部端口。\n\n### 为什么不用多网卡（ENI）直接绑 EIP？\n\n多 ENI 方案可以让每个 EIP 天然全端口可达，但：\n- ENI 数量受实例规格限制（小规格通常只支持 2-3 个）\n- 需要在实例内手动配置策略路由\n- 不适合大量 EIP 的场景（NAT 网关支持最多 100 个 EIP）\n\n### 未来规划：IaC Agent + 蜜罐 Agent\n\n当前模板适合作为 **自动化蜜罐部署** 的基础设施层：\n\n```\n用户自然语言指令\n    │\n    ▼\n┌──────────────┐     ┌──────────────────┐\n│  redc IaC    │────>│  Terraform 模板   │\n│  Agent       │     │  (NAT+EIP+DNAT)  │\n│  自动改 TF   │     │  terraform apply  │\n└──────────────┘     └────────┬─────────┘\n                              │\n                     ┌────────▼─────────┐\n                     │  ECS 蜜罐 Agent   │\n                     │  自动识别新端口    │\n                     │  启动监听服务      │\n                     └──────────────────┘\n```\n\n**工作流设想**：\n1. 用户说 `\"给蜜罐加 3 个新 EIP，监听 80 和 443\"`\n2. redc IaC Agent 自动修改 TF 模板（增 eip_count、添加 DNAT 规则）\n3. 执行 `terraform apply`\n4. ECS 上的蜜罐 Agent 检测到新端口映射，自动启动对应监听服务\n5. 用户无需手动碰任何 DNAT 规则\n\n## 使用方式\n\n### 通过 redc 引擎\n\n```bash\n# 拉取模板\nredc pull aliyun/nat-probe\n\n# 部署 (默认 5 个 EIP)\nredc run aliyun/nat-probe\n\n# 部署 10 个 EIP\nredc run aliyun/nat-probe -var eip_count=10\n\n# 查看状态\nredc status\n\n# 销毁\nredc stop\n```\n\n### 独立使用\n\n```bash\ncd aliyun/nat-probe\n\n# 初始化\nterraform init\n\n# 预览\nterraform plan -var=\"eip_count=5\"\n\n# 部署\nterraform apply -auto-approve -var=\"eip_count=5\"\n\n# 销毁\nterraform destroy -auto-approve\n```\n\n## 变量说明\n\n| 变量 | 默认值 | 说明 |\n|------|--------|------|\n| `region` | `cn-beijing` | 阿里云区域 |\n| `instance_name` | `nat-probe` | ECS 实例名称 |\n| `instance_password` | 自动生成 | ECS 登录密码 |\n| `instance_type` | `ecs.e-c1m2.large` | ECS 实例规格 (2C4G) |\n| `eip_count` | `5` | EIP 数量 |\n| `eip_bandwidth` | `100` | 每个 EIP 带宽 (Mbps) |\n| `eip_isp` | `BGP` | EIP 线路 (BGP/BGP_PRO) |\n\n## 输出\n\n| 输出 | 说明 |\n|------|------|\n| `eip_addresses` | 所有 EIP 地址列表 |\n| `ssh_commands` | 每个 EIP 的 SSH 命令及对应内部端口 |\n| `ecs_password` | ECS 登录密码 |\n| `nat_gateway_id` | NAT 网关 ID |\n| `summary` | 部署摘要 |\n\n## 流量探针使用示例\n\n```bash\n# 通过 EIP[1] SSH 登录 (默认端口 22)\nssh root@<EIP-1>\n\n# 通过 EIP[2] SSH 登录 (同样用外部 22 端口，内部转到 122)\nssh root@<EIP-2>\n\n# 登录后查看各端口连接，识别流量来源 EIP\nss -tlnp | grep sshd\n\n# 监听某个 EIP 的流量 (通过内部端口过滤)\ntcpdump -i eth0 -nn port 122   # 来自 EIP[2] 的流量\n\n# 在多个 EIP 上同时监听\ntmux new-session -d -s probe\ntmux send-keys \"tcpdump -i eth0 -nn 'dst port 122'\" Enter\n\n# 查看当前出口 IP (SNAT 轮换)\ncurl -s ifconfig.me\n```\n\n## 注意事项\n\n1. ECS 实例本身不分配公网 IP，所有出入网流量均通过 NAT 网关\n2. EIP 按量付费 (PayByTraffic)，注意流量成本\n3. 安全组默认放行所有 TCP/UDP，生产环境请按需收紧\n4. 部署后卸载了阿里云云盾 (aegis)\n"
       }
     }
   }
