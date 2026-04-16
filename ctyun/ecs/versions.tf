@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     ctyun = {
-      source = "ctyun-it/ctyun"
+      source  = "ctyun-it/ctyun"
       version = "2.0.0"
     }
   }

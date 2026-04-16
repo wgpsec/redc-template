@@ -1,1 +1,1 @@
-github_proxy  = "https://ghfast.top/github.com"
+github_proxy = "https://ghfast.top/github.com"

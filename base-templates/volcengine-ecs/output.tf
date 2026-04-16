@@ -38,3 +38,13 @@ output "instance_password" {
   value       = var.instance_password
   sensitive   = true
 }
+
+output "ssh_user" {
+  description = "SSH login username"
+  value       = "root"
+}
+
+output "ssh_password" {
+  description = "SSH password"
+  value       = nonsensitive(var.instance_password)
+}

@@ -17,3 +17,7 @@ output "ssh_command" {
   description = "SSH 连接命令"
   value       = "ssh ubuntu@${google_compute_instance.default.network_interface[0].access_config[0].nat_ip}"
 }
+output "ssh_private_key_path" {
+  description = "SSH private key path (GCP uses OS Login, use 'gcloud compute ssh' instead)"
+  value       = ""
+}

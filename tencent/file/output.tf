@@ -20,3 +20,8 @@ output "ssh_password" {
   description = "SSH password"
   value       = nonsensitive(local.instance_password)
 }
+
+output "ssh_command" {
+  description = "SSH connection command"
+  value       = "ssh ubuntu@${tencentcloud_instance.test.public_ip}"
+}

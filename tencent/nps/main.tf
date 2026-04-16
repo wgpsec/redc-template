@@ -8,7 +8,7 @@ locals {
   password_seed      = replace(uuid(), "-", "")
   generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
   instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
-  instance_name     = var.instance_name != "" ? var.instance_name : "nps_${local.random_suffix}"
+  instance_name      = var.instance_name != "" ? var.instance_name : "nps_${local.random_suffix}"
 
   # 生成8位随机后缀用于资源命名，避免名称冲突
   random_suffix = substr(replace(uuid(), "-", ""), 0, 8)

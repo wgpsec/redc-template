@@ -2,7 +2,7 @@ locals {
   password_seed      = replace(uuid(), "-", "")
   generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
   instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
-  instance_name     = var.instance_name != "" ? var.instance_name : "yakit-server"
+  instance_name      = var.instance_name != "" ? var.instance_name : "yakit-server"
 }
 
 resource "alicloud_instance" "instance" {
@@ -16,7 +16,7 @@ resource "alicloud_instance" "instance" {
   system_disk_description    = "yakit_system_disk_description"
   system_disk_size           = 20
   internet_max_bandwidth_out = 100
-  password = local.instance_password
+  password                   = local.instance_password
   user_data                  = <<USERDATA
 #!/bin/bash
 sudo apt-get update
@@ -86,8 +86,8 @@ USERDATA
 }
 
 resource "alicloud_security_group" "group" {
-  security_group_name        = "yakit_security_group"
-  vpc_id      = alicloud_vpc.vpc.id
+  security_group_name = "yakit_security_group"
+  vpc_id              = alicloud_vpc.vpc.id
 }
 
 resource "alicloud_security_group_rule" "allow_ssh" {
@@ -149,7 +149,7 @@ resource "alicloud_security_group_rule" "allow_all_udp" {
 resource "alicloud_vswitch" "vswitch" {
   vpc_id       = alicloud_vpc.vpc.id
   cidr_block   = "172.16.0.0/24"
-  zone_id           = data.alicloud_zones.default.zones[0].id
+  zone_id      = data.alicloud_zones.default.zones[0].id
   vswitch_name = "yakit_vswitch"
 }
 
@@ -160,5 +160,5 @@ resource "alicloud_vpc" "vpc" {
 
 data "alicloud_zones" "default" {
   available_resource_creation = "VSwitch"
-  available_instance_type = "ecs.c7a.large"
+  available_instance_type     = "ecs.c7a.large"
 }

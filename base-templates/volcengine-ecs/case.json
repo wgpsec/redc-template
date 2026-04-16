@@ -1,15 +1,15 @@
 {
-  "name": "volcengine-ecs",
-  "arch": "x86_64",
-  "description": "火山引擎 ECS 实例",
-  "description_en": "Volcengine ECS instance",
-  "version": "1.0.7",
-  "user": "redc",
-  "tags": [
-    "volcengine",
-    "ecs",
-    "compute"
-  ],
-  "provider": "volcengine",
-  "template": "base"
+    "name": "volcengine-ecs",
+    "arch": "x86_64",
+    "description": "火山引擎 ECS 实例",
+    "description_en": "Volcengine ECS instance",
+    "version": "1.0.8",
+    "user": "redc",
+    "tags": [
+        "volcengine",
+        "ecs",
+        "compute"
+    ],
+    "provider": "volcengine",
+    "template": "base"
 }

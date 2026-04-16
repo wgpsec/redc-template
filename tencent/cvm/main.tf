@@ -8,7 +8,7 @@ locals {
   password_seed      = replace(uuid(), "-", "")
   generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
   instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
-  instance_name     = var.instance_name != "" ? var.instance_name : "cvm"
+  instance_name      = var.instance_name != "" ? var.instance_name : "cvm"
 }
 
 resource "tencentcloud_instance" "test" {
@@ -18,7 +18,7 @@ resource "tencentcloud_instance" "test" {
   instance_type              = data.tencentcloud_instance_types.instance_types.instance_types.0.instance_type
   allocate_public_ip         = true
   internet_max_bandwidth_out = 50
-  password = local.instance_password
+  password                   = local.instance_password
   orderly_security_groups    = [tencentcloud_security_group.default.id]
   user_data_raw              = <<EOF
 #!/bin/bash

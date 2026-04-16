@@ -1,7 +1,7 @@
 variable "GCP_PROJECT_ID" {
   type        = string
   description = "GCP_PROJECT ID"
-  default = "redc-488606"
+  default     = "redc-488606"
 }
 
 variable "instance_name" {

@@ -15,7 +15,7 @@ output "private_ip" {
 
 output "public_ip" {
   description = "公网 IP"
-  value = ucloud_eip.web-eip.public_ip
+  value       = ucloud_eip.web-eip.public_ip
 }
 
 output "ssh_user" {

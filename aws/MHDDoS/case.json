@@ -1,7 +1,7 @@
 {
     "name": "MHDDoS",
     "user": "r0fus0d",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "MHDDoS 分布式拒绝服务攻击工具，支持多种攻击模式（SOCKS5 代理、TCP、UDP、HTTP 等），适用于渗透测试场景，慎用，价格昂贵,1T 1k（ARM64 架构）",
     "description_en": "MHDDoS distributed denial of service attack tool, supporting multiple attack modes (SOCKS5 proxy, TCP, UDP, HTTP, etc.), suitable for penetration testing scenarios (ARM64 architecture)",
     "template": "preset",

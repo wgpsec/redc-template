@@ -1,14 +1,14 @@
 {
-  "name": "uhost",
-  "arch": "x86_64",
-  "description": "UCloud UHost 实例",
-  "description_en": "UCloud UHost instance",
-  "version": "1.0.4",
-  "user": "r0fus0d",
-  "provider": "ucloud",
-  "template": "preset",
-  "tags": [
-    "base",
-    "infra"
-  ]
+    "name": "uhost",
+    "arch": "x86_64",
+    "description": "UCloud UHost 实例",
+    "description_en": "UCloud UHost instance",
+    "version": "1.0.5",
+    "user": "r0fus0d",
+    "provider": "ucloud",
+    "template": "preset",
+    "tags": [
+        "base",
+        "infra"
+    ]
 }

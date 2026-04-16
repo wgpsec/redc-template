@@ -39,3 +39,13 @@ output "ssh_command" {
   description = "SSH 连接命令"
   value       = "ssh root@${vultr_instance.test.main_ip}"
 }
+
+output "public_ip" {
+  description = "Public IP address"
+  value       = vultr_instance.test.main_ip
+}
+
+output "ssh_password" {
+  description = "SSH password"
+  value       = nonsensitive(vultr_instance.test.default_password)
+}
