@@ -17,3 +17,8 @@ output "ssh_command" {
   description = "SSH 连接命令"
   value       = "ssh redcadmin@${azurerm_public_ip.redc.ip_address}"
 }
+
+output "ssh_password" {
+  description = "SSH password"
+  value       = nonsensitive(local.instance_password)
+}

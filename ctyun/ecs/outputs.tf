@@ -29,3 +29,8 @@ output "ssh_command" {
   description = "SSH 连接命令"
   value       = "ssh root@${ctyun_ecs.test.eip_address}"
 }
+
+output "public_ip" {
+  description = "Public IP address"
+  value       = ctyun_ecs.test.eip_address
+}

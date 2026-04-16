@@ -1,5 +1,5 @@
 output "nps_ip" {
-  value       = "${huaweicloud_compute_eip_associate.associated.public_ip}"
+  value       = huaweicloud_compute_eip_associate.associated.public_ip
   description = "nps ip."
 }
 
@@ -20,7 +20,7 @@ output "nps_password" {
 
 # SSH 相关输出，用于 redc SSH 功能
 output "ecs_ip" {
-  value       = "${huaweicloud_compute_eip_associate.associated.public_ip}"
+  value       = huaweicloud_compute_eip_associate.associated.public_ip
   description = "Instance IP for SSH connection"
 }
 
@@ -37,4 +37,14 @@ output "ssh_user" {
 output "ssh_command" {
   description = "SSH 连接命令"
   value       = "ssh root@${huaweicloud_compute_eip_associate.associated.public_ip}"
+}
+
+output "public_ip" {
+  description = "Public IP address"
+  value       = huaweicloud_compute_eip_associate.associated.public_ip
+}
+
+output "ssh_password" {
+  description = "SSH password"
+  value       = nonsensitive(local.instance_password)
 }

@@ -17,3 +17,13 @@ output "ssh_command" {
   description = "SSH 连接命令"
   value       = "ssh root@${volcengine_eip_address.eip.eip_address}"
 }
+
+output "public_ip" {
+  description = "Public IP address"
+  value       = volcengine_eip_address.eip.eip_address
+}
+
+output "ssh_password" {
+  description = "SSH password"
+  value       = nonsensitive(local.instance_password)
+}

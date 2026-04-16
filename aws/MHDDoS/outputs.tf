@@ -16,3 +16,8 @@ output "ssh_commands" {
   description = "SSH 连接命令"
   value       = [for ip in aws_instance.pte_node[*].public_ip : "ssh -i ${local_file.pte_private_key.filename} admin@${ip}"]
 }
+
+output "public_ip" {
+  description = "Public IP address"
+  value       = aws_instance.pte_node[*].public_ip
+}
