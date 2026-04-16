@@ -33,7 +33,7 @@ jobs:
           #               配置区域
           # ==========================================
           
-          # case.json 必须存在的字段
+          # case.json 通用必须字段
           REQUIRED_FIELDS = {
               'name':           '模版名称 (name)',
               'user':           '作者 (user)',
@@ -41,6 +41,23 @@ jobs:
               'description':    '描述信息 (description)',
               'description_en': '英文描述 (description_en)',
               'tags':           '标签 (tags)'
+          }
+
+          # 按模板类型的额外必须字段
+          TYPE_REQUIRED_FIELDS = {
+              'preset': {
+                  'arch': '架构 (arch, e.g. x86_64/arm64)',
+              },
+              'base': {
+                  'arch':     '架构 (arch)',
+                  'provider': '云厂商 (provider)',
+              },
+              'userdata': {
+                  'nameZh':   '中文名称 (nameZh)',
+                  'type':     '脚本类型 (type, e.g. bash/powershell)',
+                  'category': '分类 (category, e.g. basic/tool/service/security)',
+              },
+              'compose': {},
           }
 
           repo_root = '.'
@@ -91,15 +108,22 @@ jobs:
                           with open(case_path, 'r', encoding='utf-8') as f:
                               data = json.load(f)
                               
-                              # 字段缺失检查
+                          # 字段缺失检查 (通用)
                               missing = [k for k in REQUIRED_FIELDS if k not in data]
+
+                              # 字段缺失检查 (按模板类型)
+                              tmpl_type = data.get('template', 'preset') or 'preset'
+                              extra_required = TYPE_REQUIRED_FIELDS.get(tmpl_type, {})
+                              missing_extra = [k for k in extra_required if k not in data]
                               
-                              if missing:
-                                  if 'description' in missing and 'DESCRIPTION' in data:
+                              all_missing = missing + missing_extra
+                              if all_missing:
+                                  if 'description' in all_missing and 'DESCRIPTION' in data:
                                       print(f'❌ [JSON] {template_id}: Found legacy key \"DESCRIPTION\". Please rename to lowercase \"description\"')
                                   else:
-                                      desc_list = [REQUIRED_FIELDS[k] for k in missing]
-                                      print(f'❌ [JSON] {template_id}: Missing required fields: {desc_list}')
+                                      all_required = {**REQUIRED_FIELDS, **extra_required}
+                                      desc_list = [all_required[k] for k in all_missing]
+                                      print(f'❌ [JSON] {template_id} (type={tmpl_type}): Missing required fields: {desc_list}')
                                   has_error = True
                               else:
                                   # 字段内容检查
