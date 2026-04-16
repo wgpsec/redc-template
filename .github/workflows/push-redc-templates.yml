@@ -80,6 +80,7 @@ jobs:
         run: |
           mkdir -p public/templates
           [ -f index.html ] && cp index.html public/index.html
+          [ -d assets ] && cp -r assets public/assets
 
           # Inject latest redc version into index.html
           REDC_VERSION=$(curl -sf https://api.github.com/repos/wgpsec/redc/releases/latest | python3 -c "import sys,json; print(json.load(sys.stdin).get('tag_name','v0.0.0'))" 2>/dev/null || echo "v0.0.0")
@@ -118,7 +119,7 @@ jobs:
 
           # --- B. 遍历处理 ---
           repo_root = '.'
-          exclude = {'.git', '.github', 'public', 'previous_build', '.gitignore', 'index.html', 'plugins'}
+          exclude = {'.git', '.github', 'public', 'previous_build', '.gitignore', 'index.html', 'plugins', 'assets'}
           
           # 标记本次构建是否有更新 (如果没有更新，甚至可以不提交 index.json，但为了更新时间戳还是提交吧)
           has_changes = False

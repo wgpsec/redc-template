@@ -61,7 +61,7 @@ jobs:
           }
 
           repo_root = '.'
-          exclude_dirs = {'.git', '.github', 'public', 'previous_build', '__pycache__', 'plugins'}
+          exclude_dirs = {'.git', '.github', 'public', 'previous_build', '__pycache__', 'plugins', 'assets'}
           
           # ==========================================
           #               主校验逻辑
