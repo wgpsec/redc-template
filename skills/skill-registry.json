@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "updated": "2026-04-16",
+  "skills": [
+    {
+      "id": "aws-security-hardening",
+      "name": "AWS Security Hardening",
+      "description": "AWS security hardening guide for red team infrastructure. Use this skill whenever the user is deploying to AWS, configuring IAM policies, setting up VPCs or security groups, asking about SSH access, encryption, key rotation, or any AWS security question. Also apply when the user mentions EC2 instances, EBS volumes, S3 buckets, or AWS networking — even if they don't explicitly ask about \"security\", because every AWS deployment should follow these hardening practices by default.",
+      "tags": [
+        "aws",
+        "security",
+        "iam",
+        "vpc",
+        "hardening",
+        "ec2",
+        "ssh",
+        "encryption",
+        "sg"
+      ],
+      "url": "https://redc.wgpsec.org/skills/skill-aws-security-hardening.zip",
+      "sha256": "325d54fd54957ffb29ad55f9bb03a72909f76a49c155081ce91927718ad36e3b"
+    },
+    {
+      "id": "cost-optimization",
+      "name": "Cloud Cost Optimization",
+      "description": "Strategies for minimizing cloud infrastructure costs in red team deployments. Use this skill whenever the user asks about pricing, budgets, cost estimates, instance sizing, spot instances, or resource cleanup. Also apply when the user is choosing instance types, discussing how long to keep infrastructure running, asking about billing alerts, or planning a deployment where cost is a concern — even if they don't explicitly mention \"cost\" or \"budget\". Proactively reference this skill when generating templates to suggest cost-saving alternatives.",
+      "tags": [
+        "cost",
+        "optimization",
+        "pricing",
+        "budget",
+        "spot",
+        "instance-type",
+        "billing",
+        "savings",
+        "cleanup"
+      ],
+      "url": "https://redc.wgpsec.org/skills/skill-cost-optimization.zip",
+      "sha256": "c0278382448517bcc435f5b77c91f7b1409dd98198dbdea229aa094948e0f524"
+    },
+    {
+      "id": "multi-cloud-deployment",
+      "name": "Multi-Cloud Deployment",
+      "description": "Guide for deploying infrastructure across multiple cloud providers (AWS, Azure, GCP, Alibaba Cloud, Tencent Cloud, Huawei Cloud, Volcengine). Use this skill whenever the user mentions deploying to more than one cloud, comparing cloud providers, selecting regions, configuring provider credentials, or asking about cross-cloud compatibility. Also use when the user asks about a specific Chinese cloud provider (Alibaba, Tencent, Huawei, Volcengine) since these have unique authentication patterns that differ from Western clouds.",
+      "tags": [
+        "multi-cloud",
+        "aws",
+        "azure",
+        "gcp",
+        "aliyun",
+        "tencentcloud",
+        "huaweicloud",
+        "volcengine",
+        "region",
+        "credential",
+        "provider"
+      ],
+      "url": "https://redc.wgpsec.org/skills/skill-multi-cloud-deployment.zip",
+      "sha256": "1577cc707c3fdda93528ac0ad5dfaa392683e9ea44e0c4e903db62d532e4e385"
+    },
+    {
+      "id": "terraform-best-practices",
+      "name": "Terraform Best Practices",
+      "description": "Terraform IaC best practices for cloud infrastructure deployments. Use this skill whenever the user is writing Terraform code, creating templates, generating .tf files, asking about state management, modules, variables, security groups, or any infrastructure-as-code question. Also use when reviewing or debugging Terraform configurations, discussing provider setup, or planning multi-resource deployments — even if the user doesn't explicitly mention \"Terraform\" but is clearly working with .tf files or HCL syntax.",
+      "tags": [
+        "terraform",
+        "iac",
+        "best-practices",
+        "state",
+        "module",
+        "hcl",
+        "provider",
+        "variable",
+        "security"
+      ],
+      "url": "https://redc.wgpsec.org/skills/skill-terraform-best-practices.zip",
+      "sha256": "9bdf2733248d32fb0c9c61ca3176a362c4a377e737d7eb511450662bcdc72e2c"
+    },
+    {
+      "id": "troubleshooting-guide",
+      "name": "Deployment Troubleshooting",
+      "description": "Diagnose and fix Terraform deployment errors in RedC scenarios. Use this skill whenever the user encounters an error during deployment — whether it's a Terraform init failure, authentication error, resource creation failure, network timeout, state conflict, or cloud-init problem. Also use when the user pastes an error message, says \"deployment failed\", asks why something isn't working, or reports that instances are unreachable after creation. This skill covers the most common failure modes across all cloud providers supported by RedC.",
+      "tags": [
+        "troubleshoot",
+        "error",
+        "debug",
+        "terraform",
+        "deploy",
+        "timeout",
+        "auth",
+        "state",
+        "cloud-init",
+        "fix"
+      ],
+      "url": "https://redc.wgpsec.org/skills/skill-troubleshooting-guide.zip",
+      "sha256": "285239901f5054d5f77241c860d2a4899a50bd0e961c90191d6545eb60868519"
+    }
+  ]
+}
