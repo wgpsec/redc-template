@@ -139,7 +139,7 @@ This is the most important file — the redc engine and CI both validate it stri
 | `vulType` | userdata | 漏洞类型（安全类 userdata） |
 | `cveId` | userdata | CVE 编号 |
 
-**Version numbering**: Use semantic versioning (`major.minor.patch`). Bump patch for fixes, minor for new features, major for breaking changes.
+**Version numbering**: Use semantic versioning (`major.minor.patch`). Bump patch for fixes, minor for new features, major for breaking changes. **Every template change must bump the version** — redc uses this field to detect updates; unchanged versions will not trigger `redc pull` updates on user machines.
 
 ### Step 4: Write Terraform files (preset/base templates)
 
@@ -335,7 +335,9 @@ Clean up before committing: remove `.terraform/`, `.terraform.lock.hcl`, and any
 
 ### Updating a template
 
-1. **Bump the version** in `case.json` (patch for fixes, minor for features)
+> **⚠️ 重要**: 任何场景模板的更新（包括 .tf 文件、README、case.json 字段修改等），都**必须**同时更新 `case.json` 中的 `version` 字段。redc 工具通过版本号判断模板是否有更新，如果版本号不变，用户端的 `redc pull` 不会拉取到最新模板。
+
+1. **Bump the version** in `case.json` — patch for fixes (1.0.1→1.0.2), minor for features (1.0.x→1.1.0)
 2. Make the changes to `.tf` files
 3. Update `README.md` if the interface changed
 4. Run `terraform fmt .` and `terraform validate`
