@@ -65,40 +65,79 @@ stack-name/
 
 This is the most important file — the redc engine and CI both validate it strictly.
 
-**Required fields** (CI will fail without these):
+**Common required fields** (all template types, CI will fail without these):
 
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | 模板名称，非空 |
+| `user` | string | 作者名，非空 |
+| `version` | string | 语义化版本号，如 `"1.0.0"` |
+| `description` | string | 中文描述，非空 |
+| `description_en` | string | 英文描述，非空 |
+| `tags` | list | 标签列表，非空 |
+
+**Type-specific required fields** (CI also enforces these):
+
+| Template Type | Extra Required Fields | Description |
+|---------------|----------------------|-------------|
+| `preset` | `arch` | 架构，如 `"x86_64"` 或 `"arm64"` |
+| `base` | `arch`, `provider` | 架构 + 云厂商标识（如 `"alicloud"`, `"aws"`） |
+| `userdata` | `nameZh`, `type`, `category` | 中文名 + 脚本类型 (`bash`/`powershell`) + 分类 (`basic`/`tool`/`service`/`security`) |
+| `compose` | (无额外字段) | — |
+
+**Preset template example**:
 ```json
 {
-  "name": "scene-name",
-  "user": "author-name",
+  "name": "ecs",
+  "user": "redc",
   "version": "1.0.0",
-  "description": "中文描述，清晰说明场景用途和关键特性",
-  "description_en": "English description of the scenario",
-  "tags": ["relevant", "tags"],
+  "description": "阿里云 ECS 实例",
+  "description_en": "Alibaba Cloud ECS instance",
+  "tags": ["ecs", "basic"],
+  "arch": "x86_64",
   "template": "preset"
 }
 ```
 
-**Optional fields** by template type:
-
-For preset templates:
+**Base template example**:
 ```json
 {
+  "name": "alicloud-ecs",
+  "user": "redc",
+  "version": "1.0.5",
+  "description": "阿里云 ECS 基础模板",
+  "description_en": "Alibaba Cloud ECS base template",
+  "tags": ["ecs"],
   "arch": "x86_64",
-  "redc_plugins": "redc-plugin-clash-config,redc-plugin-upload-r2"
+  "provider": "alicloud",
+  "template": "base"
 }
 ```
 
-For userdata templates, add:
+**Userdata template example**:
 ```json
 {
-  "nameZh": "中文名称",
+  "name": "f8x-bash",
+  "nameZh": "f8x 渗透测试工具集",
+  "user": "r0fus0d",
+  "version": "1.0.1",
+  "description": "f8x 渗透测试工具集",
+  "description_en": "f8x penetration testing toolkit",
+  "tags": ["tool"],
   "type": "bash",
-  "category": "basic"
+  "category": "tool",
+  "template": "userdata"
 }
 ```
 
-`type` is `bash` or `powershell`. `category` values: `basic`, `tool`, `service`, `security`.
+**Optional fields** (not enforced by CI, but useful):
+
+| Field | Used by | Description |
+|-------|---------|-------------|
+| `redc_plugins` | preset | 逗号分隔的插件列表 |
+| `provider` | preset | 云厂商标识（preset 可选，base 必填） |
+| `vulType` | userdata | 漏洞类型（安全类 userdata） |
+| `cveId` | userdata | CVE 编号 |
 
 **Version numbering**: Use semantic versioning (`major.minor.patch`). Bump patch for fixes, minor for new features, major for breaking changes.
 
@@ -285,7 +324,10 @@ terraform validate
 terraform fmt .
 ```
 
-Also verify case.json has all 6 required fields: `name`, `user`, `version`, `description`, `description_en`, `tags`.
+Also verify case.json has all required fields — both the 6 common fields (`name`, `user`, `version`, `description`, `description_en`, `tags`) and the type-specific fields:
+- **preset**: `arch`
+- **base**: `arch`, `provider`
+- **userdata**: `nameZh`, `type`, `category`
 
 Clean up before committing: remove `.terraform/`, `.terraform.lock.hcl`, and any `*.tfstate*` files.
 
@@ -311,10 +353,15 @@ Clean up before committing: remove `.terraform/`, `.terraform.lock.hcl`, and any
 The GitHub Actions CI (`validate.yml`) checks:
 
 1. **Every template directory** must have `README.md` and `case.json`
-2. **case.json required fields**: `name`, `user`, `version`, `description`, `description_en`, `tags`
-3. **Field constraints**: `name`/`user`/`description`/`description_en` must be non-empty strings, `version` must be a string, `tags` must be a non-empty list
-4. **Terraform syntax**: `terraform fmt` must pass (syntax only, not formatting style)
-5. Directories in `plugins/`, `.git/`, `.github/` are excluded from checks
+2. **Common required fields**: `name`, `user`, `version`, `description`, `description_en`, `tags`
+3. **Type-specific required fields**:
+   - `preset`: `arch`
+   - `base`: `arch`, `provider`
+   - `userdata`: `nameZh`, `type`, `category`
+   - `compose`: (no extra fields)
+4. **Field constraints**: `name`/`user`/`description`/`description_en` must be non-empty strings, `version` must be a string, `tags` must be a non-empty list
+5. **Terraform syntax**: `terraform fmt` must pass (syntax only, not formatting style)
+6. Directories in `plugins/`, `.git/`, `.github/` are excluded from checks
 
 ### Adding a new cloud provider
 
