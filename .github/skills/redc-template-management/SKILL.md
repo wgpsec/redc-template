@@ -38,7 +38,8 @@ Every template directory needs at minimum:
 ```
 scene-name/
 ├── case.json       ← Metadata (REQUIRED)
-├── README.md       ← Documentation (REQUIRED)
+├── README.md       ← Documentation in Chinese (REQUIRED)
+├── README_EN.md    ← Documentation in English (REQUIRED)
 ├── versions.tf     ← Provider version locks (preset/base only)
 ├── main.tf         ← Core resources (preset/base only)
 ├── variables.tf    ← Input variables (preset/base only)
@@ -50,6 +51,7 @@ For **userdata** templates, the structure is simpler:
 script-name/
 ├── case.json
 ├── README.md
+├── README_EN.md
 └── userdata        ← The script file (no extension)
 ```
 
@@ -58,6 +60,7 @@ For **compose** templates:
 stack-name/
 ├── case.json
 ├── README.md
+├── README_EN.md
 └── redc-compose.yaml
 ```
 
@@ -258,9 +261,11 @@ output "ssh_password" {
 }
 ```
 
-### Step 5: Write README.md
+### Step 5: Write README.md and README_EN.md
 
-Every README should include:
+Every template must have both a Chinese README (`README.md`) and an English README (`README_EN.md`). The redc website uses `README_EN.md` when users browse in English mode, so both files are required by CI.
+
+Both READMEs should include:
 
 1. **Title and description** — What this template deploys
 2. **Architecture diagram** (for complex setups) — ASCII art showing resource relationships
@@ -354,7 +359,7 @@ Clean up before committing: remove `.terraform/`, `.terraform.lock.hcl`, and any
 
 The GitHub Actions CI (`validate.yml`) checks:
 
-1. **Every template directory** must have `README.md` and `case.json`
+1. **Every template directory** must have `README.md`, `README_EN.md` and `case.json`
 2. **Common required fields**: `name`, `user`, `version`, `description`, `description_en`, `tags`
 3. **Type-specific required fields**:
    - `preset`: `arch`

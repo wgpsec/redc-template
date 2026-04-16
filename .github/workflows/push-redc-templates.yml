@@ -157,6 +157,14 @@ jobs:
                           with open(readme_path, 'r', encoding='utf-8') as rf: readme_content = rf.read()
                   except: pass
 
+                  # 读取 README_EN
+                  readme_en_content = ''
+                  readme_en_path = os.path.join(template_path, 'README_EN.md')
+                  try:
+                      if os.path.exists(readme_en_path):
+                          with open(readme_en_path, 'r', encoding='utf-8') as rf: readme_en_content = rf.read()
+                  except: pass
+
                   # 2. 初始化元数据结构
                   if template_id not in manifest_data:
                       manifest_data[template_id] = {
@@ -167,7 +175,8 @@ jobs:
                   manifest_data[template_id]['latest'] = meta_version
                   manifest_data[template_id]['metadata'] = {
                       'name': meta_name, 'author': meta_user, 'description': meta_desc,
-                      'description_en': meta_desc_en, 'tags': meta_tags, 'readme': readme_content
+                      'description_en': meta_desc_en, 'tags': meta_tags, 'readme': readme_content,
+                      'readme_en': readme_en_content
                   }
 
                   # 3. 检查版本是否存在

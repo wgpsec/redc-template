@@ -86,7 +86,7 @@ jobs:
                   current_files = set(os.listdir(template_path))
                   
                   # -------------------------------------------------
-                  # Check 1: README.md
+                  # Check 1: README.md & README_EN.md
                   # -------------------------------------------------
                   if 'README.md' not in current_files:
                       lower_files = [f.lower() for f in current_files]
@@ -94,6 +94,10 @@ jobs:
                           print(f'❌ [FILE] {template_id}: Found lowercase readme.md. MUST be CAPS: README.md')
                       else:
                           print(f'❌ [FILE] {template_id}: Missing required file: README.md')
+                      has_error = True
+
+                  if 'README_EN.md' not in current_files:
+                      print(f'❌ [FILE] {template_id}: Missing required file: README_EN.md')
                       has_error = True
 
                   # -------------------------------------------------
