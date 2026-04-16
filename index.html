@@ -708,7 +708,7 @@ redc config check</pre>
 
     <script>
         // --- State ---
-        let currentLang = localStorage.getItem('redc-lang') || 'zh-CN';
+        let currentLang = localStorage.getItem('redc-lang') || (navigator.language && navigator.language.startsWith('zh') ? 'zh-CN' : 'en');
         let currentTheme = localStorage.getItem('redc-theme') || 'light';
         let currentView = 'grid'; 
         let currentFilter = 'all';
@@ -892,6 +892,7 @@ redc config check</pre>
                     (t.id || '').toLowerCase().includes(searchTerm) ||
                     (meta.name || '').toLowerCase().includes(searchTerm) ||
                     (meta.description || '').toLowerCase().includes(searchTerm) ||
+                    (meta.description_en || '').toLowerCase().includes(searchTerm) ||
                     (meta.author || '').toLowerCase().includes(searchTerm) ||
                     provider.includes(searchTerm);
 
@@ -944,7 +945,7 @@ redc config check</pre>
             const html = templates.map(t => {
                 const meta = t.metadata || {};
                 const name = meta.name || t.slug;
-                const desc = meta.description || 'No description provided';
+                const desc = currentLang === 'en' ? (meta.description_en || meta.description || 'No description provided') : (meta.description || 'No description provided');
                 const version = t.latest || t.version || '0.0.1';
                 const provider = t.provider || t.id.split('/')[0];
                 const colorData = getProviderColor(provider);
@@ -1014,7 +1015,7 @@ redc config check</pre>
                         ${meta.name || item.slug}
                     </td>
                     <td class="max-w-xs truncate" style="color: var(--text-secondary);">
-                        ${meta.description || '-'}
+                        ${currentLang === 'en' ? (meta.description_en || meta.description || '-') : (meta.description || '-')}
                     </td>
                     <td class="font-mono text-xs" style="color: var(--text-tertiary);">v${version}</td>
                     <td class="text-right">
@@ -1195,10 +1196,10 @@ redc config check</pre>
             document.getElementById('modal-author').textContent = meta.author || 'Unknown';
             document.getElementById('modal-version').textContent = `v${version}`;
             document.getElementById('modal-footer-info').textContent = `ID: ${t.id}`;
-            document.getElementById('modal-desc').textContent = meta.description || 'No description available.';
+            document.getElementById('modal-desc').textContent = currentLang === 'en' ? (meta.description_en || meta.description || 'No description available.') : (meta.description || 'No description available.');
 
             // Content
-            const readmeRaw = meta.readme || lang.no_readme;
+            const readmeRaw = currentLang === 'en' ? (meta.readme_en || meta.readme || 'No README available.') : (meta.readme || 'No README available.');
             const htmlContent = DOMPurify.sanitize(marked.parse(readmeRaw));
             document.getElementById('markdown-content').innerHTML = htmlContent;
 
