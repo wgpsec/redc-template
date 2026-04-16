@@ -119,7 +119,7 @@ jobs:
 
           # --- B. 遍历处理 ---
           repo_root = '.'
-          exclude = {'.git', '.github', 'public', 'previous_build', '.gitignore', 'index.html', 'plugins', 'assets'}
+          exclude = {'.git', '.github', 'public', 'previous_build', '.gitignore', 'index.html', 'plugins', 'skills', 'assets'}
           
           # 标记本次构建是否有更新 (如果没有更新，甚至可以不提交 index.json，但为了更新时间戳还是提交吧)
           has_changes = False
@@ -337,6 +337,121 @@ jobs:
               json.dump(registry, f, indent=2, ensure_ascii=False)
           
           print(f'✨ Plugin registry updated: {len(plugins)} plugins')
+          "
+
+      # 3.6 构建 Skills 索引和 ZIP 包
+      - name: Build Skills Registry
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+        run: |
+          mkdir -p public/skills
+          
+          python3 -c "
+          import os
+          import json
+          import re
+          import shutil
+          import hashlib
+          import datetime
+
+          repo_owner = os.environ.get('REPO_OWNER')
+          base_url = f'https://redc.{repo_owner}.org'
+          skills_src = 'skills'
+          skills_out = os.path.join('public', 'skills')
+          
+          if not os.path.isdir(skills_src):
+              print('⏩ No skills/ directory, skipping')
+              exit(0)
+
+          os.makedirs(skills_out, exist_ok=True)
+
+          # 加载已有的 registry
+          prev_registry_url = f'{base_url}/skills/skill-registry.json'
+          prev_hashes = {}
+          prev_path = 'prev_skill_registry.json'
+          os.system(f'curl -sL \"{prev_registry_url}\" -o {prev_path} 2>/dev/null || true')
+          try:
+              with open(prev_path, 'r') as f:
+                  prev_data = json.load(f)
+                  for s in prev_data.get('skills', []):
+                      if 'sha256' in s:
+                          prev_hashes[s['id']] = s['sha256']
+          except:
+              pass
+
+          skills = []
+
+          for entry in sorted(os.listdir(skills_src)):
+              skill_dir = os.path.join(skills_src, entry)
+              skill_md = os.path.join(skill_dir, 'SKILL.md')
+              
+              if not os.path.isdir(skill_dir) or not os.path.exists(skill_md):
+                  continue
+              
+              # Parse YAML frontmatter
+              with open(skill_md, 'r', encoding='utf-8') as f:
+                  content = f.read()
+              
+              name = entry
+              description = ''
+              tags = []
+              
+              if content.startswith('---'):
+                  end = content.find('---', 3)
+                  if end > 0:
+                      front = content[3:end]
+                      for line in front.strip().split('\n'):
+                          line = line.strip()
+                          if line.startswith('name:'):
+                              name = line[5:].strip().strip('\"\\\"')
+                          elif line.startswith('description:'):
+                              description = line[12:].strip().strip('\"\\\"')
+                          elif line.startswith('tags:'):
+                              tag_str = line[5:].strip()
+                              tags = [t.strip() for t in re.split(r'[,，]', tag_str) if t.strip()]
+
+              # Compute hash
+              h = hashlib.sha256()
+              for root, dirs, files in sorted(os.walk(skill_dir)):
+                  dirs.sort()
+                  for fn in sorted(files):
+                      fp = os.path.join(root, fn)
+                      rel = os.path.relpath(fp, skill_dir)
+                      h.update(rel.encode())
+                      with open(fp, 'rb') as ff:
+                          for chunk in iter(lambda: ff.read(4096), b''):
+                              h.update(chunk)
+              src_hash = h.hexdigest()
+
+              zip_filename = f'skill-{entry}.zip'
+              zip_path = os.path.join(skills_out, zip_filename)
+
+              if src_hash != prev_hashes.get(entry, ''):
+                  print(f'🔨 Packaging skill: {zip_filename}')
+                  shutil.make_archive(zip_path.replace('.zip', ''), 'zip', root_dir=skill_dir)
+              else:
+                  print(f'⏩ Skipping skill: {zip_filename} (unchanged)')
+
+              skills.append({
+                  'id': entry,
+                  'name': name,
+                  'description': description,
+                  'tags': tags,
+                  'url': f'{base_url}/skills/{zip_filename}',
+                  'sha256': src_hash
+              })
+
+          registry = {
+              'version': 1,
+              'updated': datetime.datetime.utcnow().strftime('%Y-%m-%d'),
+              'skills': skills
+          }
+          
+          registry_path = os.path.join(skills_out, 'skill-registry.json')
+          with open(registry_path, 'w', encoding='utf-8') as f:
+              json.dump(registry, f, indent=2, ensure_ascii=False)
+          
+          print(f'✨ Skill registry updated: {len(skills)} skills')
           "
 
       # 4. 部署 (Keep Files 模式)
