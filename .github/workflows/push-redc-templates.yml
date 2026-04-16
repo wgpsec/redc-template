@@ -81,6 +81,10 @@ jobs:
           mkdir -p public/templates
           [ -f index.html ] && cp index.html public/index.html
 
+          # Inject latest redc version into index.html
+          REDC_VERSION=$(curl -sf https://api.github.com/repos/wgpsec/redc/releases/latest | python3 -c "import sys,json; print(json.load(sys.stdin).get('tag_name','v0.0.0'))" 2>/dev/null || echo "v0.0.0")
+          sed -i "s/__REDC_VERSION__/${REDC_VERSION}/g" public/index.html
+
           python3 -c "
           import os
           import json
