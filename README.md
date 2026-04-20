@@ -54,4 +54,8 @@ This repository uses GitHub Actions to automatically check for sensitive informa
 - **CI/CD Integration**: Scanning is triggered on every push and pull request
 - **Leak Prevention**: CI fails and blocks merging when sensitive information is detected
 
+## Plugin Development
+
+If you want to write your own RedC plugin (lifecycle hooks, config generation, file upload, etc.), see the [Plugin Development Guide](doc/plugin-development.md).
+
 ⚠️ **Important**: Do not write real AK/SK, passwords, or other sensitive information directly into the code. Use environment variables or configuration files to manage sensitive information.
