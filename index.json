@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-16T12:31:14.623272Z",
+  "updated_at": "2026-04-20T09:36:18.330559Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -300,9 +300,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.1.7.zip",
           "sha256": "50bc9157b3e6536ee70315bb303fedaff6dfd3df89b2d328e516f502eecbd25d",
           "updated_at": "2026-04-16T06:40:42.578169Z"
+        },
+        "1.2.7": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.2.7.zip",
+          "sha256": "553f800c06d773b3d7c3d8ec9843272d8611717fe864beec89cc3d62d447f8e0",
+          "updated_at": "2026-04-20T09:36:18.325723Z"
         }
       },
-      "latest": "1.1.7",
+      "latest": "1.2.7",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
