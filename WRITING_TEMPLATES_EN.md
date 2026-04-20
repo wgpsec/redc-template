@@ -67,7 +67,9 @@ redc supports four template types, distinguished by the `template` field in `cas
 
 ## File Conventions
 - `case.json`
-  - Fields: `name`, `user`, `version`, `description`; if redc modules are needed, add `redc_module`, e.g., `gen_clash_config,upload_r2` (see [aliyun/proxy/case.json](aliyun/proxy/case.json)).
+  - Fields: `name`, `user`, `version`, `description`, `tags` (array of tags for categorization).
+  - To bind plugins, add `redc_plugins` with comma-separated plugin names, e.g., `"redc_plugins": "redc-plugin-clash-config,redc-plugin-upload-r2"` (see [aliyun/proxy/case.json](aliyun/proxy/case.json)).
+  - For plugin development, see the [Plugin Development Guide](doc/plugin-development.md).
 - `README.md`
   - Document redc commands: `redc pull <path>`, `redc run <path>`, `redc status [uuid]`, `redc stop [uuid]`.
   - Highlight required manual replacements (e.g., `launch_template id`, region, keys) and common failure causes (see [aws/ec2/README.md](aws/ec2/README.md)).
@@ -87,8 +89,8 @@ redc supports four template types, distinguished by the `template` field in `cas
 
 ## redc Integration Notes
 - Scene path equals redc command argument: `redc pull aliyun/proxy`, `redc run aws/ec2`.
-- For extra automation (e.g., generate Clash config, upload to R2), set `redc_module` in `case.json` and expose needed vars/outputs in Terraform.
-- For mainland/China use cases, runtime assets can be fetched via `github_proxy` links defined in the template; for overseas use, direct GitHub links are fine. Execution artifacts can be uploaded via redc's `upload_r2` module.
+- For extra automation (e.g., generate Clash config, upload to R2, update DNS), set `redc_plugins` in `case.json` to bind the corresponding plugins. Plugins automatically execute hook scripts at key points in the scene lifecycle.
+- For mainland/China use cases, runtime assets can be fetched via `github_proxy` links defined in the template; for overseas use, direct GitHub links are fine. Execution artifacts can be uploaded via the `redc-plugin-upload-r2` plugin.
 
 ## Suggested Authoring Flow
 1) Create `cloud/scene` directory and add the file skeleton.
