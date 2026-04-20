@@ -3,13 +3,29 @@ locals {
   generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
   instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
   instance_name      = var.instance_name != "" ? var.instance_name : "proxy"
+
+  # 每个区域硬编码: 机型 + 可用区（已验证 spot 可用）
+  region_config = {
+    "cn-beijing" = {
+      instance_type = "ecs.n1.tiny"
+      zone_id       = "cn-beijing-f"
+    }
+    "ap-northeast-1" = {
+      instance_type = "ecs.t5-lc1m1.small"
+      zone_id       = "ap-northeast-1b"
+    }
+  }
+
+  config              = local.region_config[var.region]
+  final_instance_type = local.config.instance_type
+  final_zone_id       = local.config.zone_id
 }
 
 resource "alicloud_instance" "instance" {
   count                      = var.node
   security_groups            = alicloud_security_group.group.*.id
-  instance_type              = "ecs.n1.tiny"
-  image_id                   = "debian_11_7_x64_20G_alibase_20230907.vhd"
+  instance_type              = local.final_instance_type
+  image_id                   = data.alicloud_images.debian.images[0].id
   instance_name              = local.instance_name
   vswitch_id                 = alicloud_vswitch.vswitch.id
   system_disk_size           = 20
@@ -101,7 +117,7 @@ resource "alicloud_security_group_rule" "allow_all_udp" {
 resource "alicloud_vswitch" "vswitch" {
   vpc_id       = alicloud_vpc.vpc.id
   cidr_block   = "172.16.0.0/24"
-  zone_id      = data.alicloud_zones.default.zones[0].id
+  zone_id      = local.final_zone_id
   vswitch_name = "ss_vswitch"
 
 }
@@ -111,7 +127,8 @@ resource "alicloud_vpc" "vpc" {
   cidr_block = "172.16.0.0/16"
 }
 
-data "alicloud_zones" "default" {
-  available_resource_creation = "VSwitch"
-  available_instance_type     = "ecs.n1.tiny"
+data "alicloud_images" "debian" {
+  owners      = "system"
+  name_regex  = "^debian_1[1-2].*x64"
+  most_recent = true
 }

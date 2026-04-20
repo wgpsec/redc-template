@@ -1,3 +1,4 @@
+region       = "cn-beijing"
 node         = "10"
 port         = "60001"
 password     = "O9E3b1/OdxCrLkTmWyTL7w=="

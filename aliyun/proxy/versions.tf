@@ -9,5 +9,9 @@ terraform {
 
 provider "alicloud" {
   profile = "cloud-tool"
-  region  = "cn-beijing"
+  region  = var.region
+  endpoints {
+    ecs = "ecs.aliyuncs.com"
+    vpc = "vpc.aliyuncs.com"
+  }
 }
