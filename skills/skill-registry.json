@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-04-20",
+  "updated": "2026-04-21",
   "skills": [
     {
       "id": "aws-security-hardening",
@@ -37,6 +37,14 @@
       ],
       "url": "https://redc.wgpsec.org/skills/skill-cost-optimization.zip",
       "sha256": "c0278382448517bcc435f5b77c91f7b1409dd98198dbdea229aa094948e0f524"
+    },
+    {
+      "id": "f8x-usage",
+      "name": "f8x-usage",
+      "description": "",
+      "tags": [],
+      "url": "https://redc.wgpsec.org/skills/skill-f8x-usage.zip",
+      "sha256": "29dbd16e1f669e3d0bee2284d18a8a952445ff47ad9efa9a87605ca77063dca8"
     },
     {
       "id": "multi-cloud-deployment",
