@@ -41,10 +41,10 @@
     {
       "id": "f8x-usage",
       "name": "f8x-usage",
-      "description": "",
+      "description": "Guide for using f8x, the red/blue team environment automation deployment tool. Use this skill whenever the user asks about installing security tools on a VPS, deploying pentest/red-team/blue-team environments, using f8x commands or flags, querying available tools via catalog, or automating tool installation through MCP/AI Agent integration with RedC. Also trigger when user mentions tool names like nuclei, httpx, nmap, subfinder, sqlmap, metasploit, CobaltStrike, Sliver, or any security tooling deployment on Linux servers.",
       "tags": [],
       "url": "https://redc.wgpsec.org/skills/skill-f8x-usage.zip",
-      "sha256": "29dbd16e1f669e3d0bee2284d18a8a952445ff47ad9efa9a87605ca77063dca8"
+      "sha256": "5f12385ea315b0ef11ea3410dd0922776dbcf495e8c448c5123a24d10248b709"
     },
     {
       "id": "multi-cloud-deployment",
