@@ -1,40 +1,73 @@
-# Usage
+# Tencent CVM
 
-1. Configure according to the notes before use (if empty, no configuration needed)
-2. Usage commands are as follows:
+## Scene Description
 
-Pull
-```
+This scene deploys a public-facing CVM instance in Tencent Cloud Beijing, installs common tools such as wget, curl, tmux, and Python3, and returns ready-to-use SSH access details. It is suitable for temporary testing, development debugging, or general host provisioning.
+
+## Prerequisites
+
+- redc must already be configured with working Tencent Cloud credentials.
+- If you need to override credentials from the CLI, use `-e tencentcloud_secret_id=... -e tencentcloud_secret_key=...`. Do not store live AK/SK values in a tracked `terraform.tfvars` file.
+- Your account must have enough balance and permission to create pay-as-you-go CVM instances in the Beijing region.
+
+## Quick Start
+
+Pull the scene:
+
+```bash
 redc pull tencent/cvm
 ```
 
-Start
-```
+Run with defaults:
+
+```bash
 redc run tencent/cvm
 ```
 
-Query
+Override the instance name or login password when needed:
+
+```bash
+redc run tencent/cvm -e instance_name=lab-cvm -e instance_password='YourPassword123!'
 ```
+
+If you need to pass Tencent Cloud credentials temporarily, do it through the generic variable entry:
+
+```bash
+redc run tencent/cvm -e tencentcloud_secret_id=YOUR_ID -e tencentcloud_secret_key=YOUR_KEY
+```
+
+Check the runtime status:
+
+```bash
 redc status [uuid]
 ```
 
-Stop
-```
+Stop the scene:
+
+```bash
 redc stop [uuid]
 ```
 
-# Static Resources
+## Parameters
 
-**If not using redc, please replace the Tencent Cloud aksk in terraform.tfvars yourself**
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `instance_name` | `cvm` | CVM instance name. |
+| `tencentcloud_secret_id` | required | Tencent Cloud SecretId. In normal usage this should come from the redc provider configuration. |
+| `tencentcloud_secret_key` | required | Tencent Cloud SecretKey. In normal usage this should come from the redc provider configuration. |
+| `instance_password` | auto-generated | Instance login password. If left empty, the template generates a random one. |
 
-```
-tencentcloud_secret_id  = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-tencentcloud_secret_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-```
+## Outputs
 
-# Notes
+- `ecs_ip` / `public_ip`: Instance public IP address.
+- `ecs_password` / `ssh_password`: Effective login password.
+- `ssh_user`: Default SSH username, currently `ubuntu`.
+- `ssh_command`: Copy-ready SSH command.
 
-If starting the scenario fails, possible reasons:
-1. Tencent Cloud account balance is insufficient
-2. Network connection to Tencent Cloud API timed out
-3. Tencent Cloud region sold out or instance_type configuration discontinued
+## Notes
+
+- The region is fixed to `ap-beijing`, and the availability zone is fixed to `ap-beijing-7`.
+- The template automatically selects a 2 vCPU / 4 GB instance from the Tencent Cloud S6 family. This is not a fully arbitrary instance-type scene.
+- The default security group allows all inbound and outbound traffic. Tighten access after deployment if the host is not meant to stay fully exposed.
+- The user data attempts to remove Tencent Cloud monitoring and security components.
+- Common failure causes are insufficient balance, Tencent Cloud API network timeouts, or capacity shortages in the chosen region and availability zone.
