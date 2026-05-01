@@ -1,69 +1,78 @@
-# Usage
+# DNSLog Scenario
 
-1. **Must** configure according to the notes before use (if empty, no configuration needed)
-2. Usage commands are as follows:
+## Scene Description
 
-Pull
-```
+This scenario deploys a DNSLog server in AWS ap-east-1 with built-in pdnslog and its web frontend. It is suitable for DNS callback verification, out-of-band interaction testing, and basic callback collection.
+
+After deployment, you get the public IP, web access link, web credentials, and SSH command. If Cloudflare credentials are already configured, the current plugin will try to update the `ns1.<zone>` A record automatically, but other DNS relationships may still need manual confirmation or completion.
+
+## Prerequisites
+
+- You need working AWS credentials and the ap-east-1 (Hong Kong) region enabled.
+- This template uses an ARM64 instance, so the target account must be able to launch the required instance type in that region.
+- Prepare a domain for the DNSLog service, such as `dnslog.com`.
+- If you want redc to assist with DNS updates, configure your Cloudflare email and access key / API credentials in `redc config.yaml`; the current automation mainly targets the `ns1.<zone>` A record.
+- If Cloudflare API is not configured, you can still use the scene, but you must create the required DNS records manually after deployment.
+
+## Quick Start
+
+```bash
 redc pull aws/dnslog
-```
-
-Start
-```
 redc run aws/dnslog -e domain=dnslog.com
-
-# domain is your dnslog domain
-```
-
-Query
-```
 redc status [uuid]
-```
-
-Stop
-```
 redc stop [uuid]
 ```
 
-3. If Cloudflare API is not configured, you need to manually modify the CNAME after the scenario is created
+Replace `domain` with your own DNSLog domain.
 
-# Static Resources
+## Parameters
 
-You can replace the static resource download links in the template yourself
+| Parameter | Required | Default | Example | Behavior Impact |
+|-----------|----------|---------|---------|-----------------|
+| `domain` | Yes | None | `dnslog.com` | Used to create and bind the DNSLog domain records. The scene cannot work correctly without it. |
+| `username` | No | `red123` | `admin` | Controls the DNSLog web username; customize it through template variables or `terraform.tfvars` if needed. |
+| `password` | No | `r1e2d3o4n5e6123` | `StrongPass123` | Controls the DNSLog web password; customize it through template variables or `terraform.tfvars` if needed. |
 
-**dig.pm Configuration**
-- https://github.com/yumusb/DNSLog-Platform-Golang
+## Outputs
 
-You can use my compiled version (no difference, you can also compile the original)
-- https://github.com/No-Github/pdnslog/releases/tag/v1.0.0
+When deployment outputs drive your next step, focus on these fields first:
 
-# Notes
+- `web_link`: DNSLog web console URL built from the template's default credentials; if you override `username` or `password`, use your custom credentials instead.
+- `web_user` / `web_pass`: Default template credentials; if `username` or `password` is overridden at runtime, use your supplied values instead.
+- `public_ip` / `ecs_ip`: Public IP of the instance, useful for manual DNS setup and troubleshooting.
+- `ssh_command`: Ready-to-run SSH command for logging into the instance.
+- `ssh_private_key_path`: Local path to the generated SSH private key used by `ssh_command`.
 
-**Region Configuration**
+## FAQ
 
-Enable AWS ap-east-1 (Hong Kong) region
+- If Cloudflare API is not configured, you must add the DNS records manually after deployment. At minimum, verify a setup similar to the following:
+
+```text
+A  ns1  <instance-public-ip>
+NS a    ns1.dnslog.com
+```
+
+- Even with Cloudflare credentials configured, the current plugin only updates the `ns1.<zone>` A record by default; the `a.<domain>` NS relationship and other records should still be verified manually.
+
+- If startup fails, check these items first:
+	1. Whether the AWS API connection timed out.
+	2. Whether ap-east-1 still has instance capacity.
+	3. Whether the AMI architecture matches the selected instance type.
+	4. Whether the Cloudflare DNS configuration is correct.
+	5. Whether the Cloudflare credentials have enough permissions.
+
+## Notes
+
+- This scene is fixed to ap-east-1 (Hong Kong). Confirm the region is enabled before use.
 
 ![](../../img/redc-2.png)
 
 ![](../../img/redc-3.png)
 
-**CF Configuration**
+## Appendix
 
-Apply for API token
-
-Configure similar to below (ip can be any value first)(add ns1 to domain)
-```
-# A ns1 1.2.34
-# NS a ns1.dnslog.com
-```
-
-**redc config.yaml Configuration**
-
-Configure your CF email and accesskey in config.yaml
-
-If starting the scenario fails, possible reasons:
-1. Network connection to AWS API timed out
-2. AWS region sold out or instance_type configuration discontinued
-3. AMI architecture does not match instance_type
-4. CF DNS configuration is incorrect
-5. CF key permissions are insufficient
+- Static resource download links in the template can be replaced if needed.
+- Reference for the dig.pm-related implementation:
+	- https://github.com/yumusb/DNSLog-Platform-Golang
+- If you prefer a custom-built binary, you can also refer to:
+	- https://github.com/No-Github/pdnslog/releases/tag/v1.0.0

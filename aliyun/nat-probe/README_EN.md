@@ -1,10 +1,74 @@
 # NAT Multi-EIP Traffic Probe
 
-Alibaba Cloud ECS + NAT Gateway + Multi Elastic IP traffic probe scenario.
+## Scene Description
 
-## Architecture
+This scenario creates one ECS instance, one NAT gateway, and multiple EIPs in Alibaba Cloud, then maps multiple public exits to a single probing host. It is suitable for traffic probing, honeypot ingress, multi-exit observation, and infrastructure validation with multiple public IPs.
 
+After deployment, you get the full EIP list, the default SSH entry, per-EIP SSH commands, the ECS login password, and a NAT summary that can be used for further validation or automation.
+
+## Prerequisites
+
+- You need working Alibaba Cloud credentials with permissions to create ECS, VPC, vSwitch, NAT gateway, EIPs, and security groups.
+- Confirm that your account has enough ECS, NAT, and EIP quota in the target region.
+- The default region is `cn-beijing`, and the default instance type is `ecs.e-c1m2.large`; adjust them if capacity is limited.
+- This scenario incurs NAT gateway and multiple EIP costs, so confirm your billing and budget expectations before deployment.
+
+## Quick Start
+
+```bash
+redc pull aliyun/nat-probe
+redc run aliyun/nat-probe
+redc run aliyun/nat-probe -e eip_count=10
+redc status [uuid]
+redc stop [uuid]
 ```
+
+The default deployment creates 5 EIPs. Override it with `-e eip_count=...` when you need more exits.
+
+## Parameters
+
+| Parameter | Required | Default | Example | Behavior Impact |
+|-----------|----------|---------|---------|-----------------|
+| `region` | No | `cn-beijing` | `cn-hangzhou` | Controls the deployment region and affects quota, cost, and instance availability. |
+| `instance_name` | No | `nat-probe` | `nat-probe-prod` | Controls the ECS instance name shown in the console. |
+| `instance_password` | No | Auto-generated | `StrongPass123!` | Controls the ECS login password; when left empty, it is generated automatically and returned in outputs. |
+| `instance_type` | No | `ecs.e-c1m2.large` | `ecs.c6.large` | Controls the ECS size, affecting cost, capacity, and available compute resources. |
+| `eip_count` | No | `5` | `10` | Controls how many EIPs are attached, directly affecting exit count, DNAT rules, and cost. |
+| `eip_bandwidth` | No | `100` | `50` | Controls bandwidth per EIP and affects throughput and cost. |
+| `eip_isp` | No | `BGP` | `BGP_PRO` | Controls the EIP line type and affects line quality and billing behavior. |
+
+## Outputs
+
+When deployment outputs drive your next step, focus on these fields first:
+
+- `public_ip`: The default public entry point, which is the first EIP.
+- `eip_addresses`: Full list of attached EIPs for validation and multi-exit use.
+- `ssh_command`: Default SSH login command for the probing host.
+- `ssh_commands`: Per-EIP SSH commands, useful for checking DNAT mapping behavior.
+- `ecs_password` / `ssh_password`: ECS login password.
+- `nat_gateway_id`: NAT gateway identifier for console-side inspection.
+- `summary`: Deployment summary with EIP count, mappings, and the default entry point.
+
+## FAQ
+
+- If deployment fails, check these items first:
+  1. Whether ECS, NAT, or EIP quota is sufficient in the selected region.
+  2. Whether the selected instance type is sold out or unavailable.
+  3. Whether the requested EIP count exceeds regional or account limits.
+  4. Whether NAT gateway and multiple EIP billing constraints are blocking resource creation.
+- If SSH through the second or third EIP feels "inconsistent," that is expected: every public entry still uses external port 22, but DNAT maps it to a different internal ECS port.
+
+## Notes
+
+- The ECS instance itself does not receive a direct public IP; all traffic is forwarded through the NAT gateway and EIPs.
+- Security groups allow all TCP/UDP by default. Tighten them for production use.
+- Alibaba Cloud security agent (aegis) is removed after deployment.
+
+## Appendix
+
+### Architecture
+
+```text
                     ┌─────────────┐
     Internet ──────>│ NAT Gateway │
                     │             │
@@ -18,20 +82,12 @@ Alibaba Cloud ECS + NAT Gateway + Multi Elastic IP traffic probe scenario.
                     │ ECS Instance│
                     │ (Private IP)│
                     │ Multi-port  │
-                    │  sshd       │
+                    │ sshd        │
                     │ tcpdump/nmap│
                     └─────────────┘
 ```
 
-## Features
-
-- **Multiple EIP Binding**: 5 EIPs by default (adjustable via `eip_count`), all bound to the NAT gateway
-- **All EIPs Reachable**: Each EIP's port 22 is DNAT-mapped to a different internal ECS port (22, 122, 222...), SSH accessible through any EIP
-- **SNAT Egress IP Pool**: All EIPs form an egress pool, outbound traffic rotates across EIPs
-- **Traffic Source Identification**: Distinguish which EIP traffic originates from by the internal listening port
-- **Pre-installed Tools**: tcpdump, nmap, net-tools and other probing tools
-
-## DNAT Port Mapping Rules
+### DNAT Port Mapping Rules
 
 | EIP | External Port | ECS Internal Port | Description |
 |-----|--------------|-------------------|-------------|
@@ -40,101 +96,28 @@ Alibaba Cloud ECS + NAT Gateway + Multi Elastic IP traffic probe scenario.
 | EIP[3] | 22 | 222 | 3rd EIP |
 | EIP[N] | 22 | N×100+22 | Nth EIP |
 
-The ECS user_data automatically configures sshd to listen on all these ports.
+The ECS `user_data` automatically configures sshd to listen on these internal ports.
 
-## Design Notes & Limitations
-
-### Why can't multiple EIPs do full-port mapping to the same ECS?
-
-Alibaba Cloud DNAT has two limitations:
-1. `ip_protocol=any` + `port=any` (IP mapping mode) conflicts with SNAT rules
-2. The same `internal_ip + internal_port` can only be mapped by one DNAT rule
-
-Therefore it's impossible to have multiple EIPs all full-port forwarding to the same ECS. The current approach uses **port-level mapping**: each EIP's specific port (e.g., 22) maps to a different internal port on the ECS.
-
-### Why not use multiple ENIs with direct EIP binding?
-
-The multi-ENI approach allows each EIP to be naturally full-port reachable, but:
-- ENI count is limited by instance type (small instances usually support only 2-3)
-- Requires manual policy routing configuration inside the instance
-- Not suitable for many EIPs (NAT gateway supports up to 100 EIPs)
-
-## Usage
-
-### Via redc
-
-```bash
-# Pull template
-redc pull aliyun/nat-probe
-
-# Deploy (default 5 EIPs)
-redc run aliyun/nat-probe
-
-# Deploy with 10 EIPs
-redc run aliyun/nat-probe -var eip_count=10
-
-# Check status
-redc status
-
-# Destroy
-redc stop
-```
-
-### Standalone
-
-```bash
-cd aliyun/nat-probe
-
-terraform init
-terraform plan -var="eip_count=5"
-terraform apply -auto-approve -var="eip_count=5"
-terraform destroy -auto-approve
-```
-
-## Variables
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `region` | `cn-beijing` | Alibaba Cloud region |
-| `instance_name` | `nat-probe` | ECS instance name |
-| `instance_password` | Auto-generated | ECS login password |
-| `instance_type` | `ecs.e-c1m2.large` | ECS instance type (2C4G) |
-| `eip_count` | `5` | Number of EIPs |
-| `eip_bandwidth` | `100` | Bandwidth per EIP (Mbps) |
-| `eip_isp` | `BGP` | EIP ISP (BGP/BGP_PRO) |
-
-## Outputs
-
-| Output | Description |
-|--------|-------------|
-| `eip_addresses` | List of all EIP addresses |
-| `ssh_commands` | SSH commands for each EIP with internal port mapping |
-| `ecs_password` | ECS login password |
-| `nat_gateway_id` | NAT gateway ID |
-| `summary` | Deployment summary |
-
-## Traffic Probe Examples
+### Traffic Probe Examples
 
 ```bash
 # SSH via EIP[1] (default port 22)
 ssh root@<EIP-1>
 
-# SSH via EIP[2] (external port 22, internally routed to 122)
+# SSH via EIP[2] (still external port 22, internally mapped to 122)
 ssh root@<EIP-2>
 
 # Check which ports sshd is listening on
 ss -tlnp | grep sshd
 
-# Monitor traffic from a specific EIP (filter by internal port)
-tcpdump -i eth0 -nn port 122   # Traffic from EIP[2]
+# Monitor traffic from a specific EIP by filtering the internal port
+tcpdump -i eth0 -nn port 122
 
 # Check current egress IP (SNAT rotation)
 curl -s ifconfig.me
 ```
 
-## Notes
+### Design Notes and Limitations
 
-1. The ECS instance has no public IP itself; all traffic goes through the NAT gateway
-2. EIPs are pay-per-traffic (PayByTraffic); monitor traffic costs
-3. Security groups allow all TCP/UDP by default — restrict as needed for production
-4. Alibaba Cloud security agent (aegis) is removed after deployment
+- Alibaba Cloud DNAT cannot map multiple EIPs with full-port forwarding to the same ECS, so this template uses port-level mapping instead.
+- A multi-ENI approach could make each EIP fully reachable, but it is constrained by ENI limits and is not suitable for a large EIP set.

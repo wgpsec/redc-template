@@ -9,6 +9,7 @@ locals {
   generated_password = format("%s_+%s", substr(local.password_seed, 0, 12), substr(local.password_seed, 12, 10))
   instance_password  = var.instance_password != "" ? var.instance_password : local.generated_password
   instance_name      = var.instance_name != "" ? var.instance_name : "nps_${local.random_suffix}"
+  effective_nps_conf = trimspace(var.base64_command) != "" ? trimspace(var.base64_command) : filebase64("${path.module}/nps.conf")
 
   # 生成8位随机后缀用于资源命名，避免名称冲突
   random_suffix = substr(replace(uuid(), "-", ""), 0, 8)
@@ -49,7 +50,7 @@ sudo ./nps install
 sudo ./nps install
 sudo nps install
 
-sudo echo "${var.base64_command}" | base64 -d > /etc/nps/conf/nps.conf
+sudo echo "${local.effective_nps_conf}" | base64 -d > /etc/nps/conf/nps.conf
 
 sudo nps start
 

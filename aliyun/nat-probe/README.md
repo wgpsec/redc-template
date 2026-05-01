@@ -1,36 +1,92 @@
 # NAT 多 EIP 流量探针
 
-阿里云 ECS + NAT 网关 + 多弹性公网 IP 流量探针场景
+## 场景说明
 
-## 架构
+该场景会在阿里云创建一台 ECS、一个 NAT 网关以及多枚 EIP，把多个公网出口统一映射到同一台探针主机上，适合做流量探测、蜜罐入口、多出口观察和带多 EIP 的基础设施验证。
 
+部署完成后，你会得到所有 EIP 列表、默认 SSH 入口、每个 EIP 对应的 SSH 命令、ECS 登录密码以及 NAT 网关摘要信息，便于继续做流量监听、映射验证和后续自动化接入。
+
+## 前置条件
+
+- 需要可用的阿里云凭据，并确保账号具有创建 ECS、VPC、交换机、NAT 网关、EIP 和安全组的权限。
+- 需要确认账号在目标区域有足够的实例、EIP 和 NAT 相关配额。
+- 该场景默认区域为 `cn-beijing`，默认实例规格为 `ecs.e-c1m2.large`，可根据容量情况自行调整。
+- 场景会产生 NAT 网关和多枚 EIP 费用，使用前需确认预算和按量付费策略。
+
+## 快速使用
+
+```bash
+redc pull aliyun/nat-probe
+redc run aliyun/nat-probe
+redc run aliyun/nat-probe -e eip_count=10
+redc status [uuid]
+redc stop [uuid]
 ```
-                    ┌─────────────┐
+
+默认部署 5 个 EIP；如果需要更多出口，可通过 `-e eip_count=...` 覆盖默认值。
+
+## 参数说明
+
+| 参数名 | 是否必填 | 默认值 | 示例 | 行为影响 |
+|--------|----------|--------|------|----------|
+| `region` | 否 | `cn-beijing` | `cn-hangzhou` | 控制部署区域，影响可用配额、EIP 成本和实例库存。 |
+| `instance_name` | 否 | `nat-probe` | `nat-probe-prod` | 控制 ECS 实例名称，便于在控制台中区分部署。 |
+| `instance_password` | 否 | 自动生成 | `StrongPass123!` | 控制 ECS 登录密码；留空时自动生成，并通过输出返回。 |
+| `instance_type` | 否 | `ecs.e-c1m2.large` | `ecs.c6.large` | 控制 ECS 规格，影响成本、可用性和可挂载能力。 |
+| `eip_count` | 否 | `5` | `10` | 控制绑定的 EIP 数量，直接影响出口数量、DNAT 规则数量和整体成本。 |
+| `eip_bandwidth` | 否 | `100` | `50` | 控制每个 EIP 的带宽上限，影响出口能力和成本。 |
+| `eip_isp` | 否 | `BGP` | `BGP_PRO` | 控制 EIP 线路类型，影响线路质量和计费策略。 |
+
+## 输出说明
+
+当部署输出会驱动用户下一步操作时，建议优先关注以下字段：
+
+- `public_ip`：默认公网入口，也就是第一个 EIP。
+- `eip_addresses`：全部 EIP 列表，可用于批量验证多出口和映射结果。
+- `ssh_command`：默认 SSH 登录命令，可直接进入探针主机。
+- `ssh_commands`：按 EIP 列出的 SSH 命令，便于逐个验证 DNAT 映射关系。
+- `ecs_password` / `ssh_password`：ECS 登录密码。
+- `nat_gateway_id`：NAT 网关 ID，便于在控制台继续核查规则。
+- `summary`：部署摘要，快速汇总了 EIP 数量、映射关系和默认入口。
+
+## 常见问题
+
+- 如果部署失败，优先检查以下几项：
+  1. 阿里云账号在当前区域的 ECS、EIP 或 NAT 配额是否充足。
+  2. 当前实例规格是否售罄或下架。
+  3. EIP 数量设置是否超过当前账号或区域限制。
+  4. NAT 网关和多 EIP 的费用策略是否导致创建失败或被策略拦截。
+- 如果通过第二个或第三个 EIP SSH 登录时感觉“端口不一致”，这是场景设计使然：所有外部入口都使用 22 端口，但会 DNAT 到 ECS 内部不同端口。
+
+## 注意事项
+
+- ECS 实例本身不直接分配公网 IP，所有出入流量都通过 NAT 网关和 EIP 转发。
+- 安全组默认放行所有 TCP/UDP，生产环境请按需收紧。
+- 部署后会卸载阿里云云盾（aegis）。
+
+## 附录
+
+### 架构
+
+```text
+              ┌─────────────┐
     Internet ──────>│  NAT 网关    │
-                    │             │
-                    │  EIP-1 ─────┤──> SNAT + DNAT (EIP:22 → ECS:22)
-                    │  EIP-2 ─────┤──> SNAT + DNAT (EIP:22 → ECS:122)
-                    │  EIP-3 ─────┤──> SNAT + DNAT (EIP:22 → ECS:222)
-                    │  EIP-N ─────┤──> SNAT + DNAT (EIP:22 → ECS:N*100+22)
-                    └──────┬──────┘
-                           │
-                    ┌──────┴──────┐
-                    │   ECS 实例   │
-                    │  (内网 IP)   │
-                    │ 多端口 sshd  │
-                    │ tcpdump/nmap│
-                    └─────────────┘
+              │             │
+              │  EIP-1 ─────┤──> SNAT + DNAT (EIP:22 → ECS:22)
+              │  EIP-2 ─────┤──> SNAT + DNAT (EIP:22 → ECS:122)
+              │  EIP-3 ─────┤──> SNAT + DNAT (EIP:22 → ECS:222)
+              │  EIP-N ─────┤──> SNAT + DNAT (EIP:22 → ECS:N*100+22)
+              └──────┬──────┘
+                  │
+              ┌──────┴──────┐
+              │   ECS 实例   │
+              │  (内网 IP)   │
+              │ 多端口 sshd  │
+              │ tcpdump/nmap │
+              └─────────────┘
 ```
 
-## 特性
-
-- **多 EIP 绑定**: 默认 5 个 EIP（通过 `eip_count` 变量调整），全部绑定到 NAT 网关
-- **所有 EIP 可达**: 每个 EIP 的 22 端口 DNAT 到 ECS 不同内部端口（22, 122, 222...），通过任一 EIP 均可 SSH
-- **SNAT 出口 IP 池**: 所有 EIP 组成出口 IP 池，出网流量轮换使用不同 EIP
-- **流量来源识别**: 通过 ECS 内部监听端口号区分流量来自哪个 EIP
-- **预装工具**: tcpdump、nmap、net-tools 等探测工具
-
-## DNAT 端口映射规则
+### DNAT 端口映射规则
 
 | EIP | 外部端口 | ECS 内部端口 | 说明 |
 |-----|---------|-------------|------|
@@ -39,140 +95,28 @@
 | EIP[3] | 22 | 222 | 第 3 个 EIP |
 | EIP[N] | 22 | N×100+22 | 第 N 个 EIP |
 
-ECS 的 user_data 自动配置 sshd 监听所有这些端口。
+ECS 的 `user_data` 会自动配置 sshd 监听这些内部端口。
 
-## 设计说明与限制
-
-### 为什么不能多 EIP 全端口映射到同一台 ECS？
-
-阿里云 DNAT 有两个限制：
-1. `ip_protocol=any` + `port=any`（IP 映射模式）会与 SNAT 规则冲突
-2. 同一个 `internal_ip + internal_port` 只能被一条 DNAT 规则映射
-
-因此无法让多个 EIP 都全端口转发到同一台 ECS。当前方案采用 **端口级映射**：每个 EIP 的特定端口（如 22）映射到 ECS 的不同内部端口。
-
-### 为什么不用多网卡（ENI）直接绑 EIP？
-
-多 ENI 方案可以让每个 EIP 天然全端口可达，但：
-- ENI 数量受实例规格限制（小规格通常只支持 2-3 个）
-- 需要在实例内手动配置策略路由
-- 不适合大量 EIP 的场景（NAT 网关支持最多 100 个 EIP）
-
-### 未来规划：IaC Agent + 蜜罐 Agent
-
-当前模板适合作为 **自动化蜜罐部署** 的基础设施层：
-
-```
-用户自然语言指令
-    │
-    ▼
-┌──────────────┐     ┌──────────────────┐
-│  redc IaC    │────>│  Terraform 模板   │
-│  Agent       │     │  (NAT+EIP+DNAT)  │
-│  自动改 TF   │     │  terraform apply  │
-└──────────────┘     └────────┬─────────┘
-                              │
-                     ┌────────▼─────────┐
-                     │  ECS 蜜罐 Agent   │
-                     │  自动识别新端口    │
-                     │  启动监听服务      │
-                     └──────────────────┘
-```
-
-**工作流设想**：
-1. 用户说 `"给蜜罐加 3 个新 EIP，监听 80 和 443"`
-2. redc IaC Agent 自动修改 TF 模板（增 eip_count、添加 DNAT 规则）
-3. 执行 `terraform apply`
-4. ECS 上的蜜罐 Agent 检测到新端口映射，自动启动对应监听服务
-5. 用户无需手动碰任何 DNAT 规则
-
-## 使用方式
-
-### 通过 redc 引擎
-
-```bash
-# 拉取模板
-redc pull aliyun/nat-probe
-
-# 部署 (默认 5 个 EIP)
-redc run aliyun/nat-probe
-
-# 部署 10 个 EIP
-redc run aliyun/nat-probe -var eip_count=10
-
-# 查看状态
-redc status
-
-# 销毁
-redc stop
-```
-
-### 独立使用
-
-```bash
-cd aliyun/nat-probe
-
-# 初始化
-terraform init
-
-# 预览
-terraform plan -var="eip_count=5"
-
-# 部署
-terraform apply -auto-approve -var="eip_count=5"
-
-# 销毁
-terraform destroy -auto-approve
-```
-
-## 变量说明
-
-| 变量 | 默认值 | 说明 |
-|------|--------|------|
-| `region` | `cn-beijing` | 阿里云区域 |
-| `instance_name` | `nat-probe` | ECS 实例名称 |
-| `instance_password` | 自动生成 | ECS 登录密码 |
-| `instance_type` | `ecs.e-c1m2.large` | ECS 实例规格 (2C4G) |
-| `eip_count` | `5` | EIP 数量 |
-| `eip_bandwidth` | `100` | 每个 EIP 带宽 (Mbps) |
-| `eip_isp` | `BGP` | EIP 线路 (BGP/BGP_PRO) |
-
-## 输出
-
-| 输出 | 说明 |
-|------|------|
-| `eip_addresses` | 所有 EIP 地址列表 |
-| `ssh_commands` | 每个 EIP 的 SSH 命令及对应内部端口 |
-| `ecs_password` | ECS 登录密码 |
-| `nat_gateway_id` | NAT 网关 ID |
-| `summary` | 部署摘要 |
-
-## 流量探针使用示例
+### 流量探针使用示例
 
 ```bash
 # 通过 EIP[1] SSH 登录 (默认端口 22)
 ssh root@<EIP-1>
 
-# 通过 EIP[2] SSH 登录 (同样用外部 22 端口，内部转到 122)
+# 通过 EIP[2] SSH 登录 (外部仍是 22，内部转到 122)
 ssh root@<EIP-2>
 
 # 登录后查看各端口连接，识别流量来源 EIP
 ss -tlnp | grep sshd
 
 # 监听某个 EIP 的流量 (通过内部端口过滤)
-tcpdump -i eth0 -nn port 122   # 来自 EIP[2] 的流量
-
-# 在多个 EIP 上同时监听
-tmux new-session -d -s probe
-tmux send-keys "tcpdump -i eth0 -nn 'dst port 122'" Enter
+tcpdump -i eth0 -nn port 122
 
 # 查看当前出口 IP (SNAT 轮换)
 curl -s ifconfig.me
 ```
 
-## 注意事项
+### 设计说明与限制
 
-1. ECS 实例本身不分配公网 IP，所有出入网流量均通过 NAT 网关
-2. EIP 按量付费 (PayByTraffic)，注意流量成本
-3. 安全组默认放行所有 TCP/UDP，生产环境请按需收紧
-4. 部署后卸载了阿里云云盾 (aegis)
+- 阿里云 DNAT 不支持把多个 EIP 的全端口都映射到同一台 ECS，因此这里采用端口级映射。
+- 多 ENI 直绑 EIP 的方式虽然更直接，但受网卡数量和实例规格限制，不适合大量 EIP 的场景。

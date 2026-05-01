@@ -1,141 +1,75 @@
-# 场景使用
+# NPS 内网穿透场景
 
-1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)
-2. 使用时命令如下
+## 场景说明
 
-拉取
-```
+该场景会在腾讯云 ap-beijing 区域部署一台预置 nps server 的 x86_64 主机，适合快速搭建内网穿透、端口转发和基础代理入口。
+
+部署完成后，你会得到 NPS 后台访问地址、默认后台账号密码、实例公网 IP 以及 SSH 登录命令；默认情况下模板会使用仓库内置的 [nps.conf](nps.conf)，如果需要自定义启动配置，也可以在启动时注入 base64 编码后的配置内容。
+
+## 前置条件
+
+- 需要可用的腾讯云凭据，并确保账号具有创建 CVM、安全组等资源的权限。
+- 该模板固定使用 ap-beijing 区域的 S6 2C2G 机型族，需确认区域容量和账户余额可用。
+- 如果不通过 redc 管理云凭据，需自行在 `terraform.tfvars` 中填写 `tencentcloud_secret_id` 和 `tencentcloud_secret_key`。
+- 如果要加载自定义 `nps.conf`，需要先准备配置文件并自行转成 base64 文本。
+
+## 快速使用
+
+```bash
 redc pull tencent/nps
-```
-
-开启
-```
 redc run tencent/nps
-
-# 如果要在启动时加载自定义nps.conf配置,需要base64后传入
-redc run tencent/nps -base64command "YXBwbmFtZSA9IG5wcwojQm9vdCBtb2RlKGRldnxwcm8pCnJ1bm1vZGUgPSBkZXYKCiNIVFRQKFMpIHByb3h5IHBvcnQsIG5vIHN0YXJ0dXAgaWYgZW1wdHkKaHR0cF9wcm94eV9pcD0wLjAuMC4wCmh0dHBfcHJveHlfcG9ydD04MApodHRwc19wcm94eV9wb3J0PTQ0MwpodHRwc19qdXN0X3Byb3h5PXRydWUKI2RlZmF1bHQgaHR0cHMgY2VydGlmaWNhdGUgc2V0dGluZwpodHRwc19kZWZhdWx0X2NlcnRfZmlsZT1jb25mL3NlcnZlci5wZW0KaHR0cHNfZGVmYXVsdF9rZXlfZmlsZT1jb25mL3NlcnZlci5rZXkKCiMjYnJpZGdlCmJyaWRnZV90eXBlPXRjcApicmlkZ2VfcG9ydD04MDI0CmJyaWRnZV9pcD0wLjAuMC4wCgojIFB1YmxpYyBwYXNzd29yZCwgd2hpY2ggY2xpZW50cyBjYW4gdXNlIHRvIGNvbm5lY3QgdG8gdGhlIHNlcnZlcgojIEFmdGVyIHRoZSBjb25uZWN0aW9uLCB0aGUgc2VydmVyIHdpbGwgYmUgYWJsZSB0byBvcGVuIHJlbGV2YW50IHBvcnRzIGFuZCBwYXJzZSByZWxhdGVkIGRvbWFpbiBuYW1lcyBhY2NvcmRpbmcgdG8gaXRzIG93biBjb25maWd1cmF0aW9uIGZpbGUuCnB1YmxpY192a2V5PTEyMwoKI1RyYWZmaWMgZGF0YSBwZXJzaXN0ZW5jZSBpbnRlcnZhbChtaW51dGUpCiNJZ25vcmFuY2UgbWVhbnMgbm8gcGVyc2lzdGVuY2UKI2Zsb3dfc3RvcmVfaW50ZXJ2YWw9MQoKIyBsb2cgbGV2ZWwgTGV2ZWxFbWVyZ2VuY3ktPjAgIExldmVsQWxlcnQtPjEgTGV2ZWxDcml0aWNhbC0+MiBMZXZlbEVycm9yLT4zIExldmVsV2FybmluZy0+NCBMZXZlbE5vdGljZS0+NSBMZXZlbEluZm9ybWF0aW9uYWwtPjYgTGV2ZWxEZWJ1Zy0+Nwpsb2dfbGV2ZWw9NwojbG9nX3BhdGg9bnBzLmxvZwoKI1doZXRoZXIgdG8gcmVzdHJpY3QgSVAgYWNjZXNzLCB0cnVlIG9yIGZhbHNlIG9yIGlnbm9yZQojaXBfbGltaXQ9dHJ1ZQoKI3AycAojcDJwX2lwPTEyNy4wLjAuMQojcDJwX3BvcnQ9NjAwMAoKI3dlYgp3ZWJfaG9zdD1hLm8uY29tCndlYl91c2VybmFtZT1yZWRvbmUKd2ViX3Bhc3N3b3JkPTEhMkEzZDR2NXM2ZQp3ZWJfcG9ydCA9IDgwODAKd2ViX2lwPTAuMC4wLjAKd2ViX2Jhc2VfdXJsPQp3ZWJfb3Blbl9zc2w9ZmFsc2UKd2ViX2NlcnRfZmlsZT1jb25mL3NlcnZlci5wZW0Kd2ViX2tleV9maWxlPWNvbmYvc2VydmVyLmtleQojIGlmIHdlYiB1bmRlciBwcm94eSB1c2Ugc3ViIHBhdGguIGxpa2UgaHR0cDovL2hvc3QvbnBzIG5lZWQgdGhpcy4KI3dlYl9iYXNlX3VybD0vbnBzCgojV2ViIEFQSSB1bmF1dGhlbnRpY2F0ZWQgSVAgYWRkcmVzcyh0aGUgbGVuIG9mIGF1dGhfY3J5cHRfa2V5IG11c3QgYmUgMTYpCiNSZW1vdmUgY29tbWVudHMgaWYgbmVlZGVkCmF1dGhfa2V5PXJlZHJlZHJlZAphdXRoX2NyeXB0X2tleSA9MTIzNDU2NzgxMjM0NTY3OQoKI2FsbG93X3BvcnRzPTkwMDEtOTAwOSwxMDAwMSwxMTAwMC0xMjAwMAoKI1dlYiBtYW5hZ2VtZW50IG11bHRpLXVzZXIgbG9naW4KYWxsb3dfdXNlcl9sb2dpbj1mYWxzZQphbGxvd191c2VyX3JlZ2lzdGVyPWZhbHNlCmFsbG93X3VzZXJfY2hhbmdlX3VzZXJuYW1lPWZhbHNlCgoKI2V4dGVuc2lvbgphbGxvd19mbG93X2xpbWl0PWZhbHNlCmFsbG93X3JhdGVfbGltaXQ9ZmFsc2UKYWxsb3dfdHVubmVsX251bV9saW1pdD1mYWxzZQphbGxvd19sb2NhbF9wcm94eT1mYWxzZQphbGxvd19jb25uZWN0aW9uX251bV9saW1pdD1mYWxzZQphbGxvd19tdWx0aV9pcD1mYWxzZQpzeXN0ZW1faW5mb19kaXNwbGF5PWZhbHNlCgojY2FjaGUKaHR0cF9jYWNoZT1mYWxzZQpodHRwX2NhY2hlX2xlbmd0aD0xMDAKCiNnZXQgb3JpZ2luIGlwCmh0dHBfYWRkX29yaWdpbl9oZWFkZXI9ZmFsc2UKCiNwcHJvZiBkZWJ1ZyBvcHRpb25zCiNwcHJvZl9pcD0wLjAuMC4wCiNwcHJvZl9wb3J0PTk5OTkKCiNjbGllbnQgZGlzY29ubmVjdCB0aW1lb3V0CmRpc2Nvbm5lY3RfdGltZW91dD02MA=="
-```
-
-默认的配置
-```
-appname = nps
-#Boot mode(dev|pro)
-runmode = dev
-
-#HTTP(S) proxy port, no startup if empty
-http_proxy_ip=0.0.0.0
-http_proxy_port=80
-https_proxy_port=443
-https_just_proxy=true
-#default https certificate setting
-https_default_cert_file=conf/server.pem
-https_default_key_file=conf/server.key
-
-##bridge
-bridge_type=tcp
-bridge_port=8001
-bridge_ip=0.0.0.0
-
-# Public password, which clients can use to connect to the server
-# After the connection, the server will be able to open relevant ports and parse related domain names according to its own configuration file.
-public_vkey=123
-
-#Traffic data persistence interval(minute)
-#Ignorance means no persistence
-#flow_store_interval=1
-
-# log level LevelEmergency->0  LevelAlert->1 LevelCritical->2 LevelError->3 LevelWarning->4 LevelNotice->5 LevelInformational->6 LevelDebug->7
-log_level=7
-#log_path=nps.log
-
-#Whether to restrict IP access, true or false or ignore
-#ip_limit=true
-
-#p2p
-#p2p_ip=127.0.0.1
-#p2p_port=6000
-
-#web
-web_host=a.o.com
-web_username=redone
-web_password=1!2A3d4v5s6e
-web_port = 8080
-web_ip=0.0.0.0
-web_base_url=
-web_open_ssl=false
-web_cert_file=conf/server.pem
-web_key_file=conf/server.key
-# if web under proxy use sub path. like http://host/nps need this.
-#web_base_url=/nps
-
-#Web API unauthenticated IP address(the len of auth_crypt_key must be 16)
-#Remove comments if needed
-auth_key=redredred
-auth_crypt_key =1234567812345679
-
-#allow_ports=9001-9009,10001,11000-12000
-
-#Web management multi-user login
-allow_user_login=false
-allow_user_register=false
-allow_user_change_username=false
-
-
-#extension
-allow_flow_limit=false
-allow_rate_limit=false
-allow_tunnel_num_limit=false
-allow_local_proxy=false
-allow_connection_num_limit=false
-allow_multi_ip=false
-system_info_display=false
-
-#cache
-http_cache=false
-http_cache_length=100
-
-#get origin ip
-http_add_origin_header=false
-
-#pprof debug options
-#pprof_ip=0.0.0.0
-#pprof_port=9999
-
-#client disconnect timeout
-disconnect_timeout=60
-```
-
-查询
-```
 redc status [uuid]
-```
-
-关闭
-```
 redc stop [uuid]
 ```
 
-# 静态资源
+如果要在启动时加载自定义 `nps.conf`，可通过通用变量入口传入 `base64_command`，例如：
 
-**非 redc 使用请自行替换 terraform.tfvars 中的 腾讯云 aksk**
-
+```bash
+redc run tencent/nps -e base64_command="$(base64 < nps.conf | tr -d '\n')"
 ```
+
+## 参数说明
+
+| 参数名 | 是否必填 | 默认值 | 示例 | 行为影响 |
+|--------|----------|--------|------|----------|
+| `instance_name` | 否 | `nps` | `nps-prod` | 控制实例名称，便于在腾讯云控制台中区分不同部署。 |
+| `instance_password` | 否 | 自动生成 | `StrongPass123!` | 控制实例 SSH 登录密码；留空时自动生成，并通过输出返回。 |
+| `base64_command` | 否 | 模板内置 `nps.conf` | `$(base64 < nps.conf | tr -d '\n')` | 用于启动时覆盖默认 `nps.conf`，决定 NPS 的桥接端口、Web 后台配置等行为。 |
+| `github_proxy` | 否 | `https://ghfast.top/github.com` | `https://ghproxy.link/github.com` | 控制 nps 安装包下载加速地址，影响首次启动时的资源拉取。 |
+
+## 输出说明
+
+当部署输出会驱动用户下一步操作时，建议优先关注以下字段：
+
+- `nps_address_link`：NPS Web 后台地址，默认访问端口为 `8080`。
+- `nps_username` / `nps_password`：模板内置默认后台账号密码；如果你通过自定义 `nps.conf` 覆盖了 Web 配置，请以你注入的实际配置为准。
+- `public_ip` / `nps_ip` / `ecs_ip`：实例公网 IP，可用于开放端口、客户端接入或排障。
+- `ssh_command`：直接给出 SSH 登录命令。
+- `ssh_password` / `ecs_password`：实例 SSH 登录密码，便于首次登录。
+
+## 常见问题
+
+- 如果自定义 `nps.conf` 注入后服务没有起来，优先检查 base64 内容是否完整、是否能正确解码成有效配置文件。
+- 如果启动失败，优先排查以下几项：
+	1. 腾讯云账户余额是否充足。
+	2. 与腾讯云 API 的网络连接是否超时。
+	3. ap-beijing 区域对应机型是否售罄或下架。
+	4. GitHub 代理地址是否可用，安装包是否下载成功。
+
+## 注意事项
+
+- 默认配置文件已随模板提供，可直接参考同目录下的 [nps.conf](nps.conf)；如需覆盖，请使用 `-e base64_command=...` 传入自定义内容。
+- Web 后台默认端口为 `8080`，部署后请按需自行收紧安全组或限制访问来源。
+
+## 附录
+
+- 非 redc 方式使用时，可在 `terraform.tfvars` 中直接填写腾讯云凭据，例如：
+
+```hcl
 tencentcloud_secret_id  = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 tencentcloud_secret_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+github_proxy            = "https://ghfast.top/github.com"
 ```
 
-可自行替换模板中的静态资源下载链接，目前走的是 https://ghproxy.link/ 站点的加速链接
-
-**可自行替换 main.tf 中 linux_amd64_server.tar.gz 的压缩包下载地址**
-- https://github.com/ehang-io/nps/releases
-
-**可自行替换 terraform.tfvars 中 github 加速地址**
-- https://ghfast.top/github.com
-
-# 注意事项
-
-若启动场景报错，可能原因
-1. 腾讯云账户余额不足
-2. 与腾讯云 api 网络连接超时
-3. 腾讯云该区域售罄或下架 instance_type 的配置机型
-4. jdk未正常安装
+- 如需替换 nps 安装包下载地址，可参考：
+	- https://github.com/ehang-io/nps/releases
