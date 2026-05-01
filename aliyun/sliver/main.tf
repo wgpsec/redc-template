@@ -78,7 +78,7 @@ sudo mkdir -p /root/.sliver-client/configs
 sudo /root/sliver-server operator --name root --lhost localhost --save /root/.sliver-client/configs
 sudo chown -R root:root /root/.sliver-client/
 
-sudo /root/sliver-server operator --name sliver --lhost $(curl -s http://100.100.100.200/latest/meta-data/eipv4) --save sliver.cfg
+sudo /root/sliver-server operator --name sliver --lhost $(curl -s http://100.100.100.200/latest/meta-data/eipv4) --save sliver.cfg --permissions all
 sudo mv sliver.cfg /root/sliver.cfg
 
 sudo apt-get install -y python3-pip
