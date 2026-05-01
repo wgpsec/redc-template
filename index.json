@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-21T07:04:27.189581Z",
+  "updated_at": "2026-05-01T09:01:47.706189Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -364,9 +364,14 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_sliver_v1.0.9.zip",
           "sha256": "a136b598a5829b0c7cb18d3bbddf8ef336f92473427e4dd3a8ed4a1770172332",
           "updated_at": "2026-04-16T06:40:42.579196Z"
+        },
+        "1.1.0": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_sliver_v1.1.0.zip",
+          "sha256": "598798acaa4eb5664424209eaeb56c5d252d697c43b83bd3ec0e5e4b2d6084a3",
+          "updated_at": "2026-05-01T09:01:47.702988Z"
         }
       },
-      "latest": "1.0.9",
+      "latest": "1.1.0",
       "metadata": {
         "name": "sliver",
         "author": "r0fus0d",
