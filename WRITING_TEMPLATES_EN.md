@@ -63,7 +63,7 @@ redc supports four template types, distinguished by the `template` field in `cas
 
 ## Directory and Naming
 - Path pattern: `<cloud>/<scene>`, e.g., `aws/ec2`, `aliyun/proxy`; keep names lowercase without spaces.
-- Recommended files per scene: `case.json`, `README.md`, `versions.tf`, `main.tf`, `variables.tf`, `terraform.tfvars`, `outputs.tf`, `deploy.sh` (optional).
+- Recommended files per scene: `case.json`, `README.md`, `versions.tf`, `main.tf`, `variables.tf`, `terraform.tfvars`, `outputs.tf`, `deploy.sh` (optional); for preset scenes, the recommended deliverable is to provide both the Chinese `README.md` and the English `README_EN.md`.
 
 ## File Conventions
 - `case.json`
@@ -71,8 +71,76 @@ redc supports four template types, distinguished by the `template` field in `cas
   - To bind plugins, add `redc_plugins` with comma-separated plugin names, e.g., `"redc_plugins": "redc-plugin-clash-config,redc-plugin-upload-r2"` (see [aliyun/proxy/case.json](aliyun/proxy/case.json)).
   - For plugin development, see the [Plugin Development Guide](doc/plugin-development.md).
 - `README.md`
-  - Document redc commands: `redc pull <path>`, `redc run <path>`, `redc status [uuid]`, `redc stop [uuid]`.
-  - Highlight required manual replacements (e.g., `launch_template id`, region, keys) and common failure causes (see [aws/ec2/README.md](aws/ec2/README.md)).
+  - For preset scenes, the recommended deliverable is a Chinese `README.md` and an English `README_EN.md`; the Chinese `README.md` follows the Chinese contract headings in the Chinese guide, and `README_EN.md` follows the English contract headings below.
+  - For preset scene templates, follow the Preset Scene README Contract below; keep `Quick Start` limited to the minimum runnable `redc-cli` path and keep parameter explanation in `Parameters`.
+  - Highlight required manual replacements (e.g., `launch_template id`, region, keys); add troubleshooting only as needed by putting frequent failure points in `FAQ` and supplementary reminders in `Notes`.
+
+### Preset Scene README Contract
+
+- Scope
+  - Mandatory: preset scene templates under cloud-provider scene directories
+  - Reference only: `base-templates/`, `userdata-templates/`, `compose-templates/`, `plugins/`
+- Recommended deliverable: provide both the Chinese `README.md` and the English `README_EN.md` for preset scenes; the Chinese `README.md` uses the Chinese contract headings from the Chinese guide, and `README_EN.md` uses the English contract headings in this section.
+- Required sections, in order
+  1. `Scene Description`
+  2. `Prerequisites`
+  3. `Quick Start`
+  4. `Parameters`
+- Optional sections
+  - `Outputs`
+  - `FAQ`
+  - `Notes`
+  - `Appendix`
+- Hard constraints
+  - Preserve heading identity exactly so downstream consumers can map sections stably.
+  - Required section titles must stay exactly the same, in the exact order above, and each required heading may appear at most once.
+  - Required sections use level-2 headings (`##`).
+  - No other same-level headings may be inserted between the four required sections.
+  - Optional sections, if used, also use level-2 headings, appear after the four required sections, use the exact standard titles listed above, and each optional heading may appear at most once.
+  - `Scene Description` explains purpose, when to use it, and what the user gets after deployment.
+  - `Prerequisites` lists what must be prepared or manually replaced before running.
+  - `Quick Start` keeps only the minimum runnable `redc-cli` path.
+  - `Parameters` explains parameter names, whether required, defaults, examples, and behavior impact.
+  - Keep pre-run preparation in `Prerequisites`; keep field-level parameter explanation in `Parameters`.
+  - Keep `Outputs` as a separate section when deployment outputs drive the user's next action.
+  - Do not dump everything into `Notes`.
+  - Architecture diagrams, design constraints, and long config examples go to `Appendix`.
+
+### Minimal Preset Scene README Skeleton
+
+````md
+<!-- The first four sections below are required and must stay in this order. -->
+## Scene Description
+Explain the scene purpose, when to use it, and what the user gets after deployment.
+
+## Prerequisites
+List only pre-run requirements, including required manual replacements before execution.
+
+## Quick Start
+Keep only the minimum runnable `redc-cli` path.
+```sh
+redc pull <cloud>/<scene>
+redc run <cloud>/<scene>
+redc status [uuid]
+redc stop [uuid]
+```
+
+## Parameters
+Centralize parameter names, whether required, defaults, examples, and behavior impact here.
+
+<!-- Append the sections below only when needed. -->
+## Outputs
+Keep this section only when deployment outputs drive the user's next action, and document the key values, access entry points, or generated artifacts here.
+
+## FAQ
+Add only frequent failure points or recurring troubleshooting items.
+
+## Notes
+Add supplementary reminders that do not fit the required sections.
+
+## Appendix
+Place architecture diagrams, design constraints, and long config examples here.
+````
 - `versions.tf`
   - Pin provider versions to avoid compatibility issues (sample: [aws/ec2/versions.tf](aws/ec2/versions.tf)).
 - `main.tf`
@@ -95,7 +163,7 @@ redc supports four template types, distinguished by the `template` field in `cas
 ## Suggested Authoring Flow
 1) Create `cloud/scene` directory and add the file skeleton.
 2) Write `main.tf` and `variables.tf`; ensure `terraform init` succeeds locally.
-3) Write `README.md`, stressing required/optional parameters and common issues.
+3) Write the README deliverables; for preset scenes, recommend providing both the Chinese `README.md` and the English `README_EN.md`, with each README using the contract headings for its own language; highlight required manual replacements, add `FAQ` only when there are frequent failure points, and use `Notes` only for supplementary reminders.
 4) Add `outputs.tf` so redc can read key data.
 5) If scripting is desired, write `deploy.sh` and keep it aligned with README (optional).
 6) Local validation: `terraform validate`, then trial `terraform apply -auto-approve` with test account/low spec; confirm destroy works.

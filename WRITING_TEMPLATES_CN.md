@@ -63,7 +63,7 @@ redc 支持四种模板类型，通过 `case.json` 中的 `template` 字段区�
 
 ## 目录与命名
 - 路径规则：`<cloud>/<scene>`，如 `aws/ec2`、`aliyun/proxy`，保持小写无空格。
-- 每个场景目录内部的推荐文件：`case.json`、`README.md`、`versions.tf`、`main.tf`、`variables.tf`、`terraform.tfvars`、`outputs.tf`、`deploy.sh` (可选)。
+- 每个场景目录内部的推荐文件：`case.json`、`README.md`、`versions.tf`、`main.tf`、`variables.tf`、`terraform.tfvars`、`outputs.tf`、`deploy.sh` (可选)；对于预定义场景，建议同时提供中文 `README.md` 和英文 `README_EN.md` 作为交付形态。
 
 ## 文件规范
 - `case.json`
@@ -72,7 +72,74 @@ redc 支持四种模板类型，通过 `case.json` 中的 `template` 字段区�
   - 插件开发详见 [插件开发指南](doc/plugin-development.md)。
 - `README.md`
   - 写清 redc 命令：`redc pull <path>`、`redc run <path>`、`redc status [uuid]`、`redc stop [uuid]`。
-  - 标明必须手动替换的参数（如 `launch_template id`、区域、密钥）和常见报错原因（参考 [aws/ec2/README.md](aws/ec2/README.md)）。
+  - 对于预定义场景，建议同时提供中文 `README.md` 和英文 `README_EN.md`；`README.md` 使用本文定义的中文契约标题，`README_EN.md` 使用英文指南中的英文契约标题。
+  - 标明必须手动替换的参数（如 `launch_template id`、区域、密钥）；如场景存在高频失败点，可按需写入“常见问题”；补充提醒归入“注意事项”。
+
+### 预定义场景 README 章节规范
+
+- 适用范围：
+  - 强制生效：预定义场景模板（各云厂商目录下的场景模板）。
+  - 参考使用：`base-templates/`、`userdata-templates/`、`compose-templates/`、`plugins/`。
+- 建议交付形态：预定义场景建议同时提供中文 `README.md` 和英文 `README_EN.md`；中文 `README.md` 使用本节定义的中文标题，英文 `README_EN.md` 使用英文指南中的英文标题。
+- 标题身份必须保持稳定，便于下游消费方持续、准确地识别各章节。
+- 四个必选章节标题必须保持完全一致，并统一使用二级标题（`##`）。
+- 四个必选章节必须连续按以下顺序编写，中间不要插入其他同级标题：场景说明、前置条件、快速使用、参数说明；四个标题按既定顺序出现，各自只出现一次。
+- 可选章节如需补充，也统一使用二级标题（`##`），并放在上述四个必选章节之后；只能使用固定标准标题：输出说明、常见问题、注意事项、附录，并按需出现，各自只出现一次。
+- 场景说明只写场景用途、适用情况、部署后得到什么，不展开实现细节和设计背景。
+- 前置条件只放运行前准备或必须手动替换的内容，如账号权限、基础资源、配额、网络或工具依赖。
+- 快速使用保留最小可跑通的 `redc-cli` 路径，优先给出最短命令链路，不混入大段解释。
+- 参数说明至少覆盖参数名、是否必填、默认值、示例和行为影响，避免把运行前准备或手动替换内容分散进来。
+- 运行前准备统一放在前置条件，字段级参数解释统一放在参数说明。
+- 当部署输出会驱动用户下一步操作时，建议将“输出说明”单独保留，用于说明关键信息、访问入口或产出物。
+- 不要把所有内容塞进注意事项；注意事项只保留容易遗漏但又不适合放入前述章节的补充提醒。
+- 架构图、设计限制、长配置示例等内容统一后置到附录，避免影响主流程阅读。
+
+### 预定义场景 README 最小骨架
+
+````md
+# 模板名称
+
+## 场景说明
+
+说明该场景的用途、适用情况，以及部署完成后可以得到什么。
+
+## 前置条件
+
+- 列出运行前必须满足的账号、权限、配额、网络或依赖要求，以及运行前必须手动替换的内容。
+
+## 快速使用
+
+保留最小可跑通的 redc-cli 使用路径，例如：
+
+```bash
+redc pull <cloud>/<scene>
+redc run <cloud>/<scene>
+redc status [uuid]
+redc stop [uuid]
+```
+
+## 参数说明
+
+集中说明参数名、是否必填、默认值、示例和参数行为影响。
+
+以下可选章节按需追加；前四段必须保留，下面四段按实际场景补充。
+
+## 输出说明
+
+当部署输出会驱动用户下一步操作时，在这里说明关键信息、访问入口或生成物。
+
+## 常见问题
+
+列出最常见的报错、触发原因和排查方法。
+
+## 注意事项
+
+补充容易遗漏但不适合放在前置条件、参数说明或输出说明中的提醒。
+
+## 附录
+
+放置架构图、设计限制、长配置示例或扩展说明。
+````
 - `versions.tf`
   - 锁定 provider 版本，避免兼容性问题（示例 [aws/ec2/versions.tf](aws/ec2/versions.tf)）。
 - `main.tf`
@@ -95,7 +162,7 @@ redc 支持四种模板类型，通过 `case.json` 中的 `template` 字段区�
 ## 编写流程（推荐）
 1) 创建目录 `cloud/scene` 并放置必备文件骨架。
 2) 编写 `main.tf` 和 `variables.tf`，先确保本地 `terraform init` 成功。
-3) 写 `README.md`，强调必填/可选参数与常见问题。
+3) 编写 README；对于预定义场景，建议同时提供中文 `README.md` 和英文 `README_EN.md`，并分别使用各自语言版本的契约标题；正文中强调必须手动替换的参数，如场景存在高频失败点，再按需补充常见问题；补充提醒再放到注意事项。
 4) 补充 `outputs.tf`，让 redc 能读到关键数据。
 5) 如需脚本化，写好 `deploy.sh` 并与 README 一致。 (非强制，可不写)
 6) 本地验证：`terraform validate`，再试跑 `terraform apply -auto-approve`（使用测试账户/低配实例），确认 destroy 也正常。
