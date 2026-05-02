@@ -1,87 +1,82 @@
-# Huawei Cloud NPS Scenario
+# Huawei Cloud NPS
 
-## Description
+## Scene Description
 
-This scenario deploys NPS (internal network penetration server) on Huawei Cloud for internal network penetration needs in red team penetration testing.
+This scene deploys an Ubuntu 18.04 x86_64 host in Huawei Cloud region `cn-north-4` (Beijing 4), installs NPS automatically, and exposes the web management interface through a public EIP. It also creates a dedicated VPC, subnet, security group, and EIP for the instance, making it suitable for quickly bringing up an NPS server for temporary validation or lab connectivity tests.
 
-## Configuration
+## Prerequisites
 
-### Auto-generated Resources
+- You need valid Huawei Cloud credentials: `huaweicloud_access_key` and `huaweicloud_secret_key`.
+- You must provide `github_proxy`, because the template downloads the NPS server package through `${github_proxy}/ehang-io/nps/...`.
+- You must provide `base64_command`; it is base64-decoded and written to `/etc/nps/conf/nps.conf` as the actual NPS configuration file.
+- `instance_password` can be left empty for auto-generation, or passed explicitly if you want a fixed root password.
 
-- **VPC and Subnet**: Automatically create independent VPC network environment
-- **Security Group**: Automatically create and configure security group rules allowing all traffic
-- **EIP**: Automatically assign public IP
-- **Random Password**: Auto-generate strong random password for SSH login
+## Quick Start
 
-### Instance Configuration
-
-- **Region**: cn-north-4 (Beijing Four)
-- **Availability Zone**: cn-north-4a
-- **Image**: Ubuntu 18.04 server 64bit
-- **Size**: 1 core 1GB (auto-selected)
-- **Authentication**: Password authentication (auto-generated)
-
-## Usage
-
-### 1. Configure Huawei Cloud Credentials
-
-Configure via redc-gui credentials management page, or edit `~/redc/config.yaml`:
-
-```yaml
-providers:
-  huaweicloud:
-    HUAWEICLOUD_ACCESS_KEY: "your_access_key"
-    HUAWEICLOUD_SECRET_KEY: "your_secret_key"
-```
-
-### 2. Start Scenario
+Pull the scene:
 
 ```bash
-redc run huaweicloud/nps
+redc pull huaweicloud/nps
 ```
 
-### 3. Get Connection Info
-
-After scenario starts, redc outputs:
-
-- **nps_ip**: NPS server public IP
-- **nps_address_link**: NPS Web management interface address (http://IP:8080)
-- **nps_username**: NPS admin username (redone)
-- **nps_password**: NPS admin password (1!2A3d4v5s6e)
-- **ecs_password**: SSH login password (auto-generated)
-
-### 4. SSH Connection
+After preparing your NPS configuration file, encode it with base64 and start the scene:
 
 ```bash
-# Use redc SSH function
-redc ssh <case_id>
-
-# Or manual connection
-ssh root@<nps_ip>
-# Password is in ecs_password output
+redc run huaweicloud/nps \
+  -e huaweicloud_access_key=YOUR_ACCESS_KEY \
+  -e huaweicloud_secret_key=YOUR_SECRET_KEY \
+  -e github_proxy=https://YOUR_GITHUB_PROXY \
+  -e base64_command=BASE64_ENCODED_NPS_CONF
 ```
 
-### Security Recommendations
+If you want to pin the instance login password, pass it explicitly as well:
 
-- After scenario is created, it is recommended to change NPS admin password immediately
-- For stricter security policies, you can modify security group rules to restrict access sources
-- Remember to destroy the scenario after use to avoid unnecessary costs
+```bash
+redc run huaweicloud/nps \
+  -e huaweicloud_access_key=YOUR_ACCESS_KEY \
+  -e huaweicloud_secret_key=YOUR_SECRET_KEY \
+  -e github_proxy=https://YOUR_GITHUB_PROXY \
+  -e base64_command=BASE64_ENCODED_NPS_CONF \
+  -e instance_password='YourPassword123!'
+```
 
-## Troubleshooting
+Check the running status:
 
-### Instance Creation Failed
+```bash
+redc status [uuid]
+```
 
-1. Check if Huawei Cloud credentials are correct
-2. Ensure sufficient account balance
-3. Check if regional quota is sufficient
+Stop the scene:
 
-### NPS Service Not Started
+```bash
+redc stop [uuid]
+```
 
-1. SSH into instance and check logs: `journalctl -u nps`
-2. Start service manually: `sudo nps start`
-3. Check configuration file: `/etc/nps/conf/nps.conf`
+## Parameters
 
-## Related Links
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `huaweicloud_access_key` | required | Huawei Cloud Access Key. |
+| `huaweicloud_secret_key` | required | Huawei Cloud Secret Key. |
+| `base64_command` | required | Base64 content of the NPS configuration file. It is written to `/etc/nps/conf/nps.conf` during startup. |
+| `github_proxy` | required | Download prefix for the NPS release archive, such as a reachable GitHub Release proxy. |
+| `instance_password` | auto-generated | Root password for the instance. If left empty, the template generates a random password. |
 
-- [NPS Official Documentation](https://github.com/ehang-io/nps)
-- [Huawei Cloud Terraform Provider Documentation](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs)
+## Outputs
+
+- `nps_ip`: Public IP address of the NPS server.
+- `nps_address_link`: Template output for the default web management address. With the sample config in this repository it is typically `http://PUBLIC_IP:8080`, but if you pass a custom `nps.conf`, the live value follows your `web_port`, `web_open_ssl`, and related settings.
+- `nps_username`: Template output for the default web username. With the sample config in this repository it is `redone`, but if you customize `nps.conf`, the live value follows `web_username`.
+- `nps_password`: Template output for the default web password. With the sample config in this repository it is `1!2A3d4v5s6e`, but if you customize `nps.conf`, the live value follows `web_password`.
+- `ecs_ip` / `public_ip`: Public IP address of the instance.
+- `ecs_password` / `ssh_password`: Root password for the instance.
+- `ssh_user`: Default SSH username, currently `root`.
+- `ssh_command`: Copy-ready SSH command.
+
+## Notes
+
+- The region is fixed to `cn-north-4`, the availability zone is fixed to `cn-north-4a`, and the compute flavor is auto-selected from 1 vCPU / 1GB options.
+- The security group allows all IPv4 ingress and egress traffic. If the instance will stay online beyond short-lived testing, tighten exposure after deployment.
+- The user data installs basic tools such as tmux, wget, and unzip, then downloads and installs NPS, decodes `base64_command` into `/etc/nps/conf/nps.conf`, and starts the service.
+- The sample `nps.conf` in this repository uses `redone / 1!2A3d4v5s6e / 8080` as the web management defaults. If you pass a custom config through `base64_command`, the live runtime values follow your `nps.conf` instead.
+- Common failure causes are invalid Huawei Cloud credentials, insufficient balance or quota, an unreachable `github_proxy`, or an invalid `base64_command` payload.

@@ -1,96 +1,85 @@
-# UCloud UHost Scenario
+# UCloud UHost
 
-Create a UHost instance on UCloud using Terraform.
+## Scene Description
 
-## Usage
+This scene creates a general-purpose UHost instance on UCloud. By default it uses region `cn-bj2`, availability zone `cn-bj2-05`, instance type `o-basic-1`, and automatically binds a public EIP. The image lookup targets Debian 12.7, the system disk uses `cloud_ssd`, and the instance also gets an extra 20GB data disk, making it suitable as a generic base node or temporary operations host.
 
-### 1. Pull Scenario
+## Prerequisites
+
+- You need valid UCloud credentials and a project ID: `ucloud_public_key`, `ucloud_private_key`, and `ucloud_project_id`.
+- Those values can come from your local redc provider configuration or be passed explicitly with `-e` when running the scene.
+- It is strongly recommended to set `instance_password` explicitly. The variable default is empty, and if you do not provide it, the `ssh_password` output will also be empty.
+- Any custom `instance_password` must be 8-30 characters long and include uppercase letters, lowercase letters, digits, and special characters.
+
+## Quick Start
+
+Pull the scene:
 
 ```bash
 redc pull ucloud/uhost
-cd ucloud/uhost
 ```
 
-### 2. Configure Credentials
-
-Configure UCloud credentials in `config.yaml`:
-
-```yaml
-providers:
-  ucloud:
-    public_key: "your_public_key"
-    private_key: "your_private_key"
-    project_id: "Default"
-    region: "cn-bj2"
-```
-
-Or via environment variables:
+Start the scene with the required credentials and a login password:
 
 ```bash
-export UCLOUD_PUBLIC_KEY="your_public_key"
-export UCLOUD_PRIVATE_KEY="your_private_key"
-export UCLOUD_PROJECT_ID="Default"
+redc run ucloud/uhost \
+  -e ucloud_public_key=YOUR_PUBLIC_KEY \
+  -e ucloud_private_key=YOUR_PRIVATE_KEY \
+  -e ucloud_project_id=YOUR_PROJECT_ID \
+  -e instance_password='YourPassword123!'
 ```
 
-### 3. Custom Configuration (Optional)
-
-Edit `terraform.tfvars` to modify default configuration:
-
-```hcl
-instance_name        = "my-uhost"
-instance_type        = "n-standard-2"
-availability_zone    = "cn-bj2-05"
-image_id            = "uimage/uhost/CentOS_7.6_x64_20G_alibaba"
-password             = "YourPassword123"
-```
-
-### 4. Run Scenario
+Override the zone, instance name, or instance type if needed:
 
 ```bash
-redc run ucloud/uhost
+redc run ucloud/uhost \
+  -e ucloud_public_key=YOUR_PUBLIC_KEY \
+  -e ucloud_private_key=YOUR_PRIVATE_KEY \
+  -e ucloud_project_id=YOUR_PROJECT_ID \
+  -e instance_password='YourPassword123!' \
+  -e availability_zone=cn-bj2-05 \
+  -e instance_name=redc-uhost \
+  -e instance_type=o-basic-1
 ```
 
-### 5. Check Status
+Check the running status:
 
 ```bash
-redc status
+redc status [uuid]
 ```
 
-### 6. Stop and Destroy
+Stop the scene:
 
 ```bash
-redc stop
+redc stop [uuid]
 ```
 
-## Variable Description
+## Parameters
 
-| Variable | Default Value | Description |
-|----------|--------------|-------------|
-| `region` | cn-bj2 | Region |
-| `availability_zone` | cn-bj2-05 | Availability Zone |
-| `project_id` | Default | Project ID |
-| `instance_name` | redc-uhost | Instance Name |
-| `instance_type` | n-standard-1 | Instance Type |
-| `image_id` | uimage/uhost/CentOS_7.6_x64_20G_alibaba | Image ID |
-| `password` | UCloud2024 | Instance Password |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `region` | `cn-bj2` | UCloud region. |
+| `ucloud_public_key` | empty | UCloud API Public Key. |
+| `ucloud_private_key` | empty | UCloud API Private Key. |
+| `ucloud_project_id` | empty | UCloud project ID. |
+| `availability_zone` | `cn-bj2-05` | Instance availability zone. |
+| `instance_name` | `redc-uhost` | UHost instance name. |
+| `instance_type` | `o-basic-1` | UHost instance type. |
+| `instance_password` | empty | Root login password. Passing it explicitly is recommended. |
 
-## Output Description
+## Outputs
 
-| Output | Description |
-|--------|-------------|
-| `instance_id` | Instance ID |
-| `instance_name` | Instance Name |
-| `private_ip` | Private IP |
-| `public_ip` | Public IP |
-
-## Common Availability Zones
-
-- `cn-bj2-05` - Beijing Zone 2-05
-- `cn-sh2-03` - Shanghai Zone 2-03
-- `cn-gd-02` - Guangzhou Zone
+- `instance_id`: UHost instance ID.
+- `instance_name`: UHost instance name.
+- `private_ip`: Private IP address of the instance.
+- `public_ip`: Public IP address after the EIP is associated.
+- `ssh_user`: Default SSH username, currently `root`.
+- `ssh_password`: Instance password, taken directly from `instance_password`.
+- `ssh_command`: Copy-ready SSH command.
 
 ## Notes
 
-1. Ensure sufficient UCloud account balance
-2. Default project_id is "Default"
-3. Default is pay-as-you-go, no charges after stopping
+- The provider region is controlled by `region`, but the Debian 12.7 image lookup depends on `availability_zone`. If you change the region or zone, confirm that a matching image still exists there.
+- The template creates a dedicated VPC, subnet, and EIP, and also attaches a 20GB `cloud_ssd` data disk to the instance.
+- The template reuses UCloud's recommended `recommend_web` security group rather than defining narrower rules locally. Tighten exposure after deployment if you plan to keep the host online.
+- There is no additional user data bootstrap logic, so this scene gives you a relatively clean Debian base host.
