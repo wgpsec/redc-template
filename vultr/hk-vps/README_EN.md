@@ -1,73 +1,60 @@
 # Vultr VPS Scenario
 
-## Configure Vultr API Key
+## Scene Description
 
-### Method 1: Using redc config file (Recommended)
+This scene deploys a lightweight VPS on Vultr and uses `init.sh` as the startup script for basic initialization. It is suitable for quickly bringing up a general-purpose overseas host that you can log into directly.
 
-Edit `~/redc/config.yaml`, add Vultr configuration:
+Although the folder name is `hk-vps`, the current template actually defaults to the `sgp` region (Singapore), not Hong Kong.
 
-```yaml
-providers:
-  vultr:
-    VULTR_API_KEY: "your_vultr_api_key_here"
-```
+## Prerequisites
 
-### Method 2: Using Environment Variables
+- redc must already be configured with a working Vultr API key, or `VULTR_API_KEY` must be available in the environment.
+- Your account must have enough balance and permission to create instances in the target region.
+- `init.sh` is injected automatically through a Vultr startup script. If you modify the template, check that script together with the Terraform changes.
 
-```bash
-export VULTR_API_KEY="your_vultr_api_key_here"
-```
-
-### Method 3: Configure in deploy.sh (Not Recommended)
-
-In deploy.sh, replace `xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` with your Vultr API key:
+## Quick Start
 
 ```bash
-    -start)
-        start_vps "your_vultr_api_key_here"
-        ;;
-    -stop)
-        stop_vps "your_vultr_api_key_here"
-        ;;
-    -status)
-        status_vps "your_vultr_api_key_here"
-        ;;
-```
-
-## Scenario Description
-
-- **Configuration**: plan vc2-1c-2gb (1 core 2GB RAM)
-- **Region**: sgp (Singapore)
-- **OS**: os_id 477
-- **Startup Script**: Uses init.sh for automatic environment initialization
-
-## Start Scenario with redc
-
-```bash
-# Create and start scenario
+redc pull vultr/hk-vps
 redc run vultr/hk-vps
-
-# Or step by step
-redc plan vultr/hk-vps
-redc start <case_id>
+redc status [uuid]
+redc stop [uuid]
 ```
 
-## Possible Error Reasons
+To override the region, plan, or OS ID:
 
-1. **Network connection to Vultr API timed out**
-   - Check network connection
-   - Check if proxy configuration is needed
+```bash
+redc run vultr/hk-vps \
+    -e region=sgp \
+    -e plan=vc2-1c-2gb \
+    -e os_id=477
+```
 
-2. **Vultr region sold out or this configuration discontinued**
-   - Try changing region (modify region in main.tf)
-   - Try changing plan (modify plan in main.tf)
+## Parameters
 
-3. **API Key configuration error**
-   - Confirm API Key is correct
-   - Confirm API Key has sufficient permissions
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `region` | `sgp` | Vultr region code. The current default is Singapore. |
+| `plan` | `vc2-1c-2gb` | Instance plan. |
+| `os_id` | `477` | Operating system ID. The current default maps to Ubuntu 22.04 x64. |
 
-## Update Notes
+## Outputs
 
-- Updated Terraform Provider to version 2.22.1 (latest version)
-- Added standard SSH output to support redc's SSH operations
-- Added Vultr support in redc configuration system
+- `vps_ip` / `main_ip` / `public_ip`: Instance public IP address.
+- `password` / `ssh_password`: Default root password returned by Vultr on first creation.
+- `ssh_user`: Default SSH username, currently `root`.
+- `ssh_command`: Copy-ready SSH command.
+- `vps_os`, `vps_ram`, `vps_disk`, `vps_allowed_bandwidth`, `vps_hostname`: Instance metadata for quick capacity verification.
+
+## Notes
+
+- The provider reads credentials directly from `VULTR_API_KEY`, so there is no need to go back to the old `deploy.sh`-style API key injection.
+- The current template fixes both `label` and `hostname` to `tf-1`; repeated runs are mainly distinguished by Vultr resource IDs.
+- The template disables IPv6, backups, and DDoS protection.
+- `ssh_password` depends on Vultr returning `default_password`; if you later switch to SSH-key-based login, that output may no longer be meaningful.
+- Common failure causes are an invalid API key, Vultr API network timeouts, or lack of capacity for the selected region and plan.
+
+## Appendix
+
+- `init.sh` is injected automatically through the `vultr_startup_script` resource.
+- If you need to adjust initialization behavior, check [init.sh](init.sh) in the same directory.

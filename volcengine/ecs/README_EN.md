@@ -1,56 +1,57 @@
-# Usage
+# Volcengine ECS
 
-1. Configure according to the notes before use (if empty, no configuration needed)
-2. Usage commands are as follows:
+## Scene Description
 
-Pull
-```
+This scene deploys a pay-as-you-go Debian 12 ECS instance in the Volcengine Beijing region and initializes common operations tooling, BBR, and `trzsz`. It is suitable for quickly bringing up a general-purpose host that you can log into directly.
+
+After deployment, you get the public IP, instance password, and a copy-ready SSH command.
+
+## Prerequisites
+
+- redc must already be configured with working Volcengine credentials.
+- Your account must have enough balance and permission to create pay-as-you-go ECS instances and EIPs in `cn-beijing`.
+- The current template creates randomly suffixed VPC, subnet, security group, and EIP resources, so it is not intended for environments that require fixed resource names.
+
+## Quick Start
+
+```bash
 redc pull volcengine/ecs
-```
-
-Start
-```
 redc run volcengine/ecs
-```
-
-Query
-```
 redc status [uuid]
-```
-
-Stop
-```
 redc stop [uuid]
 ```
 
-# Notes
+To override the instance name or login password:
 
-## Authentication Configuration
-
-Volcengine access credentials need to be configured. There are two ways:
-
-1. **Environment Variables (Recommended)**
 ```bash
-export VOLCENGINE_ACCESS_KEY="your-access-key"
-export VOLCENGINE_SECRET_KEY="your-secret-key"
+redc run volcengine/ecs \
+	-e instance_name=volc-node \
+	-e instance_password='YourPassword123!'
 ```
 
-2. **Config File**
-Configure in `~/.volcengine/config`
+## Parameters
 
-## Common Issues
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `instance_name` | `volcengine_ecs` | Instance name. The current default is a fixed string; the random-suffix branch is only used if you explicitly pass an empty string. |
+| `instance_password` | auto-generated | Instance login password. If left empty, the template generates a random one. |
 
-If starting the scenario fails, possible reasons:
-1. Volcengine account balance is insufficient
-2. Network connection to Volcengine API timed out
-3. Volcengine region sold out or instance_type configuration discontinued
-4. Access credentials (AK/SK) not configured correctly
+## Outputs
 
-## Scenario Configuration
+- `ecs_ip` / `public_ip`: Instance public IP address.
+- `ecs_password` / `ssh_password`: Effective login password.
+- `ssh_user`: Default SSH username, currently `root`.
+- `ssh_command`: Copy-ready SSH command.
 
-- **Instance Type**: ecs.e-c1m1.large (2 cores 2GB RAM)
-- **Billing**: Pay-as-you-go (PostPaid)
-- **System Disk**: 20GB ESSD_PL0
-- **OS**: Debian 12
-- **Login**: Auto-generated SSH password
-- **Region**: Beijing (cn-beijing)
+## Notes
+
+- The region is fixed to `cn-beijing`.
+- The current instance type is fixed to `ecs.e-c1m1.large`, the system disk is fixed to 20 GB `ESSD_PL0`, and the billing model is fixed to pay-as-you-go.
+- The image is selected dynamically through `name_regex = "Debian 12"`; if Volcengine changes the public image naming, the data source lookup may fail.
+- The template automatically allocates an EIP and associates it with the instance.
+- Common failure causes are insufficient balance, Volcengine API network timeouts, lack of capacity in the target region, or incorrectly configured AK/SK credentials.
+
+## Appendix
+
+- The template appends random suffixes to the EIP, VPC, subnet, and security group names to reduce collisions across repeated runs; the instance name only uses the random-suffix branch if an empty string is passed explicitly.
+- The user data installs `curl`, `wget`, `tmux`, `unzip`, and `python3-pip`, and enables BBR.

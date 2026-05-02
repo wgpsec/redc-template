@@ -1,53 +1,57 @@
-# 场景使用
+# 火山引擎 ECS
 
-1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)
-2. 使用时命令如下
+## 场景说明
 
-拉取
-```
+这个场景会在火山引擎北京地域部署一台按量计费的 Debian 12 ECS 实例，并自动完成基础运维工具、BBR 和 `trzsz` 的初始化。适合快速拿到一台可直接登录的通用主机。
+
+部署完成后，你会获得公网 IP、实例密码和可直接复制的 SSH 命令。
+
+## 前置条件
+
+- 本地 redc 已配置可用的火山引擎凭据。
+- 账户需要有足够余额，并允许在 `cn-beijing` 地域创建按量实例和 EIP。
+- 当前模板会在本地运行目录之外创建随机命名的 VPC、子网、安全组和 EIP，不适合要求固定资源命名的场景。
+
+## 快速使用
+
+```bash
 redc pull volcengine/ecs
-```
-
-开启
-```
 redc run volcengine/ecs
-```
-
-查询
-```
 redc status [uuid]
-```
-
-关闭
-```
 redc stop [uuid]
 ```
 
-# 注意事项
+如需覆盖实例名或登录密码，可以这样启动：
 
-## 认证配置
-需要配置火山引擎的访问凭证，有以下两种方式：
-
-1. **环境变量方式**（推荐）
 ```bash
-export VOLCENGINE_ACCESS_KEY="your-access-key"
-export VOLCENGINE_SECRET_KEY="your-secret-key"
+redc run volcengine/ecs \
+	-e instance_name=volc-node \
+	-e instance_password='YourPassword123!'
 ```
 
-2. **配置文件方式**
-在 `~/.volcengine/config` 中配置
+## 参数说明
 
-## 常见问题
-若启动场景报错，可能原因：
-1. 火山引擎账户余额不足
-2. 与火山引擎 API 网络连接超时
-3. 火山引擎该区域售罄或下架 instance_type 的配置机型
-4. 未配置正确的访问凭证（AK/SK）
+| 参数 | 默认值 | 说明 |
+| --- | --- | --- |
+| `instance_name` | `volcengine_ecs` | 实例名称；当前默认值是固定字符串，只有在你显式传入空字符串时模板才会回退到带随机后缀的命名。 |
+| `instance_password` | 自动生成 | 实例登录密码；留空时模板会生成随机密码。 |
 
-## 场景配置说明
-- **实例规格**: ecs.e-c1m1.large (2核2G内存)
-- **计费方式**: 按量计费（PostPaid）
-- **系统盘**: 20GB ESSD_PL0
-- **操作系统**: Debian 12
-- **登录方式**: 随机生成的SSH密码
-- **区域**: 北京（cn-beijing）
+## 输出说明
+
+- `ecs_ip` / `public_ip`：实例公网 IP。
+- `ecs_password` / `ssh_password`：实际生效的登录密码。
+- `ssh_user`：默认 SSH 用户名，当前为 `root`。
+- `ssh_command`：可直接复制使用的 SSH 连接命令。
+
+## 注意事项
+
+- 地域固定为 `cn-beijing`。
+- 当前实例规格固定为 `ecs.e-c1m1.large`，系统盘固定为 20GB `ESSD_PL0`，计费方式固定为按量付费。
+- 镜像通过 `name_regex = "Debian 12"` 动态选择；如果官方镜像命名变化，数据源查询可能失败。
+- 模板会自动申请 EIP 并关联到实例。
+- 如果启动失败，常见原因是余额不足、API 网络超时、当前地域无可用实例库存，或未正确配置 AK/SK。
+
+## 附录
+
+- 模板会为 EIP、VPC、子网和安全组附加随机后缀，减少重复运行时的名称冲突；实例名只有在传入空字符串时才会走随机后缀分支。
+- 用户数据会安装 `curl`、`wget`、`tmux`、`unzip`、`python3-pip`，并开启 BBR。

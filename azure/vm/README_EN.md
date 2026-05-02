@@ -1,73 +1,52 @@
-# Usage
+# Azure VM
 
-1. **Must** configure according to the notes before use (if empty, no configuration needed)
-2. Usage commands are as follows:
+## Scene Description
 
-Pull
-```
+This scene creates a password-based Linux virtual machine in Azure `West Europe` and returns the public IP plus SSH login information. In practice, the current template is better treated as a reference preset, because the repository metadata already notes that it was not validated consistently due to Azure quota issues.
+
+## Prerequisites
+
+- redc must already be configured with working Azure service principal credentials.
+- The target subscription must have available quota and SKU capacity for `Standard_D2a_v4` in `West Europe`.
+- The current template uses fixed names for the resource group, network objects, NIC, and VM. Repeated runs in the same subscription can collide with existing resources.
+
+## Quick Start
+
+```bash
 redc pull azure/vm
-```
-
-Start
-```
 redc run azure/vm
-```
-
-Query
-```
 redc status [uuid]
-```
-
-Stop
-```
 redc stop [uuid]
 ```
 
-# Notes
+To override the administrator password explicitly:
 
-**Azure Credentials Configuration**
-
-Azure service credentials need to be configured. See [redc credentials management](../../README.md)
-
-```yaml
-# ~/redc/config.yaml
-providers:
-  azure:
-    ARM_CLIENT_ID: "your-client-id"
-    ARM_CLIENT_SECRET: "your-client-secret"
-    ARM_SUBSCRIPTION_ID: "your-subscription-id"
-    ARM_TENANT_ID: "your-tenant-id"
+```bash
+redc run azure/vm -e instance_password='YourPassword123!'
 ```
 
-**Region Description**
+## Parameters
 
-Default region is `West Europe` (Western Europe)
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `instance_password` | auto-generated | VM administrator password. If left empty, the template generates a random one. |
 
-**Quota Issues**
+## Outputs
 
-Creating a VM on Azure requires:
+- `public_ip`: VM public IP address.
+- `ecs_password` / `ssh_password`: Effective login password.
+- `ssh_user`: Default SSH username, currently `redcadmin`.
+- `ssh_command`: Copy-ready SSH command.
 
-1. **Regional quota**: Target region needs available vCPU quota
-2. **SKU availability**: Selected VM size needs available capacity in that region
+## Notes
 
-If you encounter these errors:
-- `SkuNotAvailable`: VM size not available in current region → Change `vm_size` or `location`
-- `quota exceeded`: vCPU quota insufficient → Apply for quota increase in Azure portal, or change region
+- The region is fixed to `West Europe`.
+- The VM size is fixed to `Standard_D2a_v4`, and the image is fixed to `Ubuntu 18.04-LTS`.
+- The current template uses password-based login and does not provision SSH keys.
+- Because the scene metadata already states that the template was not successfully validated due to quota limitations, `SkuNotAvailable` and `quota exceeded` should be treated as known operational risks rather than documentation gaps.
+- Common failure causes are invalid Azure credentials, insufficient regional quota, unavailable SKU capacity, or collisions with the fixed resource names.
 
-**Default Configuration**
+## Appendix
 
-| Parameter | Default Value |
-|-----------|--------------|
-| VM Size | Standard_D2a_v4 |
-| Region | West Europe |
-| OS Image | Ubuntu 18.04 LTS |
-| Username | redcadmin |
-| Password | Auto-generated |
-
-**Custom Parameters**
-
-You can override default configuration via `terraform.tfvars`:
-
-```hcl
-instance_password = "YourPassword123"
-```
+- Current fixed resource names include resource group `redc-resources-1`, virtual machine `test-machine`, NIC `test-nic`, and public IP `test-publicip`.
+- The template does not expose `location` or `vm_size` as user-facing variables. If you need to change the region or VM size, edit [main.tf](main.tf).

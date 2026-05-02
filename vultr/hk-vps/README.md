@@ -1,73 +1,60 @@
-# Vultr VPS 场景使用说明
-
-## 配置 Vultr API Key
-
-### 方法 1: 使用 redc 配置文件（推荐）
-
-编辑 `~/redc/config.yaml`，添加 Vultr 配置：
-
-```yaml
-providers:
-  vultr:
-    VULTR_API_KEY: "your_vultr_api_key_here"
-```
-
-### 方法 2: 使用环境变量
-
-```bash
-export VULTR_API_KEY="your_vultr_api_key_here"
-```
-
-### 方法 3: 在 deploy.sh 中配置（不推荐）
-
-在 deploy.sh 中配置，将 `xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` 替换成 Vultr 的 API key：
-
-```bash
-    -start)
-        start_vps "your_vultr_api_key_here"
-        ;;
-    -stop)
-        stop_vps "your_vultr_api_key_here"
-        ;;
-    -status)
-        status_vps "your_vultr_api_key_here"
-        ;;
-```
+# Vultr VPS 场景
 
 ## 场景说明
 
-- **配置**: plan vc2-1c-2gb (1核2G内存)
-- **区域**: sgp (新加坡)
-- **操作系统**: os_id 477
-- **启动脚本**: 使用 init.sh 自动初始化环境
+这个场景会在 Vultr 部署一台轻量 VPS，并通过 `init.sh` 启动脚本完成基础初始化。它适合快速拉起一台可直接登录的海外通用主机。
 
-## 使用 redc 启动场景
+需要注意的是，目录名虽然叫 `hk-vps`，但当前模板默认区域实际是 `sgp`（新加坡），不是香港。
+
+## 前置条件
+
+- 本地 redc 已配置可用的 Vultr API Key，或已设置 `VULTR_API_KEY` 环境变量。
+- 账户需要有足够余额，并允许在目标区域创建实例。
+- `init.sh` 会作为 Vultr startup script 自动执行；如果你改动模板，需同步检查该脚本内容。
+
+## 快速使用
 
 ```bash
-# 创建并启动场景
+redc pull vultr/hk-vps
 redc run vultr/hk-vps
-
-# 或者分步操作
-redc plan vultr/hk-vps
-redc start <case_id>
+redc status [uuid]
+redc stop [uuid]
 ```
 
-## 可能的错误原因
+如需覆盖区域、实例规格或镜像 ID，可以这样启动：
 
-1. **与 Vultr API 网络连接超时**
-   - 检查网络连接
-   - 检查是否需要配置代理
+```bash
+redc run vultr/hk-vps \
+    -e region=sgp \
+    -e plan=vc2-1c-2gb \
+    -e os_id=477
+```
 
-2. **Vultr 该区域售罄或下架该配置机型**
-   - 尝试更换区域（修改 main.tf 中的 region）
-   - 尝试更换机型（修改 main.tf 中的 plan）
+## 参数说明
 
-3. **API Key 配置错误**
-   - 确认 API Key 是否正确
-   - 确认 API Key 是否有足够的权限
+| 参数 | 默认值 | 说明 |
+| --- | --- | --- |
+| `region` | `sgp` | Vultr 区域代码；当前默认是新加坡。 |
+| `plan` | `vc2-1c-2gb` | 实例规格。 |
+| `os_id` | `477` | 操作系统 ID，当前对应 Ubuntu 22.04 x64。 |
 
-## 更新说明
+## 输出说明
 
-- 已更新 Terraform Provider 版本至 2.22.1（最新版本）
-- 已添加标准 SSH 输出，支持 redc 的 SSH 运维功能
-- 已在 redc 配置系统中添加 Vultr 支持
+- `vps_ip` / `main_ip` / `public_ip`：实例公网 IP。
+- `password` / `ssh_password`：Vultr 首次创建时返回的默认 root 密码。
+- `ssh_user`：默认 SSH 用户名，当前为 `root`。
+- `ssh_command`：可直接复制使用的 SSH 命令。
+- `vps_os`、`vps_ram`、`vps_disk`、`vps_allowed_bandwidth`、`vps_hostname`：实例元数据，便于快速核对规格。
+
+## 注意事项
+
+- provider 直接从 `VULTR_API_KEY` 读取凭据，不需要再回到旧的 `deploy.sh` 流程里填写 API Key。
+- 当前模板的 `label` 和 `hostname` 固定为 `tf-1`，多次运行时主要依赖 Vultr 资源 ID 区分。
+- 模板关闭了 IPv6、备份和 DDoS 保护。
+- `ssh_password` 依赖 Vultr 返回的 `default_password`；如果你后续改成 SSH key 登录模式，这个输出可能不再可用。
+- 如果启动失败，常见原因是 API Key 配置错误、Vultr API 网络超时，或目标区域/规格无可用容量。
+
+## 附录
+
+- `init.sh` 会通过 `vultr_startup_script` 资源自动注入到实例。
+- 如需调整初始化逻辑，可查看同目录下的 [init.sh](init.sh)。
