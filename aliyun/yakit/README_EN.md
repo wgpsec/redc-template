@@ -1,69 +1,63 @@
-# Usage
+# Aliyun Yakit Server Scenario
 
-1. Configure according to the notes before use (if empty, no configuration needed)
-2. Usage commands are as follows:
+## Scene Description
 
-Pull
-```
+This scene deploys a Yakit server host in the Aliyun Beijing region, downloads the `yak` binary automatically, and starts it as a systemd service. It is suitable for quickly bringing up a remote scanning or protocol analysis node.
+
+After deployment, you get the public IP, instance password, Yakit listening port, and SSH command. You can connect to the server directly from a Yakit client or log in to inspect the service state.
+
+## Prerequisites
+
+- redc must already be configured with working Aliyun credentials.
+- Your account must have enough balance and permission to create ECS instances in `cn-beijing`.
+- This scene downloads the `yak` binary directly from Aliyun OSS and does not require a GitHub proxy.
+- If clients need to reach the server from outside, make sure your network path allows access to the selected `yakit_port`.
+
+## Quick Start
+
+```bash
 redc pull aliyun/yakit
-```
-
-Start
-```
 redc run aliyun/yakit
-```
-
-Query
-```
 redc status [uuid]
-```
-
-Stop
-```
 redc stop [uuid]
 ```
 
-3. After deployment, you can connect to the Yakit server in the following ways:
-   - Connect using the Yakit client to the server IP on port 8087 (default)
-   - SSH login to the server: `ssh root@<serverIP>`, password is in the `redc status` output
+To override the listening port, instance name, or login password:
 
-# Static Resources
-
-In this scenario, the Yakit server (yak) is downloaded directly from Aliyun OSS bucket without GitHub proxy.
-
-Download link: https://yaklang.oss-cn-beijing.aliyunc.com/yak/latest/yak_linux_amd64
-
-To change the version or download link, modify the download link in the user_data section of main.tf.
-
-# Notes
-
-**Port Configuration**
-
-Default Yakit server listens on port 8087. You can customize the port by modifying the `yakit_port` parameter in `terraform.tfvars`:
-
-```
-yakit_port = 8087
+```bash
+redc run aliyun/yakit \
+   -e yakit_port=9999 \
+   -e instance_name=yakit-server \
+   -e instance_password='YourPassword123!'
 ```
 
-Or specify via `-e` parameter at runtime:
-```
-redc run aliyun/yakit -e yakit_port=9999
-```
+## Parameters
 
-**Instance Type**
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `instance_name` | `yakit-server` | Instance name. |
+| `yakit_port` | `8087` | Yakit server listening port. |
+| `instance_password` | auto-generated | Instance login password. If left empty, the template generates a random one. |
 
-This scenario uses ecs.c7a.large (2 cores 4GB). If this type is unavailable or sold out in some regions, you can modify the `instance_type` in main.tf to other types, for example:
-- ecs.n1.small (1 core 2GB)
-- ecs.c7.large (2 cores 4GB)
-- ecs.g7.large (2 cores 8GB)
+## Outputs
 
-**Region Configuration**
+- `ecs_ip` / `public_ip`: Instance public IP address.
+- `ecs_password` / `ssh_password`: Effective login password.
+- `yakit_port`: Current service listening port.
+- `ssh_user`: Default SSH username, currently `root`.
+- `ssh_command`: Copy-ready SSH command.
 
-Default deployment is in Beijing (cn-beijing). You can modify the `region` parameter in versions.tf to change the deployment region.
+## Notes
 
-If starting the scenario fails, possible reasons:
-1. Aliyun account balance is insufficient (needs to be greater than 200)
-2. Network connection to Aliyun API timed out
-3. Aliyun region sold out or instance_type configuration discontinued
-4. Yakit service failed to start. You can check logs by logging into the server: `systemctl status yakit`
-5. OSS download link expired or network issues preventing yak binary download
+- The region is fixed to `cn-beijing`.
+- The current instance type is fixed to `ecs.c7a.large`, with a 20 GB ESSD system disk. If that instance type is unavailable in the region, startup fails.
+- Although the template adds dedicated rules for SSH and `yakit_port`, it also allows all inbound TCP and UDP traffic. Tighten access after deployment if the host is not meant to remain broadly exposed.
+- The `yak` binary is fetched from Aliyun OSS. If that download fails, the server will not start correctly.
+- Common failure causes are insufficient balance, Aliyun API network timeouts, capacity shortages in the current region, or a failed `yakit` systemd start. You can inspect it with `systemctl status yakit` after login.
+
+## Appendix
+
+- `yak` binary path: `/usr/local/bin/yak`
+- systemd service file: `/etc/systemd/system/yakit.service`
+- Current start command: `yak grpc --port <yakit_port>`
+- Download URL: `https://yaklang.oss-cn-beijing.aliyuncs.com/yak/latest/yak_linux_amd64`

@@ -1,69 +1,63 @@
-# 场景使用
+# 阿里云 Yakit 服务端场景
 
-1. 使用前请按照注意事项里内容进行配置 (若空则无需配置)
-2. 使用时命令如下
+## 场景说明
 
-拉取
-```
+这个场景会在阿里云北京地域部署一台 Yakit 服务端主机，自动下载 `yak` 二进制并以 systemd 服务方式启动，适合快速搭建远程扫描或协议分析节点。
+
+部署完成后，你会拿到公网 IP、实例密码、Yakit 监听端口和 SSH 命令；可以直接让 Yakit 客户端连接服务端，或登录主机排查服务状态。
+
+## 前置条件
+
+- 本地 redc 已配置可用的阿里云凭据。
+- 账户需要有足够余额，并允许在 `cn-beijing` 地域创建 ECS 实例。
+- 本场景从阿里云 OSS 直接下载 `yak` 二进制，不依赖 GitHub 代理。
+- 如果你要让客户端从外部访问服务端，请提前确认网络环境允许访问 `yakit_port` 对应端口。
+
+## 快速使用
+
+```bash
 redc pull aliyun/yakit
-```
-
-开启
-```
 redc run aliyun/yakit
-```
-
-查询
-```
 redc status [uuid]
-```
-
-关闭
-```
 redc stop [uuid]
 ```
 
-3. 部署完成后，可以通过以下方式连接 yakit 服务器：
-   - 使用 yakit 客户端连接到服务器 IP 的 8087 端口（默认）
-   - SSH 登录到服务器：`ssh root@<服务器IP>`，密码在 `redc status` 输出中
+如需覆盖监听端口、实例名或登录密码，可以这样启动：
 
-# 静态资源
-
-本场景中 yakit 服务端（yak）从阿里云 OSS 存储桶直接下载，无需配置 GitHub 代理。
-
-下载链接：https://yaklang.oss-cn-beijing.aliyuncs.com/yak/latest/yak_linux_amd64
-
-如需更换版本或下载地址，可在 main.tf 的 user_data 部分修改下载链接。
-
-# 注意事项
-
-**端口配置**
-
-默认 yakit 服务端监听端口为 8087，可以通过修改 `terraform.tfvars` 中的 `yakit_port` 参数来自定义端口。
-
-```
-yakit_port = 8087
+```bash
+redc run aliyun/yakit \
+   -e yakit_port=9999 \
+   -e instance_name=yakit-server \
+   -e instance_password='YourPassword123!'
 ```
 
-或在运行时通过 `-e` 参数指定：
-```
-redc run aliyun/yakit -e yakit_port=9999
-```
+## 参数说明
 
-**实例规格**
+| 参数 | 默认值 | 说明 |
+| --- | --- | --- |
+| `instance_name` | `yakit-server` | 实例名称。 |
+| `yakit_port` | `8087` | Yakit 服务端监听端口。 |
+| `instance_password` | 自动生成 | 实例登录密码；留空时模板会生成随机密码。 |
 
-本场景使用 ecs.c7a.large 规格（2核4G），如果该规格在某些地区不可用或售罄，可以修改 main.tf 中的 `instance_type` 为其他规格，例如：
-- ecs.n1.small (1核2G)
-- ecs.c7.large (2核4G)
-- ecs.g7.large (2核8G)
+## 输出说明
 
-**区域配置**
+- `ecs_ip` / `public_ip`：实例公网 IP。
+- `ecs_password` / `ssh_password`：实际生效的登录密码。
+- `yakit_port`：当前服务监听端口。
+- `ssh_user`：默认 SSH 用户名，当前为 `root`。
+- `ssh_command`：可直接复制使用的 SSH 连接命令。
 
-默认部署在北京地区 (cn-beijing)，可以在 versions.tf 中修改 `region` 参数来更改部署区域。
+## 注意事项
 
-若启动场景报错，可能原因：
-1. 阿里云账户余额不足 (需要大于 200)
-2. 与阿里云 API 网络连接超时
-3. 阿里云该区域售罄或下架 instance_type 的配置机型
-4. yakit 服务启动失败，可登录服务器查看日志：`systemctl status yakit`
-5. OSS 下载链接失效或网络问题导致无法下载 yak 二进制文件
+- 地域固定为 `cn-beijing`。
+- 当前实例规格固定为 `ecs.c7a.large`，系统盘为 20GB ESSD；如果该规格在当前地域不可用，启动会失败。
+- 虽然模板单独放通了 22 端口和 `yakit_port`，但同时也放开了全部 TCP 和 UDP 入站流量，部署后应按需收紧。
+- `yak` 二进制从阿里云 OSS 拉取；如果 OSS 下载失败，服务端不会成功启动。
+- 如果启动失败，常见原因是余额不足、API 网络超时、当前地域库存不足，或 `yakit` systemd 服务启动失败。可登录主机执行 `systemctl status yakit` 检查。
+
+## 附录
+
+- `yak` 二进制安装路径：`/usr/local/bin/yak`
+- systemd 服务文件路径：`/etc/systemd/system/yakit.service`
+- 当前启动命令：`yak grpc --port <yakit_port>`
+- 下载地址：`https://yaklang.oss-cn-beijing.aliyuncs.com/yak/latest/yak_linux_amd64`

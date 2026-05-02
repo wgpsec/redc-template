@@ -1,67 +1,67 @@
-# Usage
+# Tencent JNDI Practice Scenario
 
-1. Configure according to the notes before use (if empty, no configuration needed)
-2. Usage commands are as follows:
+## Scene Description
 
-Pull
-```
+This scene deploys a Tencent Cloud host in the Beijing region with JDK8, JNDIExploit, java-chains, MemShellParty, and `simplehttpserver` preinstalled. It is suitable for quickly preparing a JNDI practice environment for reproduction, payload verification, or local testing.
+
+After deployment, you get the public IP, instance password, and SSH command. Once logged in, you can use the preinstalled toolchain directly.
+
+## Prerequisites
+
+- redc must already be configured with working Tencent Cloud credentials.
+- If you need to override credentials temporarily from the CLI, use `-e tencentcloud_secret_id=... -e tencentcloud_secret_key=...`. Do not store live AK/SK values in a tracked `terraform.tfvars` file.
+- This scene depends on `github_proxy` to download multiple JDK and JNDI-related packages, so you must provide a working GitHub proxy URL when starting it.
+- Your account must have enough balance and permission to create public CVM instances in `ap-beijing`.
+
+## Quick Start
+
+```bash
 redc pull tencent/jndi
-```
-
-Start
-```
-redc run tencent/jndi
-```
-
-Query
-```
+redc run tencent/jndi -e github_proxy=https://ghfast.top/github.com
 redc status [uuid]
-```
-
-Stop
-```
 redc stop [uuid]
 ```
 
-# Static Resources
+To override the instance name or login password at the same time:
 
-**If not using redc, please replace the Tencent Cloud aksk in terraform.tfvars yourself**
-
+```bash
+redc run tencent/jndi \
+  -e github_proxy=https://ghfast.top/github.com \
+  -e instance_name=jndi-lab \
+  -e instance_password='YourPassword123!'
 ```
-tencentcloud_secret_id  = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-tencentcloud_secret_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-```
 
-You can replace the static resource download links in the template yourself, currently using accelerated links from https://ghproxy.link/
+## Parameters
 
-**You can replace the jdk-8u321-linux-x64 archive download link in main.tf yourself**
-- https://github.com/No-Github/Archive/releases/tag/1.0.5
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `instance_name` | `jndi` | Instance name. |
+| `tencentcloud_secret_id` | required | Tencent Cloud SecretId. In normal usage this should come from the redc provider configuration. |
+| `tencentcloud_secret_key` | required | Tencent Cloud SecretKey. In normal usage this should come from the redc provider configuration. |
+| `github_proxy` | required | GitHub proxy prefix used to download JDK8, JNDIExploit, java-chains, and related tooling. |
+| `instance_password` | auto-generated | Instance login password. If left empty, the template generates a random one. |
 
-**You can replace the JNDIExploit_feihong archive download link in main.tf yourself**
-- https://github.com/No-Github/Archive/tree/master/JNDI
+## Outputs
 
-**You can replace the JNDIExploit_0x727 archive download link in main.tf yourself**
-- https://github.com/No-Github/Archive/tree/master/JNDI
+- `ecs_ip` / `public_ip`: Instance public IP address.
+- `ecs_password` / `ssh_password`: Effective login password.
+- `ssh_user`: Default SSH username, currently `ubuntu`.
+- `ssh_command`: Copy-ready SSH command.
 
-**You can replace the java-chains archive download link in main.tf yourself**
-- https://github.com/vulhub/java-chains/releases
+## Notes
 
-**You can replace the JNDI-Injection-Exploit archive download link in main.tf yourself**
-- https://github.com/welk1n/JNDI-Injection-Exploit/releases
+- The region is fixed to `ap-beijing`, and the availability zone is fixed to `ap-beijing-7`.
+- The template automatically selects a 2 vCPU / 4 GB instance from the Tencent Cloud S6 family. This is not a fully arbitrary instance-type scene.
+- The default security group allows all inbound and outbound traffic. Tighten access after deployment if the host is not meant to remain fully exposed.
+- This scene downloads many dependencies. Even after the instance is created, it is normal to wait a few more minutes before verifying with `java -version` or checking the expected files.
+- Common failure causes are insufficient balance, Tencent Cloud API network timeouts, capacity shortages in the target region, a broken GitHub proxy, or a failed JDK install.
 
-**You can replace the MemShellParty archive download link in main.tf yourself**
-- https://github.com/ReaJason/MemShellParty/releases
+## Appendix
 
-**You can replace the simplehttpserver archive download link in main.tf yourself**
-- https://github.com/projectdiscovery/simplehttpserver
-
-**You can replace the GitHub acceleration address in terraform.tfvars yourself**
-- https://ghfast.top/github.com
-
-# Notes
-
-If starting the scenario fails, possible reasons:
-1. Tencent Cloud account balance is insufficient
-2. Network connection to Tencent Cloud API timed out
-3. Tencent Cloud region sold out or instance_type configuration discontinued
-4. JDK not installed properly
+- Main tool paths:
+	- JDK8: `/usr/local/java/jdk1.8.0_321`
+	- `java-chains`: `/root/java-chains`
+	- `JNDI-Injection-Exploit`: `/root/JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar`
+	- `MemShellParty`: `/root/boot-2.5.0.jar`
+	- `simplehttpserver`: `/usr/local/bin/simplehttpserver`
+- Other JNDIExploit extraction directories are placed under `/root` for direct inspection after login.
