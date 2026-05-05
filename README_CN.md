@@ -6,6 +6,10 @@ https://github.com/wgpsec/redc 引擎要用到的 tf 模板仓库
 
 模板编写教程（中文）：[WRITING_TEMPLATES_CN.md](WRITING_TEMPLATES_CN.md)
 
+## WgpSec Infra 生态关系
+
+redc-template 是 WgpSec Infra 的场景与模板资产层。它主要为 [redc](https://github.com/wgpsec/redc) 提供可直接消费的预制场景、基础模板、专项模板和插件能力，同时保留每个模板可独立使用的能力。部分场景还会在运行时调用 [f8x](https://github.com/ffffffff0x/f8x) 完成 Docker、工具链或服务环境的快速装配，因此它既是模板仓库，也是连接 redc 与 f8x 的资产层。
+
 ## 分类解释
 
 按照各个云来分类

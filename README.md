@@ -6,6 +6,10 @@ Terraform template repository used by the https://github.com/wgpsec/redc engine
 
 Template writing guide (English): [WRITING_TEMPLATES_EN.md](WRITING_TEMPLATES_EN.md)
 
+## WgpSec Infra Ecosystem
+
+redc-template is the scenario and template asset layer of WgpSec Infra. Its primary role is to provide [redc](https://github.com/wgpsec/redc) with ready-to-consume preset scenarios, base templates, userdata modules, and plugin capabilities, while still allowing each template to be used independently. Some scenarios also invoke [f8x](https://github.com/ffffffff0x/f8x) at runtime to provision Docker, toolchains, or service environments, so this repository acts as both a template source and an asset bridge between redc and f8x.
+
 ## Category Explanation
 
 Classified by cloud providers
