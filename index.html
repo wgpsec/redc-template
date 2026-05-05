@@ -478,6 +478,59 @@
             </div>
         </section>
 
+        <!-- WgpSec Infra Ecosystem Section -->
+        <section class="py-16 px-6 border-b" style="border-color: var(--border-color); background-color: var(--bg-secondary);">
+            <div class="max-w-7xl mx-auto">
+                <div class="max-w-3xl mb-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-primary-50 dark:bg-primary-900/30 border border-primary-100 dark:border-primary-800 text-primary-600 dark:text-primary-400 text-xs font-semibold rounded-full mb-4">
+                        <i data-lucide="workflow" class="w-3 h-3"></i>
+                        <span data-i18n="ecosystem_badge">WgpSec Infra</span>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight" style="color: var(--text-primary);" data-i18n="ecosystem_title">一套体系，三层能力</h2>
+
+                    <p class="text-base leading-relaxed" style="color: var(--text-secondary);" data-i18n="ecosystem_description">
+                        redc 负责调度、交互与自动化控制，redc-template 提供场景与模板资产，f8x 负责目标主机上的软件装配与工具目录。三者组合后，形成从云资源创建到主机内软件部署的一体化攻防基础设施平台。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="pd-card p-6">
+                        <div class="w-10 h-10 rounded bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 flex items-center justify-center mb-4">
+                            <i data-lucide="monitor" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold mb-2" style="color: var(--text-primary);" data-i18n="ecosystem_card_redc_title">redc 控制面</h3>
+                        <p class="text-sm leading-relaxed" style="color: var(--text-secondary);" data-i18n="ecosystem_card_redc_desc">多云调度、场景生命周期、GUI、SSH、插件和 AI 自动化入口。</p>
+                    </div>
+
+                    <div class="pd-card p-6">
+                        <div class="w-10 h-10 rounded bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-4">
+                            <i data-lucide="database" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold mb-2" style="color: var(--text-primary);" data-i18n="ecosystem_card_templates_title">redc-template 资产层</h3>
+                        <p class="text-sm leading-relaxed" style="color: var(--text-secondary);" data-i18n="ecosystem_card_templates_desc">预制场景、基础模板、专项模块和社区扩展的来源。</p>
+                    </div>
+
+                    <div class="pd-card p-6">
+                        <div class="w-10 h-10 rounded bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center mb-4">
+                            <i data-lucide="terminal" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-bold mb-2" style="color: var(--text-primary);" data-i18n="ecosystem_card_f8x_title">f8x 装配层</h3>
+                        <p class="text-sm leading-relaxed" style="color: var(--text-secondary);" data-i18n="ecosystem_card_f8x_desc">在目标主机内安装工具、初始化运行环境并提供机器可读工具目录。</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://github.com/wgpsec/redc-template" target="_blank" rel="noopener noreferrer" class="btn-outline px-5 py-3 inline-flex items-center gap-2 text-sm">
+                        <span data-i18n="ecosystem_link_templates">查看 redc-template</span>
+                    </a>
+                    <a href="https://github.com/ffffffff0x/f8x" target="_blank" rel="noopener noreferrer" class="btn-outline px-5 py-3 inline-flex items-center gap-2 text-sm">
+                        <span data-i18n="ecosystem_link_f8x">查看 f8x</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- GUI Desktop App Section -->
         <section class="py-16 px-6 border-b" style="border-color: var(--border-color);">
             <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -807,6 +860,17 @@ redc config check</pre>
                 feat_mcp_desc: '支持模型上下文协议，与 AI 助手无缝集成，自然语言管理设施。',
                 feat_compose_title: '服务编排',
                 feat_compose_desc: '支持 Compose 编排，通过 YAML 同时管理多个云服务实例。',
+                ecosystem_badge: 'WgpSec Infra',
+                ecosystem_title: '一套体系，三层能力',
+                ecosystem_description: 'redc 负责调度、交互与自动化控制，redc-template 提供场景与模板资产，f8x 负责目标主机上的软件装配与工具目录。三者组合后，形成从云资源创建到主机内软件部署的一体化攻防基础设施平台。',
+                ecosystem_card_redc_title: 'redc 控制面',
+                ecosystem_card_redc_desc: '多云调度、场景生命周期、GUI、SSH、插件和 AI 自动化入口。',
+                ecosystem_card_templates_title: 'redc-template 资产层',
+                ecosystem_card_templates_desc: '预制场景、基础模板、专项模块和社区扩展的来源。',
+                ecosystem_card_f8x_title: 'f8x 装配层',
+                ecosystem_card_f8x_desc: '在目标主机内安装工具、初始化运行环境并提供机器可读工具目录。',
+                ecosystem_link_templates: '查看 redc-template',
+                ecosystem_link_f8x: '查看 f8x',
                 gui_badge: '桌面客户端',
                 gui_title: 'Redc GUI',
                 gui_description: '不只是命令行。Redc GUI 提供可视化仪表盘、AI 聊天助手、一键部署管理，让红队基础设施管理更加直观高效。',
@@ -851,6 +915,17 @@ redc config check</pre>
                 feat_mcp_desc: 'Model Context Protocol support for seamless AI assistant integration.',
                 feat_compose_title: 'Compose',
                 feat_compose_desc: 'Orchestrate multiple cloud services via simple YAML configuration.',
+                ecosystem_badge: 'WgpSec Infra',
+                ecosystem_title: 'One Stack, Three Layers',
+                ecosystem_description: 'redc handles orchestration, interaction, and automation control, redc-template provides scenario and template assets, and f8x delivers host-side software provisioning and tool catalog capabilities. Together they form an integrated infrastructure platform spanning cloud resource creation and in-host software deployment.',
+                ecosystem_card_redc_title: 'redc Control Plane',
+                ecosystem_card_redc_desc: 'Entry point for multi-cloud orchestration, scenario lifecycle, GUI workflows, SSH, plugins, and AI automation.',
+                ecosystem_card_templates_title: 'redc-template Asset Layer',
+                ecosystem_card_templates_desc: 'Source of preset scenarios, base templates, userdata modules, and community extensions.',
+                ecosystem_card_f8x_title: 'f8x Provisioning Layer',
+                ecosystem_card_f8x_desc: 'Installs tools on target hosts, bootstraps runtimes, and exposes a machine-readable software catalog.',
+                ecosystem_link_templates: 'View redc-template',
+                ecosystem_link_f8x: 'View f8x',
                 gui_badge: 'Desktop App',
                 gui_title: 'Redc GUI',
                 gui_description: 'More than just CLI. Redc GUI provides a visual dashboard, AI chat assistant, and one-click deployment management for intuitive red team infrastructure operations.',
