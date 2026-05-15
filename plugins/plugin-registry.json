@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-05-05",
+  "updated": "2026-05-15",
   "plugins": [
     {
       "name": "redc-plugin-clash-config",
@@ -49,6 +49,23 @@
       "min_redc_version": "3.1.0",
       "url": "https://redc.wgpsec.org/plugins/redc-plugin-example_v1.0.0.zip",
       "sha256": "8e00265d4ac4dfd1db36159f3210046d2fc0cfeeef0c455d926c4143b295400d"
+    },
+    {
+      "name": "redc-plugin-quantumultx-config",
+      "version": "1.0.0",
+      "description": "场景部署后自动生成 QuantumultX 订阅文件 (Base64 编码 ss:// URI)",
+      "description_en": "Auto-generate QuantumultX subscription file (Base64-encoded ss:// URIs) after deployment",
+      "author": "wgpsec",
+      "category": "proxy",
+      "tags": [
+        "quantumultx",
+        "proxy",
+        "shadowsocks",
+        "ios"
+      ],
+      "min_redc_version": "3.1.0",
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-quantumultx-config_v1.0.0.zip",
+      "sha256": "2648901333b94e4fe9a9d5c969803262928daa626b0abea262e8ff9defeafe43"
     },
     {
       "name": "redc-plugin-upload-r2",

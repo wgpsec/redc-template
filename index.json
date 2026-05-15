@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-05T15:18:45.768852Z",
+  "updated_at": "2026-05-15T06:22:08.685939Z",
   "repo_name": "redc-template",
   "templates": {
     "aliyun/ecs": {
@@ -330,14 +330,19 @@
           "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.2.8.zip",
           "sha256": "2efc89ece1c020539da007fad48a806241a5553d511524bf6ba733e7a2a4ec4f",
           "updated_at": "2026-05-01T17:26:37.940605Z"
+        },
+        "1.2.9": {
+          "url": "https://redc.wgpsec.org/templates/aliyun_proxy_v1.2.9.zip",
+          "sha256": "b4b756caa6ffe901b0e198f025aec96f368670b7e08293a97e7e1db9e740af16",
+          "updated_at": "2026-05-15T06:22:08.681352Z"
         }
       },
-      "latest": "1.2.8",
+      "latest": "1.2.9",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
-        "description": "阿里云多节点代理场景，默认支持 10 台 spot ecs.n1.tiny 节点，shadowsocks-libev 搭建并可上传 clash 配置到 Cloudflare R2",
-        "description_en": "Aliyun multi-node proxy scenario with 10 spot ecs.n1.tiny nodes by default, shadowsocks-libev setup and supports uploading clash configuration to Cloudflare R2",
+        "description": "阿里云多节点代理场景，默认支持 10 台 spot ecs.n1.tiny 节点，shadowsocks-libev 搭建并可上传 clash/QuantumultX 配置到 Cloudflare R2",
+        "description_en": "Aliyun multi-node proxy scenario with 10 spot ecs.n1.tiny nodes by default, shadowsocks-libev setup and supports uploading clash/QuantumultX configuration to Cloudflare R2",
         "tags": [
           "proxy"
         ],
@@ -958,14 +963,19 @@
           "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.2.0.zip",
           "sha256": "983427fc9f1c7908dfa9bdde22242576c0ca01779f6faf238ff24629eab069ae",
           "updated_at": "2026-05-01T13:18:03.331822Z"
+        },
+        "1.2.1": {
+          "url": "https://redc.wgpsec.org/templates/aws_proxy_v1.2.1.zip",
+          "sha256": "17e0c39353496184d8bdcfaca49db8eac08b470b25ebd76fda4636a911710a16",
+          "updated_at": "2026-05-15T06:22:08.683245Z"
         }
       },
-      "latest": "1.2.0",
+      "latest": "1.2.1",
       "metadata": {
         "name": "proxy",
         "author": "r0fus0d",
-        "description": "AWS 多节点代理场景（抢占式实例），ap-east-1 区域，默认 10 台 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash 配置（ARM64 架构）",
-        "description_en": "AWS multi-node proxy scenario (spot instances) in ap-east-1 region with 10 t4g.nano nodes (shadowsocks-libev) by default, supports R2 upload clash configuration (ARM64 architecture)",
+        "description": "AWS 多节点代理场景（抢占式实例），ap-east-1 区域，默认 10 台 t4g.nano 节点（shadowsocks-libev），支持 R2 上传 clash/QuantumultX 配置（ARM64 架构）",
+        "description_en": "AWS multi-node proxy scenario (spot instances) in ap-east-1 region with 10 t4g.nano nodes (shadowsocks-libev) by default, supports R2 upload clash/QuantumultX configuration (ARM64 architecture)",
         "tags": [
           "proxy"
         ],
