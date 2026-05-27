@@ -72,6 +72,7 @@ sudo apt-get install -y git
 sudo apt-get install -y build-essential
 sudo apt-get install -y unzip
 sudo apt-get install -y tmux
+sudo apt-get install -y hping3
 
 sudo echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 sudo echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
