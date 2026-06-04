@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updated": "2026-05-27",
+  "updated": "2026-06-04",
   "plugins": [
     {
       "name": "redc-plugin-clash-config",
-      "version": "1.0.2",
+      "version": "2.0.0",
       "description": "场景部署后自动生成 Clash (Shadowsocks) 代理配置文件",
       "description_en": "Auto-generate Clash proxy config (Shadowsocks) after deployment",
       "author": "wgpsec",
@@ -14,13 +14,13 @@
         "proxy",
         "shadowsocks"
       ],
-      "min_redc_version": "3.1.0",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-clash-config_v1.0.2.zip",
-      "sha256": "3d92e74e42b199d0e86bceb657742bcda91a8c7f6f871bef37bfe7b3047279e0"
+      "min_redc_version": "3.3.5",
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-clash-config_v2.0.0.zip",
+      "sha256": "583bc9f7596466a066361fa2c58056ecbca0af52b926734b1407503d3f40efd9"
     },
     {
       "name": "redc-plugin-cloudflare-dns",
-      "version": "1.0.2",
+      "version": "2.0.0",
       "description": "场景部署后自动更新 Cloudflare DNS A 记录指向实例 IP",
       "description_en": "Auto-update Cloudflare DNS A record to point to instance IP after deployment",
       "author": "wgpsec",
@@ -30,9 +30,9 @@
         "dns",
         "domain"
       ],
-      "min_redc_version": "3.1.0",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-cloudflare-dns_v1.0.2.zip",
-      "sha256": "29516428e166e3f0c2718acb02b351f275193e26dff64dfe9d866ca118b457fa"
+      "min_redc_version": "3.3.5",
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-cloudflare-dns_v2.0.0.zip",
+      "sha256": "4fb4e3a1e8c0889fbb8f57b2ecd8c968382530c72f33d75612701e0d5b475ebf"
     },
     {
       "name": "redc-plugin-example",
@@ -52,7 +52,7 @@
     },
     {
       "name": "redc-plugin-quantumultx-config",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "description": "场景部署后自动生成 QuantumultX 订阅文件 (Base64 编码 ss:// URI)",
       "description_en": "Auto-generate QuantumultX subscription file (Base64-encoded ss:// URIs) after deployment",
       "author": "wgpsec",
@@ -63,13 +63,13 @@
         "shadowsocks",
         "ios"
       ],
-      "min_redc_version": "3.1.0",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-quantumultx-config_v1.0.0.zip",
-      "sha256": "2648901333b94e4fe9a9d5c969803262928daa626b0abea262e8ff9defeafe43"
+      "min_redc_version": "3.3.5",
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-quantumultx-config_v2.0.0.zip",
+      "sha256": "9892c07fa9131e18039b71c43e4264ab0a187bd6d4be8f0db2e8f299b481ca0b"
     },
     {
       "name": "redc-plugin-upload-r2",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "description": "场景部署后将生成的配置文件上传到 Cloudflare R2 存储桶",
       "description_en": "Upload generated config files to Cloudflare R2 bucket after deployment",
       "author": "wgpsec",
@@ -80,9 +80,9 @@
         "rclone",
         "upload"
       ],
-      "min_redc_version": "3.1.0",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-upload-r2_v1.0.1.zip",
-      "sha256": "24f77316b501b3e5faa584a41ea76ec056030fc646d7a293e89f9bbd3f41a370"
+      "min_redc_version": "3.3.5",
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-upload-r2_v2.0.0.zip",
+      "sha256": "a7d3dcfb643a29fc4d4df597dd74e8c0332ae4f41e63af9e43bceec8616cb769"
     }
   ]
 }
