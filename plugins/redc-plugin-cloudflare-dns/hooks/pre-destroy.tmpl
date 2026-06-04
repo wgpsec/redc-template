@@ -1,0 +1,23 @@
+{{- /* cloudflare-dns: pre-destroy — delete DNS A record */ -}}
+{{- $cleanup := .Config.cleanup_on_destroy | default "true" -}}
+{{- if ne $cleanup "true" -}}
+{{- else -}}
+{{- $cfEmail := .Config.cf_email -}}
+{{- $cfKey := .Config.cf_api_key -}}
+{{- if or (eq $cfEmail "") (eq $cfKey "") -}}
+{{- else -}}
+{{- $headers := dict "X-Auth-Email" $cfEmail "X-Auth-Key" $cfKey "Content-Type" "application/json" -}}
+{{- $cfAPI := "https://api.cloudflare.com/client/v4" -}}
+{{- /* Read state from plugin_outputs.json (set during post-apply) */ -}}
+{{- $zoneID := .Config.dns_zone_id | default "" -}}
+{{- $recordName := .Config.dns_record_name | default "" -}}
+{{- if or (eq $zoneID "") (eq $recordName "") -}}
+{{- else -}}
+{{- $recResp := httpGet (printf "%s/zones/%s/dns_records?type=A&name=%s" $cfAPI $zoneID $recordName) $headers | jsonParse -}}
+{{- $recID := $recResp | jsonPath "result.0.id" -}}
+{{- if ne (printf "%v" $recID) "" -}}
+{{- httpDelete (printf "%s/zones/%s/dns_records/%s" $cfAPI $zoneID $recID) $headers -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}

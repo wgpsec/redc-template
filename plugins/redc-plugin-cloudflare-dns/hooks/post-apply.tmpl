@@ -1,0 +1,38 @@
+{{- /* cloudflare-dns: post-apply — create/update DNS A record */ -}}
+{{- $cfEmail := .Config.cf_email -}}
+{{- $cfKey := .Config.cf_api_key -}}
+{{- if or (eq $cfEmail "") (eq $cfKey "") -}}
+{{- /* credentials not configured, skip */ -}}
+{{- else -}}
+{{- $ip := index .IPs 0 -}}
+{{- $domain := .Config.domain | default (.Vars.domain | default "") -}}
+{{- if eq $domain "" -}}
+{{- /* domain not configured, skip */ -}}
+{{- else -}}
+{{- /* Strip leading "a." prefix if present */ -}}
+{{- $domain = replace "a." "" $domain -}}
+{{- /* Extract zone (last 2 segments) */ -}}
+{{- $parts := split "." $domain -}}
+{{- $zone := printf "%s.%s" (index $parts (add (len $parts) -2)) (index $parts (add (len $parts) -1)) -}}
+{{- $recordName := .Config.record_name | default (printf "ns1.%s" $zone) -}}
+{{- $headers := dict "X-Auth-Email" $cfEmail "X-Auth-Key" $cfKey "Content-Type" "application/json" -}}
+{{- $cfAPI := "https://api.cloudflare.com/client/v4" -}}
+{{- /* Get Zone ID */ -}}
+{{- $zoneResp := httpGet (printf "%s/zones?name=%s" $cfAPI $zone) $headers | jsonParse -}}
+{{- $zoneID := $zoneResp | jsonPath "result.0.id" -}}
+{{- /* Find existing A record */ -}}
+{{- $recResp := httpGet (printf "%s/zones/%s/dns_records?type=A&name=%s" $cfAPI $zoneID $recordName) $headers | jsonParse -}}
+{{- $recID := $recResp | jsonPath "result.0.id" -}}
+{{- $payload := printf `{"type":"A","name":"%s","content":"%s","ttl":3600,"proxied":false}` $recordName $ip -}}
+{{- if eq (printf "%v" $recID) "" -}}
+{{- httpPost (printf "%s/zones/%s/dns_records" $cfAPI $zoneID) $headers $payload -}}
+{{- else -}}
+{{- httpPut (printf "%s/zones/%s/dns_records/%s" $cfAPI $zoneID $recID) $headers $payload -}}
+{{- end -}}
+{{- /* Save state for pre-destroy */ -}}
+{{- $stateFile := printf "%s/.dns-state-%s" .PluginDir .CaseName -}}
+{{- setOutput "dns_zone_id" (printf "%v" $zoneID) -}}
+{{- setOutput "dns_record_name" $recordName -}}
+{{- setOutput "dns_record" (printf "%s -> %s" $recordName $ip) -}}
+{{- end -}}
+{{- end -}}

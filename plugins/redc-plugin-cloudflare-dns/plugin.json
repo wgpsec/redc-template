@@ -1,17 +1,25 @@
 {
   "name": "redc-plugin-cloudflare-dns",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "场景部署后自动更新 Cloudflare DNS A 记录指向实例 IP",
   "description_en": "Auto-update Cloudflare DNS A record to point to instance IP after deployment",
   "author": "wgpsec",
   "homepage": "https://github.com/wgpsec/redc-template",
   "category": "dns",
   "tags": ["cloudflare", "dns", "domain"],
-  "min_redc_version": "3.1.0",
+  "min_redc_version": "3.3.5",
   "capabilities": {
     "hooks": {
-      "post-apply": "hooks/post-apply.sh",
-      "pre-destroy": "hooks/pre-destroy.sh"
+      "post-apply": {
+        "type": "template",
+        "template": "hooks/post-apply.tmpl",
+        "output": ""
+      },
+      "pre-destroy": {
+        "type": "template",
+        "template": "hooks/pre-destroy.tmpl",
+        "output": ""
+      }
     }
   },
   "config_schema": {
