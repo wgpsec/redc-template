@@ -1,16 +1,20 @@
 {
   "name": "redc-plugin-quantumultx-config",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "场景部署后自动生成 QuantumultX 订阅文件 (Base64 编码 ss:// URI)",
   "description_en": "Auto-generate QuantumultX subscription file (Base64-encoded ss:// URIs) after deployment",
   "author": "wgpsec",
   "homepage": "https://github.com/wgpsec/redc-template",
   "category": "proxy",
   "tags": ["quantumultx", "proxy", "shadowsocks", "ios"],
-  "min_redc_version": "3.1.0",
+  "min_redc_version": "3.3.5",
   "capabilities": {
     "hooks": {
-      "post-apply": "hooks/post-apply.sh"
+      "post-apply": {
+        "type": "template",
+        "template": "hooks/post-apply.tmpl",
+        "output": "{{.CasePath}}/{{.Config.filename | default \"quantumultx.txt\"}}"
+      }
     }
   },
   "config_schema": {

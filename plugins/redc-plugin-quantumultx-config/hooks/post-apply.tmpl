@@ -1,0 +1,13 @@
+{{- $port := .Config.port | default (.Vars.port | default "") -}}
+{{- $password := .Config.password | default (.Vars.password | default "") -}}
+{{- $tagPrefix := .Config.tag_prefix | default "proxy" -}}
+{{- if or (eq $port "") (eq $password "") -}}
+{{- else -}}
+{{- $method := "chacha20-ietf-poly1305" -}}
+{{- $userinfo := printf "%s:%s" $method $password | base64Encode -}}
+{{- range $i, $ip := .IPs -}}
+{{- $tag := printf "%s-%d" $tagPrefix (add $i 1) -}}
+ss://{{$userinfo}}@{{$ip}}:{{$port}}#{{$tag}}
+{{ end -}}
+{{- setOutput "quantumultx_node_count" (printf "%d" (len .IPs)) -}}
+{{- end -}}
