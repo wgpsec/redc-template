@@ -69,7 +69,7 @@
     },
     {
       "name": "redc-plugin-upload-r2",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "description": "场景部署后将生成的配置文件上传到 Cloudflare R2 存储桶",
       "description_en": "Upload generated config files to Cloudflare R2 bucket after deployment",
       "author": "wgpsec",
@@ -81,8 +81,8 @@
         "upload"
       ],
       "min_redc_version": "3.3.5",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-upload-r2_v2.0.0.zip",
-      "sha256": "a7d3dcfb643a29fc4d4df597dd74e8c0332ae4f41e63af9e43bceec8616cb769"
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-upload-r2_v2.0.1.zip",
+      "sha256": "ebf75aafa9421ddd68666e20f9a50ca56f8cf7bab6ebe54ff957d6a595f7039a"
     }
   ]
 }
