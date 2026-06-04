@@ -1,0 +1,63 @@
+{{- $port := .Config.port | default (.Vars.port | default "8388") -}}
+{{- $password := .Config.password | default (.Vars.password | default "") -}}
+{{- if eq $password "" -}}
+{{- else -}}
+mixed-port: 64277
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+
+profile:
+  store-selected: false
+  store-fake-ip: true
+
+dns:
+  enable: false
+  listen: 0.0.0.0:53
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - tls://dns.rubyfish.cn:853
+    - https://1.1.1.1/dns-query
+    - dhcp://en0
+
+proxies:
+{{- range .IPs}}
+  - name: "{{.}}"
+    type: ss
+    server: {{.}}
+    port: {{$port}}
+    cipher: chacha20-ietf-poly1305
+    password: "{{$password}}"
+{{end -}}
+proxy-groups:
+  - name: "test"
+    type: load-balance
+    proxies:
+{{- range .IPs}}
+      - "{{.}}"
+{{- end}}
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 2400
+    strategy: round-robin
+
+rules:
+  - DOMAIN-SUFFIX,google.com,test
+  - DOMAIN-KEYWORD,google,test
+  - DOMAIN,google.com,test
+  - GEOIP,CN,test
+  - MATCH,test
+  - SRC-IP-CIDR,192.168.1.201/32,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - DOMAIN-SUFFIX,ad.com,REJECT
+{{- setOutput "clash_config_file" (printf "%s/%s" .CasePath (.Config.filename | default (.Vars.filename | default "config.yaml"))) -}}
+{{- setOutput "clash_node_count" (printf "%d" (len .IPs)) -}}
+{{- end -}}
