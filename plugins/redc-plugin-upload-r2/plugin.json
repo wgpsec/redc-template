@@ -20,14 +20,14 @@
   "config_schema": {
     "bucket_name": {
       "type": "string",
-      "required": false,
-      "description": "R2 存储桶名称 (默认从 tfvars 读取 buckets_name，兜底 test)",
-      "default": "test"
+      "required": true,
+      "description": "R2 存储桶名称",
+      "default": ""
     },
     "bucket_path": {
       "type": "string",
-      "required": false,
-      "description": "R2 存储桶内路径 (默认从 tfvars 读取 buckets_path)",
+      "required": true,
+      "description": "R2 存储桶内路径",
       "default": ""
     },
     "filename": {

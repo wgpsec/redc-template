@@ -1,15 +1,16 @@
 {{- /* upload-r2: upload config file to Cloudflare R2 via rclone */ -}}
 {{- $filename := .Config.filename | default (.Vars.filename | default "default-config.yaml") -}}
-{{- $bucketName := .Config.bucket_name | default (.Vars.buckets_name | default "test") -}}
+{{- $bucketName := .Config.bucket_name | default (.Vars.buckets_name | default "") -}}
 {{- $bucketPath := .Config.bucket_path | default (.Vars.buckets_path | default "") -}}
+{{- if eq $bucketName "" -}}
+{{- else -}}
 {{- $bucketPath = trimSpace $bucketPath -}}
 {{- $filePath := printf "%s/%s" .CasePath $filename -}}
 {{- $remotePath := printf "r2:%s/" $bucketName -}}
 {{- if ne $bucketPath "" -}}
 {{- $remotePath = printf "r2:%s/%s/" $bucketName $bucketPath -}}
 {{- end -}}
-{{- /* Delete old file (ignore errors) */ -}}
 {{- exec "rclone" "deletefile" (printf "%s%s" $remotePath $filename) -}}
-{{- /* Upload */ -}}
 {{- exec "rclone" "copy" $filePath $remotePath -}}
 {{- setOutput "r2_path" (printf "%s%s" $remotePath $filename) -}}
+{{- end -}}
