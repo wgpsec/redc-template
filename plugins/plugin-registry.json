@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-06-04",
+  "updated": "2026-07-25",
   "plugins": [
     {
       "name": "redc-plugin-clash-config",
@@ -51,6 +51,23 @@
       "sha256": "8e00265d4ac4dfd1db36159f3210046d2fc0cfeeef0c455d926c4143b295400d"
     },
     {
+      "name": "redc-plugin-pojun-proxy",
+      "version": "1.2.0",
+      "description": "为 PoJun Worker 生成安全、可校验的 Shadowsocks 代理节点 Bundle",
+      "description_en": "Generate a private, verifiable Shadowsocks proxy bundle for PoJun Workers",
+      "author": "wgpsec",
+      "category": "proxy",
+      "tags": [
+        "pojun",
+        "proxy",
+        "shadowsocks",
+        "mihomo"
+      ],
+      "min_redc_version": "3.3.8",
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-pojun-proxy_v1.2.0.zip",
+      "sha256": "64456c6bff7750ea0c765fabf6f50bfbb6719847cb276edf71c2860331a52ab0"
+    },
+    {
       "name": "redc-plugin-quantumultx-config",
       "version": "2.0.0",
       "description": "场景部署后自动生成 QuantumultX 订阅文件 (Base64 编码 ss:// URI)",
@@ -69,7 +86,7 @@
     },
     {
       "name": "redc-plugin-upload-r2",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "description": "场景部署后将生成的配置文件上传到 Cloudflare R2 存储桶",
       "description_en": "Upload generated config files to Cloudflare R2 bucket after deployment",
       "author": "wgpsec",
@@ -81,8 +98,8 @@
         "upload"
       ],
       "min_redc_version": "3.3.5",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-upload-r2_v2.0.0.zip",
-      "sha256": "783cca5977d767a44bca84b0dd6475a6f0aba68be6c4ee3561ea350364a1fa00"
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-upload-r2_v2.0.1.zip",
+      "sha256": "ebf75aafa9421ddd68666e20f9a50ca56f8cf7bab6ebe54ff957d6a595f7039a"
     }
   ]
 }
