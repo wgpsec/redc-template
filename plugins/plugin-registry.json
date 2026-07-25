@@ -52,7 +52,7 @@
     },
     {
       "name": "redc-plugin-pojun-proxy",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "description": "为 PoJun Worker 生成安全、可校验的 Shadowsocks 代理节点 Bundle",
       "description_en": "Generate a private, verifiable Shadowsocks proxy bundle for PoJun Workers",
       "author": "wgpsec",
@@ -63,9 +63,9 @@
         "shadowsocks",
         "mihomo"
       ],
-      "min_redc_version": "3.3.8",
-      "url": "https://redc.wgpsec.org/plugins/redc-plugin-pojun-proxy_v1.2.0.zip",
-      "sha256": "64456c6bff7750ea0c765fabf6f50bfbb6719847cb276edf71c2860331a52ab0"
+      "min_redc_version": "3.3.7",
+      "url": "https://redc.wgpsec.org/plugins/redc-plugin-pojun-proxy_v1.2.1.zip",
+      "sha256": "c832ed9b5aa7eaf1579b23c42ec968efb8b98f3838bca55cd2d32b5281155cd9"
     },
     {
       "name": "redc-plugin-quantumultx-config",
