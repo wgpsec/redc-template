@@ -366,8 +366,8 @@ test_plugin_metadata_and_aliyun_binding() {
     [[ -f "$manifest" ]] || fail "plugin.json is missing"
     jq -e '
         .name == "redc-plugin-pojun-proxy" and
-        .version == "1.2.0" and
-        .min_redc_version == "3.3.8" and
+        .version == "1.2.1" and
+        .min_redc_version == "3.3.7" and
         .capabilities.hooks["post-apply"].type == "template" and
         .capabilities.hooks["post-apply"].template == "hooks/post-apply.tmpl" and
         .capabilities.hooks["post-apply"].output == ""

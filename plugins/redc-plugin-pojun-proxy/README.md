@@ -17,7 +17,7 @@ pojun-proxy/
 
 ## 依赖
 
-- redc `3.3.8` 或更高版本
+- redc `3.3.7` 或更高版本
 - 无额外命令行依赖；插件使用 redc 的 Go Template 引擎，可在 Windows、macOS 和 Linux 运行
 
 ## 安装
