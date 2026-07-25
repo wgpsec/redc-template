@@ -1,0 +1,6 @@
+{{- $poolID := .Config.pool_id | default (printf "redc-%s-aliyun-proxy" .CaseID) -}}
+{{- $bundle := writePojunProxyBundle $poolID .Vars.port .Vars.password -}}
+{{- setOutput "pojun_proxy_bundle_file" (index $bundle "bundle_file") -}}
+{{- setOutput "pojun_proxy_pool_id" (index $bundle "pool_id") -}}
+{{- setOutput "pojun_proxy_node_count" (index $bundle "node_count") -}}
+{{- setOutput "pojun_proxy_revision" (index $bundle "revision") -}}

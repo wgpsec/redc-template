@@ -1,0 +1,28 @@
+{
+  "name": "redc-plugin-pojun-proxy",
+  "version": "1.2.0",
+  "description": "为 PoJun Worker 生成安全、可校验的 Shadowsocks 代理节点 Bundle",
+  "description_en": "Generate a private, verifiable Shadowsocks proxy bundle for PoJun Workers",
+  "author": "wgpsec",
+  "homepage": "https://github.com/wgpsec/redc-template",
+  "category": "proxy",
+  "tags": ["pojun", "proxy", "shadowsocks", "mihomo"],
+  "min_redc_version": "3.3.8",
+  "capabilities": {
+    "hooks": {
+      "post-apply": {
+        "type": "template",
+        "template": "hooks/post-apply.tmpl",
+        "output": ""
+      }
+    }
+  },
+  "config_schema": {
+    "pool_id": {
+      "type": "string",
+      "required": false,
+      "description": "稳定代理池 ID；留空时根据 RedC Case ID 自动生成",
+      "default": ""
+    }
+  }
+}

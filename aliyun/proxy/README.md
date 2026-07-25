@@ -2,9 +2,9 @@
 
 ## 场景说明
 
-该场景会在阿里云批量部署多台基于 shadowsocks-libev 的代理节点，默认创建 10 台抢占式 ECS，并通过 redc 插件链生成 Clash 配置。适合快速拿到一组可批量接入的代理出口。
+该场景会在阿里云批量部署多台基于 shadowsocks-libev 的代理节点，默认创建 10 台抢占式 ECS，并通过 redc 插件链生成 Clash 配置和供 PoJun Worker 消费的代理节点 bundle。适合快速拿到一组可批量接入的代理出口。
 
-部署完成后，你会得到节点公网 IP 列表、批量 SSH 连接命令，以及本地生成的 Clash 配置文件；如果已经配置 R2 上传能力，还可以把配置文件自动上传到 Cloudflare R2 后再分发使用。
+部署完成后，你会得到节点公网 IP 列表、批量 SSH 连接命令、本地生成的 Clash 配置文件，以及场景目录下自包含的 `pojun-proxy/bundle.json`；如果已经配置 R2 上传能力，还可以把 Clash 配置文件自动上传到 Cloudflare R2 后再分发使用。
 
 ## 前置条件
 
@@ -21,6 +21,7 @@ redc pull aliyun/proxy
 redc run aliyun/proxy
 redc run aliyun/proxy -e node=20
 redc status [uuid]
+redc status [uuid] -o json | jq '.plugin_outputs'
 redc stop [uuid]
 ```
 
@@ -54,6 +55,8 @@ redc run aliyun/proxy \
 - `ssh_user`：默认 SSH 用户名，当前为 `root`。
 - `ecs_password` / `ssh_password`：所有节点共用的 SSH 登录密码。
 - Clash 配置文件：由 `redc-plugin-clash-config` 根据 `port`、`password`、`filename` 生成；如果配置了 R2 上传，还会由上传插件进一步分发。
+- `pojun-proxy/bundle.json`：由 `redc-plugin-pojun-proxy` 生成的单个自包含文件，包含稳定代理池 ID、节点数、来源 Case、revision 和 Shadowsocks 节点数组，供后续 PoJun Worker 代理池适配使用。
+- `plugin_outputs`：`redc status [uuid] -o json` 中的独立对象，包含 `pojun_proxy_bundle_file`、`pojun_proxy_pool_id`、`pojun_proxy_node_count` 和 `pojun_proxy_revision`。
 
 ## 常见问题
 
@@ -70,6 +73,7 @@ redc run aliyun/proxy \
 - 模板在不同区域使用硬编码的实例规格与可用区：北京默认 `ecs.n1.tiny` / `cn-beijing-f`，东京默认 `ecs.t5-lc1m1.small` / `ap-northeast-1b`。
 - `main.tf` 中已启用 `spot_strategy = "SpotWithPriceLimit"`，因此节点稳定性和最终节点数量可能受市场价格与库存影响。
 - 默认安全组会放开全部 TCP 和 UDP 入站流量，部署后请按你的场景自行收紧。
+- macOS/Linux 上 `pojun-proxy` 目录权限为 `0700`，`bundle.json` 权限为 `0600`；Windows 使用当前用户 Case 目录继承的 ACL。该文件包含代理密码，不要上传到公开存储、提交到 Git 或粘贴到日志中。
 
 ## 附录
 
