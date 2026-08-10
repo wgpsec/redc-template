@@ -366,13 +366,17 @@ test_plugin_metadata_and_aliyun_binding() {
     [[ -f "$manifest" ]] || fail "plugin.json is missing"
     jq -e '
         .name == "redc-plugin-pojun-proxy" and
-        .version == "1.2.1" and
-        .min_redc_version == "3.3.7" and
+        .version == "1.3.0" and
+        .min_redc_version == "3.3.8" and
         .capabilities.hooks["post-apply"].type == "template" and
         .capabilities.hooks["post-apply"].template == "hooks/post-apply.tmpl" and
-        .capabilities.hooks["post-apply"].output == ""
+        .capabilities.hooks["post-apply"].output == "" and
+        .capabilities.hooks["post-destroy"].type == "template" and
+        .capabilities.hooks["post-destroy"].template == "hooks/post-destroy.tmpl" and
+        .capabilities.hooks["post-destroy"].output == ""
     ' "$manifest" >/dev/null || fail "plugin.json contract is invalid"
     [[ -f "$PLUGIN_DIR/hooks/post-apply.tmpl" ]] || fail "template hook is missing"
+    [[ -f "$PLUGIN_DIR/hooks/post-destroy.tmpl" ]] || fail "post-destroy template hook is missing"
     jq -e '
         (.redc_plugins | split(",") | index("redc-plugin-pojun-proxy")) != null and
         .version == "1.4.0"

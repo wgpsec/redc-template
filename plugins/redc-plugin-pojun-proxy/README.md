@@ -1,6 +1,8 @@
 # redc-plugin-pojun-proxy
 
 在代理场景部署成功后，为 PoJun Worker 生成私有、可校验的 Shadowsocks 代理节点 bundle。
+场景成功销毁后，插件会删除该 bundle 并撤销节点数和 revision 输出，避免消费者继续使用
+已经不存在的代理节点。
 
 ## 生成内容
 
@@ -17,7 +19,7 @@ pojun-proxy/
 
 ## 依赖
 
-- redc `3.3.7` 或更高版本
+- redc `3.3.8` 或更高版本
 - 无额外命令行依赖；插件使用 redc 的 Go Template 引擎，可在 Windows、macOS 和 Linux 运行
 
 ## 安装
@@ -28,7 +30,8 @@ pojun-proxy/
 redc plugin install ./plugins/redc-plugin-pojun-proxy
 ```
 
-`aliyun/proxy` 模板已在 `case.json` 中声明该插件。场景在 Terraform apply 成功后会通过跨平台 `.tmpl` hook 自动生成 bundle。
+`aliyun/proxy` 模板已在 `case.json` 中声明该插件。场景在 Terraform apply 成功后会通过
+跨平台 `.tmpl` hook 自动生成 bundle，并在 Terraform destroy 成功后通过同类 hook 撤销。
 
 ## 配置
 
